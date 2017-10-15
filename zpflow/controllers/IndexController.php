@@ -1,6 +1,7 @@
 <?php
 namespace app\controllers;
 use yii\web\Controller;
+use yii\helpers\Html;
 use Yii;
 
 class IndexController extends BaseController{
@@ -20,5 +21,11 @@ class IndexController extends BaseController{
 	
 	public function actionSystem(){
 		return $this->render('system');
+	}
+	
+	/*人才招聘子页面*/
+	public function actionRczp(){
+		$index = Html::encode(Yii::$app->request->get('index'));
+		return $this->renderPartial('rczp/flow'.Html::decode($index));
 	}
 }
