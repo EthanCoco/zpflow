@@ -1,0 +1,172 @@
+html.sign-in body {
+    background: #f7f7f7;
+}
+
+.wrap {
+    min-height: 100%;
+    width: 100%;
+}
+
+html.accounts .page-body {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 50px;
+}
+
+.page-body {
+    display: block;
+    min-height: 100%;
+    width: 100%;
+    overflow: hidden;
+    padding-top: 50px;
+}
+
+html.accounts .box {
+    background: #ffffff;
+    border-radius: 5px;
+    padding: 15px;
+    max-width: 420px;
+    margin: 20px auto 0px;
+}
+
+html.accounts .logo {
+    max-width: 420px;
+    margin: 20px auto 0px;
+        margin-bottom: 0px;
+    margin-bottom: 40px;
+}
+
+html.accounts .logo img {
+    display: block;
+    margin: auto;
+    width: 50%;
+    min-width: 140px;
+}
+img {
+    vertical-align: middle;
+}
+
+.panel {
+    margin-bottom: 20px;
+    background-color: #fff;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+.mb-none {
+    margin-bottom: 0 !important;
+}
+
+.layui-body {
+    position: absolute;
+    left: 60px;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 998;
+    width: auto;
+    overflow: hidden;
+    overflow-y: hidden;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+.layui-layout-admin .layui-body {
+    top: 94px;
+    bottom: 0;
+}
+
+.layui-header2 {
+    position: relative;
+    z-index: 1000;
+    height: 34px;
+    z-index: 1;
+}
+
+.layui-header2 .layui-nav {
+    position: relative;
+    padding: 0 20px;
+    color: #fff;
+    border-radius: 2px;
+    font-size: 0;
+    box-sizing: border-box;
+    width: 100%;
+    left: 0px;
+    opacity: 0.7;
+}
+
+.layui-header2 .layui-nav .layui-nav-item {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 34px;
+}
+
+.layui-header2 .layui-nav .layui-nav-item a:hover, .layui-header2 .layui-nav .layui-nav-item a.current {
+    background: #f4f4f4;
+    color: #1686b9;
+}
+
+.layui-layout-admin .layui-footer {
+    position: fixed;
+    left: 60px;
+    right: 0;
+    bottom: 0;
+    height: 44px;
+    line-height: 44px;
+    padding: 0 15px;
+    background-color: #eee;
+}
+
+.layui-layout-admin .layui-side {
+    top: 94px;
+    width: 60px;
+    overflow-x: hidden;
+}
+
+.layui-side-scroll {
+    width: 60px;
+    height: 100%;
+    overflow-x: hidden;
+}
+
+
+.layui-side-scroll .main_left {
+    position: absolute;
+    width: 59px;
+    left: 0px;
+    top: 0px;
+    bottom: 0px;
+    overflow: auto;
+    border-right: solid 1px #95b8e7;
+    background: #fff;
+}
+
+.layui-side-scroll .main_left a:hover, .layui-side-scroll .main_left a.current {
+    background: #ff9c00;
+    border-top: solid 1px #c65000;
+    border-bottom: solid 1px #c65000;
+}
+.layui-side-scroll .main_left a {
+    display: inline-block;
+    background: #1f80c5;
+    font-weight: bold;
+    color: #fff;
+    padding: 5px 0px;
+    margin-top: 2px;
+    border-top: solid 1px #fff;
+    border-bottom: solid 1px #fff;
+    width: 50px;
+    /*height: 45px;*/
+    text-align: center;
+    margin-left: 5px;
+}
+
+.layui-side-scroll .main_left .layui-icon {
+    font-family: layui-icon !important;
+    font-size: 26px;
+    font-style: normal;
+    color: #999999;
+    margin-left: 17px;
+}
