@@ -19,11 +19,17 @@ class AppAsset extends AssetBundle
     public $baseUrl = '@web';
     public $css = [
         'js/plugin/layui/css/layui.css',
+        'js/plugin/easyui/themes/bootstrap/easyui.css',
+        'js/plugin/easyui/themes/color.css',
+        'js/plugin/easyui/themes/icon.css',
         'css/index.css',
+        
     ];
     public $js = [
     	'js/common/md5.js',
     	'js/plugin/layui/layui.js',
+    	'js/plugin/easyui/jquery.easyui.min.js',
+    	'js/plugin/easyui/locale/easyui-lang-zh_CN.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',
