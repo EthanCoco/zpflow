@@ -31,9 +31,9 @@ $this->registerJsFile("/js/common/jquery-1.9.1.min.js", ['depends' => ['yii\web\
 		        <dl class="layui-nav-child">
 		          	<dd><a href="">基本资料</a></dd>
 		          	<dd><a href="">安全设置</a></dd>
+		          	<dd><a href=""><a href="javascript:;" onclick="logout();">[退出]</a></a></dd>
 		        </dl>
 	      	</li>
-	      	<li class="layui-nav-item"><a href="javascript:;" onclick="logout();">退出</a></li>
 	    </ul>
   	</div>
   	<div class="layui-header2">
