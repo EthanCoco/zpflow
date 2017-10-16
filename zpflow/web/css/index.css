@@ -191,3 +191,21 @@ img {
     display: block;
     margin-right: 10px;
 }
+
+.layui-elem-field legend {
+    margin-left: 38px;
+    padding: 0 10px;
+    font-size: 12px;
+    font-weight: 300;
+}
+
+.layui-form-center{
+    margin-bottom: 0px;
+    clear: both;
+    text-align: center;
+}
+
+.layui-form-center .layui-input-block1 {
+    margin-left: 0px;
+    min-height: 36px;
+}
