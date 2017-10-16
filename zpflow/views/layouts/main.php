@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use app\assets\AppAsset;
 AppAsset::register($this);
-$this->registerJsFile("/js/common/jquery-1.9.1.min.js", ['depends' => ['yii\web\YiiAsset'], 'position' => $this::POS_HEAD]);
+$this->registerJsFile("@web/js/common/jquery-1.9.1.min.js", ['depends' => ['yii\web\YiiAsset'], 'position' => $this::POS_HEAD]);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
