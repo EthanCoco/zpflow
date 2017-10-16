@@ -116,10 +116,13 @@ $(function(){
 		    },
 		    recEnd: function(value){
 		    	var recStart = $("#recStart").val();
+		    	var nowDate = formatDateTime();
 		    	if(value == ""){
 		    		return '结束时间不能为空';
 		    	}else if(recStart != "" && value<recStart){
 		    		return '结束时间不能小于起始时间';
+		    	}else if(value <= nowDate){
+		    		return '结束时间不能小于当前时间';
 		    	}
 		    },
 		    recBatch: function(value){
