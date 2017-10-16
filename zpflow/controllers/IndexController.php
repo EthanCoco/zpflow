@@ -4,6 +4,8 @@ use yii\web\Controller;
 use yii\helpers\Html;
 use Yii;
 
+use app\models\Recruit;
+
 class IndexController extends BaseController{
 	public $enableCsrfValidation = false;
 	/*首页*/
