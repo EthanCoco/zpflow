@@ -151,6 +151,7 @@ $(function(){
 				$.post("<?= Url::to(['recruit/repair-do']) ?>",{'Recruit':data.field},function(json){
 					if(json.result){
 						parent.layer.close(parent.layer.getFrameIndex(window.name));
+						parent.init_stepIndex_one_grid(parent.__list_url,parent.__repair_url,parent.__recdel_url);
 					}else{
 						layer.alert(json.msg);
 					}
