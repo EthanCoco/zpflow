@@ -61,11 +61,9 @@ $this->title = '添加招聘年度';
 		    <div class="layui-input-block">
 		      	<select id="recBatch" name="recBatch" lay-verify="recBatch">
 			        <option value=""></option>
-			        <option value="0">北京</option>
-			        <option value="1">上海</option>
-			        <option value="2">广州</option>
-			        <option value="3">深圳</option>
-			        <option value="4">杭州</option>
+			        <?php foreach($pcSelect as $pc){ ?>
+			        	<option value="<?php echo $pc['codeID']; ?>"><?php echo $pc['codeName']; ?></option>
+			        <?php } ?>
 		      	</select>
 		    </div>
 	 	</div>
@@ -101,9 +99,12 @@ $(function(){
 	 		laydate = layui.laydate;
 	  	form.verify({
 		    recYear: function(value){
-		      if(value == ""){
-		        return '招聘年度不能为空';
-		      }
+		    	var recStart = $("#recStart").val();
+		      	if(value == ""){
+		       	 	return '招聘年度不能为空';
+		      	}else if(recStart != "" && value != recStart.substr(0,3)){
+		      		return '招聘年度与起始时间不一致';
+		      	}
 		    },
 		    recStart: function(value){
 		    	var recEnd = $("#recEnd").val();
