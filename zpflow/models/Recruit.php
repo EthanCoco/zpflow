@@ -62,7 +62,8 @@ class Recruit extends \yii\db\ActiveRecord
             'recEnd' => '报名期限-终止时间',
             'recViewPlace' => '面试地点',
             'recHealthPlace' => '体检地点',
-            'recDefault'	=>	'是否默认招聘',
+            'recDefault'	=>	'是否进行中',
+            'recBack'	=>	'是否归档',
         ];
     }
 	
@@ -96,7 +97,7 @@ class Recruit extends \yii\db\ActiveRecord
 	}
 	
 	public static function getListInfo($offset,$rows,$orderInfo){
-		$rows = self::find()->select(['recID','recYear','recBatch','recDefault','recStart','recEnd','recViewPlace','recHealthPlace'])
+		$rows = self::find()->select(['recID','recYear','recBatch','recDefault','recStart','recEnd','recViewPlace','recHealthPlace','recBack'])
 							->orderby($orderInfo)
 							->offset($offset)
 							->limit($rows)
