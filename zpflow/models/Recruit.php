@@ -18,6 +18,15 @@ use Yii;
  */
 class Recruit extends \yii\db\ActiveRecord
 {
+	const SCENARIO_ADD = 'add';
+//	const SCENARIO_MOD = 'mod';
+	public function scenarios(){
+		$scenarios = parent::scenarios();
+	    $scenarios[self::SCENARIO_ADD] = ['recYear', 'recStart','recEnd','recBatch'];
+//	    $scenarios[self::SCENARIO_MOD] = ['recYear', 'password'];
+	    return $scenarios;
+	}
+	
     /**
      * @inheritdoc
      */
@@ -32,30 +41,50 @@ class Recruit extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['recYear', 'recBatch', 'recDefault', 'recViewPlace', 'recHealthPlace'], 'required'],
-            [['recYear', 'recDefault'], 'integer'],
-            [['recStart', 'recEnd'], 'safe'],
-            [['recBatch'], 'string', 'max' => 50],
-            [['recViewPlace', 'recHealthPlace'], 'string', 'max' => 255],
+			['recYear', 'required','message'=>'招聘年度不能为空', 'on' => [self::SCENARIO_ADD]],
+			['recYear', 'validateYearStart', 'on' => [self::SCENARIO_ADD]],
+			['recYear', 'validateYearBatchUnique', 'on' => [self::SCENARIO_ADD]],
+			['recStart', 'required','message'=>'招聘起始时间不能为空', 'on' => [self::SCENARIO_ADD]],
+			['recStart', 'validateStartEnd', 'on' => [self::SCENARIO_ADD]],
+            ['recEnd', 'required','message'=>'招聘结束时间不能为空', 'on' => [self::SCENARIO_ADD]],
+			['recBatch', 'required','message'=>'招聘批次不能为空', 'on' => [self::SCENARIO_ADD]],
         ];
     }
-
-    /**
-     * @inheritdoc
-     */
-    public function attributeLabels()
+	
+	public function attributeLabels()
     {
         return [
-            'recID' => 'Rec ID',
-            'recYear' => 'Rec Year',
-            'recBatch' => 'Rec Batch',
-            'recDefault' => 'Rec Default',
-            'recStart' => 'Rec Start',
-            'recEnd' => 'Rec End',
-            'recViewPlace' => 'Rec View Place',
-            'recHealthPlace' => 'Rec Health Place',
+            'recID' => '招聘ID',
+            'recYear' => '招聘年度',
+            'recBatch' => '招聘批次',
+            'recStart' => '报名期限-起始时间',
+            'recEnd' => '报名期限-终止时间',
+            'recViewPlace' => '面试地点',
+            'recHealthPlace' => '体检地点',
+            'recDefault'	=>	'是否默认招聘',
         ];
     }
+	
+	public function validateYearStart($attribute, $params){
+		if ($this->recYear != "" && $this->recStart !="" && $this->recYear != substr($this->recStart,0,4)){
+			$this->addError($attribute, "招聘年度与起始时间不一致");
+		}
+	}
+	
+	public function validateStartEnd($attribute, $params){
+		if ($this->recStart != "" && $this->recEnd !="" && $this->recStart > $this->recEnd ){
+			$this->addError($attribute, "起始时间不能大于结束时间");
+		}
+	}
+	
+	public function validateYearBatchUnique($attribute, $params){
+		if ($this->recYear != "" && $this->recBatch !=""){
+			$num = self::find()->where(['recYear'=>$this->recYear,'recBatch'=>$this->recBatch])->count();
+			if($num > 0){
+				$this->addError($attribute, "该年度的招聘批次已经存在了");
+			}
+		}
+	}
 	
 	
 	public static function getListInfo($offset,$rows,$orderInfo){
@@ -70,6 +99,4 @@ class Recruit extends \yii\db\ActiveRecord
 		
 		return ['rows'=>$rows,'total'=>$total];
 	}
-	
-	
 }
