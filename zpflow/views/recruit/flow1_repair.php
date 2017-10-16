@@ -84,7 +84,7 @@ $this->title = '添加招聘年度';
 	  	<hr class="layui-bg-gray">
 	  	<div class="layui-form-item layui-form-center">
 		    <div class="layui-input-block1">
-		      	<button id="flow1_repair_submit" class="layui-btn" lay-submit>立即提交</button>
+		      	<button id="flow1_repair_submit" class="layui-btn" lay-submit>保存</button>
 		      	<button id="flow1_repair_cancel" class="layui-btn layui-btn-primary">取消</button>
 		    </div>
 	  	</div>
@@ -102,7 +102,7 @@ $(function(){
 		    	var recStart = $("#recStart").val();
 		      	if(value == ""){
 		       	 	return '招聘年度不能为空';
-		      	}else if(recStart != "" && value != recStart.substr(0,3)){
+		      	}else if(recStart != "" && value != recStart.substr(0,4)){
 		      		return '招聘年度与起始时间不一致';
 		      	}
 		    },
@@ -150,7 +150,7 @@ $(function(){
 			form.on('submit',function(data){
 				$.post("<?= Url::to(['recruit/repair-do']) ?>",{'Recruit':data.field},function(json){
 					if(json.result){
-						alert("dsdsdsd");
+						parent.layer.close(parent.layer.getFrameIndex(window.name));
 					}else{
 						layer.alert(json.msg);
 					}
