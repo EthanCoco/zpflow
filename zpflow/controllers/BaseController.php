@@ -12,5 +12,6 @@ class BaseController extends Controller{
 			$this->redirect(['/site/login']);
 			Yii::$app->end();
 		}
+		$this->getView()->title = "招聘流程"; 
 	}
 }

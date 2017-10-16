@@ -16,6 +16,7 @@ class SiteController extends Controller
 			$this->redirect(['/index/index']);
 			Yii::$app->end();
 		}
+		$this->getView()->title = "招聘登录"; 
 		return $this->renderPartial('login',['secret'=>Yii::$app->params['login_secret']]);
 	}
 	
