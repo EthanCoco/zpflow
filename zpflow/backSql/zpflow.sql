@@ -39,18 +39,12 @@ CREATE TABLE `recruit` (
   `recID` int(11) NOT NULL AUTO_INCREMENT COMMENT '招聘ID',
   `recYear` varchar(50) NOT NULL COMMENT '招聘年度',
   `recBatch` varchar(50) NOT NULL COMMENT '招聘批次',
-  `recDefault` int(1) NOT NULL DEFAULT '0' COMMENT '是否默认招聘',
+  `recDefault` int(1) NOT NULL DEFAULT '0' COMMENT '是否进行中',
   `recStart` timestamp NULL DEFAULT NULL COMMENT '招聘起始时间',
   `recEnd` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '招聘终止时间',
   `recViewPlace` varchar(255) NOT NULL COMMENT '面试地点',
   `recHealthPlace` varchar(255) NOT NULL COMMENT '体检地点',
+  `recBack` int(1) DEFAULT '0' COMMENT '是否归档',
   PRIMARY KEY (`recID`)
-) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
--- ----------------------------
--- Records of recruit
--- ----------------------------
-INSERT INTO `recruit` VALUES ('11', '2017', '02', '1', '2017-10-16 00:00:00', '2017-10-17 00:00:00', '111', '222');
-INSERT INTO `recruit` VALUES ('12', '2017', '01', '0', '2017-10-17 00:00:00', '2017-10-20 00:00:00', '666', '666');
-INSERT INTO `recruit` VALUES ('13', '2017', '04', '0', '2017-10-17 00:00:00', '2017-10-19 00:00:00', 'qqq', 'aaaa');
-INSERT INTO `recruit` VALUES ('14', '2017', '05', '0', '2017-10-19 00:00:00', '2017-10-28 00:00:00', '', '');
