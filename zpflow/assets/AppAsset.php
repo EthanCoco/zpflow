@@ -32,6 +32,7 @@ class AppAsset extends AssetBundle
     	'js/plugin/easyui/locale/easyui-lang-zh_CN.js',
     	
 		'js/bus/gridtable.js',
+		'js/common/public.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',
