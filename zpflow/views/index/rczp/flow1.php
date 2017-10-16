@@ -6,6 +6,6 @@
 </div>
 <script>
 $(function(){
-	init_stepIndex_one_grid();
+	init_stepIndex_one_grid("<?= yii\helpers\Url::to(['recruit/list-info']); ?>","<?= yii\helpers\Url::to(['recruit/repair']); ?>","<?= yii\helpers\Url::to(['recruit/recdel']); ?>");
 });
 </script>

@@ -1,6 +1,3 @@
-<?php
-use yii\helpers\Url;
-?>
 <div class="layui-side layui-bg-black">
     <div class="layui-side-scroll">
       	<div class="main_left">
@@ -37,7 +34,7 @@ function changeMenu(index){
 	$(".main_left a").removeClass('current');//加上默认选中的样式
 	var aObj = $(".main_left a[index='"+index+"']");
 	aObj.addClass('current');
-	var url ="<?= Url::to(['index/rczp']); ?>"+"&index="+index;
+	var url ="<?= yii\helpers\Url::to(['index/rczp']); ?>"+"&index="+index;
 	if(url){
 		$("#stepIndex").load(url);
 	}else{
