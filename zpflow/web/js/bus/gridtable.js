@@ -45,7 +45,7 @@ function init_stepIndex_one_grid(url,repair_url,recdel_url){
 				  	layer.open({
 		        		type:2,
 		        		title:'添加招聘年度',
-		        		area:["600px",'400px'],
+		        		area:["600px",'475px'],
 		        		content:repair_url
 		        	}); 
 				});
