@@ -27,4 +27,8 @@ class RecruitController extends BaseController{
 		return $this->renderPartial('flow1_repair');
 	}
 	
+	public function actionRepairDo(){
+		$request = Yii::$app->request;
+		var_dump($request->post()['Recruit']['recYear']);
+	}
 }
