@@ -20,11 +20,29 @@ class RecruitController extends BaseController{
 		
 		$listInfos = Recruit::getListInfo($offset,$rows,"recYear desc,recBatch desc");
 		
-		return $listInfos;
+		$infos = $listInfos['rows'];
+		$jsonData = [];
+		foreach($infos as $info){
+			$codes = [['recBatch','PC'],['recDefault','YN']];
+			$codeName = Share::codeValue($codes,$info);
+			$jsonData[] = [
+				'recID'			=>	$info['recID'],
+				'recYear'		=>	$info['recYear'],
+				'recBatch'		=>	$codeName['recBatch'],
+				'recDefault'	=>	$codeName['recDefault'],
+				'recStart'		=>	$info['recStart'],
+				'recEnd'		=>	$info['recEnd'],
+				'recViewPlace'	=>	$info['recViewPlace'],
+				'recHealthPlace'=>	$info['recHealthPlace']
+			];
+		}
+		
+		return ['rows'=>$jsonData,'total'=>$listInfos['total']];
 	}
 	
 	public function actionRepair(){
-		return $this->renderPartial('flow1_repair');
+		$pcInfo = Share::getCodeInfo(['PC']);
+		return $this->renderPartial('flow1_repair',['pcSelect'=>$pcInfo]);
 	}
 	
 	public function actionRepairDo(){
