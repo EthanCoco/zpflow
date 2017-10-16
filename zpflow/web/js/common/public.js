@@ -1,6 +1,6 @@
 /*时间格式化*/
-function formatDateTime(inputTime) {    
-    var date = new Date(inputTime);  
+function formatDateTime() {    
+    var date = new Date();  
     var y = date.getFullYear();    
     var m = date.getMonth() + 1;    
     m = m < 10 ? ('0' + m) : m;    

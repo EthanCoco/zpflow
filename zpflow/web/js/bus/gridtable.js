@@ -1,9 +1,12 @@
 /*人才招聘-招聘设置-招聘列表*/
-function init_stepIndex_one_grid(url,repair_url,recdel_url){
+var __rczp_zpsz_stepIndex_one_urls__ = {};
+
+function init_stepIndex_one_grid(stepIndex_one_urls){
+	__rczp_zpsz_stepIndex_one_urls__ = stepIndex_one_urls;
     $('#stepIndex_one').datagrid({
         width:'auto',
         height:'auto',
-	    url:url,
+	    url:stepIndex_one_urls.__list_url,
 	    method: "post",
 	    queryParams: {},
 	    striped: true,
@@ -21,9 +24,23 @@ function init_stepIndex_one_grid(url,repair_url,recdel_url){
             {field:'recBatch',title:'招聘批次',width:'10%',align:'center',},
             {field:'recStart',title:'报名起始时间',width:'15%',align:'center',},
             {field:'recEnd',title:'报名终止时间',width:'15%',align:'center',},
-            {field:'recViewPlace',title:'考试地点',width:'20%',align:'center',},
-            {field:'recHealthPlace',title:'体检地点',width:'20%',align:'center',},
-            {field:'recDefault',title:'默认招聘年度',width:'9%',align:'center'},
+            {field:'recViewPlace',title:'考试地点',width:'15%',align:'center',},
+            {field:'recHealthPlace',title:'体检地点',width:'15%',align:'center',},
+            {field:'recDefault',title:'是否进行中',width:'9%',align:'center',
+            	formatter:function(value,row,index){
+            		return value == "1" ? "是" : (value == 2 ? "已结束" : "否");
+            	}
+            },
+            {field:'operation',title:'操作',width:'10%',align:'center',
+            	formatter:function(value,row,index){
+            		if(row.recDefault == "1" || row.recDefault == "2"){
+            			//return "<button onclick=\"javascript: return;\" class=\"layui-btn layui-btn-primary layui-btn-small  layui-btn-radius  layui-btn-disabled \">发布</button>";
+            			return "";
+            		}else{
+            			return "<button onclick=\"pubRecruit("+row.recID+",'"+row.recYear+"','"+row.recBatch+"')\" class=\"layui-btn layui-btn-primary layui-btn-small  layui-btn-radius \">发布</button>";
+            		}
+            	}
+            },
         ]],
         onDblClickRow: function(rowIndex,rowData){
         	
@@ -45,8 +62,8 @@ function init_stepIndex_one_grid(url,repair_url,recdel_url){
 				  	layer.open({
 		        		type:2,
 		        		title:'添加招聘年度',
-		        		area:["600px",'475px'],
-		        		content:repair_url
+		        		area:["600px",'420px'],
+		        		content:stepIndex_one_urls.__repair_url
 		        	}); 
 				});
 		   	}
@@ -54,13 +71,62 @@ function init_stepIndex_one_grid(url,repair_url,recdel_url){
 		  	iconCls:'icon-remove',
 		   	text:'删除',
 		   	handler:function(){
+		   		layui.use('layer', function(){
+				 	var layer = layui.layer;
+				 	var rows = $("#stepIndex_one").datagrid("getSelections");
+					var len = rows.length;
+					if(len == 0){
+						layui.layer.alert("请选择要删除的招聘信息");
+						return;
+					}
+					
+					var selectInfoIds = [];
+					var flag = 0;
+					for(var i = 0; i < len; i++){
+				   		if(rows[i]["recDefault"] != "0"){
+				   			flag = 1;
+	           				break;
+				   		}else{
+				   			selectInfoIds.push(rows[i].recID);
+				   		}
+				   	}
+					
+					if(!flag){
+						layer.confirm('您确定要删除勾选的【'+len+'】条数据么', function(index){
+						  	$.post(__rczp_zpsz_stepIndex_one_urls__.__recdel_url,{'recIDs':selectInfoIds},function(json){
+								if(json.result){
+									layer.msg(json.msg);
+									init_stepIndex_one_grid(__rczp_zpsz_stepIndex_one_urls__);
+									layer.close(index);
+								}else{
+									layer.alert(json.msg);
+								}
+							},'json');
+						}); 
+					}else{
+						layui.layer.alert("选择删除的数据中包含已结束或进行中招聘信息");
+						return;
+					}
+				});
 				
 			}
 	   	}]
 	});
-    
-    
-    
-    
-    
+}
+
+function pubRecruit(recID,recYear,recBatch){
+	layui.use('layer', function(){
+	 	var layer = layui.layer;
+	 	layer.confirm('您确定要发布招聘年度【'+recYear+'】，招聘批次【'+recBatch+'】么?<br/><span style="color:red;">注意：一旦发布，招聘截止时间没有结束将不可修改操作！</span>', function(index){
+		  	$.post(__rczp_zpsz_stepIndex_one_urls__.__recpub_url,{'recID':recID},function(json){
+				if(json.result){
+					layer.msg(json.msg);
+					init_stepIndex_one_grid(__rczp_zpsz_stepIndex_one_urls__);
+					layer.close(index);
+				}else{
+					layer.alert(json.msg);
+				}
+			},'json');
+		}); 
+	});
 }

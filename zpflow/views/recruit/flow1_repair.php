@@ -34,11 +34,16 @@ $this->title = '添加招聘年度';
 		    </div>
 	  	</div>
 	    <div class="layui-form-item layui-inline">
-		    <label class="layui-form-label">是否默认</label>
+		    <label class="layui-form-label">招聘批次</label>
 		    <div class="layui-input-block">
-		      	<input type="checkbox" id="recDefault" name="recDefault" lay-skin="switch" lay-text="是|否">
+		      	<select id="recBatch" name="recBatch" lay-verify="recBatch">
+			        <option value=""></option>
+			        <?php foreach($pcSelect as $pc){ ?>
+			        	<option value="<?php echo $pc['codeID']; ?>"><?php echo $pc['codeName']; ?></option>
+			        <?php } ?>
+		      	</select>
 		    </div>
-		</div>
+	 	</div>
 	    
 	    <div class="layui-form-item layui-inline">
 	      	<label class="layui-form-label">起始时间</label>
@@ -54,20 +59,8 @@ $this->title = '添加招聘年度';
 	    </div>
 	    
 	    <fieldset class="layui-elem-field layui-field-title">
-		  	<legend>批次信息</legend>
+		  	<legend>附加信息</legend>
 		</fieldset>
-      	<div class="layui-form-item">
-		    <label class="layui-form-label">招聘批次</label>
-		    <div class="layui-input-block">
-		      	<select id="recBatch" name="recBatch" lay-verify="recBatch">
-			        <option value=""></option>
-			        <?php foreach($pcSelect as $pc){ ?>
-			        	<option value="<?php echo $pc['codeID']; ?>"><?php echo $pc['codeName']; ?></option>
-			        <?php } ?>
-		      	</select>
-		    </div>
-	 	</div>
-    	
     	<div class="layui-form-item">
 		    <label class="layui-form-label">考试地点</label>
 		    <div class="layui-input-block">
@@ -122,7 +115,7 @@ $(function(){
 		    	}else if(recStart != "" && value<recStart){
 		    		return '结束时间不能小于起始时间';
 		    	}else if(value <= nowDate){
-		    		return '结束时间不能小于当前时间';
+		    		return '结束时间不能小于当前时间'+nowDate;
 		    	}
 		    },
 		    recBatch: function(value){
@@ -153,10 +146,11 @@ $(function(){
 			form.on('submit',function(data){
 				$.post("<?= Url::to(['recruit/repair-do']) ?>",{'Recruit':data.field},function(json){
 					if(json.result){
+						parent.layer.msg(json.msg);
+						parent.init_stepIndex_one_grid(parent.__stepIndex_one_urls__);
 						parent.layer.close(parent.layer.getFrameIndex(window.name));
-						parent.init_stepIndex_one_grid(parent.__list_url,parent.__repair_url,parent.__recdel_url);
 					}else{
-						layer.alert(json.msg);
+						parent.layer.alert(json.msg);
 					}
 				},'json');
 			});
