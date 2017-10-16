@@ -18,7 +18,7 @@ class RecruitController extends BaseController{
 		$rows = $request->post('rows');
 		$offset =($page-1)*$rows;
 		
-		$listInfos = Recruit::getListInfo($offset,$rows,"recYear desc,recBatch desc");
+		$listInfos = Recruit::getListInfo($offset,$rows,"recDefault desc,recYear desc,recBatch desc");
 		
 		$infos = $listInfos['rows'];
 		$jsonData = [];
@@ -46,7 +46,34 @@ class RecruitController extends BaseController{
 	}
 	
 	public function actionRepairDo(){
+		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 		$request = Yii::$app->request;
-		var_dump($request->post()['Recruit']['recYear']);
+		
+		$model = new Recruit();
+		$model->setScenario(Recruit::SCENARIO_ADD);
+		if($model->load($request->post()) && $model->validate()){
+			$recDefault = isset($request->post()['Recruit']['recDefault']) ? ($request->post()['Recruit']['recDefault'] == 'on' ? 1 : 0) : 0;
+		   	if($recDefault){
+		   		$model->updateAll(['recDefault'=>0],['recYear'=>$request->post()['Recruit']['recYear']]); 
+		   	}
+			
+			$data = $request->post()['Recruit'];
+			$model->recYear = $data['recYear'];
+			$model->recBatch = $data['recBatch'];
+			$model->recDefault = $recDefault;
+			$model->recStart = $data['recStart'];
+			$model->recEnd = $data['recEnd'];
+			$model->recViewPlace = $data['recViewPlace'];
+			$model->recHealthPlace = $data['recHealthPlace'];
+			
+			if($model->save()){
+				return ['result'=>1];
+			}else{
+				return ['result'=>0,'msg'=>'服务器发生故障'];
+			}
+		}else{
+			$errors = $model->getFirstErrors();
+			return ['result'=>0,'msg'=>Share::comErrors($errors)];
+		}
 	}
 }
