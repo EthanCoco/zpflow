@@ -23,17 +23,18 @@ class RecruitController extends BaseController{
 		$infos = $listInfos['rows'];
 		$jsonData = [];
 		foreach($infos as $info){
-			$codes = [['recBatch','PC'],['recDefault','YN']];
+			$codes = [['recBatch','PC']];
 			$codeName = Share::codeValue($codes,$info);
 			$jsonData[] = [
 				'recID'			=>	$info['recID'],
 				'recYear'		=>	$info['recYear'],
 				'recBatch'		=>	$codeName['recBatch'],
-				'recDefault'	=>	$codeName['recDefault'],
+				'recDefault'	=>	$info['recDefault'],
 				'recStart'		=>	$info['recStart'],
 				'recEnd'		=>	$info['recEnd'],
 				'recViewPlace'	=>	$info['recViewPlace'],
-				'recHealthPlace'=>	$info['recHealthPlace']
+				'recHealthPlace'=>	$info['recHealthPlace'],
+				'recBack'		=>	$info['recBack'],
 			];
 		}
 		
@@ -52,28 +53,63 @@ class RecruitController extends BaseController{
 		$model = new Recruit();
 		$model->setScenario(Recruit::SCENARIO_ADD);
 		if($model->load($request->post()) && $model->validate()){
-			$recDefault = isset($request->post()['Recruit']['recDefault']) ? ($request->post()['Recruit']['recDefault'] == 'on' ? 1 : 0) : 0;
-		   	if($recDefault){
-		   		$model->updateAll(['recDefault'=>0],['recYear'=>$request->post()['Recruit']['recYear']]); 
-		   	}
-			
 			$data = $request->post()['Recruit'];
 			$model->recYear = $data['recYear'];
 			$model->recBatch = $data['recBatch'];
-			$model->recDefault = $recDefault;
 			$model->recStart = $data['recStart'];
 			$model->recEnd = $data['recEnd'];
 			$model->recViewPlace = $data['recViewPlace'];
 			$model->recHealthPlace = $data['recHealthPlace'];
 			
 			if($model->save()){
-				return ['result'=>1];
+				return ['result'=>1,'msg'=>'保存成功'];
 			}else{
-				return ['result'=>0,'msg'=>'服务器发生故障'];
+				return ['result'=>0,'msg'=>'保存失败'];
 			}
 		}else{
 			$errors = $model->getFirstErrors();
 			return ['result'=>0,'msg'=>Share::comErrors($errors)];
+		}
+	}
+
+	public function actionPubRecruit(){
+		date_default_timezone_set('PRC');
+		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+		$recID = Yii::$app->request->post('recID');
+		$info = Recruit::find()->where(['recDefault'=>'1'])->asArray()->one();
+		if(empty($info)){
+			$rec = Recruit::findOne($recID);
+			$rec->recDefault = 1;
+			if($rec->save()){
+				return ['result'=>1,'msg'=>'发布成功'];
+			}else{
+				return ['result'=>0,'msg'=>'发布失败'];
+			}
+		}elseif($info['recEnd'] > date('Y-m-d H:i:s',time())){
+			return ['result'=>0,'msg'=>'存在招聘年度正在进行中，还未结束，如要发布，请等进行中招聘结束'];
+		}elseif($info['recEnd'] < date('Y-m-d H:i:s',time())){
+			$rec = Recruit::findOne($info['recID']);
+			$rec->recDefault = 2;
+			$rec->recBack = 1;
+			$rec->save();
+			
+			$rec1 = Recruit::findOne($recID);
+			$rec1->recDefault = 1;
+			if($rec1->save()){
+				return ['result'=>1,'msg'=>'发布成功'];
+			}else{
+				return ['result'=>0,'msg'=>'发布失败'];
+			}
+		}
+	}
+	
+	public function actionDelRecruit(){
+		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+		$recIDs = Yii::$app->request->post('recIDs');
+		if(Recruit::deleteAll(['recID'=>$recIDs])){
+			return ['result'=>'1','msg'=>'删除成功'];
+		}else{
+			return ['result'=>0,'msg'=>'删除失败'];
 		}
 	}
 }
