@@ -47,6 +47,7 @@ class Recruit extends \yii\db\ActiveRecord
 			['recStart', 'required','message'=>'招聘起始时间不能为空', 'on' => [self::SCENARIO_ADD]],
 			['recStart', 'validateStartEnd', 'on' => [self::SCENARIO_ADD]],
             ['recEnd', 'required','message'=>'招聘结束时间不能为空', 'on' => [self::SCENARIO_ADD]],
+            ['recEnd', 'validateEndCurrent', 'on' => [self::SCENARIO_ADD]],
 			['recBatch', 'required','message'=>'招聘批次不能为空', 'on' => [self::SCENARIO_ADD]],
         ];
     }
@@ -86,6 +87,13 @@ class Recruit extends \yii\db\ActiveRecord
 		}
 	}
 	
+	public function validateEndCurrent($attribute, $params){
+		date_default_timezone_set('PRC');
+		$date = date('Y-m-d H:i:s',time());
+		if($this->recEnd != "" && $this->recEnd <= $date){
+			$this->addError($attribute, "招聘结束时间不能小于当前时间".$date);
+		}
+	}
 	
 	public static function getListInfo($offset,$rows,$orderInfo){
 		$rows = self::find()->select(['recID','recYear','recBatch','recDefault','recStart','recEnd','recViewPlace','recHealthPlace'])

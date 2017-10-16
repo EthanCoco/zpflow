@@ -34,6 +34,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 	}
 	
 	public static function afterLoginDo(){
+		date_default_timezone_set('PRC');
 		$uid = Yii::$app->user->identity->uid;
 		$name = Yii::$app->user->identity->name;
 		$realName = Yii::$app->user->identity->realName;
