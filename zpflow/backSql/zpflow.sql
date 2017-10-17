@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhostphpstudy
-Source Server Version : 50553
+Source Server         : 192.168.1.10
+Source Server Version : 50617
 Source Host           : localhost:3306
 Source Database       : zpflow
 
 Target Server Type    : MYSQL
-Target Server Version : 50553
+Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2017-10-17 20:00:21
+Date: 2017-10-18 00:12:24
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -26,14 +26,22 @@ CREATE TABLE `announce` (
   `ancInfo` text NOT NULL COMMENT '公告内容',
   `ancPubUid` int(11) NOT NULL COMMENT '发布人ID',
   `ancTime` timestamp NULL DEFAULT NULL COMMENT '发布时间',
-  `ancType` int(1) DEFAULT NULL COMMENT '公告类别（A=招聘简介，B=公司简介）',
+  `ancType` char(1) DEFAULT NULL COMMENT '公告类别（A=招聘简介，B=公司简介）',
   `ancStatus` int(1) NOT NULL DEFAULT '0' COMMENT '发布状态（0=未发布，1=已发布）',
   PRIMARY KEY (`ancID`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of announce
 -- ----------------------------
+INSERT INTO `announce` VALUES ('1', '24', '公告测试', '434234324324', '1', null, 'A', '2');
+INSERT INTO `announce` VALUES ('2', '24', '2414343', '4324324324', '1', null, 'A', '2');
+INSERT INTO `announce` VALUES ('8', '26', 'fdsfdsfsd', 'fdsfds', '1', '0000-00-00 00:00:00', 'A', '0');
+INSERT INTO `announce` VALUES ('7', '26', 'fdfsfd', 'fdfd', '1', '0000-00-00 00:00:00', 'B', '0');
+INSERT INTO `announce` VALUES ('3', '26', 'ewewewe', 'wewewew', '1', '0000-00-00 00:00:00', 'A', '0');
+INSERT INTO `announce` VALUES ('6', '26', 'dfsgfgf', 'gfgfgf', '1', '0000-00-00 00:00:00', 'B', '0');
+INSERT INTO `announce` VALUES ('5', '26', 'fdsfdsfsd', 'fdsfsdfds', '1', '0000-00-00 00:00:00', 'B', '0');
+INSERT INTO `announce` VALUES ('4', '26', 'ewqeqweqwe', 'qweqweqw', '1', '0000-00-00 00:00:00', 'A', '0');
 
 -- ----------------------------
 -- Table structure for code
@@ -85,10 +93,9 @@ CREATE TABLE `recruit` (
 -- ----------------------------
 -- Records of recruit
 -- ----------------------------
-INSERT INTO `recruit` VALUES ('23', '2017', '01', '2', '2017-10-17 00:00:00', '2017-10-18 00:00:00', '777', '777', '1');
-INSERT INTO `recruit` VALUES ('24', '2017', '02', '1', '2017-10-17 00:00:00', '2017-10-18 00:00:00', '', '', '0');
-INSERT INTO `recruit` VALUES ('27', '2017', '04', '0', '2017-10-17 00:00:00', '2017-10-18 00:00:00', '11', '22', '0');
-INSERT INTO `recruit` VALUES ('26', '2017', '03', '0', '2017-10-17 00:00:00', '2017-10-28 00:00:00', '7878', '7878', '0');
+INSERT INTO `recruit` VALUES ('24', '2017', '02', '2', '2017-10-17 00:00:00', '2017-10-17 04:00:00', '', '', '1');
+INSERT INTO `recruit` VALUES ('27', '2017', '04', '0', '2017-10-17 00:00:00', '2017-10-18 00:00:00', 'wqeqwe', 'ewqeqwe', '0');
+INSERT INTO `recruit` VALUES ('26', '2017', '03', '1', '2017-10-17 00:00:00', '2017-10-28 00:00:00', '7878', '7878', '0');
 
 -- ----------------------------
 -- Table structure for user
@@ -111,4 +118,4 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('2219', 'admin', 'guanliyuan', 'fcea920f7412b5da7be0cf42b8c93759', '3', '3', '2017-10-16 09:41:05', '2017-10-16 11:16:50', '1022', '13285716129');
+INSERT INTO `user` VALUES ('2219', 'admin', 'guanliyuan', 'fcea920f7412b5da7be0cf42b8c93759', '3', '5', '2017-10-16 09:41:05', '2017-10-17 21:08:45', '1022', '13285716129');
