@@ -34,6 +34,9 @@ var __stepIndex_two_datagrid_flag = "A";
 var __stepIndex_two_show_flag = "";
 var __stepIndex_two_urls__ = {
 	'__list_url' : "<?= yii\helpers\Url::to(['announce/list-info']); ?>",
+	'__repair_url' : "<?= yii\helpers\Url::to(['announce/repair']); ?>",
+	'__recpub_url' : "<?= yii\helpers\Url::to(['announce/pub-announce']); ?>",
+	'__recdel_url' : "<?= yii\helpers\Url::to(['announce/del-announce']); ?>",
 };
 $(function(){
 	__stepIndex_two_recID__ = $("#recID_id").val();

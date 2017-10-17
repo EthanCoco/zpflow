@@ -6,6 +6,7 @@ use Yii;
 
 use app\models\Recruit;
 use app\models\Share;
+use app\models\Announce;
 
 class RecruitController extends BaseController{
 	public $enableCsrfValidation = false;
@@ -99,6 +100,8 @@ class RecruitController extends BaseController{
 			$rec->recDefault = 2;
 			$rec->recBack = 1;
 			$rec->save();
+			
+			Announce::updateAll(['ancStatus'=>2],['recID'=>$info['recID']]);
 			
 			$rec1 = Recruit::findOne($recID);
 			$rec1->recDefault = 1;

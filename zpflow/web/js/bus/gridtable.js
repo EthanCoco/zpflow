@@ -156,11 +156,13 @@ var __rczp_zpgg_stepIndex_two_urls__ = {};
 var __rczp_zpgg_stepIndex_two_datagrid_flag__ = "A";
 var __rczp_zpgg_stepIndex_two_show_flag__ = "";
 var __rczp_zpgg_stepIndex_two_recID__ = "";
+var __rczp_zpgg_stepIndex_two_show_flag__ = "";
 
 function init_stepIndex_two_grid_AB(stepIndex_two_urls,stepIndex_two_recID,stepIndex_two_datagrid_flag,stepIndex_two_show_flag){
 	__rczp_zpgg_stepIndex_two_urls__ = stepIndex_two_urls;
 	__rczp_zpgg_stepIndex_two_recID__ = stepIndex_two_recID;
 	__rczp_zpgg_stepIndex_two_datagrid_flag__ = stepIndex_two_datagrid_flag;
+	__rczp_zpgg_stepIndex_two_show_flag__ = stepIndex_two_show_flag;
 	if(stepIndex_two_datagrid_flag == "A"){
 		var cloumns = [[
         	{field:'ck',checkbox:true,width:'10%'},
@@ -176,9 +178,9 @@ function init_stepIndex_two_grid_AB(stepIndex_two_urls,stepIndex_two_recID,stepI
             		if(row.ancStatus == "2"){
             			return "";
             		}else if(row.ancStatus == "1"){
-            			return "<button onclick=\"pubRecruit("+row.ancID+")\" class=\"layui-btn layui-btn-primary layui-btn-small  layui-btn-radius \">取消</button>";
+            			return "<button onclick=\"pubAnnounce("+row.ancID+",0,'"+row.ancName+"')\" class=\"layui-btn layui-btn-primary layui-btn-small  layui-btn-radius \">取消</button>";
             		}else{
-            			return "<button onclick=\"pubRecruit("+row.ancID+")\" class=\"layui-btn layui-btn-primary layui-btn-small  layui-btn-radius \">发布</button>";
+            			return "<button onclick=\"pubAnnounce("+row.ancID+",1,'"+row.ancName+"')\" class=\"layui-btn layui-btn-primary layui-btn-small  layui-btn-radius \">发布</button>";
             		}
             	}
             },
@@ -198,14 +200,15 @@ function init_stepIndex_two_grid_AB(stepIndex_two_urls,stepIndex_two_recID,stepI
             		if(row.ancStatus == "2"){
             			return "";
             		}else if(row.ancStatus == "1"){
-            			return "<button onclick=\"pubRecruit("+row.ancID+")\" class=\"layui-btn layui-btn-primary layui-btn-small  layui-btn-radius \">取消</button>";
+            			return "<button onclick=\"pubAnnounce("+row.ancID+",0,'"+row.ancName+"')\" class=\"layui-btn layui-btn-primary layui-btn-small  layui-btn-radius \">取消</button>";
             		}else{
-            			return "<button onclick=\"pubRecruit("+row.ancID+")\" class=\"layui-btn layui-btn-primary layui-btn-small  layui-btn-radius \">发布</button>";
+            			return "<button onclick=\"pubAnnounce("+row.ancID+",1,'"+row.ancName+"')\" class=\"layui-btn layui-btn-primary layui-btn-small  layui-btn-radius \">发布</button>";
             		}
             	}
             },
         ]];
 	}
+	
 	$('#stepIndex_two_' + stepIndex_two_datagrid_flag).datagrid({
         width:'auto',
         height:'auto',
@@ -234,4 +237,107 @@ function init_stepIndex_two_grid_AB(stepIndex_two_urls,stepIndex_two_recID,stepI
 	    }
     });
 	
+	if(__rczp_zpgg_stepIndex_two_show_flag__ == "1"){
+		var msg = "";
+	 	if(__rczp_zpgg_stepIndex_two_datagrid_flag__ == "A"){
+	 		msg = "招聘公告";
+	 	}else{
+	 		msg = "单位简介";
+	 	}
+		$('#stepIndex_two_' + __rczp_zpgg_stepIndex_two_datagrid_flag__).datagrid('getPager').pagination({buttons:[
+			{
+			   	iconCls:'icon-add',
+			   	text:'添加',
+			   	handler:function(){
+					layui.use('layer', function(){
+					 	var layer = layui.layer;
+					 	layer.open({
+			        		type:2,
+			        		title:'添加'+msg,
+			        		area:["600px",'420px'],
+			        		content:__rczp_zpgg_stepIndex_two_urls__.__repair_url+"&flag=add&ancType="+__rczp_zpgg_stepIndex_two_datagrid_flag__
+			        	}); 
+					 	
+					});
+			   	}
+		   	},'-',{
+			  	iconCls:'icon-remove',
+			   	text:'删除',
+			   	handler:function(){
+			   		layui.use('layer', function(){
+					 	var layer = layui.layer;
+					 	var rows = $('#stepIndex_two_' + __rczp_zpgg_stepIndex_two_datagrid_flag__).datagrid("getSelections");
+						var len = rows.length;
+						if(len == 0){
+							layui.layer.alert("请选择要删除的"+msg);
+							return;
+						}
+						
+						var selectInfoIds = [];
+						var flag = 0;
+						for(var i = 0; i < len; i++){
+					   		if(rows[i].ancStatus != "0"){
+					   			flag = 1;
+		           				break;
+					   		}else{
+					   			selectInfoIds.push(rows[i].ancID);
+					   		}
+					   	}
+						
+						if(!flag){
+							layer.confirm('您确定要删除勾选的【'+len+'】条'+msg+'数据么', function(index){
+							  	$.post(__rczp_zpgg_stepIndex_two_urls__.__recdel_url,{'ancIDs':selectInfoIds},function(json){
+									if(json.result){
+										layer.msg(json.msg);
+										init_stepIndex_two_grid_AB(__rczp_zpgg_stepIndex_two_urls__,__rczp_zpgg_stepIndex_two_recID__,__rczp_zpgg_stepIndex_two_datagrid_flag__,__rczp_zpgg_stepIndex_two_show_flag__);
+										layer.close(index);
+									}else{
+										layer.alert(json.msg);
+									}
+								},'json');
+							}); 
+						}else{
+							layui.layer.alert("选择删除的数据中包含已发布的"+msg+"信息");
+							return;
+						}
+						
+						
+					});
+					
+				}
+		   	}]
+		});
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+}
+
+function pubAnnounce(ancID,type,ancName){
+	var msg = ['取消发布','发布'];
+	layui.use('layer', function(){
+	 	var layer = layui.layer;
+	 	layer.confirm('您确定要'+msg[type]+'【'+ancName+'】么?', function(index){
+		  	$.post(__rczp_zpgg_stepIndex_two_urls__.__recpub_url,{'ancID':ancID,'ancStatus':type},function(json){
+				if(json.result){
+					layer.msg(json.msg);
+					init_stepIndex_two_grid_AB(__rczp_zpgg_stepIndex_two_urls__,__rczp_zpgg_stepIndex_two_recID__,__rczp_zpgg_stepIndex_two_datagrid_flag__,__rczp_zpgg_stepIndex_two_show_flag__);
+					layer.close(index);
+				}else{
+					layer.alert(json.msg);
+				}
+			},'json');
+		}); 
+	});
 }
