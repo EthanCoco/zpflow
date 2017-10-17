@@ -1,12 +1,12 @@
 <div class="headinfo">
-	<span><b>招聘公告</b></span>
-  	<select class="layui-input1" id="recBatch" name="recBatch" lay-verify="recBatch">
-        <option value=""></option>
-        <option value="1">11</option>
-        <option value="2">22</option>
-        <option value="3">33</option>
-  	</select>
-  	<i class="layui-edge"></i>
+	<span><b>招聘批次</b></span>
+	<span>
+	  	<select name="city" lay-verify="required" class="input1">
+		    <?php foreach($pcInfo as $pc){ ?>
+	        	<option value="<?php echo $pc['id']; ?>"><?php echo $pc['value']; ?></option>
+	        <?php } ?>
+	 	</select>
+	</span>
 </div>
 <div id="stepIndex_two">
 	
