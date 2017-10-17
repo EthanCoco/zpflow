@@ -42,8 +42,27 @@ function init_stepIndex_one_grid(stepIndex_one_urls){
             	}
             },
         ]],
-        onDblClickRow: function(rowIndex,rowData){
-        	
+        onDblClickRow: function(index,row){
+        	layui.use('layer', function(){
+				var layer = layui.layer;
+	        	var recDefault = row.recDefault;
+	        	if(recDefault == 1){
+	        		layui.layer.alert("该招聘正在进行中，不允许修改");
+					return;
+	        	}else if(recDefault == 2){
+	        		layui.layer.alert("该招聘已结束归档，不允许修改");
+					return;
+	        	}
+	        	
+	        	layer.open({
+	        		type:2,
+	        		title:'修改招聘年度',
+	        		area:["600px",'420px'],
+	        		content:stepIndex_one_urls.__repair_url+"&flag=mod&recID="+row.recID
+	        	});
+	        	
+	        	
+        	});
 	    },
         onLoadSuccess: function(data){
 			$('#stepIndex_one').datagrid('resize',{
@@ -63,7 +82,7 @@ function init_stepIndex_one_grid(stepIndex_one_urls){
 		        		type:2,
 		        		title:'添加招聘年度',
 		        		area:["600px",'420px'],
-		        		content:stepIndex_one_urls.__repair_url
+		        		content:stepIndex_one_urls.__repair_url+"&flag=add"
 		        	}); 
 				});
 		   	}
