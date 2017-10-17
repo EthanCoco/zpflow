@@ -149,3 +149,81 @@ function pubRecruit(recID,recYear,recBatch){
 		}); 
 	});
 }
+
+
+/*人才招聘-招聘公告-公告列表*/
+var __rczp_zpgg_stepIndex_two_urls__ = {};
+var __rczp_zpgg_stepIndex_two_datagrid_flag = "A";
+function init_stepIndex_two_grid_AB(stepIndex_two_urls,stepIndex_two_datagrid_flag){
+	__rczp_zpgg_stepIndex_two_urls__ = stepIndex_two_urls;
+	__rczp_zpgg_stepIndex_two_datagrid_flag = stepIndex_two_datagrid_flag;
+	if(stepIndex_two_datagrid_flag == "A"){
+		var cloumns = [[
+        	{field:'ck',checkbox:true,width:'10%'},
+            {field:'ancName',title:'公告名称',width:'10%',align:'center',},
+            {field:'ancTime',title:'发布时间',width:'10%',align:'center',},
+            {field:'ancStatus',title:'发布状态',width:'9%',align:'center',
+            	formatter:function(value,row,index){
+            		return value == "1" ? "已发布" : (value == 2 ? "已归档" : "未发布");
+            	}
+            },
+            {field:'operation',title:'操作',width:'10%',align:'center',
+            	formatter:function(value,row,index){
+            		if(row.ancStatus == "1" || row.ancStatus == "2"){
+            			
+            		}else{
+            			return "<button onclick=\"pubRecruit("+row.recID+","+row.ancID+")\" class=\"layui-btn layui-btn-primary layui-btn-small  layui-btn-radius \">发布</button>";
+            		}
+            	}
+            },
+        ]];
+	}else{
+		var cloumns = [[
+        	{field:'ck',checkbox:true,width:'10%'},
+            {field:'ancName',title:'单位简介',width:'10%',align:'center',},
+            {field:'ancTime',title:'发布时间',width:'10%',align:'center',},
+            {field:'ancStatus',title:'发布状态',width:'9%',align:'center',
+            	formatter:function(value,row,index){
+            		return value == "1" ? "已发布" : (value == 2 ? "已归档" : "未发布");
+            	}
+            },
+            {field:'operation',title:'操作',width:'10%',align:'center',
+            	formatter:function(value,row,index){
+            		if(row.ancStatus == "1" || row.ancStatus == "2"){
+            			
+            		}else{
+            			return "<button onclick=\"pubRecruit("+row.recID+","+row.ancID+")\" class=\"layui-btn layui-btn-primary layui-btn-small  layui-btn-radius \">发布</button>";
+            		}
+            	}
+            },
+        ]];
+	}
+	$('#stepIndex_two_' + stepIndex_two_datagrid_flag).datagrid({
+        width:'auto',
+        height:'auto',
+	    url:stepIndex_two_urls.__list_url,
+	    method: "post",
+	    queryParams: {},
+	    striped: true,
+	    fixed: true,
+	    fitColumns: false,
+	    singleSelect: false,
+        pagination: true,  
+	    rownumbers: true, 
+	    pageNumber:1,
+	    pageSize:20,
+	    pageList:[20,50,100,200],
+        columns:cloumns,
+        onDblClickRow: function(index,row){
+        	layui.use('layer', function(){
+				var layer = layui.layer;
+        	});
+	    },
+        onLoadSuccess: function(data){
+			$('#stepIndex_two_' + stepIndex_two_datagrid_flag).datagrid('resize',{
+	    		height: $(window).height()-124-25
+	    	});
+	    }
+    });
+	
+}
