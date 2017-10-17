@@ -19,11 +19,11 @@ use Yii;
 class Recruit extends \yii\db\ActiveRecord
 {
 	const SCENARIO_ADD = 'add';
-//	const SCENARIO_MOD = 'mod';
+	const SCENARIO_MOD = 'mod';
 	public function scenarios(){
 		$scenarios = parent::scenarios();
 	    $scenarios[self::SCENARIO_ADD] = ['recYear', 'recStart','recEnd','recBatch'];
-//	    $scenarios[self::SCENARIO_MOD] = ['recYear', 'password'];
+	    $scenarios[self::SCENARIO_MOD] = ['recYear', 'recStart','recEnd','recBatch'];
 	    return $scenarios;
 	}
 	
@@ -41,14 +41,15 @@ class Recruit extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-			['recYear', 'required','message'=>'招聘年度不能为空', 'on' => [self::SCENARIO_ADD]],
-			['recYear', 'validateYearStart', 'on' => [self::SCENARIO_ADD]],
+			['recYear', 'required','message'=>'招聘年度不能为空', 'on' => [self::SCENARIO_ADD,self::SCENARIO_MOD]],
+			['recYear', 'validateYearStart', 'on' => [self::SCENARIO_ADD,self::SCENARIO_MOD]],
 			['recYear', 'validateYearBatchUnique', 'on' => [self::SCENARIO_ADD]],
-			['recStart', 'required','message'=>'招聘起始时间不能为空', 'on' => [self::SCENARIO_ADD]],
-			['recStart', 'validateStartEnd', 'on' => [self::SCENARIO_ADD]],
-            ['recEnd', 'required','message'=>'招聘结束时间不能为空', 'on' => [self::SCENARIO_ADD]],
-            ['recEnd', 'validateEndCurrent', 'on' => [self::SCENARIO_ADD]],
-			['recBatch', 'required','message'=>'招聘批次不能为空', 'on' => [self::SCENARIO_ADD]],
+			['recYear', 'validateYearBatchUniqueExceptSelf', 'on' => [self::SCENARIO_MOD]],
+			['recStart', 'required','message'=>'招聘起始时间不能为空', 'on' => [self::SCENARIO_ADD,self::SCENARIO_MOD]],
+			['recStart', 'validateStartEnd', 'on' => [self::SCENARIO_ADD,self::SCENARIO_MOD]],
+            ['recEnd', 'required','message'=>'招聘结束时间不能为空', 'on' => [self::SCENARIO_ADD,self::SCENARIO_MOD]],
+            ['recEnd', 'validateEndCurrent', 'on' => [self::SCENARIO_ADD,self::SCENARIO_MOD]],
+			['recBatch', 'required','message'=>'招聘批次不能为空', 'on' => [self::SCENARIO_ADD,self::SCENARIO_MOD]],
         ];
     }
 	
@@ -83,6 +84,15 @@ class Recruit extends \yii\db\ActiveRecord
 		if ($this->recYear != "" && $this->recBatch !=""){
 			$num = self::find()->where(['recYear'=>$this->recYear,'recBatch'=>$this->recBatch])->count();
 			if($num > 0){
+				$this->addError($attribute, "该年度的招聘批次已经存在了");
+			}
+		}
+	}
+	
+	public function validateYearBatchUniqueExceptSelf($attribute, $params){
+		if ($this->recYear != "" && $this->recBatch !=""){
+			$info = self::find()->where(['recYear'=>$this->recYear,'recBatch'=>$this->recBatch])->one();
+			if(!empty($info) && $info->recID != $this->recID){
 				$this->addError($attribute, "该年度的招聘批次已经存在了");
 			}
 		}
