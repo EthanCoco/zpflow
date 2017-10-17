@@ -28,6 +28,10 @@ class IndexController extends BaseController{
 	/*人才招聘子页面*/
 	public function actionRczp(){
 		$index = Html::encode(Yii::$app->request->get('index'));
-		return $this->renderPartial('rczp/flow'.Html::decode($index));
+		$info = [];
+		if(intval($index) != 1){
+			$info = Recruit::getOverRecBatch();
+		}
+		return $this->renderPartial('rczp/flow'.Html::decode($index),['pcInfo'=>$info]);
 	}
 }
