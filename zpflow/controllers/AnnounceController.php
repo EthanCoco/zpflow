@@ -4,7 +4,7 @@ use yii\web\Controller;
 use yii\helpers\Html;
 use Yii;
 
-use app\models\Recruit;
+use app\models\Announce;
 use app\models\Share;
 
 class AnnounceController extends BaseController{
@@ -14,31 +14,16 @@ class AnnounceController extends BaseController{
 		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 		$request = Yii::$app->request;
 		
+		$recID = $request->post('recID');
+		$ancType = $request->post('ancType');
+		
 		$page = $request->post('page');
 		$rows = $request->post('rows');
 		$offset =($page-1)*$rows;
 		
-		$listInfos = Recruit::getListInfo($offset,$rows,"recDefault desc,recYear desc,recBatch desc");
+		$listInfos = Announce::getListInfo($offset,$rows,['recID'=>$recID,'ancType'=>$ancType],"ancStatus desc,ancTime desc");
 		
-		$infos = $listInfos['rows'];
-		$jsonData = [];
-		foreach($infos as $info){
-			$codes = [['recBatch','PC']];
-			$codeName = Share::codeValue($codes,$info);
-			$jsonData[] = [
-				'recID'			=>	$info['recID'],
-				'recYear'		=>	$info['recYear'],
-				'recBatch'		=>	$codeName['recBatch'],
-				'recDefault'	=>	$info['recDefault'],
-				'recStart'		=>	$info['recStart'],
-				'recEnd'		=>	$info['recEnd'],
-				'recViewPlace'	=>	$info['recViewPlace'],
-				'recHealthPlace'=>	$info['recHealthPlace'],
-				'recBack'		=>	$info['recBack'],
-			];
-		}
-		
-		return ['rows'=>$jsonData,'total'=>$listInfos['total']];
+		return $listInfos;
 	}
 	
 	
