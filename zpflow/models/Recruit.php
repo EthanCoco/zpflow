@@ -108,4 +108,22 @@ class Recruit extends \yii\db\ActiveRecord
 		
 		return ['rows'=>$rows,'total'=>$total];
 	}
+	
+	public static function getOverRecBatch(){
+		$infos = self::find()->select(['recID','recYear','recBatch','recDefault'])
+							->where(['!=', 'recDefault', 0])
+							->orderby('recDefault asc,recYear desc,recBatch desc')
+							->asArray()
+							->all();
+		$jsonData = [];
+		foreach($infos as $info){
+			$codes = [['recBatch','PC']];
+			$codeName = Share::codeValue($codes,$info);
+			$jsonData[] = [
+				'id'		=>	$info['recID'],
+				'value'		=>	$info['recYear']."年".$codeName['recBatch'].($info['recDefault'] == '2' ? '【已结束】' : '【进行中】'),
+			];
+		}
+		return $jsonData;
+	}
 }
