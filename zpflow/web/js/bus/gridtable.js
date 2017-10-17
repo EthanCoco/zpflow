@@ -254,7 +254,7 @@ function init_stepIndex_two_grid_AB(stepIndex_two_urls,stepIndex_two_recID,stepI
 					 	layer.open({
 			        		type:2,
 			        		title:'添加'+msg,
-			        		area:["600px",'420px'],
+			        		area:["650px",'520px'],
 			        		content:__rczp_zpgg_stepIndex_two_urls__.__repair_url+"&flag=add&ancType="+__rczp_zpgg_stepIndex_two_datagrid_flag__
 			        	}); 
 					 	
