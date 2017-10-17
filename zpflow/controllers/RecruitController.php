@@ -42,16 +42,23 @@ class RecruitController extends BaseController{
 	}
 	
 	public function actionRepair(){
+		$flag = Yii::$app->request->get('flag');
+		$recID = Yii::$app->request->get('recID','');
 		$pcInfo = Share::getCodeInfo(['PC']);
-		return $this->renderPartial('flow1_repair',['pcSelect'=>$pcInfo]);
+		return $this->renderPartial('flow1_repair',['pcSelect'=>$pcInfo,'flag'=>$flag,'recID'=>$recID]);
 	}
 	
 	public function actionRepairDo(){
 		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 		$request = Yii::$app->request;
-		
-		$model = new Recruit();
-		$model->setScenario(Recruit::SCENARIO_ADD);
+		$recID = $request->post()['Recruit']['recID'];
+		if($recID == ""){
+			$model = new Recruit();
+			$model->setScenario(Recruit::SCENARIO_ADD);
+		}else{
+			$model = Recruit::findOne($recID);
+			$model->setScenario(Recruit::SCENARIO_MOD);
+		}
 		if($model->load($request->post()) && $model->validate()){
 			$data = $request->post()['Recruit'];
 			$model->recYear = $data['recYear'];
@@ -111,5 +118,12 @@ class RecruitController extends BaseController{
 		}else{
 			return ['result'=>0,'msg'=>'删除失败'];
 		}
+	}
+	
+	public function actionGetRecruit(){
+		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+		$recID = Yii::$app->request->post('recID');
+		$info = Recruit::findOne($recID);
+		return $info;
 	}
 }
