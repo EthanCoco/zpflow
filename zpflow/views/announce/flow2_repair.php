@@ -81,18 +81,19 @@ $(function(){
 		    	type: 'post'
 		  	}
 		});	
-	 		
 	 	
 		var editIndex = layedit.build('ancInfo');
-		
-		
-		
 		
 		$("#flow2_repair_cancel").click(function(){
 			parent.layer.close(parent.layer.getFrameIndex(window.name));
 		});
 		
-		
+		$("#flow2_repair_save").bind("click",function(){
+			form.on('submit',function(data){
+				layedit.getContent(editIndex);
+				alert(layedit.getContent(editIndex));
+			});
+		});
 		
 		
 		
