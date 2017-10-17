@@ -27,6 +27,14 @@ $this->title = '添加招聘年度';
 		<fieldset class="layui-elem-field layui-field-title">
 		  	<legend>基本信息</legend>
 		</fieldset>
+	  	
+	  	<div class="layui-form-item layui-inline" style="display: none;">
+		    <label class="layui-form-label">ID</label>
+		    <div class="layui-input-block">
+		      	<input class="layui-input" id="recID" name="recID" type="hidden">
+		    </div>
+	  	</div>
+	  	
 	  	<div class="layui-form-item layui-inline">
 		    <label class="layui-form-label">招聘年度</label>
 		    <div class="layui-input-block">
@@ -85,7 +93,21 @@ $this->title = '添加招聘年度';
 </div>
 <?php $this->endBody() ?>
 <script>
+var __flow1_repair_flag__ = "<?php echo $flag; ?>";
 $(function(){
+	if(__flow1_repair_flag__ == "mod"){
+		var recID = "<?php echo $recID; ?>";
+		$.post("<?= Url::to(['recruit/get-recruit']) ?>",{'recID':recID},function(json){
+			$("#recID").val(json.recID);
+			$("#recYear").val(json.recYear);
+			$("#recBatch").val(json.recBatch);
+			$("#recStart").val(json.recStart);
+			$("#recEnd").val(json.recEnd);
+			$("#recViewPlace").val(json.recViewPlace);
+			$("#recHealthPlace").val(json.recHealthPlace);
+		},'json');
+		
+	}
 	layui.use(['form','layer', 'laydate'], function(){
 	 	var form = layui.form,
 	 		layer = layui.layer,
