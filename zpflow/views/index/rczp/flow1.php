@@ -12,6 +12,7 @@ var  __stepIndex_one_urls__ = {
 		'__recdel_url' : "<?= yii\helpers\Url::to(['recruit/recdel']); ?>",
    	 	'__recpub_url' : "<?= yii\helpers\Url::to(['recruit/pub-recruit']); ?>",
 		'__recdel_url' : "<?= yii\helpers\Url::to(['recruit/del-recruit']); ?>",
+		'__recmod_url' : "<?= yii\helpers\Url::to(['recruit/mod-recruit']); ?>",
 };
 
 $(function(){
