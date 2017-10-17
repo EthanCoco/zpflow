@@ -153,26 +153,32 @@ function pubRecruit(recID,recYear,recBatch){
 
 /*人才招聘-招聘公告-公告列表*/
 var __rczp_zpgg_stepIndex_two_urls__ = {};
-var __rczp_zpgg_stepIndex_two_datagrid_flag = "A";
-function init_stepIndex_two_grid_AB(stepIndex_two_urls,stepIndex_two_datagrid_flag){
+var __rczp_zpgg_stepIndex_two_datagrid_flag__ = "A";
+var __rczp_zpgg_stepIndex_two_show_flag__ = "";
+var __rczp_zpgg_stepIndex_two_recID__ = "";
+
+function init_stepIndex_two_grid_AB(stepIndex_two_urls,stepIndex_two_recID,stepIndex_two_datagrid_flag,stepIndex_two_show_flag){
 	__rczp_zpgg_stepIndex_two_urls__ = stepIndex_two_urls;
-	__rczp_zpgg_stepIndex_two_datagrid_flag = stepIndex_two_datagrid_flag;
+	__rczp_zpgg_stepIndex_two_recID__ = stepIndex_two_recID;
+	__rczp_zpgg_stepIndex_two_datagrid_flag__ = stepIndex_two_datagrid_flag;
 	if(stepIndex_two_datagrid_flag == "A"){
 		var cloumns = [[
         	{field:'ck',checkbox:true,width:'10%'},
-            {field:'ancName',title:'公告名称',width:'10%',align:'center',},
-            {field:'ancTime',title:'发布时间',width:'10%',align:'center',},
-            {field:'ancStatus',title:'发布状态',width:'9%',align:'center',
+            {field:'ancName',title:'公告名称',width:'25%',align:'center',},
+            {field:'ancTime',title:'发布时间',width:'25%',align:'center',},
+            {field:'ancStatus',title:'发布状态',width:'25%',align:'center',
             	formatter:function(value,row,index){
             		return value == "1" ? "已发布" : (value == 2 ? "已归档" : "未发布");
             	}
             },
-            {field:'operation',title:'操作',width:'10%',align:'center',
+            {field:'operation',title:'操作',width:'24%',align:'center',
             	formatter:function(value,row,index){
-            		if(row.ancStatus == "1" || row.ancStatus == "2"){
-            			
+            		if(row.ancStatus == "2"){
+            			return "";
+            		}else if(row.ancStatus == "1"){
+            			return "<button onclick=\"pubRecruit("+row.ancID+")\" class=\"layui-btn layui-btn-primary layui-btn-small  layui-btn-radius \">取消</button>";
             		}else{
-            			return "<button onclick=\"pubRecruit("+row.recID+","+row.ancID+")\" class=\"layui-btn layui-btn-primary layui-btn-small  layui-btn-radius \">发布</button>";
+            			return "<button onclick=\"pubRecruit("+row.ancID+")\" class=\"layui-btn layui-btn-primary layui-btn-small  layui-btn-radius \">发布</button>";
             		}
             	}
             },
@@ -180,19 +186,21 @@ function init_stepIndex_two_grid_AB(stepIndex_two_urls,stepIndex_two_datagrid_fl
 	}else{
 		var cloumns = [[
         	{field:'ck',checkbox:true,width:'10%'},
-            {field:'ancName',title:'单位简介',width:'10%',align:'center',},
-            {field:'ancTime',title:'发布时间',width:'10%',align:'center',},
-            {field:'ancStatus',title:'发布状态',width:'9%',align:'center',
+            {field:'ancName',title:'单位简介',width:'25%',align:'center',},
+            {field:'ancTime',title:'发布时间',width:'25%',align:'center',},
+            {field:'ancStatus',title:'发布状态',width:'25%',align:'center',
             	formatter:function(value,row,index){
             		return value == "1" ? "已发布" : (value == 2 ? "已归档" : "未发布");
             	}
             },
-            {field:'operation',title:'操作',width:'10%',align:'center',
+            {field:'operation',title:'操作',width:'24%',align:'center',
             	formatter:function(value,row,index){
-            		if(row.ancStatus == "1" || row.ancStatus == "2"){
-            			
+            		if(row.ancStatus == "2"){
+            			return "";
+            		}else if(row.ancStatus == "1"){
+            			return "<button onclick=\"pubRecruit("+row.ancID+")\" class=\"layui-btn layui-btn-primary layui-btn-small  layui-btn-radius \">取消</button>";
             		}else{
-            			return "<button onclick=\"pubRecruit("+row.recID+","+row.ancID+")\" class=\"layui-btn layui-btn-primary layui-btn-small  layui-btn-radius \">发布</button>";
+            			return "<button onclick=\"pubRecruit("+row.ancID+")\" class=\"layui-btn layui-btn-primary layui-btn-small  layui-btn-radius \">发布</button>";
             		}
             	}
             },
@@ -203,7 +211,7 @@ function init_stepIndex_two_grid_AB(stepIndex_two_urls,stepIndex_two_datagrid_fl
         height:'auto',
 	    url:stepIndex_two_urls.__list_url,
 	    method: "post",
-	    queryParams: {},
+	    queryParams: {'recID':stepIndex_two_recID,'ancType':stepIndex_two_datagrid_flag},
 	    striped: true,
 	    fixed: true,
 	    fitColumns: false,
@@ -221,7 +229,7 @@ function init_stepIndex_two_grid_AB(stepIndex_two_urls,stepIndex_two_datagrid_fl
 	    },
         onLoadSuccess: function(data){
 			$('#stepIndex_two_' + stepIndex_two_datagrid_flag).datagrid('resize',{
-	    		height: $(window).height()-124-25
+	    		height: $(window).height()-124-25-60
 	    	});
 	    }
     });
