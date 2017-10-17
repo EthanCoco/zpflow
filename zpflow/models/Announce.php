@@ -33,7 +33,7 @@ class Announce extends \yii\db\ActiveRecord
     {
         return [
             [['recID', 'ancName', 'ancInfo', 'ancPubUid'], 'required'],
-            [['recID', 'ancPubUid', 'ancType', 'ancStatus'], 'integer'],
+            [['recID', 'ancPubUid', 'ancStatus'], 'integer'],
             [['ancInfo'], 'string'],
             [['ancTime'], 'safe'],
             [['ancName'], 'string', 'max' => 125],
@@ -56,4 +56,18 @@ class Announce extends \yii\db\ActiveRecord
             'ancStatus' => 'Anc Status',
         ];
     }
+	
+	public static function getListInfo($offset,$rows,$where,$orderInfo){
+		$rows = self::find()->select(['ancID','recID','ancName','ancTime','ancType','ancStatus'])
+							->where($where)
+							->orderby($orderInfo)
+							->offset($offset)
+							->limit($rows)
+							->asArray()
+							->all();
+							
+		$total = self::find()->where($where)->count();
+		
+		return ['rows'=>$rows,'total'=>$total];
+	}
 }

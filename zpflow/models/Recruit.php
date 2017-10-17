@@ -131,6 +131,7 @@ class Recruit extends \yii\db\ActiveRecord
 			$codeName = Share::codeValue($codes,$info);
 			$jsonData[] = [
 				'id'		=>	$info['recID'],
+				'code'		=>	$info['recDefault'] == 1 ? 1 : 0,
 				'value'		=>	$info['recYear']."年".$codeName['recBatch'].($info['recDefault'] == '2' ? '【已结束】' : '【进行中】'),
 			];
 		}
