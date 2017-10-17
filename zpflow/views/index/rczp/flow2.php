@@ -3,7 +3,7 @@
 	<span>
 	  	<select id="recID_id" name="recID_name" lay-verify="required" class="input1" onchange="selRecruitID(this)">
 		    <?php foreach($pcInfo as $pc){ ?>
-	        	<option value="<?php echo $pc['id']; ?>"><?php echo $pc['value']; ?></option>
+	        	<option code="<?php echo $pc['code']; ?>" value="<?php echo $pc['id']; ?>"><?php echo $pc['value']; ?></option>
 	        <?php } ?>
 	 	</select>
 	</span>
@@ -31,24 +31,27 @@
 <script>
 var __stepIndex_two_recID__ = "";
 var __stepIndex_two_datagrid_flag = "A";
+var __stepIndex_two_show_flag = "";
 var __stepIndex_two_urls__ = {
 	'__list_url' : "<?= yii\helpers\Url::to(['announce/list-info']); ?>",
 };
 $(function(){
 	__stepIndex_two_recID__ = $("#recID_id").val();
-	init_stepIndex_two_grid_AB(__stepIndex_two_urls__,__stepIndex_two_datagrid_flag);
+	__stepIndex_two_show_flag = $("#recID_id option:selected").attr("code");
+	init_stepIndex_two_grid_AB(__stepIndex_two_urls__,__stepIndex_two_recID__,__stepIndex_two_datagrid_flag,__stepIndex_two_show_flag);
 	layui.use(['element','layer', 'laydate'], function(){
 		var element = layui.element;
 		  	element.on('tab(stepIndex_two_tab)', function(){
 	    	__stepIndex_two_datagrid_flag = this.getAttribute('lay-id');
-	    	init_stepIndex_two_grid_AB(__stepIndex_two_urls__,__stepIndex_two_datagrid_flag);
+	    	init_stepIndex_two_grid_AB(__stepIndex_two_urls__,__stepIndex_two_recID__,__stepIndex_two_datagrid_flag,__stepIndex_two_show_flag);
 	  	});
 	});
 });
 
 function selRecruitID(th){
 	__stepIndex_two_recID__ = $(th).val();
-	init_stepIndex_two_grid_AB(__stepIndex_two_urls__,__stepIndex_two_datagrid_flag);
+	__stepIndex_two_show_flag = $("#recID_id option:selected").attr("code");
+	init_stepIndex_two_grid_AB(__stepIndex_two_urls__,__stepIndex_two_recID__,__stepIndex_two_datagrid_flag,__stepIndex_two_show_flag);
 }
 
 
