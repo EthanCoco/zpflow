@@ -31,8 +31,8 @@ class Code extends \yii\db\ActiveRecord
     {
         return [
             [['codeID'], 'required'],
-            [['codeOrder', 'codeStatus'], 'integer'],
-            [['codeID', 'codeTypeID', 'codeName'], 'string', 'max' => 64],
+            [['codeOrder', 'codeStatus','isLeaf'], 'integer'],
+            [['codeID', 'codeTypeID', 'codeName','codePid'], 'string', 'max' => 64],
         ];
     }
 
@@ -48,6 +48,8 @@ class Code extends \yii\db\ActiveRecord
             'codeName' => 'Code Name',
             'codeOrder' => 'Code Order',
             'codeStatus' => 'Code Status',
+            'codePid'	=>	'Code Pid',
+            'isLeaf'	=>	'Is Leaf',
         ];
     }
 }
