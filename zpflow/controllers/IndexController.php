@@ -40,7 +40,7 @@ class IndexController extends BaseController{
 		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 		date_default_timezone_set('PRC');
 		$file = $_FILES['file'];
-		
+		var_dump($file);exit;
 		$type = strtolower($_FILES['file']["type"]);
 		
 		$timeNow = date('Y-m-d H:i:s',time());
