@@ -5,6 +5,7 @@ use yii\helpers\Html;
 use Yii;
 
 use app\models\Recruit;
+//use app\models\FlowJob;
 
 class IndexController extends BaseController{
 	public $enableCsrfValidation = false;
@@ -67,4 +68,31 @@ class IndexController extends BaseController{
 	    if (!self::mkdirs(dirname($dir), $mode)) return FALSE;
 	    return @mkdir($dir, $mode);
 	} 
+	
+//	public function actionTest(){
+		/*添加数据*/
+//		$tableName = FlowJob::tableName(2);
+//		$db = Yii::$app->db->createCommand();
+//		$db	->	insert($tableName,[
+//				 	'a1' =>'a1',
+//				 	'a2' =>'a2',
+//				 	'a3' =>'a3',
+//				 	'a4' =>'a4',
+//				 	'a5' =>'a5',
+//			 	])
+//		 	->execute();
+		/*修改数据*/	
+//		$db	->	update($tableName, [
+//					'a1' => "12344343545"
+//				], ['id'=>1])
+//				->execute();
+		
+		/*删除数据*/
+//		$db	->	delete($tableName,['id'=>1])->execute();
+
+//		$query = new yii\db\Query();
+//		$info = $query	->from($tableName)
+//						->all();
+//		var_dump($info);		
+//	}
 }
