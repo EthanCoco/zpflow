@@ -32,7 +32,7 @@ class Announce extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['recID', 'ancName', 'ancInfo', 'ancPubUid'], 'required'],
+            [['recID', 'ancName', 'ancInfo'], 'required'],
             [['recID', 'ancPubUid', 'ancStatus'], 'integer'],
             [['ancInfo'], 'string'],
             [['ancTime'], 'safe'],
