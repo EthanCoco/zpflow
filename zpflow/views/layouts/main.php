@@ -22,7 +22,7 @@ $this->registerJsFile("@web/js/common/jquery-1.9.1.min.js", ['depends' => ['yii\
 
 <div class="layui-layout layui-layout-admin">
 	<div class="layui-header">
-	    <div class="layui-logo">layui 后台布局</div>
+	    <div class="layui-logo">XXXXXXXXXXXXXXX</div>
 	    <ul class="layui-nav layui-layout-right">
 	      	<li class="layui-nav-item">
 		        <a href="javascript:;">
