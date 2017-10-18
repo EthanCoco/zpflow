@@ -226,8 +226,27 @@ function init_stepIndex_two_grid_AB(stepIndex_two_urls,stepIndex_two_recID,stepI
 	    pageList:[20,50,100,200],
         columns:cloumns,
         onDblClickRow: function(index,row){
+        	var msg = "";
+		 	if(__rczp_zpgg_stepIndex_two_datagrid_flag__ == "A"){
+		 		msg = "招聘公告";
+		 	}else{
+		 		msg = "单位简介";
+		 	}
         	layui.use('layer', function(){
 				var layer = layui.layer;
+				if(__rczp_zpgg_stepIndex_two_show_flag__ == "1"){
+					if(row.ancStatus == "1"){
+						layer.alert('此'+msg+"【"+row.ancName+"】已经发布了，如需修改，请先取消发布");
+						return;
+					}
+					
+					layer.open({
+		        		type:2,
+		        		title:'修改'+msg,
+		        		area:["650px",'520px'],
+		        		content:__rczp_zpgg_stepIndex_two_urls__.__repair_url+"&flag=mod&ancID="+row.ancID+"&ancType="+__rczp_zpgg_stepIndex_two_datagrid_flag__
+		        	}); 
+				}
         	});
 	    },
         onLoadSuccess: function(data){
@@ -257,7 +276,6 @@ function init_stepIndex_two_grid_AB(stepIndex_two_urls,stepIndex_two_recID,stepI
 			        		area:["650px",'520px'],
 			        		content:__rczp_zpgg_stepIndex_two_urls__.__repair_url+"&flag=add&ancType="+__rczp_zpgg_stepIndex_two_datagrid_flag__
 			        	}); 
-					 	
 					});
 			   	}
 		   	},'-',{
@@ -300,28 +318,11 @@ function init_stepIndex_two_grid_AB(stepIndex_two_urls,stepIndex_two_recID,stepI
 							layui.layer.alert("选择删除的数据中包含已发布的"+msg+"信息");
 							return;
 						}
-						
-						
 					});
-					
 				}
 		   	}]
 		});
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
 
 function pubAnnounce(ancID,type,ancName){
