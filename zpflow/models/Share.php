@@ -74,7 +74,7 @@ class Share extends Model
 					  `perPolitica` varchar(64) NOT NULL COMMENT '政治面貌',
 					  `perWorkPlace` varchar(255) NOT NULL COMMENT '现工作单位',
 					  `perMarried` varchar(64) NOT NULL COMMENT '婚姻状况',
-					  `perBirth` timestamp NULL DEFAULT NULL COMMENT '出生年月',
+					  `perBirth` varchar(128) NULL DEFAULT NULL COMMENT '出生年月',
 					  `perHeight` decimal(4,2) DEFAULT NULL COMMENT '身高',
 					  `perWeight` decimal(4,2) DEFAULT NULL COMMENT '体重',
 					  `perUniversity` varchar(255) DEFAULT NULL COMMENT '毕业院校',
@@ -89,7 +89,15 @@ class Share extends Model
 					  `perPostCode` varchar(32) DEFAULT NULL COMMENT '邮政编码',
 					  `perAddr` varchar(255) DEFAULT NULL COMMENT '联系地址',
 					  `perMark` varchar(255) DEFAULT NULL COMMENT '备注信息',
-					  `status` int(1) NOT NULL DEFAULT '0' COMMENT '发布状态（0=待报，1=待审，2=审核通过，3=审核不通过）',
+					  `perIndex` varchar(255) NOT NULL COMMENT '报名序号',
+					  `perJob` varchar(64) NOT NULL COMMENT '应聘岗位性质',
+					  `perPub`  int(1) NOT NULL DEFAULT '0' COMMENT '公示结果（0=未公示，1=已公示）',
+					  `perStatus` int(1) NOT NULL DEFAULT '0' COMMENT '状态（0=待报，1=待审，2=审核通过，3=审核不通过）',
+					  `perCheckTime` timestamp NULL DEFAULT NULL COMMENT '审核时间',
+					  `perReason` varchar(255) DEFAULT NULL COMMENT '审核不通过原因',
+					  `perReResult1` varchar(64)  NOT NULL DEFAULT '03' COMMENT '资格审查反馈结果',
+					  `perReGiveup1` varchar(255) NOT NULL COMMENT '资格审查反馈原因',
+					  `perReTime1` timestamp NULL DEFAULT NULL COMMENT '资格审查反馈时间',
 					  PRIMARY KEY (`perID`)
 					) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 					

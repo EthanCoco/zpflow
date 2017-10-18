@@ -13,7 +13,7 @@
 	    <li class="layui-this" lay-id="A">招聘公告</li>
 	    <li lay-id="B">单位简介</li>
   	</ul>
-  	<div class="layui-tab-content">
+  	<div class="layui-tab-content" style="padding: 0;">
 	    <div class="layui-tab-item layui-show">
 	     	<div id="stepIndex_two_A">
 	

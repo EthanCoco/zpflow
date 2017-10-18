@@ -156,7 +156,6 @@ var __rczp_zpgg_stepIndex_two_urls__ = {};
 var __rczp_zpgg_stepIndex_two_datagrid_flag__ = "A";
 var __rczp_zpgg_stepIndex_two_show_flag__ = "";
 var __rczp_zpgg_stepIndex_two_recID__ = "";
-var __rczp_zpgg_stepIndex_two_show_flag__ = "";
 
 function init_stepIndex_two_grid_AB(stepIndex_two_urls,stepIndex_two_recID,stepIndex_two_datagrid_flag,stepIndex_two_show_flag){
 	__rczp_zpgg_stepIndex_two_urls__ = stepIndex_two_urls;
@@ -341,4 +340,99 @@ function pubAnnounce(ancID,type,ancName){
 			},'json');
 		}); 
 	});
+}
+
+/*人才招聘-资格审查-数据列表*/
+var __rczp_zgsc_stepIndex_three_urls__ = {};
+var __rczp_zgsc_stepIndex_three_tab__ = "1";
+var __rczp_zgsc_stepIndex_three_show_flag__ = "";
+var __rczp_zgsc_stepIndex_three_recID__ = "";
+
+function init_stepIndex_three_grid(stepIndex_three_urls,stepIndex_three_recID,stepIndex_three_tab,stepIndex_three_show_flag){
+	var __stepIndex_three_search = {
+		'perName' : "",
+		'perGender' : "",
+		'perBirth' : "",
+		'perReResult1' : "",
+	};
+	if(stepIndex_three_tab == __rczp_zgsc_stepIndex_three_tab__){
+		__stepIndex_three_search.perName = $("#stepIndex_three_search #perName").val();
+		__stepIndex_three_search.perGender = $("#stepIndex_three_search #perGender").val();
+		__stepIndex_three_search.perBirth = $("#stepIndex_three_search #perBirth").val();
+		__stepIndex_three_search.perReResult1 = $("#stepIndex_three_search #perReResult1").val();
+	}
+	
+	__rczp_zgsc_stepIndex_three_urls__ = stepIndex_three_urls;
+	__rczp_zgsc_stepIndex_three_recID__ = stepIndex_three_recID;
+	__rczp_zgsc_stepIndex_three_tab__ = stepIndex_three_tab;
+	__rczp_zgsc_stepIndex_three_show_flag__ = stepIndex_three_show_flag;
+	
+	$('#stepIndex_three').datagrid({
+        width:'auto',
+        height:'auto',
+	    url:stepIndex_three_urls.__list_url,
+	    method: "post",
+	    queryParams: {'recID':stepIndex_three_recID,'type':stepIndex_three_tab,'search':__stepIndex_three_search},
+	    striped: true,
+	    fixed: true,
+	    fitColumns: false,
+	    singleSelect: false,
+        pagination: true,  
+	    rownumbers: true, 
+	    pageNumber:1,
+	    pageSize:20,
+	    pageList:[20,50,100,200],
+	    sortName:'perIndex',
+	    sortOrder:'ASC',
+	    frozenColumns:[[
+    		{field:'ck',checkbox:true},
+	        {field:'perIndex',title:'报名序号',width:'80',align:'center',sortable:true},
+	        {field:'perName',title:'姓名',width:'70',align:'center',sortable:true},
+        ]], 
+        columns:[[
+	        {field:'perIDCard',title:'身份证号',width:'180',align:'center',rowspan:2,sortable:true},
+	        {field:'perGender',title:'性别',width:'50',align:'center',rowspan:2,sortable:true,
+	        	formatter:function(value,row,index){
+	        		return value == "1" ? "男" : "女";
+	        	}
+	        },
+	        {field:'perBirth',title:'出生年月',width:'100',align:'center',rowspan:2,sortable:true},
+	        {field:'perJob',title:'应聘岗位性质',width:'100',align:'center',rowspan:2,sortable:true,
+	        	formatter:function(value,row,index){
+	        		return value == "01" ? "事业" : "企业";
+	        	}
+	        },
+	        {field:'perPhone',title:'手机号码',width:'100',align:'center',rowspan:2},
+	        {field:'perStatus',title:'审查结果',width:'100',align:'center',rowspan:2,sortable:true,
+	        	formatter:function(value,row,index){
+	        		return value == "1" ? "待审" : (value == "2" ? "通过" : "不通过");
+	        	}
+	        },
+	        {field:'perPub',title:'公示结果',width:'80',align:'center',rowspan:2,sortable:true,
+	        	formatter:function(value,row,index){
+	        		return value == "0" ? "未公示" : "<span style='color:red;'>已公示</span>";
+	        	}
+	        },
+	        {field:'perReason',title:'审查不通过原因',width:'100',align:'center',rowspan:2},
+	        {field:'perCheckTime',title:'审查时间',width:'130',align:'center',rowspan:2,sortable:true},
+	        {field:'perZGSC',title:'考试反馈结果',width:'300',colspan:3,align:'center'}
+	        ],[
+		    	{field:'perReResult1',title:'反馈结果',width:'100',align:'center',sortable:true,
+		    		formatter:function(value,row,index){
+		        		return value == "01" ? "确定参加" : (value == "02" ? "放弃参加" : "未反馈");
+		        	}
+		    	},
+		    	{field:'perReGiveup1',title:'放弃原因',width:'100',align:'center'},
+		    	{field:'perReTime1',title:'反馈时间',width:'130',align:'center',sortable:true}
+	    ]],
+        onDblClickRow: function(index,row){
+        	
+	    },
+        onLoadSuccess: function(data){
+			$('#stepIndex_three').datagrid('resize',{
+	    		height: $(window).height()-124-25-60-30
+	    	});
+	    }
+    });
+	
 }
