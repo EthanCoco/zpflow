@@ -76,16 +76,6 @@ if(__flow2_repair_ancType__ == "B"){
 	__flow2_repair_msg__ = '单位名称';
 }
 $(function(){
-	if(__flow2_repair_flag__ == "mod"){
-		var ancID = "<?php echo $ancID; ?>";
-		$.post("<?= Url::to(['announce/get-announce']) ?>",{'ancID':ancID},function(json){
-			//alert(JSON.stringify(json));
-			$("#ancID").val(json.ancID);
-			$("#ancName").val(json.ancName);
-			$("#ancInfo").val(json.ancInfo);
-		},'json');
-	}
-	
 	layui.use(['form','layer','layedit'], function(){
 	 	var form = layui.form,
 	 		layer = layui.layer,
@@ -172,6 +162,16 @@ $(function(){
 			});
 		});
 	});
+	
+	if(__flow2_repair_flag__ == "mod"){
+		var ancID = "<?php echo $ancID; ?>";
+		$.post("<?= Url::to(['announce/get-announce']) ?>",{'ancID':ancID},function(json){
+			//alert(JSON.stringify(json));
+			$("#ancID").val(json.ancID);
+			$("#ancName").val(json.ancName);
+			$("#ancInfo").val(json.ancInfo);
+		},'json');
+	}
 });
 </script>	
 </body>
