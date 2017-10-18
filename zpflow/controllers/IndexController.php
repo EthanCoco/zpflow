@@ -32,6 +32,10 @@ class IndexController extends BaseController{
 		$info = [];
 		if(intval($index) != 1){
 			$info = Recruit::getOverRecBatch();
+			$count = Recruit::find()->where(['recDefault'=>[1,2]])->count();
+			if(!$count){
+				return $this->renderPartial('norecruit');
+			}
 		}
 		return $this->renderPartial('rczp/flow'.Html::decode($index),['pcInfo'=>$info]);
 	}
