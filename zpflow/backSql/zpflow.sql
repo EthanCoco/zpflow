@@ -29,7 +29,7 @@ CREATE TABLE `announce` (
   `ancType` char(1) DEFAULT NULL COMMENT '公告类别（A=招聘简介，B=公司简介）',
   `ancStatus` int(1) NOT NULL DEFAULT '0' COMMENT '发布状态（0=未发布，1=已发布）',
   PRIMARY KEY (`ancID`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of announce
@@ -1777,7 +1777,7 @@ CREATE TABLE `recruit` (
   `recHealthPlace` varchar(255) NOT NULL COMMENT '体检地点',
   `recBack` int(1) DEFAULT '0' COMMENT '是否归档',
   PRIMARY KEY (`recID`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of recruit
@@ -1799,12 +1799,12 @@ CREATE TABLE `user` (
   `companyID` int(11) DEFAULT NULL COMMENT '单位id',
   `phone` varchar(255) DEFAULT NULL COMMENT '手机号码',
   PRIMARY KEY (`uid`)
-) ENGINE=InnoDB AUTO_INCREMENT=2220 DEFAULT CHARSET=utf8 COMMENT='用户表';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='用户表';
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('2219', 'admin', 'guanliyuan', 'fcea920f7412b5da7be0cf42b8c93759', '3', '6', '2017-10-16 09:41:05', '2017-10-18 14:31:42', '1022', '13285716129');
+INSERT INTO `user` VALUES ('1', 'admin', 'guanliyuan', 'fcea920f7412b5da7be0cf42b8c93759', '3', '6', '2017-10-16 09:41:05', '2017-10-18 14:31:42', '1022', '13285716129');
 
 -- ----------------------------
 -- Table structure for workset
