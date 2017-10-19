@@ -1,0 +1,598 @@
+2017-10-19 23:52:20 [127.0.0.1][1][lmvikocor0mu016r1740k6l9h0][error][yii\base\UnknownClassException] exception 'yii\base\UnknownClassException' with message 'Unable to find 'PHPExcel_IOFactory' in file: D:\wamp\www\zpflow/libs/phpexcel/PHPExcel.php. Namespace missing?' in D:\wamp\www\zpflow\vendor\yiisoft\yii2\BaseYii.php:295
+Stack trace:
+#0 [internal function]: yii\BaseYii::autoload('PHPExcel_IOFact...')
+#1 D:\wamp\www\zpflow\controllers\QuaexamController.php(161): spl_autoload_call('PHPExcel_IOFact...')
+#2 [internal function]: app\controllers\QuaexamController->actionExportQuaexam()
+#3 D:\wamp\www\zpflow\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#4 D:\wamp\www\zpflow\vendor\yiisoft\yii2\base\Controller.php(156): yii\base\InlineAction->runWithParams(Array)
+#5 D:\wamp\www\zpflow\vendor\yiisoft\yii2\base\Module.php(523): yii\base\Controller->runAction('export-quaexam', Array)
+#6 D:\wamp\www\zpflow\vendor\yiisoft\yii2\web\Application.php(102): yii\base\Module->runAction('quaexam/export-...', Array)
+#7 D:\wamp\www\zpflow\vendor\yiisoft\yii2\base\Application.php(380): yii\web\Application->handleRequest(Object(yii\web\Request))
+#8 D:\wamp\www\zpflow\web\index.php(12): yii\base\Application->run()
+#9 {main}
+2017-10-19 23:52:20 [127.0.0.1][1][lmvikocor0mu016r1740k6l9h0][info][application] $_GET = [
+    'r' => 'quaexam/export-quaexam'
+]
+
+$_POST = [
+    'type' => '0'
+    'recID' => '1'
+    'condition' => '[\"AND\",[\"not\",{\"perStatus\":0}]]'
+]
+
+$_COOKIE = [
+    '_csrf' => 'e30f42b90e869ad965ab921a6f92d472ab932e12dfb63d3f7440f3d7fc1346f4a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"±³œÕH2a*€ïÄ0…$ÞßFÀ\\§Çy²B®;#\";}'
+    'PHPSESSID' => 'lmvikocor0mu016r1740k6l9h0'
+    'YPGWPHPSESSID' => '8tiglf6i70uab96p01mcohimi0'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    'uid' => 1
+    'realName' => 'guanliyuan'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => '127.0.0.1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:56.0) Gecko/20100101 Firefox/56.0'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'CONTENT_TYPE' => 'application/x-www-form-urlencoded'
+    'CONTENT_LENGTH' => '86'
+    'HTTP_REFERER' => 'http://127.0.0.1/zpflow/web/'
+    'HTTP_COOKIE' => '_csrf=e30f42b90e869ad965ab921a6f92d472ab932e12dfb63d3f7440f3d7fc1346f4a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22%B1%B3%9C%D5H2a%2A%80%EF%C40%85%24%DE%DF%0BF%C0%5C%0D%A7%90%06%C7y%B2B%04%AE%3B%23%22%3B%7D; PHPSESSID=lmvikocor0mu016r1740k6l9h0; YPGWPHPSESSID=8tiglf6i70uab96p01mcohimi0'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'PATH' => 'C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;D:\\redis;D:\\wamp\\bin\\php\\php5.5.12;C:\\ProgramData\\ComposerSetup\\bin;C:\\Windows\\system32\\config\\systemprofile\\AppData\\Local\\Microsoft\\WindowsApps'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.9 (Win32) PHP/5.5.12 Server at 127.0.0.1 Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.9 (Win32) PHP/5.5.12'
+    'SERVER_NAME' => '127.0.0.1'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'D:/wamp/www/'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'D:/wamp/www/'
+    'SERVER_ADMIN' => 'admin@example.com'
+    'SCRIPT_FILENAME' => 'D:/wamp/www/zpflow/web/index.php'
+    'REMOTE_PORT' => '54580'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => 'r=quaexam%2Fexport-quaexam'
+    'REQUEST_URI' => '/zpflow/web/index.php?r=quaexam%2Fexport-quaexam'
+    'SCRIPT_NAME' => '/zpflow/web/index.php'
+    'PHP_SELF' => '/zpflow/web/index.php'
+    'REQUEST_TIME_FLOAT' => 1508428340.668
+    'REQUEST_TIME' => 1508428340
+]
+2017-10-19 17:53:50 [127.0.0.1][-][-][error][yii\base\ErrorException:4] exception 'yii\base\ErrorException' with message 'syntax error, unexpected 'createReader' (T_STRING), expecting variable (T_VARIABLE) or '$'' in D:\wamp\www\zpflow\controllers\QuaexamController.php:163
+Stack trace:
+#0 D:\wamp\www\zpflow\vendor\yiisoft\yii2\base\Module.php(633): ::spl_autoload_call()
+#1 D:\wamp\www\zpflow\vendor\yiisoft\yii2\base\Module.php(633): ::class_exists()
+#2 D:\wamp\www\zpflow\vendor\yiisoft\yii2\base\Module.php(591): yii\base\Module->createControllerByID()
+#3 D:\wamp\www\zpflow\vendor\yiisoft\yii2\base\Module.php(517): yii\base\Module->createController()
+#4 D:\wamp\www\zpflow\vendor\yiisoft\yii2\web\Application.php(102): yii\base\Module->runAction()
+#5 D:\wamp\www\zpflow\vendor\yiisoft\yii2\base\Application.php(380): yii\web\Application->handleRequest()
+#6 D:\wamp\www\zpflow\web\index.php(12): yii\base\Application->run()
+#7 {main}
+2017-10-19 17:53:50 [127.0.0.1][-][-][info][application] $_GET = [
+    'r' => 'quaexam/list-info'
+]
+
+$_POST = [
+    'recID' => '1'
+    'type' => '1'
+    'search' => [
+        'perName' => ''
+        'perGender' => ''
+        'perBirth' => ''
+        'perReResult1' => ''
+    ]
+    'page' => '1'
+    'rows' => '20'
+    'sort' => 'perIndex'
+    'order' => 'ASC'
+]
+
+$_COOKIE = [
+    '_csrf' => 'e30f42b90e869ad965ab921a6f92d472ab932e12dfb63d3f7440f3d7fc1346f4a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"±³œÕH2a*€ïÄ0…$ÞßFÀ\\§Çy²B®;#\";}'
+    'PHPSESSID' => 'lmvikocor0mu016r1740k6l9h0'
+    'YPGWPHPSESSID' => '8tiglf6i70uab96p01mcohimi0'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => '127.0.0.1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:56.0) Gecko/20100101 Firefox/56.0'
+    'HTTP_ACCEPT' => 'application/json, text/javascript, */*; q=0.01'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'CONTENT_TYPE' => 'application/x-www-form-urlencoded; charset=UTF-8'
+    'HTTP_X_REQUESTED_WITH' => 'XMLHttpRequest'
+    'HTTP_REFERER' => 'http://127.0.0.1/zpflow/web/'
+    'CONTENT_LENGTH' => '145'
+    'HTTP_COOKIE' => '_csrf=e30f42b90e869ad965ab921a6f92d472ab932e12dfb63d3f7440f3d7fc1346f4a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22%B1%B3%9C%D5H2a%2A%80%EF%C40%85%24%DE%DF%0BF%C0%5C%0D%A7%90%06%C7y%B2B%04%AE%3B%23%22%3B%7D; PHPSESSID=lmvikocor0mu016r1740k6l9h0; YPGWPHPSESSID=8tiglf6i70uab96p01mcohimi0'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'PATH' => 'C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;D:\\redis;D:\\wamp\\bin\\php\\php5.5.12;C:\\ProgramData\\ComposerSetup\\bin;C:\\Windows\\system32\\config\\systemprofile\\AppData\\Local\\Microsoft\\WindowsApps'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.9 (Win32) PHP/5.5.12 Server at 127.0.0.1 Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.9 (Win32) PHP/5.5.12'
+    'SERVER_NAME' => '127.0.0.1'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'D:/wamp/www/'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'D:/wamp/www/'
+    'SERVER_ADMIN' => 'admin@example.com'
+    'SCRIPT_FILENAME' => 'D:/wamp/www/zpflow/web/index.php'
+    'REMOTE_PORT' => '54643'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => 'r=quaexam%2Flist-info'
+    'REQUEST_URI' => '/zpflow/web/index.php?r=quaexam%2Flist-info'
+    'SCRIPT_NAME' => '/zpflow/web/index.php'
+    'PHP_SELF' => '/zpflow/web/index.php'
+    'REQUEST_TIME_FLOAT' => 1508428430.113
+    'REQUEST_TIME' => 1508428430
+]
+2017-10-19 23:54:47 [127.0.0.1][1][lmvikocor0mu016r1740k6l9h0][error][yii\base\ErrorException:1] exception 'yii\base\ErrorException' with message 'Call to undefined method PHPExcel::createReader()' in D:\wamp\www\zpflow\controllers\QuaexamController.php:164
+Stack trace:
+#0 D:\wamp\www\zpflow\vendor\yiisoft\yii2\base\InlineAction.php(57): ::call_user_func_array:{D:\wamp\www\zpflow\vendor\yiisoft\yii2\base\InlineAction.php:57}()
+#1 D:\wamp\www\zpflow\vendor\yiisoft\yii2\base\Controller.php(156): yii\base\InlineAction->runWithParams()
+#2 D:\wamp\www\zpflow\vendor\yiisoft\yii2\base\Module.php(523): yii\base\Controller->runAction()
+#3 D:\wamp\www\zpflow\vendor\yiisoft\yii2\web\Application.php(102): yii\base\Module->runAction()
+#4 D:\wamp\www\zpflow\vendor\yiisoft\yii2\base\Application.php(380): yii\web\Application->handleRequest()
+#5 D:\wamp\www\zpflow\web\index.php(12): yii\base\Application->run()
+#6 {main}
+2017-10-19 23:54:47 [127.0.0.1][1][lmvikocor0mu016r1740k6l9h0][info][application] $_GET = [
+    'r' => 'quaexam/export-quaexam'
+]
+
+$_POST = [
+    'type' => '0'
+    'recID' => '1'
+    'condition' => '[\"AND\",{\"perStatus\":3}]'
+]
+
+$_COOKIE = [
+    '_csrf' => 'e30f42b90e869ad965ab921a6f92d472ab932e12dfb63d3f7440f3d7fc1346f4a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"±³œÕH2a*€ïÄ0…$ÞßFÀ\\§Çy²B®;#\";}'
+    'PHPSESSID' => 'lmvikocor0mu016r1740k6l9h0'
+    'YPGWPHPSESSID' => '8tiglf6i70uab96p01mcohimi0'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    'uid' => 1
+    'realName' => 'guanliyuan'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => '127.0.0.1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:56.0) Gecko/20100101 Firefox/56.0'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'CONTENT_TYPE' => 'application/x-www-form-urlencoded'
+    'CONTENT_LENGTH' => '68'
+    'HTTP_REFERER' => 'http://127.0.0.1/zpflow/web/'
+    'HTTP_COOKIE' => '_csrf=e30f42b90e869ad965ab921a6f92d472ab932e12dfb63d3f7440f3d7fc1346f4a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22%B1%B3%9C%D5H2a%2A%80%EF%C40%85%24%DE%DF%0BF%C0%5C%0D%A7%90%06%C7y%B2B%04%AE%3B%23%22%3B%7D; PHPSESSID=lmvikocor0mu016r1740k6l9h0; YPGWPHPSESSID=8tiglf6i70uab96p01mcohimi0'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'PATH' => 'C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;D:\\redis;D:\\wamp\\bin\\php\\php5.5.12;C:\\ProgramData\\ComposerSetup\\bin;C:\\Windows\\system32\\config\\systemprofile\\AppData\\Local\\Microsoft\\WindowsApps'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.9 (Win32) PHP/5.5.12 Server at 127.0.0.1 Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.9 (Win32) PHP/5.5.12'
+    'SERVER_NAME' => '127.0.0.1'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'D:/wamp/www/'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'D:/wamp/www/'
+    'SERVER_ADMIN' => 'admin@example.com'
+    'SCRIPT_FILENAME' => 'D:/wamp/www/zpflow/web/index.php'
+    'REMOTE_PORT' => '54672'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => 'r=quaexam%2Fexport-quaexam'
+    'REQUEST_URI' => '/zpflow/web/index.php?r=quaexam%2Fexport-quaexam'
+    'SCRIPT_NAME' => '/zpflow/web/index.php'
+    'PHP_SELF' => '/zpflow/web/index.php'
+    'REQUEST_TIME_FLOAT' => 1508428487.296
+    'REQUEST_TIME' => 1508428487
+]
+2017-10-19 23:55:21 [127.0.0.1][1][lmvikocor0mu016r1740k6l9h0][error][yii\base\ErrorException:1] exception 'yii\base\ErrorException' with message 'Call to undefined method PHPExcel::createReader()' in D:\wamp\www\zpflow\controllers\QuaexamController.php:164
+Stack trace:
+#0 D:\wamp\www\zpflow\vendor\yiisoft\yii2\base\InlineAction.php(57): ::call_user_func_array:{D:\wamp\www\zpflow\vendor\yiisoft\yii2\base\InlineAction.php:57}()
+#1 D:\wamp\www\zpflow\vendor\yiisoft\yii2\base\Controller.php(156): yii\base\InlineAction->runWithParams()
+#2 D:\wamp\www\zpflow\vendor\yiisoft\yii2\base\Module.php(523): yii\base\Controller->runAction()
+#3 D:\wamp\www\zpflow\vendor\yiisoft\yii2\web\Application.php(102): yii\base\Module->runAction()
+#4 D:\wamp\www\zpflow\vendor\yiisoft\yii2\base\Application.php(380): yii\web\Application->handleRequest()
+#5 D:\wamp\www\zpflow\web\index.php(12): yii\base\Application->run()
+#6 {main}
+2017-10-19 23:55:21 [127.0.0.1][1][lmvikocor0mu016r1740k6l9h0][info][application] $_GET = [
+    'r' => 'quaexam/export-quaexam'
+]
+
+$_POST = [
+    'type' => '0'
+    'recID' => '1'
+    'condition' => '[\"AND\",{\"perStatus\":3}]'
+]
+
+$_COOKIE = [
+    '_csrf' => 'e30f42b90e869ad965ab921a6f92d472ab932e12dfb63d3f7440f3d7fc1346f4a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"±³œÕH2a*€ïÄ0…$ÞßFÀ\\§Çy²B®;#\";}'
+    'PHPSESSID' => 'lmvikocor0mu016r1740k6l9h0'
+    'YPGWPHPSESSID' => '8tiglf6i70uab96p01mcohimi0'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    'uid' => 1
+    'realName' => 'guanliyuan'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => '127.0.0.1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:56.0) Gecko/20100101 Firefox/56.0'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'CONTENT_TYPE' => 'application/x-www-form-urlencoded'
+    'CONTENT_LENGTH' => '68'
+    'HTTP_REFERER' => 'http://127.0.0.1/zpflow/web/'
+    'HTTP_COOKIE' => '_csrf=e30f42b90e869ad965ab921a6f92d472ab932e12dfb63d3f7440f3d7fc1346f4a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22%B1%B3%9C%D5H2a%2A%80%EF%C40%85%24%DE%DF%0BF%C0%5C%0D%A7%90%06%C7y%B2B%04%AE%3B%23%22%3B%7D; PHPSESSID=lmvikocor0mu016r1740k6l9h0; YPGWPHPSESSID=8tiglf6i70uab96p01mcohimi0'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'PATH' => 'C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;D:\\redis;D:\\wamp\\bin\\php\\php5.5.12;C:\\ProgramData\\ComposerSetup\\bin;C:\\Windows\\system32\\config\\systemprofile\\AppData\\Local\\Microsoft\\WindowsApps'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.9 (Win32) PHP/5.5.12 Server at 127.0.0.1 Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.9 (Win32) PHP/5.5.12'
+    'SERVER_NAME' => '127.0.0.1'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'D:/wamp/www/'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'D:/wamp/www/'
+    'SERVER_ADMIN' => 'admin@example.com'
+    'SCRIPT_FILENAME' => 'D:/wamp/www/zpflow/web/index.php'
+    'REMOTE_PORT' => '54701'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => 'r=quaexam%2Fexport-quaexam'
+    'REQUEST_URI' => '/zpflow/web/index.php?r=quaexam%2Fexport-quaexam'
+    'SCRIPT_NAME' => '/zpflow/web/index.php'
+    'PHP_SELF' => '/zpflow/web/index.php'
+    'REQUEST_TIME_FLOAT' => 1508428521.749
+    'REQUEST_TIME' => 1508428521
+]
+2017-10-20 00:01:52 [127.0.0.1][1][lmvikocor0mu016r1740k6l9h0][error][yii\base\ErrorException:1] exception 'yii\base\ErrorException' with message 'Class 'app\controllers\PHPExcel_IOFactory' not found' in D:\wamp\www\zpflow\controllers\QuaexamController.php:167
+Stack trace:
+#0 D:\wamp\www\zpflow\vendor\yiisoft\yii2\base\InlineAction.php(57): ::call_user_func_array:{D:\wamp\www\zpflow\vendor\yiisoft\yii2\base\InlineAction.php:57}()
+#1 D:\wamp\www\zpflow\vendor\yiisoft\yii2\base\Controller.php(156): yii\base\InlineAction->runWithParams()
+#2 D:\wamp\www\zpflow\vendor\yiisoft\yii2\base\Module.php(523): yii\base\Controller->runAction()
+#3 D:\wamp\www\zpflow\vendor\yiisoft\yii2\web\Application.php(102): yii\base\Module->runAction()
+#4 D:\wamp\www\zpflow\vendor\yiisoft\yii2\base\Application.php(380): yii\web\Application->handleRequest()
+#5 D:\wamp\www\zpflow\web\index.php(12): yii\base\Application->run()
+#6 {main}
+2017-10-20 00:01:52 [127.0.0.1][1][lmvikocor0mu016r1740k6l9h0][info][application] $_GET = [
+    'r' => 'quaexam/export-quaexam'
+]
+
+$_POST = [
+    'type' => '0'
+    'recID' => '1'
+    'condition' => '[\"AND\",{\"perStatus\":2}]'
+]
+
+$_COOKIE = [
+    '_csrf' => 'e30f42b90e869ad965ab921a6f92d472ab932e12dfb63d3f7440f3d7fc1346f4a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"±³œÕH2a*€ïÄ0…$ÞßFÀ\\§Çy²B®;#\";}'
+    'PHPSESSID' => 'lmvikocor0mu016r1740k6l9h0'
+    'YPGWPHPSESSID' => '8tiglf6i70uab96p01mcohimi0'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    'uid' => 1
+    'realName' => 'guanliyuan'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => '127.0.0.1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:56.0) Gecko/20100101 Firefox/56.0'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'CONTENT_TYPE' => 'application/x-www-form-urlencoded'
+    'CONTENT_LENGTH' => '68'
+    'HTTP_REFERER' => 'http://127.0.0.1/zpflow/web/'
+    'HTTP_COOKIE' => '_csrf=e30f42b90e869ad965ab921a6f92d472ab932e12dfb63d3f7440f3d7fc1346f4a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22%B1%B3%9C%D5H2a%2A%80%EF%C40%85%24%DE%DF%0BF%C0%5C%0D%A7%90%06%C7y%B2B%04%AE%3B%23%22%3B%7D; PHPSESSID=lmvikocor0mu016r1740k6l9h0; YPGWPHPSESSID=8tiglf6i70uab96p01mcohimi0'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'PATH' => 'C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;D:\\redis;D:\\wamp\\bin\\php\\php5.5.12;C:\\ProgramData\\ComposerSetup\\bin;C:\\Windows\\system32\\config\\systemprofile\\AppData\\Local\\Microsoft\\WindowsApps'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.9 (Win32) PHP/5.5.12 Server at 127.0.0.1 Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.9 (Win32) PHP/5.5.12'
+    'SERVER_NAME' => '127.0.0.1'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'D:/wamp/www/'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'D:/wamp/www/'
+    'SERVER_ADMIN' => 'admin@example.com'
+    'SCRIPT_FILENAME' => 'D:/wamp/www/zpflow/web/index.php'
+    'REMOTE_PORT' => '55172'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => 'r=quaexam%2Fexport-quaexam'
+    'REQUEST_URI' => '/zpflow/web/index.php?r=quaexam%2Fexport-quaexam'
+    'SCRIPT_NAME' => '/zpflow/web/index.php'
+    'PHP_SELF' => '/zpflow/web/index.php'
+    'REQUEST_TIME_FLOAT' => 1508428912.323
+    'REQUEST_TIME' => 1508428912
+]
+2017-10-19 18:03:34 [127.0.0.1][1][lmvikocor0mu016r1740k6l9h0][error][yii\base\ErrorException:64] exception 'yii\base\ErrorException' with message 'app\controllers\QuaexamController::actionExportQuaexam(): Failed opening required '@app/libs/phpexcel/PHPExcel.php' (include_path='.;C:\php\pear')' in D:\wamp\www\zpflow\controllers\QuaexamController.php:143
+Stack trace:
+#0 D:\wamp\www\zpflow\vendor\yiisoft\yii2\base\InlineAction.php(57): ::call_user_func_array:{D:\wamp\www\zpflow\vendor\yiisoft\yii2\base\InlineAction.php:57}()
+#1 D:\wamp\www\zpflow\vendor\yiisoft\yii2\base\Controller.php(156): yii\base\InlineAction->runWithParams()
+#2 D:\wamp\www\zpflow\vendor\yiisoft\yii2\base\Module.php(523): yii\base\Controller->runAction()
+#3 D:\wamp\www\zpflow\vendor\yiisoft\yii2\web\Application.php(102): yii\base\Module->runAction()
+#4 D:\wamp\www\zpflow\vendor\yiisoft\yii2\base\Application.php(380): yii\web\Application->handleRequest()
+#5 D:\wamp\www\zpflow\web\index.php(12): yii\base\Application->run()
+#6 {main}
+2017-10-19 18:03:34 [127.0.0.1][1][lmvikocor0mu016r1740k6l9h0][info][application] $_GET = [
+    'r' => 'quaexam/export-quaexam'
+]
+
+$_POST = [
+    'type' => '0'
+    'recID' => '1'
+    'condition' => '[\"AND\",{\"perStatus\":3}]'
+]
+
+$_COOKIE = [
+    '_csrf' => 'e30f42b90e869ad965ab921a6f92d472ab932e12dfb63d3f7440f3d7fc1346f4a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"±³œÕH2a*€ïÄ0…$ÞßFÀ\\§Çy²B®;#\";}'
+    'PHPSESSID' => 'lmvikocor0mu016r1740k6l9h0'
+    'YPGWPHPSESSID' => '8tiglf6i70uab96p01mcohimi0'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    'uid' => 1
+    'realName' => 'guanliyuan'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => '127.0.0.1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:56.0) Gecko/20100101 Firefox/56.0'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'CONTENT_TYPE' => 'application/x-www-form-urlencoded'
+    'CONTENT_LENGTH' => '68'
+    'HTTP_REFERER' => 'http://127.0.0.1/zpflow/web/'
+    'HTTP_COOKIE' => '_csrf=e30f42b90e869ad965ab921a6f92d472ab932e12dfb63d3f7440f3d7fc1346f4a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22%B1%B3%9C%D5H2a%2A%80%EF%C40%85%24%DE%DF%0BF%C0%5C%0D%A7%90%06%C7y%B2B%04%AE%3B%23%22%3B%7D; PHPSESSID=lmvikocor0mu016r1740k6l9h0; YPGWPHPSESSID=8tiglf6i70uab96p01mcohimi0'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'PATH' => 'C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;D:\\redis;D:\\wamp\\bin\\php\\php5.5.12;C:\\ProgramData\\ComposerSetup\\bin;C:\\Windows\\system32\\config\\systemprofile\\AppData\\Local\\Microsoft\\WindowsApps'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.9 (Win32) PHP/5.5.12 Server at 127.0.0.1 Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.9 (Win32) PHP/5.5.12'
+    'SERVER_NAME' => '127.0.0.1'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'D:/wamp/www/'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'D:/wamp/www/'
+    'SERVER_ADMIN' => 'admin@example.com'
+    'SCRIPT_FILENAME' => 'D:/wamp/www/zpflow/web/index.php'
+    'REMOTE_PORT' => '55362'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => 'r=quaexam%2Fexport-quaexam'
+    'REQUEST_URI' => '/zpflow/web/index.php?r=quaexam%2Fexport-quaexam'
+    'SCRIPT_NAME' => '/zpflow/web/index.php'
+    'PHP_SELF' => '/zpflow/web/index.php'
+    'REQUEST_TIME_FLOAT' => 1508429014.332
+    'REQUEST_TIME' => 1508429014
+]
+2017-10-20 00:05:41 [127.0.0.1][1][lmvikocor0mu016r1740k6l9h0][error][PHPExcel_Reader_Exception] exception 'PHPExcel_Reader_Exception' with message 'Could not open ../web/templatefile/zigeshencha1.xls for reading! File does not exist, or it is not readable.' in D:\wamp\www\zpflow\libs\phpexcel\PHPExcel\Shared\OLERead.php:80
+Stack trace:
+#0 D:\wamp\www\zpflow\libs\phpexcel\PHPExcel\Reader\Excel5.php(1164): PHPExcel_Shared_OLERead->read('../web/template...')
+#1 D:\wamp\www\zpflow\libs\phpexcel\PHPExcel\Reader\Excel5.php(612): PHPExcel_Reader_Excel5->_loadOLE('../web/template...')
+#2 D:\wamp\www\zpflow\controllers\QuaexamController.php(167): PHPExcel_Reader_Excel5->load('../web/template...')
+#3 [internal function]: app\controllers\QuaexamController->actionExportQuaexam()
+#4 D:\wamp\www\zpflow\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#5 D:\wamp\www\zpflow\vendor\yiisoft\yii2\base\Controller.php(156): yii\base\InlineAction->runWithParams(Array)
+#6 D:\wamp\www\zpflow\vendor\yiisoft\yii2\base\Module.php(523): yii\base\Controller->runAction('export-quaexam', Array)
+#7 D:\wamp\www\zpflow\vendor\yiisoft\yii2\web\Application.php(102): yii\base\Module->runAction('quaexam/export-...', Array)
+#8 D:\wamp\www\zpflow\vendor\yiisoft\yii2\base\Application.php(380): yii\web\Application->handleRequest(Object(yii\web\Request))
+#9 D:\wamp\www\zpflow\web\index.php(12): yii\base\Application->run()
+#10 {main}
+2017-10-20 00:05:41 [127.0.0.1][1][lmvikocor0mu016r1740k6l9h0][info][application] $_GET = [
+    'r' => 'quaexam/export-quaexam'
+]
+
+$_POST = [
+    'type' => '0'
+    'recID' => '1'
+    'condition' => '[\"AND\",[\"not\",{\"perStatus\":0}]]'
+]
+
+$_COOKIE = [
+    '_csrf' => 'e30f42b90e869ad965ab921a6f92d472ab932e12dfb63d3f7440f3d7fc1346f4a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"±³œÕH2a*€ïÄ0…$ÞßFÀ\\§Çy²B®;#\";}'
+    'PHPSESSID' => 'lmvikocor0mu016r1740k6l9h0'
+    'YPGWPHPSESSID' => '8tiglf6i70uab96p01mcohimi0'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    'uid' => 1
+    'realName' => 'guanliyuan'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => '127.0.0.1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:56.0) Gecko/20100101 Firefox/56.0'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'CONTENT_TYPE' => 'application/x-www-form-urlencoded'
+    'CONTENT_LENGTH' => '86'
+    'HTTP_REFERER' => 'http://127.0.0.1/zpflow/web/'
+    'HTTP_COOKIE' => '_csrf=e30f42b90e869ad965ab921a6f92d472ab932e12dfb63d3f7440f3d7fc1346f4a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22%B1%B3%9C%D5H2a%2A%80%EF%C40%85%24%DE%DF%0BF%C0%5C%0D%A7%90%06%C7y%B2B%04%AE%3B%23%22%3B%7D; PHPSESSID=lmvikocor0mu016r1740k6l9h0; YPGWPHPSESSID=8tiglf6i70uab96p01mcohimi0'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'PATH' => 'C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;D:\\redis;D:\\wamp\\bin\\php\\php5.5.12;C:\\ProgramData\\ComposerSetup\\bin;C:\\Windows\\system32\\config\\systemprofile\\AppData\\Local\\Microsoft\\WindowsApps'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.9 (Win32) PHP/5.5.12 Server at 127.0.0.1 Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.9 (Win32) PHP/5.5.12'
+    'SERVER_NAME' => '127.0.0.1'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'D:/wamp/www/'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'D:/wamp/www/'
+    'SERVER_ADMIN' => 'admin@example.com'
+    'SCRIPT_FILENAME' => 'D:/wamp/www/zpflow/web/index.php'
+    'REMOTE_PORT' => '55416'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => 'r=quaexam%2Fexport-quaexam'
+    'REQUEST_URI' => '/zpflow/web/index.php?r=quaexam%2Fexport-quaexam'
+    'SCRIPT_NAME' => '/zpflow/web/index.php'
+    'PHP_SELF' => '/zpflow/web/index.php'
+    'REQUEST_TIME_FLOAT' => 1508429141.491
+    'REQUEST_TIME' => 1508429141
+]
+2017-10-20 00:09:42 [127.0.0.1][1][lmvikocor0mu016r1740k6l9h0][error][PHPExcel_Reader_Exception] exception 'PHPExcel_Reader_Exception' with message 'Could not open ../web/templatefile/zigeshencha1.xls for reading! File does not exist, or it is not readable.' in D:\wamp\www\zpflow\vendor\phpoffice\phpexcel\Classes\PHPExcel\Shared\OLERead.php:80
+Stack trace:
+#0 D:\wamp\www\zpflow\vendor\phpoffice\phpexcel\Classes\PHPExcel\Reader\Excel5.php(1165): PHPExcel_Shared_OLERead->read('../web/template...')
+#1 D:\wamp\www\zpflow\vendor\phpoffice\phpexcel\Classes\PHPExcel\Reader\Excel5.php(612): PHPExcel_Reader_Excel5->_loadOLE('../web/template...')
+#2 D:\wamp\www\zpflow\controllers\QuaexamController.php(164): PHPExcel_Reader_Excel5->load('../web/template...')
+#3 [internal function]: app\controllers\QuaexamController->actionExportQuaexam()
+#4 D:\wamp\www\zpflow\vendor\yiisoft\yii2\base\InlineAction.php(57): call_user_func_array(Array, Array)
+#5 D:\wamp\www\zpflow\vendor\yiisoft\yii2\base\Controller.php(156): yii\base\InlineAction->runWithParams(Array)
+#6 D:\wamp\www\zpflow\vendor\yiisoft\yii2\base\Module.php(523): yii\base\Controller->runAction('export-quaexam', Array)
+#7 D:\wamp\www\zpflow\vendor\yiisoft\yii2\web\Application.php(102): yii\base\Module->runAction('quaexam/export-...', Array)
+#8 D:\wamp\www\zpflow\vendor\yiisoft\yii2\base\Application.php(380): yii\web\Application->handleRequest(Object(yii\web\Request))
+#9 D:\wamp\www\zpflow\web\index.php(12): yii\base\Application->run()
+#10 {main}
+2017-10-20 00:09:41 [127.0.0.1][1][lmvikocor0mu016r1740k6l9h0][info][application] $_GET = [
+    'r' => 'quaexam/export-quaexam'
+]
+
+$_POST = [
+    'type' => '0'
+    'recID' => '1'
+    'condition' => '[\"AND\",[\"not\",{\"perStatus\":0}]]'
+]
+
+$_COOKIE = [
+    '_csrf' => 'e30f42b90e869ad965ab921a6f92d472ab932e12dfb63d3f7440f3d7fc1346f4a:2:{i:0;s:5:\"_csrf\";i:1;s:32:\"±³œÕH2a*€ïÄ0…$ÞßFÀ\\§Çy²B®;#\";}'
+    'PHPSESSID' => 'lmvikocor0mu016r1740k6l9h0'
+    'YPGWPHPSESSID' => '8tiglf6i70uab96p01mcohimi0'
+]
+
+$_SESSION = [
+    '__flash' => []
+    '__id' => 1
+    'uid' => 1
+    'realName' => 'guanliyuan'
+]
+
+$_SERVER = [
+    'HTTP_HOST' => '127.0.0.1'
+    'HTTP_USER_AGENT' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:56.0) Gecko/20100101 Firefox/56.0'
+    'HTTP_ACCEPT' => 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+    'HTTP_ACCEPT_LANGUAGE' => 'zh-CN,zh;q=0.8,en-US;q=0.5,en;q=0.3'
+    'HTTP_ACCEPT_ENCODING' => 'gzip, deflate'
+    'CONTENT_TYPE' => 'application/x-www-form-urlencoded'
+    'CONTENT_LENGTH' => '86'
+    'HTTP_REFERER' => 'http://127.0.0.1/zpflow/web/'
+    'HTTP_COOKIE' => '_csrf=e30f42b90e869ad965ab921a6f92d472ab932e12dfb63d3f7440f3d7fc1346f4a%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22%B1%B3%9C%D5H2a%2A%80%EF%C40%85%24%DE%DF%0BF%C0%5C%0D%A7%90%06%C7y%B2B%04%AE%3B%23%22%3B%7D; PHPSESSID=lmvikocor0mu016r1740k6l9h0; YPGWPHPSESSID=8tiglf6i70uab96p01mcohimi0'
+    'HTTP_CONNECTION' => 'keep-alive'
+    'HTTP_UPGRADE_INSECURE_REQUESTS' => '1'
+    'PATH' => 'C:\\Windows\\system32;C:\\Windows;C:\\Windows\\System32\\Wbem;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;D:\\redis;D:\\wamp\\bin\\php\\php5.5.12;C:\\ProgramData\\ComposerSetup\\bin;C:\\Windows\\system32\\config\\systemprofile\\AppData\\Local\\Microsoft\\WindowsApps'
+    'SystemRoot' => 'C:\\Windows'
+    'COMSPEC' => 'C:\\Windows\\system32\\cmd.exe'
+    'PATHEXT' => '.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC'
+    'WINDIR' => 'C:\\Windows'
+    'SERVER_SIGNATURE' => '<address>Apache/2.4.9 (Win32) PHP/5.5.12 Server at 127.0.0.1 Port 80</address>
+'
+    'SERVER_SOFTWARE' => 'Apache/2.4.9 (Win32) PHP/5.5.12'
+    'SERVER_NAME' => '127.0.0.1'
+    'SERVER_ADDR' => '127.0.0.1'
+    'SERVER_PORT' => '80'
+    'REMOTE_ADDR' => '127.0.0.1'
+    'DOCUMENT_ROOT' => 'D:/wamp/www/'
+    'REQUEST_SCHEME' => 'http'
+    'CONTEXT_PREFIX' => ''
+    'CONTEXT_DOCUMENT_ROOT' => 'D:/wamp/www/'
+    'SERVER_ADMIN' => 'admin@example.com'
+    'SCRIPT_FILENAME' => 'D:/wamp/www/zpflow/web/index.php'
+    'REMOTE_PORT' => '55515'
+    'GATEWAY_INTERFACE' => 'CGI/1.1'
+    'SERVER_PROTOCOL' => 'HTTP/1.1'
+    'REQUEST_METHOD' => 'POST'
+    'QUERY_STRING' => 'r=quaexam%2Fexport-quaexam'
+    'REQUEST_URI' => '/zpflow/web/index.php?r=quaexam%2Fexport-quaexam'
+    'SCRIPT_NAME' => '/zpflow/web/index.php'
+    'PHP_SELF' => '/zpflow/web/index.php'
+    'REQUEST_TIME_FLOAT' => 1508429381.68
+    'REQUEST_TIME' => 1508429381
+]
