@@ -67,10 +67,10 @@
 <hr class="layui-bg-blue" style="margin: 1px 0;">
 <div class="layui-tab layui-tab-brief" lay-filter="stepIndex_three_tab">
   	<ul class="layui-tab-title">
-	    <li class="layui-this" lay-id="1">待审核</li>
-	    <li lay-id="2">审核通过</li>
-	    <li lay-id="3">审核不通过</li>
-	    <li lay-id="-1">所有</li>
+	    <li class="layui-this" lay-id="1">待审核<span>(125)</span></li>
+	    <li lay-id="2">审核通过<span>(125)</span></li>
+	    <li lay-id="3">审核不通过<span>(125)</span></li>
+	    <li lay-id="-1">所有<span>(125)</span></li>
   	</ul>
   	<div class="layui-tab-content" style="padding: 0;"> 
 	    <div class="layui-tab-item layui-show">
