@@ -3,7 +3,7 @@
 	<span>
 	  	<select id="recID_id" name="recID_name" lay-verify="required" class="input1" onchange="selRecruitID(this)">
 		    <?php foreach($pcInfo as $pc){ ?>
-	        	<option code="<?php echo $pc['code']; ?>" value="<?php echo $pc['id']; ?>"><?php echo $pc['value']; ?></option>
+	        	<option recend="<?php echo $pc['recend']; ?>" code="<?php echo $pc['code']; ?>" value="<?php echo $pc['id']; ?>"><?php echo $pc['value']; ?></option>
 	        <?php } ?>
 	 	</select>
 	</span>
@@ -81,25 +81,51 @@
   </div>
 </div>
 
+<form id="stepIndex_three_exportForm" action="<?= yii\helpers\Url::to(['quaexam/export-quaexam']); ?>" method="post" style="display:none;">
+    <input type="text" name="type" />
+    <input type="text" name="recID" />
+    <input type="text" name="condition" />
+</form>
+
 <ul class="tabsMoreList" id="stepIndex_three_checklist" style="margin-left:0px;right:0px;bottom:53px;top:auto">
 	<li rel="stepIndex_three_checklist"><a href="javascript:;" onclick="stepIndex_three_check(2)" title="审核通过">审核通过</a></li>
 	<li rel="stepIndex_three_checklist"><a href="javascript:;" onclick="stepIndex_three_check(3)" title="审核不通过">审核不通过</a></li>
 </ul>
 
+<ul class="tabsMoreList" id="stepIndex_three_checkpub" style="margin-left:0px;right:0px;bottom:53px;top:auto">
+	<li rel="stepIndex_three_checkpub"><a href="javascript:;" onclick="stepIndex_three_pub(0)" title="公示通过人员">公示通过人员</a></li>
+	<li rel="stepIndex_three_checkpub"><a href="javascript:;" onclick="stepIndex_three_pub(1)" title="公示不通过人员">公示不通过人员</a></li>
+	<li rel="stepIndex_three_checkpub"><a href="javascript:;" onclick="stepIndex_three_pub(2)" title="全部公示">全部公示</a></li>
+	<li rel="stepIndex_three_checkpub"><a href="javascript:;" onclick="stepIndex_three_pub(3)" title="勾选公示">勾选公示</a></li>
+</ul> 
+
+<ul class="tabsMoreList" id="stepIndex_three_msgtip" style="margin-left:0px;right:0px;bottom:53px;top:auto">
+	<li rel="stepIndex_three_msgtip"><a href="javascript:;" onclick="stepIndex_three_msgtip(0)" title="通知通过人员">通知通过人员</a></li>
+	<li rel="stepIndex_three_msgtip"><a href="javascript:;" onclick="stepIndex_three_msgtip(1)" title="通知未通过人员">通知未通过人员</a></li>
+	<li rel="stepIndex_three_msgtip"><a href="javascript:;" onclick="stepIndex_three_pub(2)" title="通知已审核人员（不包括待审人员）">通知已已审核人员</a></li>
+	<li rel="stepIndex_three_msgtip"><a href="javascript:;" onclick="stepIndex_three_pub(3)" title="通知勾选人员">短信通知勾选人员</a></li>
+</ul>
+
+<ul class="tabsMoreList" id="stepIndex_three_export" style="margin-left:0px;right:0px;bottom:53px;top:auto">
+	<li rel="stepIndex_three_export"><a href="javascript:;" onclick="stepIndex_three_export(0)" title="导出全部信息">导出全部信息</a></li>
+	<li rel="stepIndex_three_export"><a href="javascript:;" onclick="stepIndex_three_export(1)" title="导出自定义信息">导出自定义信息</a></li>
+</ul>
 <script>
 var __stepIndex_three_recID__ = "";
 var __stepIndex_three_show_flag = "";
 var __stepIndex_three_tab = "1";
+var __stepIndex_three_recend = "";
 var __stepIndex_three_urls__ = {
 	'__list_url' : "<?= yii\helpers\Url::to(['quaexam/list-info']); ?>",
-	'__recpub_url' : "<?= yii\helpers\Url::to(['quaexam/pub-quaexam']); ?>",
+	'__qamstatus_url' : "<?= yii\helpers\Url::to(['quaexam/status-quaexam']); ?>",
 	'__recdel_url' : "<?= yii\helpers\Url::to(['quaexam/del-quaexam']); ?>",
 };
 
 $(function(){
 	__stepIndex_three_recID__ = $("#recID_id").val();
 	__stepIndex_three_show_flag = $("#recID_id option:selected").attr("code");
-	init_stepIndex_three_grid(__stepIndex_three_urls__,__stepIndex_three_recID__,__stepIndex_three_tab,__stepIndex_three_show_flag);
+	__stepIndex_three_recend = $("#recID_id option:selected").attr("recend");
+	init_stepIndex_three_grid(__stepIndex_three_urls__,__stepIndex_three_recID__,__stepIndex_three_tab,__stepIndex_three_show_flag,__stepIndex_three_recend);
 	layui.use(['element','layer', 'laydate','form'], function(){
 		var element = layui.element,form = layui.form,laydate = layui.laydate;
 		laydate.render({
@@ -115,7 +141,7 @@ $(function(){
 				$("#stepIndex_three_search #perReResult1").val("");
 		  	}
 		  	__stepIndex_three_tab = this.getAttribute('lay-id');
-			init_stepIndex_three_grid(__stepIndex_three_urls__,__stepIndex_three_recID__,__stepIndex_three_tab,__stepIndex_three_show_flag);
+			init_stepIndex_three_grid(__stepIndex_three_urls__,__stepIndex_three_recID__,__stepIndex_three_tab,__stepIndex_three_show_flag,__stepIndex_three_recend);
 	  	});
 	});
 	
@@ -124,11 +150,12 @@ $(function(){
 function selRecruitID(th){
 	__stepIndex_three_recID__ = $(th).val();
 	__stepIndex_three_show_flag = $("#recID_id option:selected").attr("code");
-	init_stepIndex_three_grid(__stepIndex_three_urls__,__stepIndex_three_recID__,__stepIndex_three_tab,__stepIndex_three_show_flag);
+	__stepIndex_three_recend = $("#recID_id option:selected").attr("recend");
+	init_stepIndex_three_grid(__stepIndex_three_urls__,__stepIndex_three_recID__,__stepIndex_three_tab,__stepIndex_three_show_flag,__stepIndex_three_recend);
 }
 
 function stepIndex_three_search(){
-	init_stepIndex_three_grid(__stepIndex_three_urls__,__stepIndex_three_recID__,__stepIndex_three_tab,__stepIndex_three_show_flag);
+	init_stepIndex_three_grid(__stepIndex_three_urls__,__stepIndex_three_recID__,__stepIndex_three_tab,__stepIndex_three_show_flag,__stepIndex_three_recend);
 }
 
 function stepIndex_three_clear(){
@@ -136,6 +163,6 @@ function stepIndex_three_clear(){
 	$("#stepIndex_three_search #perGender").val("");
 	$("#stepIndex_three_search #perBirth").val("");
 	$("#stepIndex_three_search #perReResult1").val("");
-	init_stepIndex_three_grid(__stepIndex_three_urls__,__stepIndex_three_recID__,__stepIndex_three_tab,__stepIndex_three_show_flag);
+	init_stepIndex_three_grid(__stepIndex_three_urls__,__stepIndex_three_recID__,__stepIndex_three_tab,__stepIndex_three_show_flag,__stepIndex_three_recend);
 }
 </script>

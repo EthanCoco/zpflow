@@ -27,7 +27,6 @@ class SiteController extends Controller
 		if(!Yii::$app->user->isGuest){
 			return ['result'=>1];
 		}
-		
 		$model = new User();
 		$model->setScenario(User::SCENARIO_LOGIN);
 		if($model->load($request->post()) && $model->validate()){

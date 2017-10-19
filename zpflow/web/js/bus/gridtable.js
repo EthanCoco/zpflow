@@ -367,8 +367,11 @@ var __rczp_zgsc_stepIndex_three_urls__ = {};
 var __rczp_zgsc_stepIndex_three_tab__ = "1";
 var __rczp_zgsc_stepIndex_three_show_flag__ = "";
 var __rczp_zgsc_stepIndex_three_recID__ = "";
+var __rczp_zgsc_stepIndex_three_recend__ = "";
+var __rezp_zgsc_stepIndex_three_total = 0;
+var __rezp_zgsc_stepIndex_three_condition = {};
 
-function init_stepIndex_three_grid(stepIndex_three_urls,stepIndex_three_recID,stepIndex_three_tab,stepIndex_three_show_flag){
+function init_stepIndex_three_grid(stepIndex_three_urls,stepIndex_three_recID,stepIndex_three_tab,stepIndex_three_show_flag,stepIndex_three_recend){
 	var __stepIndex_three_search = {
 		'perName' : "",
 		'perGender' : "",
@@ -386,6 +389,7 @@ function init_stepIndex_three_grid(stepIndex_three_urls,stepIndex_three_recID,st
 	__rczp_zgsc_stepIndex_three_recID__ = stepIndex_three_recID;
 	__rczp_zgsc_stepIndex_three_tab__ = stepIndex_three_tab;
 	__rczp_zgsc_stepIndex_three_show_flag__ = stepIndex_three_show_flag;
+	__rczp_zgsc_stepIndex_three_recend__ = stepIndex_three_recend;
 	
 	$('#stepIndex_three').datagrid({
         width:'auto',
@@ -434,7 +438,11 @@ function init_stepIndex_three_grid(stepIndex_three_urls,stepIndex_three_recID,st
 	        	}
 	        },
 	        {field:'perReason',title:'审查不通过原因',width:'10%',align:'center',rowspan:2},
-	        {field:'perCheckTime',title:'审查时间',width:'130',align:'center',rowspan:2,sortable:true},
+	        {field:'perCheckTime',title:'审查时间',width:'130',align:'center',rowspan:2,sortable:true,
+	        	formatter:function(value,row,index){
+	        		return value == "0000-00-00 00:00:00" ? "" : value;
+	        	}
+	        },
 	        {field:'perZGSC',title:'考试反馈结果',width:'300',colspan:3,align:'center'}
 	        ],[
 		    	{field:'perReResult1',title:'反馈结果',width:'10%',align:'center',sortable:true,
@@ -443,13 +451,19 @@ function init_stepIndex_three_grid(stepIndex_three_urls,stepIndex_three_recID,st
 		        	}
 		    	},
 		    	{field:'perReGiveup1',title:'放弃原因',width:'10%',align:'center'},
-		    	{field:'perReTime1',title:'反馈时间',width:'130',align:'center',sortable:true}
+		    	{field:'perReTime1',title:'反馈时间',width:'130',align:'center',sortable:true,
+		    		formatter:function(value,row,index){
+		        		return value == "0000-00-00 00:00:00" ? "" : value;
+		        	}
+		    	}
 	    ]],
         onDblClickRow: function(index,row){
         	
 	    },
         onLoadSuccess: function(data){
         	var tabs = data.tabInfo;
+        	__rezp_zgsc_stepIndex_three_total = data.total;
+        	__rezp_zgsc_stepIndex_three_condition = data.exportInfo.condition;
         	$("#stepIndex_three_tab #stepIndex_three_tabli1").html("");
         	$("#stepIndex_three_tab #stepIndex_three_tabli2").html("");
         	$("#stepIndex_three_tab #stepIndex_three_tabli3").html("");
@@ -471,26 +485,191 @@ function init_stepIndex_three_grid(stepIndex_three_urls,stepIndex_three_recID,st
 	    }
     });
     
+    var nowData = formatDateTime();
     if(stepIndex_three_show_flag == "1"){
+    	if(nowData > __rczp_zgsc_stepIndex_three_recend__){
+    		$("#stepIndex_three").datagrid('getPager').pagination({buttons:[
+				{
+				   	iconCls:'icon-ok',
+				   	text:'审核',
+				   	handler:function(){
+						manager_showMore(this,'stepIndex_three_checklist');
+				   	}
+			   	},'-',{
+				  	iconCls:'icon-pub',
+				   	text:'公示',
+				   	handler:function(){
+				   		manager_showMore(this,'stepIndex_three_checkpub');
+				   	}
+			   	},'-',{
+				  	iconCls:'icon-export',
+				   	text:'导出Excel',
+				   	handler:function(){
+				   		manager_showMore(this,'stepIndex_three_export');
+				   	}
+			   	},'-',{
+				  	iconCls:'icon-print',
+				   	text:'打印报名表',
+				   	handler:function(){
+				   		
+				   	}
+			   	},'-',{
+				  	iconCls:'icon-tip',
+				   	text:'短信提醒',
+				   	handler:function(){
+				   		manager_showMore(this,'stepIndex_three_msgtip');
+				   	}
+			   	},'-',{
+				  	iconCls:'icon-edit',
+				   	text:'额外通知设置',
+				   	handler:function(){
+				   		
+				   	}
+			   	}]
+			});
+    	}else{
+    		$("#stepIndex_three").datagrid('getPager').pagination({buttons:[
+				{
+				   	iconCls:'icon-undo',
+				   	text:'报名撤回',
+				   	handler:function(){
+						stepIndex_three_check(0);
+				   	}
+			   	},'-',{
+				   	iconCls:'icon-ok',
+				   	text:'审核',
+				   	handler:function(){
+						manager_showMore(this,'stepIndex_three_checklist');
+				   	}
+			   	},'-',{
+				  	iconCls:'icon-export',
+				   	text:'导出Excel',
+				   	handler:function(){
+				   		manager_showMore(this,'stepIndex_three_export');
+				   	}
+			   	},'-',{
+				  	iconCls:'icon-print',
+				   	text:'打印报名表',
+				   	handler:function(){
+				   		
+				   	}
+			   	},'-',{
+				  	iconCls:'icon-tip',
+				   	text:'短信提醒',
+				   	handler:function(){
+				   		manager_showMore(this,'stepIndex_three_msgtip');
+				   	}
+			   	},'-',{
+				  	iconCls:'icon-edit',
+				   	text:'额外通知设置',
+				   	handler:function(){
+				   		
+				   	}
+			   	}]
+			});
+    	}
+    }else{
     	$("#stepIndex_three").datagrid('getPager').pagination({buttons:[
 			{
-			   	iconCls:'icon-ok',
-			   	text:'审核',
+			  	iconCls:'icon-export',
+			   	text:'导出Excel',
 			   	handler:function(){
-					manager_showMore(this,'stepIndex_three_checklist');
+			   		manager_showMore(this,'stepIndex_three_export');
 			   	}
 		   	},'-',{
-			  	iconCls:'icon-remove',
-			   	text:'删除',
+			  	iconCls:'icon-print',
+			   	text:'打印报名表',
 			   	handler:function(){
+			   		
 			   	}
 		   	}]
 		});
-    }else{
-    	
     }
 }
 
 function stepIndex_three_check(perStatus){
-	alert(perStatus);
+	var msg = "";
+	if(perStatus == "0"){
+		msg = "撤回报名";
+	}else if(perStatus == "2"){
+		msg = "审核通过";
+	}else if(perStatus == "3"){
+		msg = "审核不通过";
+	}
+	layui.use('layer', function(){
+	 	var layer = layui.layer;
+	 	var rows = $("#stepIndex_three").datagrid('getSelections');
+		var len = rows.length;
+		if(len == 0){
+			layer.alert("请勾选要"+msg+"的数据！");
+			return;
+		}
+		var flag = 0;
+		var perIDs = [];
+		for(var i = 0; i < len; i++){
+			if(rows[i]['perPub'] == "1"){
+				flag = 1;
+				break;
+			}
+			perIDs.push(rows[i]['perID']);
+		}
+		
+		if(!flag){
+			if(perStatus == "0" || perStatus == "2"){
+				layer.confirm('您确定要'+msg+'勾选的【'+len+'】条数据么', function(index){
+				  	$.post(__rczp_zgsc_stepIndex_three_urls__.__qamstatus_url,{'perIDs':perIDs,'recID':__rczp_zgsc_stepIndex_three_recID__,'perStatus':perStatus},function(json){
+						if(json.result){
+							layer.msg(json.msg);
+							init_stepIndex_three_grid(__rczp_zgsc_stepIndex_three_urls__,__rczp_zgsc_stepIndex_three_recID__,__rczp_zgsc_stepIndex_three_tab__,__rczp_zgsc_stepIndex_three_show_flag__,__rczp_zgsc_stepIndex_three_recend__);
+							layer.close(index);
+						}else{
+							layer.alert(json.msg);
+						}
+					},'json');
+				}); 
+			}else{
+				
+				layer.confirm('您确定要'+msg+'勾选的【'+len+'】条数据么', function(index){
+					layer.prompt({
+					  	formType: 2,
+					  	value: '',
+					  	title: '审核不通过原因',
+					  	area: ['300px', '150px']
+					}, function(value, index, elem){
+					  	$.post(__rczp_zgsc_stepIndex_three_urls__.__qamstatus_url,{'perIDs':perIDs,'recID':__rczp_zgsc_stepIndex_three_recID__,'perStatus':perStatus,'perReason':value},function(json){
+							if(json.result){
+								layer.msg(json.msg);
+								init_stepIndex_three_grid(__rczp_zgsc_stepIndex_three_urls__,__rczp_zgsc_stepIndex_three_recID__,__rczp_zgsc_stepIndex_three_tab__,__rczp_zgsc_stepIndex_three_show_flag__,__rczp_zgsc_stepIndex_three_recend__);
+								layer.closeAll();
+							}else{
+								layer.alert(json.msg);
+							}
+						},'json');
+					});
+				}); 
+				
+			}
+		}else{
+			layer.alert("勾选的人员中存在已经公示过结果的人员，不允许操作！");
+			return;
+		}
+	});
+}
+
+function stepIndex_three_export(type){
+	layui.use('layer', function(){
+	 	var layer = layui.layer;
+	 	
+	 	if(__rezp_zgsc_stepIndex_three_total == 0){
+			layer.alert('当前列表没有任何数据，不需要导出！');
+			return;
+		}
+//	 	var index = layer.load(0, {time: 1000*1000}); 
+	 	//layer.close(index); 
+	 	
+	 	$("#stepIndex_three_exportForm").find("input[name='condition']").val(JSON.stringify(__rezp_zgsc_stepIndex_three_condition));
+	 	$("#stepIndex_three_exportForm").find("input[name='type']").val(type);
+	 	$("#stepIndex_three_exportForm").find("input[name='recID']").val(__rczp_zgsc_stepIndex_three_recID__);
+		$("#stepIndex_three_exportForm").submit();
+	});
 }

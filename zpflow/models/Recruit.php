@@ -120,7 +120,7 @@ class Recruit extends \yii\db\ActiveRecord
 	}
 	
 	public static function getOverRecBatch(){
-		$infos = self::find()->select(['recID','recYear','recBatch','recDefault'])
+		$infos = self::find()->select(['recID','recYear','recBatch','recDefault','recEnd'])
 							->where(['!=', 'recDefault', 0])
 							->orderby('recDefault asc,recYear desc,recBatch desc')
 							->asArray()
@@ -133,6 +133,7 @@ class Recruit extends \yii\db\ActiveRecord
 				'id'		=>	$info['recID'],
 				'code'		=>	$info['recDefault'] == 1 ? 1 : 0,
 				'value'		=>	$info['recYear']."年".$codeName['recBatch'].($info['recDefault'] == '2' ? '【已结束】' : '【进行中】'),
+				'recend'	=>	$info['recEnd'],
 			];
 		}
 		return $jsonData;
