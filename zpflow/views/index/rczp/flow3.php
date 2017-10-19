@@ -81,6 +81,11 @@
   </div>
 </div>
 
+<ul class="tabsMoreList" id="stepIndex_three_checklist" style="margin-left:0px;right:0px;bottom:53px;top:auto">
+	<li rel="stepIndex_three_checklist"><a href="javascript:;" onclick="stepIndex_three_check(2)" title="审核通过">审核通过</a></li>
+	<li rel="stepIndex_three_checklist"><a href="javascript:;" onclick="stepIndex_three_check(3)" title="审核不通过">审核不通过</a></li>
+</ul>
+
 <script>
 var __stepIndex_three_recID__ = "";
 var __stepIndex_three_show_flag = "";
