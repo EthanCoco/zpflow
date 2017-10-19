@@ -224,3 +224,17 @@ img {
 .layui-tab-title li{
 	font-size: 12px;
 }
+
+/*弹出层样式*/
+.tabsMoreList{background:url(../images/tabs/tabmorebottom.png);}
+.tabsMoreList li{ background:url(../images/tabs/tabmoremid.png);}
+.tabsMoreList li:first-child{background:url(../images/tabs/tabmoretop.png);}
+.tabsMoreList li a:hover,.tabsMoreList li.selected a{background:url(../images/tabs/tabmorecur.jpg);}
+
+.tabsMoreList{display:none;position: absolute;overflow:hidden; width:126px; position:absolute; z-index:1003;padding-bottom:10px;background-repeat: no-repeat;background-position: bottom;text-align: left;}
+.tabsMoreList li { display:block; overflow:hidden; height:25px; line-height:25px;background-repeat: repeat-y;}
+.tabsMoreList li:first-child{background-repeat: no-repeat;padding-top: 10px;}
+.tabsMoreList li img{ position: relative;top:2px;padding-right:12px}
+.tabsMoreList li a { display:block; width:94px; height:25px; padding:0 12px; line-height:25px; margin: 0px auto;overflow:hidden;white-space:nowrap; text-overflow:ellipsis;}
+.tabsMoreList li a:hover {text-decoration:none;background-repeat: repeat-x;}
+.tabsMoreList li.selected a { font-weight:bold;}
