@@ -94,25 +94,26 @@ $this->title = '添加招聘年度';
 <?php $this->endBody() ?>
 <script>
 var __flow1_repair_flag__ = "<?php echo $flag; ?>";
+
 $(function(){
-	if(__flow1_repair_flag__ == "mod"){
-		var recID = "<?php echo $recID; ?>";
-		$.post("<?= Url::to(['recruit/get-recruit']) ?>",{'recID':recID},function(json){
-//			alert(JSON.stringify(json));
-			$("#recID").val(json.recID);
-			$("#recYear").val(json.recYear);
-			$("#recBatch").val(json.recBatch)
-			$("#recStart").val(json.recStart);
-			$("#recEnd").val(json.recEnd);
-			$("#recViewPlace").val(json.recViewPlace);
-			$("#recHealthPlace").val(json.recHealthPlace);
-		},'json');
-	}
-	
 	layui.use(['form','layer', 'laydate'], function(){
 	 	var form = layui.form,
 	 		layer = layui.layer,
 	 		laydate = layui.laydate;
+	 	if(__flow1_repair_flag__ == "mod"){
+			var recID = "<?php echo $recID; ?>";
+			$.post("<?= Url::to(['recruit/get-recruit']) ?>",{'recID':recID},function(json){
+				$("#recID").val(json.recID);
+				$("#recYear").val(json.recYear);
+				$("#recBatch").val(json.recBatch);
+				$("#recBatch").next().find("dd[lay-value='"+json.recBatch+"']").addClass('layui-this');	
+				form.render('select');		
+				$("#recStart").val(json.recStart);
+				$("#recEnd").val(json.recEnd);
+				$("#recViewPlace").val(json.recViewPlace);
+				$("#recHealthPlace").val(json.recHealthPlace);
+			},'json');
+		}	
 	  	form.verify({
 		    recYear: function(value){
 		    	var recStart = $("#recStart").val();
