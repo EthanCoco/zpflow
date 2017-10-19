@@ -115,4 +115,11 @@ class AnnounceController extends BaseController{
 		$info = Announce::findOne($ancID);
 		return $info;
 	}
+	
+	public function actionViewAnnounce(){
+		$request = Yii::$app->request;
+		$ancID = $request->get('ancID','');
+		$info = Announce::findOne($ancID);
+		return $this->renderPartial('flow2_view',['ancID'=>$ancID,'info'=>$info]);
+	}
 }
