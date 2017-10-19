@@ -67,6 +67,18 @@ class QuaexamController extends BaseController{
 						->all();
 						
 		$count = $query	->from($tableName)->where($condtion)->count();
-		return ['rows'=>$infos,'total'=>$count];
+		
+		$tab1 = (new yii\db\Query())->from($tableName)->where(['perStatus'=>1])->count();
+		$tab2 = (new yii\db\Query())->from($tableName)->where(['perStatus'=>2])->count();
+		$tab3 = (new yii\db\Query())->from($tableName)->where(['perStatus'=>3])->count();
+		$tab4 = intval($tab1) + intval($tab2) + intval($tab3);
+		$tabJson = [
+			'tab1'	=> intval($tab1),
+			'tab2'	=> intval($tab2),
+			'tab3'	=> intval($tab3),
+			'tab4'	=> $tab4,
+		];
+		
+		return ['rows'=>$infos,'total'=>$count,'tabInfo'=>$tabJson,'exportInfo'=>['condition'=>$condtion,'orders'=>$orderInfo]];
 	}
 }
