@@ -450,7 +450,7 @@ function init_stepIndex_three_grid(stepIndex_three_urls,stepIndex_three_recID,st
 	    },
         onLoadSuccess: function(data){
 			$('#stepIndex_three').datagrid('resize',{
-	    		height: $(window).height()-124-25-60-30
+	    		height: $(window).height()-124-25-60-30-5
 	    	});
 	    }
     });
