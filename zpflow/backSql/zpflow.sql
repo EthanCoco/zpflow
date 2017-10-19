@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : 192.168.1.10
-Source Server Version : 50617
+Source Server         : localhostphpstudy
+Source Server Version : 50553
 Source Host           : localhost:3306
 Source Database       : zpflow
 
 Target Server Type    : MYSQL
-Target Server Version : 50617
+Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2017-10-19 00:48:13
+Date: 2017-10-19 14:02:49
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -29,12 +29,14 @@ CREATE TABLE `announce` (
   `ancType` char(1) DEFAULT NULL COMMENT '公告类别（A=招聘简介，B=公司简介）',
   `ancStatus` int(1) NOT NULL DEFAULT '0' COMMENT '发布状态（0=未发布，1=已发布）',
   PRIMARY KEY (`ancID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of announce
 -- ----------------------------
-INSERT INTO `announce` VALUES ('1', '1', '人生回头看，走好前方路', '<p>人生需要沉淀，宁静才能致远；<a href=\"http://www.duwenzhang.com/wenzhang/renshengzheli/\">人生</a>需要反思，常回头看看，才能在品味<a href=\"http://www.duwenzhang.com/huati/deshi/index1.html\">得失</a>和甘苦中升华；向前看是<a href=\"http://www.duwenzhang.com/huati/mengxiang/index1.html\">梦想</a>和<a href=\"http://www.duwenzhang.com/huati/mubiao/index1.html\">目标</a>；向后看是检验和修正。\n</p><p><a href=\"http://www.duwenzhang.com/wenzhang/renshengzheli/ganwu/20140704/296123.html\"><img alt=\"人生回头看，走好前方路\" src=\"http://www.duwenzhang.com/upimg/140704/1_161130.jpg\" width=\"274\" height=\"183\" border=\"0\" align=\"right\"></a>　　有多少事，如果当初回头看看，就会做得更好；有多少抉择，如果能回头一思，可以免去多少错误和<a href=\"http://www.duwenzhang.com/huati/yihan/index1.html\">遗憾</a>。回头，其实身后也写着前方的路。</p>\n<p>　　不艾，不怨，心坦然；<a href=\"http://www.duwenzhang.com/wenzhang/shenghuosuibi/\">生活</a>，有苦乐；人生，有起落。学会挥袖从容，暖笑无殇；<a href=\"http://www.duwenzhang.com/huati/kuaile/index1.html\">快乐</a>，不是<a href=\"http://www.duwenzhang.com/huati/yongyou/index1.html\">拥有</a>的多，而是计较的少；<a href=\"http://www.duwenzhang.com/huati/leguan/index1.html\">乐观</a>，不是没<a href=\"http://www.duwenzhang.com/huati/fannao/index1.html\">烦恼</a>，而是懂得<a href=\"http://www.duwenzhang.com/huati/zhizu/index1.html\">知足</a>……</p>\n<p>　　这个时代的规律就是没有绝对公平竞争，接受这一点，然后武装自己投身到轰轰烈烈的不公平竞争中去。顺应规律而行，也是达尔文主义。</p>\n<p>　　1。　当你被<a href=\"http://www.duwenzhang.com/huati/shibai/index1.html\">失败</a>拥抱时，<a href=\"http://www.duwenzhang.com/huati/chenggong/index1.html\">成功</a>可能正在一边等着吻你。</p>\n<p>　　2。　有能力的让他做；没能力的教他做；做不来的管理他。</p>\n<p>　　3。　钱能买到的东西，最后都不值钱。</p>\n<p>　　4。　对什么都看不顺眼的人，疲劳的一定不仅仅是眼睛。</p>\n<p>　　5。　礼貌像只气垫：里面可能什么也没有，但是能奇妙的减少颠簸。</p>\n<p>　　我们能够做的全部事情，就是<a href=\"http://www.duwenzhang.com/huati/zhenxi/index1.html\">珍惜</a>身边所拥有的一切。不要总是用工作忙来疏离。未来也许会更好，也许没有，家人、亲人、爱人却已是此刻的全部。拥抱身边人吧，从现在开始。感谢生活，请感谢绊倒你的人，他强化了你的双腿！请感谢欺骗你的人，他增进了你的智慧！</p>\n<p>　　有时候不是不懂，只是不想懂；有时候不是不知道，只是不想说出来；有时候不是不明白，而是明白了也无能为力，于是就保持了<a href=\"http://www.duwenzhang.com/huati/chenmo/index1.html\">沉默</a>。心若计较，处处都有怨言；心若放宽，时时都是祥和。世间不如意事十之八九，能对你百依百顺的人，能让你如愿以偿的事毕竟很少。你若计较，没有一样让你满意。</p>\n<p>　　<a href=\"http://www.duwenzhang.com/huati/zuoren/index1.html\">做人</a>，简单就好；生活，宁静就好。人生走到最后，都要回归朴素和简单，将日子过成一杯白开水的味道，一碗清粥的简单。才能品尝到生活真实的味道，<a href=\"http://www.duwenzhang.com/huati/xingfu/index1.html\">幸福</a>便会不期而至。</p>\n<p>　　纽扣第一颗就扣错了，可你扣到最后一颗才发现；有些事一开始就是错的，可只有到最后才不得不承认。当心倦了累了，记得停下来，给<a href=\"http://www.duwenzhang.com/huati/xinling/index1.html\">心灵</a>寻一份安暖，给自己找一方晴空。谁是谁<a href=\"http://www.duwenzhang.com/huati/shengming/index1.html\">生命</a>中的过客，谁是谁生命的转轮，那前世的尘，今世的风，无穷无尽的<a href=\"http://www.duwenzhang.com/huati/shanggan/index1.html\">哀伤</a>的精魂……</p>\n<p>　　人应该带着<a href=\"http://www.duwenzhang.com/huati/weixiao/index1.html\">微笑</a>面对生活，带着激情面对工作，带着<a href=\"http://www.duwenzhang.com/huati/zhenqing/index1.html\">真情</a>面对家人，带着热情面对挑战。生活中充满了艰辛和苦痛，生活中同时又充满了收获和快乐；生活中充满了不幸和<a href=\"http://www.duwenzhang.com/huati/cuozhe/index1.html\">挫折</a>；生活中同时又充满了奇迹和机遇。当你可以选择，请用最甜美的笑面对生活；如果你不能选择，请<a href=\"http://www.duwenzhang.com/huati/nuli/index1.html\">努力</a>用最甜美的笑面对生活。</p>\n<p>　　人生有如梦境，岁月亦无情。我们的生活总是很拥挤，总是很忙碌，过去的已成为历史，而未来还是未知，我们不须为昨日而哀叹，也不必为明天而担忧，我们要活在今天，活在过去与将来的隔仓里，才能把今天的事做好，明天才会有<a href=\"http://www.duwenzhang.com/huati/xiwang/index1.html\">希望</a>。</p>\n<p>　　与其盼着别人的<a href=\"http://www.duwenzhang.com/huati/wanmei/index1.html\">完美</a>，不如现在行动修行不完美的自己。人，穷时简单，富了复杂；不想再画地为牢，寄托在着一个<a href=\"http://www.duwenzhang.com/huati/huiyi/index1.html\">回忆</a>的世界里，让疼痛缠绵着<a href=\"http://www.duwenzhang.com/\">故事</a>，写满苦不堪言，回不去的的往昔。或许；下一段风景停靠的驿站，再相遇，还<a href=\"http://www.duwenzhang.com/huati/meihao/index1.html\">美好</a>。</p>\n<p>　　卸下向世界对抗的戾气，去拥有不再需要对别人察言观色的从容和无需声张的厚实。<a href=\"http://www.duwenzhang.com/huati/zhongdian/index1.html\">终点</a>线只是一个记号而已，其实并没有什么意义，关键是这一路你是如何跑的。人生也是如此。我已无暇顾及过去，我要按自己的方式向前走。</p>\n<p>　　上班需要<a href=\"http://www.duwenzhang.com/huati/yongqi/index1.html\">勇气</a>，上学需要勇气，开创需要勇气，坚持需要勇气，<a href=\"http://www.duwenzhang.com/huati/lianai/index1.html\">恋爱</a>需要勇气，结婚需要勇气，反省需要勇气，成功需要勇气，失败也需要勇气。愿你每天都能获得你所需要的勇气。</p>\n<p>　　每次我<a href=\"http://www.duwenzhang.com/huati/cuoguo/index1.html\">错过</a>了那个人之后，我才会发现哪些地方我做的不好。我曾经想，为什么要这么折腾，为什么是那么不靠谱。然而<a href=\"http://www.duwenzhang.com/wenzhang/shenghuosuibi/chengzhang/\">成长</a>就是这样，你不断地跟熟悉的东西告别，跟熟悉的人告别。人生中所有漂泊的人不过只是为了有一天能够不再漂泊，能够保护起自己的家人。</p>', '1', '2017-10-18 20:47:29', 'A', '1');
+INSERT INTO `announce` VALUES ('1', '1', '人生回头看，走好前方路', '<p>人生需要沉淀，宁静才能致远；<a href=\"http://www.duwenzhang.com/wenzhang/renshengzheli/\">人生</a>需要反思，常回头看看，才能在品味<a href=\"http://www.duwenzhang.com/huati/deshi/index1.html\">得失</a>和甘苦中升华；向前看是<a href=\"http://www.duwenzhang.com/huati/mengxiang/index1.html\">梦想</a>和<a href=\"http://www.duwenzhang.com/huati/mubiao/index1.html\">目标</a>；向后看是检验和修正。\n</p><p><a href=\"http://www.duwenzhang.com/wenzhang/renshengzheli/ganwu/20140704/296123.html\"><img alt=\"人生回头看，走好前方路\" src=\"http://www.duwenzhang.com/upimg/140704/1_161130.jpg\" width=\"274\" height=\"183\" border=\"0\" align=\"right\"></a>　　有多sss少事，如果当初回头看看，就会做得更好；有多少抉择，如果能回头一思，可以免去多少错误和<a href=\"http://www.duwenzhang.com/huati/yihan/index1.html\">遗憾</a>。回头，其实身后也写着前方的路。</p>\n<p>　　不艾，不怨，心坦然；<a href=\"http://www.duwenzhang.com/wenzhang/shenghuosuibi/\">生活</a>，有苦乐；人生，有起落。学会挥袖从容，暖笑无殇；<a href=\"http://www.duwenzhang.com/huati/kuaile/index1.html\">快乐</a>，不是<a href=\"http://www.duwenzhang.com/huati/yongyou/index1.html\">拥有</a>的多，而是计较的少；<a href=\"http://www.duwenzhang.com/huati/leguan/index1.html\">乐观</a>，不是没<a href=\"http://www.duwenzhang.com/huati/fannao/index1.html\">烦恼</a>，而是懂得<a href=\"http://www.duwenzhang.com/huati/zhizu/index1.html\">知足</a>……</p>\n<p>　　这个时代的规律就是没有绝对公平竞争，接受这一点，然后武装自己投身到轰轰烈烈的不公平竞争中去。顺应规律而行，也是达尔文主义。</p>\n<p>　　1。　当你被<a href=\"http://www.duwenzhang.com/huati/shibai/index1.html\">失败</a>拥抱时，<a href=\"http://www.duwenzhang.com/huati/chenggong/index1.html\">成功</a>可能正在一边等着吻你。</p>\n<p>　　2。　有能力的让他做；没能力的教他做；做不来的管理他。</p>\n<p>　　3。　钱能买到的东西，最后都不值钱。</p>\n<p>　　4。　对什么都看不顺眼的人，疲劳的一定不仅仅是眼睛。</p>\n<p>　　5。　礼貌像只气垫：里面可能什么也没有，但是能奇妙的减少颠簸。</p>\n<p>　　我们能够做的全部事情，就是<a href=\"http://www.duwenzhang.com/huati/zhenxi/index1.html\">珍惜</a>身边所拥有的一切。不要总是用工作忙来疏离。未来也许会更好，也许没有，家人、亲人、爱人却已是此刻的全部。拥抱身边人吧，从现在开始。感谢生活，请感谢绊倒你的人，他强化了你的双腿！请感谢欺骗你的人，他增进了你的智慧！</p>\n<p>　　有时候不是不懂，只是不想懂；有时候不是不知道，只是不想说出来；有时候不是不明白，而是明白了也无能为力，于是就保持了<a href=\"http://www.duwenzhang.com/huati/chenmo/index1.html\">沉默</a>。心若计较，处处都有怨言；心若放宽，时时都是祥和。世间不如意事十之八九，能对你百依百顺的人，能让你如愿以偿的事毕竟很少。你若计较，没有一样让你满意。</p>\n<p>　　<a href=\"http://www.duwenzhang.com/huati/zuoren/index1.html\">做人</a>，简单就好；生活，宁静就好。人生走到最后，都要回归朴素和简单，将日子过成一杯白开水的味道，一碗清粥的简单。才能品尝到生活真实的味道，<a href=\"http://www.duwenzhang.com/huati/xingfu/index1.html\">幸福</a>便会不期而至。</p>\n<p>　　纽扣第一颗就扣错了，可你扣到最后一颗才发现；有些事一开始就是错的，可只有到最后才不得不承认。当心倦了累了，记得停下来，给<a href=\"http://www.duwenzhang.com/huati/xinling/index1.html\">心灵</a>寻一份安暖，给自己找一方晴空。谁是谁<a href=\"http://www.duwenzhang.com/huati/shengming/index1.html\">生命</a>中的过客，谁是谁生命的转轮，那前世的尘，今世的风，无穷无尽的<a href=\"http://www.duwenzhang.com/huati/shanggan/index1.html\">哀伤</a>的精魂……</p>\n<p>　　人应该带着<a href=\"http://www.duwenzhang.com/huati/weixiao/index1.html\">微笑</a>面对生活，带着激情面对工作，带着<a href=\"http://www.duwenzhang.com/huati/zhenqing/index1.html\">真情</a>面对家人，带着热情面对挑战。生活中充满了艰辛和苦痛，生活中同时又充满了收获和快乐；生活中充满了不幸和<a href=\"http://www.duwenzhang.com/huati/cuozhe/index1.html\">挫折</a>；生活中同时又充满了奇迹和机遇。当你可以选择，请用最甜美的笑面对生活；如果你不能选择，请<a href=\"http://www.duwenzhang.com/huati/nuli/index1.html\">努力</a>用最甜美的笑面对生活。</p>\n<p>　　人生有如梦境，岁月亦无情。我们的生活总是很拥挤，总是很忙碌，过去的已成为历史，而未来还是未知，我们不须为昨日而哀叹，也不必为明天而担忧，我们要活在今天，活在过去与将来的隔仓里，才能把今天的事做好，明天才会有<a href=\"http://www.duwenzhang.com/huati/xiwang/index1.html\">希望</a>。</p>\n<p>　　与其盼着别人的<a href=\"http://www.duwenzhang.com/huati/wanmei/index1.html\">完美</a>，不如现在行动修行不完美的自己。人，穷时简单，富了复杂；不想再画地为牢，寄托在着一个<a href=\"http://www.duwenzhang.com/huati/huiyi/index1.html\">回忆</a>的世界里，让疼痛缠绵着<a href=\"http://www.duwenzhang.com/\">故事</a>，写满苦不堪言，回不去的的往昔。或许；下一段风景停靠的驿站，再相遇，还<a href=\"http://www.duwenzhang.com/huati/meihao/index1.html\">美好</a>。</p>\n<p>　　卸下向世界对抗的戾气，去拥有不再需要对别人察言观色的从容和无需声张的厚实。<a href=\"http://www.duwenzhang.com/huati/zhongdian/index1.html\">终点</a>线只是一个记号而已，其实并没有什么意义，关键是这一路你是如何跑的。人生也是如此。我已无暇顾及过去，我要按自己的方式向前走。</p>\n<p>　　上班需要<a href=\"http://www.duwenzhang.com/huati/yongqi/index1.html\">勇气</a>，上学需要勇气，开创需要勇气，坚持需要勇气，<a href=\"http://www.duwenzhang.com/huati/lianai/index1.html\">恋爱</a>需要勇气，结婚需要勇气，反省需要勇气，成功需要勇气，失败也需要勇气。愿你每天都能获得你所需要的勇气。</p>\n<p>　　每次我<a href=\"http://www.duwenzhang.com/huati/cuoguo/index1.html\">错过</a>了那个人之后，我才会发现哪些地方我做的不好。我曾经想，为什么要这么折腾，为什么是那么不靠谱。然而<a href=\"http://www.duwenzhang.com/wenzhang/shenghuosuibi/chengzhang/\">成长</a>就是这样，你不断地跟熟悉的东西告别，跟熟悉的人告别。人生中所有漂泊的人不过只是为了有一天能够不再漂泊，能够保护起自己的家人。</p>', null, null, 'A', '2');
+INSERT INTO `announce` VALUES ('2', '1', 'asa', '<p>sssasasasasasa</p><p>layedit 需要先构建编辑器 再输出数据</p>\n<p>如果取值 慢于 构建编辑器 &nbsp;那么数据在编辑器中就无法显示了</p>\n<pre>layui.use(\'layedit\',function() {<br>    var layedit = layui.layedit;<br><br>    //构建一个默认的编辑器<br>    var index = layedit.build(\'LAY_demo1\');<br>});<br><br></pre>\n<pre>//js本地赋值<br>$(document).ready(function() {<br>    var $title1 = $(\"#newsTitle_1\");<br>    var $content1 = $(\"#LAY_demo1\");<br>    var $person1 = $(\"#newsPerson_1\");<br>    var $time1 = $(\"#newsTime_1\");<br>    $.ajax({<br>        url: \'../json/newsTable.json\',<br>        type: \'get\',<br>        data: \" \", //入参<br>        dataType: \'json\',</pre>', null, null, 'A', '2');
+INSERT INTO `announce` VALUES ('3', '2', '复古风格', '法规的规范鬼斧神工', null, null, 'A', '0');
 
 -- ----------------------------
 -- Table structure for code
@@ -1782,6 +1784,53 @@ INSERT INTO `flow_job_1` VALUES ('1', '李建林', '36237944445', '16464644', ''
 INSERT INTO `flow_job_1` VALUES ('2', '张娜林', '4343343', '43432432432', '', '2', '', '', '', '', '', '1999-02-14', null, null, null, null, null, null, null, null, null, null, null, null, null, null, '', '01', '0', '1', null, null, '03', '', null);
 
 -- ----------------------------
+-- Table structure for flow_job_2
+-- ----------------------------
+DROP TABLE IF EXISTS `flow_job_2`;
+CREATE TABLE `flow_job_2` (
+  `perID` int(11) NOT NULL AUTO_INCREMENT COMMENT '人员ID',
+  `perName` varchar(255) NOT NULL COMMENT '姓名',
+  `perIDCard` varchar(32) NOT NULL COMMENT '身份证号',
+  `perPhone` varchar(11) NOT NULL COMMENT '手机号码',
+  `perPhoto` varchar(255) NOT NULL COMMENT '照片',
+  `perGender` int(1) DEFAULT NULL COMMENT '性别',
+  `perNation` varchar(64) NOT NULL COMMENT '民族',
+  `perOrigin` varchar(128) NOT NULL COMMENT '籍贯',
+  `perPolitica` varchar(64) NOT NULL COMMENT '政治面貌',
+  `perWorkPlace` varchar(255) NOT NULL COMMENT '现工作单位',
+  `perMarried` varchar(64) NOT NULL COMMENT '婚姻状况',
+  `perBirth` varchar(128) DEFAULT NULL COMMENT '出生年月',
+  `perHeight` decimal(4,2) DEFAULT NULL COMMENT '身高',
+  `perWeight` decimal(4,2) DEFAULT NULL COMMENT '体重',
+  `perUniversity` varchar(255) DEFAULT NULL COMMENT '毕业院校',
+  `perDegree` varchar(128) DEFAULT NULL COMMENT '学位',
+  `perMajor` varchar(128) DEFAULT NULL COMMENT '专业',
+  `perEducation` varchar(64) DEFAULT NULL COMMENT '学历',
+  `perForeignLang` varchar(64) DEFAULT NULL COMMENT '外语水平',
+  `perComputerLevel` varchar(64) DEFAULT NULL COMMENT '计算机水平',
+  `perEduPlace` varchar(128) DEFAULT NULL COMMENT '毕业生生源地',
+  `perEmePhone` varchar(11) DEFAULT NULL COMMENT '紧急人联系电话',
+  `perEmail` varchar(128) DEFAULT NULL COMMENT '电子邮箱',
+  `perPostCode` varchar(32) DEFAULT NULL COMMENT '邮政编码',
+  `perAddr` varchar(255) DEFAULT NULL COMMENT '联系地址',
+  `perMark` varchar(255) DEFAULT NULL COMMENT '备注信息',
+  `perIndex` varchar(255) NOT NULL COMMENT '报名序号',
+  `perJob` varchar(64) NOT NULL COMMENT '应聘岗位性质',
+  `perPub` int(1) NOT NULL DEFAULT '0' COMMENT '公示结果（0=未公示，1=已公示）',
+  `perStatus` int(1) NOT NULL DEFAULT '0' COMMENT '状态（0=待报，1=待审，2=审核通过，3=审核不通过）',
+  `perCheckTime` timestamp NULL DEFAULT NULL COMMENT '审核时间',
+  `perReason` varchar(255) DEFAULT NULL COMMENT '审核不通过原因',
+  `perReResult1` varchar(64) NOT NULL DEFAULT '03' COMMENT '资格审查反馈结果',
+  `perReGiveup1` varchar(255) NOT NULL COMMENT '资格审查反馈原因',
+  `perReTime1` timestamp NULL DEFAULT NULL COMMENT '资格审查反馈时间',
+  PRIMARY KEY (`perID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of flow_job_2
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for flow_job_set_edu_1
 -- ----------------------------
 DROP TABLE IF EXISTS `flow_job_set_edu_1`;
@@ -1799,6 +1848,26 @@ CREATE TABLE `flow_job_set_edu_1` (
 
 -- ----------------------------
 -- Records of flow_job_set_edu_1
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for flow_job_set_edu_2
+-- ----------------------------
+DROP TABLE IF EXISTS `flow_job_set_edu_2`;
+CREATE TABLE `flow_job_set_edu_2` (
+  `eduID` int(11) NOT NULL AUTO_INCREMENT COMMENT '教育经历ID',
+  `perID` int(11) NOT NULL COMMENT '人员ID',
+  `eduStart` timestamp NULL DEFAULT NULL COMMENT '起始时间',
+  `eduEnd` timestamp NULL DEFAULT NULL COMMENT '终止时间',
+  `eduSchool` varchar(255) NOT NULL COMMENT '在何学校',
+  `eduMajor` varchar(128) DEFAULT NULL,
+  `eduPost` varchar(255) DEFAULT NULL COMMENT '任职职务',
+  `eduBurseHonorary` text COMMENT '奖学金及荣誉称号',
+  PRIMARY KEY (`eduID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of flow_job_set_edu_2
 -- ----------------------------
 
 -- ----------------------------
@@ -1820,6 +1889,24 @@ CREATE TABLE `flow_job_set_fam_1` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for flow_job_set_fam_2
+-- ----------------------------
+DROP TABLE IF EXISTS `flow_job_set_fam_2`;
+CREATE TABLE `flow_job_set_fam_2` (
+  `famID` int(11) NOT NULL AUTO_INCREMENT COMMENT '家庭成员ID',
+  `perID` int(11) NOT NULL COMMENT '人员ID',
+  `famRelation` varchar(64) NOT NULL COMMENT '成员关系',
+  `famName` varchar(64) NOT NULL COMMENT '成员姓名',
+  `famCom` varchar(64) DEFAULT NULL COMMENT '所在工作单位',
+  `famPost` varchar(64) DEFAULT NULL COMMENT '任职岗位',
+  PRIMARY KEY (`famID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of flow_job_set_fam_2
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for flow_job_set_work_1
 -- ----------------------------
 DROP TABLE IF EXISTS `flow_job_set_work_1`;
@@ -1836,6 +1923,25 @@ CREATE TABLE `flow_job_set_work_1` (
 
 -- ----------------------------
 -- Records of flow_job_set_work_1
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for flow_job_set_work_2
+-- ----------------------------
+DROP TABLE IF EXISTS `flow_job_set_work_2`;
+CREATE TABLE `flow_job_set_work_2` (
+  `wkID` int(11) NOT NULL AUTO_INCREMENT COMMENT '工作经历ID',
+  `perID` int(11) NOT NULL COMMENT '人员ID',
+  `wkStart` timestamp NULL DEFAULT NULL COMMENT '起始时间',
+  `wkEnd` timestamp NULL DEFAULT NULL COMMENT '截止时间',
+  `wkPost` varchar(255) NOT NULL COMMENT '所在岗位',
+  `wkCom` varchar(255) NOT NULL COMMENT '所在单位',
+  `wkInfo` text NOT NULL COMMENT '工作简述',
+  PRIMARY KEY (`wkID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of flow_job_set_work_2
 -- ----------------------------
 
 -- ----------------------------
@@ -1891,13 +1997,14 @@ CREATE TABLE `recruit` (
   `recHealthPlace` varchar(255) NOT NULL COMMENT '体检地点',
   `recBack` int(1) DEFAULT '0' COMMENT '是否归档',
   PRIMARY KEY (`recID`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of recruit
 -- ----------------------------
-INSERT INTO `recruit` VALUES ('1', '2017', '01', '1', '2017-10-18 00:00:00', '2017-10-31 00:00:00', '浙江大学', '浙江大学附属医院', '0');
-INSERT INTO `recruit` VALUES ('2', '2017', '02', '0', '2017-10-18 00:00:00', '2017-10-27 00:00:00', '5555', '5555', '0');
+INSERT INTO `recruit` VALUES ('1', '2017', '01', '2', '2017-10-18 00:00:00', '2017-10-19 06:00:00', '浙江大学', '浙江大学附属医院', '1');
+INSERT INTO `recruit` VALUES ('2', '2017', '02', '1', '2017-10-18 00:00:00', '2017-10-27 00:00:00', '5555', '5555', '0');
+INSERT INTO `recruit` VALUES ('3', '2017', '03', '0', '2017-10-19 00:00:00', '2017-10-28 00:00:00', '', '', '0');
 
 -- ----------------------------
 -- Table structure for user
@@ -1920,7 +2027,7 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', 'admin', 'guanliyuan', 'fcea920f7412b5da7be0cf42b8c93759', '3', '7', '2017-10-16 09:41:05', '2017-10-18 18:43:04', '1022', '13285716129');
+INSERT INTO `user` VALUES ('1', 'admin', 'guanliyuan', 'fcea920f7412b5da7be0cf42b8c93759', '3', '14', '2017-10-16 09:41:05', '2017-10-19 13:15:22', '1022', '13285716129');
 
 -- ----------------------------
 -- Table structure for workset
