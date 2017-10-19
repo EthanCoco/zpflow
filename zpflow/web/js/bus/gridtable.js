@@ -391,13 +391,13 @@ function init_stepIndex_three_grid(stepIndex_three_urls,stepIndex_three_recID,st
         ]], 
         columns:[[
 	        {field:'perIDCard',title:'身份证号',width:'180',align:'center',rowspan:2,sortable:true},
-	        {field:'perGender',title:'性别',width:'50',align:'center',rowspan:2,sortable:true,
+	        {field:'perGender',title:'性别',width:'5%',align:'center',rowspan:2,sortable:true,
 	        	formatter:function(value,row,index){
 	        		return value == "1" ? "男" : "女";
 	        	}
 	        },
 	        {field:'perBirth',title:'出生年月',width:'100',align:'center',rowspan:2,sortable:true},
-	        {field:'perJob',title:'应聘岗位性质',width:'100',align:'center',rowspan:2,sortable:true,
+	        {field:'perJob',title:'应聘岗位性质',width:'8%',align:'center',rowspan:2,sortable:true,
 	        	formatter:function(value,row,index){
 	        		return value == "01" ? "事业" : "企业";
 	        	}
@@ -413,16 +413,16 @@ function init_stepIndex_three_grid(stepIndex_three_urls,stepIndex_three_recID,st
 	        		return value == "0" ? "未公示" : "<span style='color:red;'>已公示</span>";
 	        	}
 	        },
-	        {field:'perReason',title:'审查不通过原因',width:'100',align:'center',rowspan:2},
+	        {field:'perReason',title:'审查不通过原因',width:'10%',align:'center',rowspan:2},
 	        {field:'perCheckTime',title:'审查时间',width:'130',align:'center',rowspan:2,sortable:true},
 	        {field:'perZGSC',title:'考试反馈结果',width:'300',colspan:3,align:'center'}
 	        ],[
-		    	{field:'perReResult1',title:'反馈结果',width:'100',align:'center',sortable:true,
+		    	{field:'perReResult1',title:'反馈结果',width:'10%',align:'center',sortable:true,
 		    		formatter:function(value,row,index){
 		        		return value == "01" ? "确定参加" : (value == "02" ? "放弃参加" : "未反馈");
 		        	}
 		    	},
-		    	{field:'perReGiveup1',title:'放弃原因',width:'100',align:'center'},
+		    	{field:'perReGiveup1',title:'放弃原因',width:'10%',align:'center'},
 		    	{field:'perReTime1',title:'反馈时间',width:'130',align:'center',sortable:true}
 	    ]],
         onDblClickRow: function(index,row){
