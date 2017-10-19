@@ -26,10 +26,13 @@ $this->title = '';
 	
 </div>
 <?php $this->endBody() ?>
-	<h3><?php echo $info['ancName']; ?></h3>
-	<p>
+	<div style="text-align: center;padding: 0 10px 20px 10px;">
+		<h2><?php echo $info['ancName']; ?></h2>
+	</div>
+	<div style="padding: 20px;">
 		<?php echo $info['ancInfo']; ?>
-	</p>
+	</div>
+		
 </body>
 </html>
 <?php $this->endPage() ?>
