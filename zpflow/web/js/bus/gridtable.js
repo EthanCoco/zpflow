@@ -449,6 +449,22 @@ function init_stepIndex_three_grid(stepIndex_three_urls,stepIndex_three_recID,st
         	
 	    },
         onLoadSuccess: function(data){
+        	var tabs = data.tabInfo;
+        	$("#stepIndex_three_tab #stepIndex_three_tabli1").html("");
+        	$("#stepIndex_three_tab #stepIndex_three_tabli2").html("");
+        	$("#stepIndex_three_tab #stepIndex_three_tabli3").html("");
+        	$("#stepIndex_three_tab #stepIndex_three_tabli4").html("");
+        	
+        	$("#stepIndex_three_tab #stepIndex_three_tabli1").html("("+tabs.tab1+")");
+        	$("#stepIndex_three_tab #stepIndex_three_tabli2").html("("+tabs.tab2+")");
+        	$("#stepIndex_three_tab #stepIndex_three_tabli3").html("("+tabs.tab3+")");
+        	$("#stepIndex_three_tab #stepIndex_three_tabli4").html("("+tabs.tab4+")");
+        	
+        	$("#stepIndex_three_tab #stepIndex_three_tabli1").css("display","");
+        	$("#stepIndex_three_tab #stepIndex_three_tabli2").css("display","");
+        	$("#stepIndex_three_tab #stepIndex_three_tabli3").css("display","");
+        	$("#stepIndex_three_tab #stepIndex_three_tabli4").css("display","");
+        	
 			$('#stepIndex_three').datagrid('resize',{
 	    		height: $(window).height()-124-25-60-30-5
 	    	});
