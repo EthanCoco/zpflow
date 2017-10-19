@@ -158,8 +158,8 @@ class QuaexamController extends BaseController{
 										->orderby('perIndex asc')
 										->all();
 		
-		$objReader = \PHPExcel_IOFactory::createReader ('Excel5');
-		$objPHPExcel = $objReader->load ("../web/templatefile/zigeshencha1.xls" );
+		
+		$phpexcel = \PHPExcel_IOFactory::createReader("Excel5")->load("../web/templatefile/zigeshencha1.xls");
 		
 				
 	}
