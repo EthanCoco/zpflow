@@ -174,12 +174,13 @@ function init_stepIndex_two_grid_AB(stepIndex_two_urls,stepIndex_two_recID,stepI
             },
             {field:'operation',title:'操作',width:'24%',align:'center',
             	formatter:function(value,row,index){
+            		var _html = "<button onclick=\"viewAnnounce("+row.ancID+")\" class=\"layui-btn layui-btn-primary layui-btn-small  layui-btn-radius \">预览</button>";
             		if(row.ancStatus == "2"){
-            			return "";
+            			return _html+"";
             		}else if(row.ancStatus == "1"){
-            			return "<button onclick=\"pubAnnounce("+row.ancID+",0,'"+row.ancName+"')\" class=\"layui-btn layui-btn-primary layui-btn-small  layui-btn-radius \">取消</button>";
+            			return _html+"<button onclick=\"pubAnnounce("+row.ancID+",0,'"+row.ancName+"')\" class=\"layui-btn layui-btn-primary layui-btn-small  layui-btn-radius \">取消</button>";
             		}else{
-            			return "<button onclick=\"pubAnnounce("+row.ancID+",1,'"+row.ancName+"')\" class=\"layui-btn layui-btn-primary layui-btn-small  layui-btn-radius \">发布</button>";
+            			return _html+"<button onclick=\"pubAnnounce("+row.ancID+",1,'"+row.ancName+"')\" class=\"layui-btn layui-btn-primary layui-btn-small  layui-btn-radius \">发布</button>";
             		}
             	}
             },
@@ -196,12 +197,13 @@ function init_stepIndex_two_grid_AB(stepIndex_two_urls,stepIndex_two_recID,stepI
             },
             {field:'operation',title:'操作',width:'24%',align:'center',
             	formatter:function(value,row,index){
+            		var _html = "<button onclick=\"viewAnnounce("+row.ancID+")\" class=\"layui-btn layui-btn-primary layui-btn-small  layui-btn-radius \">预览</button>";
             		if(row.ancStatus == "2"){
-            			return "";
+            			return _html+"";
             		}else if(row.ancStatus == "1"){
-            			return "<button onclick=\"pubAnnounce("+row.ancID+",0,'"+row.ancName+"')\" class=\"layui-btn layui-btn-primary layui-btn-small  layui-btn-radius \">取消</button>";
+            			return _html+"<button onclick=\"pubAnnounce("+row.ancID+",0,'"+row.ancName+"')\" class=\"layui-btn layui-btn-primary layui-btn-small  layui-btn-radius \">取消</button>";
             		}else{
-            			return "<button onclick=\"pubAnnounce("+row.ancID+",1,'"+row.ancName+"')\" class=\"layui-btn layui-btn-primary layui-btn-small  layui-btn-radius \">发布</button>";
+            			return _html+"<button onclick=\"pubAnnounce("+row.ancID+",1,'"+row.ancName+"')\" class=\"layui-btn layui-btn-primary layui-btn-small  layui-btn-radius \">发布</button>";
             		}
             	}
             },
@@ -341,6 +343,24 @@ function pubAnnounce(ancID,type,ancName){
 		}); 
 	});
 }
+
+function viewAnnounce(ancID){
+	layui.use('layer', function(){
+	 	var layer = layui.layer;
+	 	layer.open({
+    		type:2,
+    		title:'预览',
+    		area:[$(window).width()/2+"px",'520px'],
+    		content:__rczp_zpgg_stepIndex_two_urls__.__recpre_url+"&ancID="+ancID,
+    		btn:['关闭'],
+    		btn2:function(){
+    			layer.closeAll();
+    		}
+    	}); 
+	});
+}
+
+
 
 /*人才招聘-资格审查-数据列表*/
 var __rczp_zgsc_stepIndex_three_urls__ = {};
