@@ -470,5 +470,27 @@ function init_stepIndex_three_grid(stepIndex_three_urls,stepIndex_three_recID,st
 	    	});
 	    }
     });
-	
+    
+    if(stepIndex_three_show_flag == "1"){
+    	$("#stepIndex_three").datagrid('getPager').pagination({buttons:[
+			{
+			   	iconCls:'icon-ok',
+			   	text:'审核',
+			   	handler:function(){
+					manager_showMore(this,'stepIndex_three_checklist');
+			   	}
+		   	},'-',{
+			  	iconCls:'icon-remove',
+			   	text:'删除',
+			   	handler:function(){
+			   	}
+		   	}]
+		});
+    }else{
+    	
+    }
+}
+
+function stepIndex_three_check(perStatus){
+	alert(perStatus);
 }
