@@ -96,24 +96,42 @@ $this->title = '添加招聘年度';
 var __flow1_repair_flag__ = "<?php echo $flag; ?>";
 
 $(function(){
-	layui.use(['form','layer', 'laydate'], function(){
-	 	var form = layui.form,
-	 		layer = layui.layer,
-	 		laydate = layui.laydate;
-	 	if(__flow1_repair_flag__ == "mod"){
-			var recID = "<?php echo $recID; ?>";
-			$.post("<?= Url::to(['recruit/get-recruit']) ?>",{'recID':recID},function(json){
-				$("#recID").val(json.recID);
+	if(__flow1_repair_flag__ == "mod"){
+		var recID = "<?php echo $recID; ?>";
+		$.ajax({
+	        url: "<?= Url::to(['recruit/get-recruit']) ?>",
+	        type: 'post',
+	        data: {'recID':recID}, 
+	        dataType: 'json',
+	        async: false,
+	        success: function(json) {
+	            $("#recID").val(json.recID);
 				$("#recYear").val(json.recYear);
 				$("#recBatch").val(json.recBatch);
-				$("#recBatch").next().find("dd[lay-value='"+json.recBatch+"']").addClass('layui-this');	
-				form.render('select');		
 				$("#recStart").val(json.recStart);
 				$("#recEnd").val(json.recEnd);
 				$("#recViewPlace").val(json.recViewPlace);
 				$("#recHealthPlace").val(json.recHealthPlace);
-			},'json');
-		}	
+	        }
+	   	});
+		
+//		$.post("<= Url::to(['recruit/get-recruit']) ?>",{'recID':recID},function(json){
+//			$("#recID").val(json.recID);
+//			$("#recYear").val(json.recYear);
+//			$("#recBatch").val(json.recBatch);
+//			$("#recBatch").next().find("dd[lay-value='"+json.recBatch+"']").addClass('layui-this');	
+//			form.render('select');		
+//			$("#recStart").val(json.recStart);
+//			$("#recEnd").val(json.recEnd);
+//			$("#recViewPlace").val(json.recViewPlace);
+//			$("#recHealthPlace").val(json.recHealthPlace);
+//		},'json');
+	}	
+	
+	layui.use(['form','layer', 'laydate'], function(){
+	 	var form = layui.form,
+	 		layer = layui.layer,
+	 		laydate = layui.laydate;
 	  	form.verify({
 		    recYear: function(value){
 		    	var recStart = $("#recStart").val();

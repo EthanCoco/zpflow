@@ -76,29 +76,31 @@ if(__flow2_repair_ancType__ == "B"){
 	__flow2_repair_msg__ = '单位名称';
 }
 
-var editIndex ="";
-
-layui.use('layedit', function(){
-	 	var layedit = layui.layedit;
-		editIndex = layedit.build('ancInfo', {
-		    tool: ['strong','italic','underline','del','face', 'link', 'unlink', '|', 'left', 'center', 'right']
-		})
-});
 $(function(){
 	if(__flow2_repair_flag__ == "mod"){
 		var ancID = "<?php echo $ancID; ?>";
-		$.post("<?= Url::to(['announce/get-announce']) ?>",{'ancID':ancID},function(json){
-			//alert(JSON.stringify(json));
-			$("#ancID").val(json.ancID);
-			$("#ancName").val(json.ancName);
-			$("#ancInfo").val(json.ancInfo);
-		},'json');
+		$.ajax({
+	        url: "<?= Url::to(['announce/get-announce']) ?>",
+	        type: 'post',
+	        data: {'ancID':ancID}, 
+	        dataType: 'json',
+	        async: false,
+	        success: function(json) {
+	            $("#ancID").val(json.ancID);
+				$("#ancName").val(json.ancName);
+				$("#ancInfo").val(json.ancInfo);
+	        }
+	   });
 	}
 	
 	layui.use(['form','layer','layedit'], function(){
 	 	var form = layui.form,
 	 		layer = layui.layer,
 	 		layedit = layui.layedit;
+		
+		var editIndex = layedit.build('ancInfo', {
+		    tool: ['strong','italic','underline','del','face', 'link', 'unlink', '|', 'left', 'center', 'right']
+		});
 		
 		$("#flow2_repair_cancel").click(function(){
 			parent.layer.close(parent.layer.getFrameIndex(window.name));
