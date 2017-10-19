@@ -244,7 +244,7 @@ function init_stepIndex_two_grid_AB(stepIndex_two_urls,stepIndex_two_recID,stepI
 					layer.open({
 		        		type:2,
 		        		title:'修改'+msg,
-		        		area:["650px",'520px'],
+		        		area:["650px",'505px'],
 		        		content:__rczp_zpgg_stepIndex_two_urls__.__repair_url+"&flag=mod&ancID="+row.ancID+"&ancType="+__rczp_zpgg_stepIndex_two_datagrid_flag__
 		        	}); 
 				}
@@ -274,7 +274,7 @@ function init_stepIndex_two_grid_AB(stepIndex_two_urls,stepIndex_two_recID,stepI
 					 	layer.open({
 			        		type:2,
 			        		title:'添加'+msg,
-			        		area:["650px",'520px'],
+			        		area:["650px",'505px'],
 			        		content:__rczp_zpgg_stepIndex_two_urls__.__repair_url+"&flag=add&ancType="+__rczp_zpgg_stepIndex_two_datagrid_flag__
 			        	}); 
 					});
