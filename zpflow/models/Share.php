@@ -106,10 +106,6 @@ class Share extends Model
 		unset($data['key']);
 		unset($data['fileInfo']);
 		ksort($data);
-		foreach($data as $key=>$v){
-			echo $key."<br/>";
-		}
-		
 		$objPHPExcel = \PHPExcel_IOFactory::createReader("Excel5")->load($excelInfo['tempExcel']);
 		$index = 0;
 		foreach($excelInfo['keys'] as $v){
