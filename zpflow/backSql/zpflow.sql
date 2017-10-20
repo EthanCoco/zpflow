@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2017-10-19 18:14:17
+Date: 2017-10-20 15:19:55
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -52,7 +52,7 @@ CREATE TABLE `code` (
   `codePid` varchar(64) DEFAULT NULL COMMENT '代码父ID',
   `isLeaf` int(1) DEFAULT NULL COMMENT '是否叶子节点(1：是，0：不是)',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1639 DEFAULT CHARSET=utf8 COMMENT='代码';
+) ENGINE=InnoDB AUTO_INCREMENT=1650 DEFAULT CHARSET=utf8 COMMENT='代码';
 
 -- ----------------------------
 -- Records of code
@@ -1688,13 +1688,24 @@ INSERT INTO `code` VALUES ('1628', '701', 'MD', '初级', '110', '1', '7', '1');
 INSERT INTO `code` VALUES ('1629', '702', 'MD', '中级', '111', '1', '7', '1');
 INSERT INTO `code` VALUES ('1630', '703', 'MD', '高级', '112', '1', '7', '1');
 INSERT INTO `code` VALUES ('1631', '8', 'MD', '职称计算机考试', '113', '1', '-1', '1');
-INSERT INTO `code` VALUES ('1632', '01', 'XZ', '事业', '1', '1', '0', '1');
-INSERT INTO `code` VALUES ('1633', '02', 'XZ', '企业', '2', '1', '0', '1');
-INSERT INTO `code` VALUES ('1634', '0', 'GS', '未公示', '1', '1', '0', '1');
-INSERT INTO `code` VALUES ('1635', '1', 'GS', '已公示', '2', '1', '0', '1');
-INSERT INTO `code` VALUES ('1636', '01', 'FKJG', '确定参加', '1', '1', '0', '1');
-INSERT INTO `code` VALUES ('1637', '02', 'FKJG', '放弃参加', '2', '1', '0', '1');
-INSERT INTO `code` VALUES ('1638', '03', 'FKJG', '未反馈', '3', '1', '0', '1');
+INSERT INTO `code` VALUES ('1632', '01', 'XZ', '事业', '1', '1', '-1', '1');
+INSERT INTO `code` VALUES ('1633', '02', 'XZ', '企业', '2', '1', '-1', '1');
+INSERT INTO `code` VALUES ('1634', '0', 'GS', '未公示', '1', '1', '-1', '1');
+INSERT INTO `code` VALUES ('1635', '1', 'GS', '已公示', '2', '1', '-1', '1');
+INSERT INTO `code` VALUES ('1636', '01', 'FKJG', '确定参加', '1', '1', '-1', '1');
+INSERT INTO `code` VALUES ('1637', '02', 'FKJG', '放弃参加', '2', '1', '-1', '1');
+INSERT INTO `code` VALUES ('1638', '03', 'FKJG', '未反馈', '3', '1', '-1', '1');
+INSERT INTO `code` VALUES ('1639', '0', 'SCJG', '待报', '1', '1', '-1', '1');
+INSERT INTO `code` VALUES ('1640', '1', 'SCJG', '待审', '2', '1', '-1', '1');
+INSERT INTO `code` VALUES ('1641', '2', 'SCJG', '通过', '3', '1', '-1', '1');
+INSERT INTO `code` VALUES ('1642', '3', 'SCJG', '不通过', '4', '1', '-1', '1');
+INSERT INTO `code` VALUES ('1643', '01', 'JTGX', '父亲', '1', '1', '0', '1');
+INSERT INTO `code` VALUES ('1644', '02', 'JTGX', '母亲', '2', '1', '0', '1');
+INSERT INTO `code` VALUES ('1645', '03', 'JTGX', '儿子', '3', '1', '0', '1');
+INSERT INTO `code` VALUES ('1646', '04', 'JTGX', '女儿', '4', '1', '0', '1');
+INSERT INTO `code` VALUES ('1647', '05', 'JTGX', '兄弟', '5', '1', '0', '1');
+INSERT INTO `code` VALUES ('1648', '06', 'JTGX', '姐妹', '6', '1', '0', '1');
+INSERT INTO `code` VALUES ('1649', '07', 'JTGX', '其他', '7', '1', '0', '1');
 
 -- ----------------------------
 -- Table structure for eduset
@@ -1751,8 +1762,8 @@ CREATE TABLE `flow_job_1` (
   `perWorkPlace` varchar(255) NOT NULL COMMENT '现工作单位',
   `perMarried` varchar(64) NOT NULL COMMENT '婚姻状况',
   `perBirth` varchar(128) DEFAULT NULL COMMENT '出生年月',
-  `perHeight` decimal(4,2) DEFAULT NULL COMMENT '身高',
-  `perWeight` decimal(4,2) DEFAULT NULL COMMENT '体重',
+  `perHeight` int(11) DEFAULT NULL COMMENT '身高',
+  `perWeight` decimal(8,2) DEFAULT NULL COMMENT '体重',
   `perUniversity` varchar(255) DEFAULT NULL COMMENT '毕业院校',
   `perDegree` varchar(128) DEFAULT NULL COMMENT '学位',
   `perMajor` varchar(128) DEFAULT NULL COMMENT '专业',
@@ -1780,14 +1791,14 @@ CREATE TABLE `flow_job_1` (
 -- ----------------------------
 -- Records of flow_job_1
 -- ----------------------------
-INSERT INTO `flow_job_1` VALUES ('1', '李建林', '36237944445', '16464644', '', '1', '', '', '', '', '', '1992-08-12', null, null, null, null, null, null, null, null, null, null, null, null, null, null, '', '01', '0', '1', null, null, '03', '', null);
-INSERT INTO `flow_job_1` VALUES ('2', '张娜林', '4343343', '43432432432', '', '2', '', '', '', '', '', '1999-02-14', null, null, null, null, null, null, null, null, null, null, null, null, null, null, '', '01', '0', '1', null, null, '03', '', null);
-INSERT INTO `flow_job_1` VALUES ('3', '李建林1', '36237944445', '16464644', '', '1', '', '', '', '', '', '1992-08-12', null, null, '', '', '', '', '', '', '', '', '', '', '', '', '', '01', '0', '2', '0000-00-00 00:00:00', '', '03', '', '0000-00-00 00:00:00');
-INSERT INTO `flow_job_1` VALUES ('4', '张娜林1', '4343343', '43432432432', '', '2', '', '', '', '', '', '1999-02-14', null, null, '', '', '', '', '', '', '', '', '', '', '', '', '', '01', '0', '2', '0000-00-00 00:00:00', '', '03', '', '0000-00-00 00:00:00');
-INSERT INTO `flow_job_1` VALUES ('7', '李建林4', '36237944445', '16464644', '', '1', '', '', '', '', '', '1992-08-12', null, null, '', '', '', '', '', '', '', '', '', '', '', '', '', '01', '0', '0', '0000-00-00 00:00:00', '', '03', '', '0000-00-00 00:00:00');
-INSERT INTO `flow_job_1` VALUES ('8', '张娜林4', '4343343', '43432432432', '', '2', '', '', '', '', '', '1999-02-14', null, null, '', '', '', '', '', '', '', '', '', '', '', '', '', '01', '0', '0', '0000-00-00 00:00:00', '', '03', '', '0000-00-00 00:00:00');
-INSERT INTO `flow_job_1` VALUES ('9', '李建林5', '36237944445', '16464644', '', '1', '', '', '', '', '', '1992-08-12', null, null, '', '', '', '', '', '', '', '', '', '', '', '', '', '01', '0', '1', '0000-00-00 00:00:00', '', '03', '', '0000-00-00 00:00:00');
-INSERT INTO `flow_job_1` VALUES ('10', '张娜林5', '4343343', '43432432432', '', '2', '', '', '', '', '', '1999-02-14', null, null, '', '', '', '', '', '', '', '', '', '', '', '', '', '01', '0', '2', '0000-00-00 00:00:00', '', '03', '', '0000-00-00 00:00:00');
+INSERT INTO `flow_job_1` VALUES ('1', '李建林', '362330199208122410', '13681088750', '', '1', '01', '11_110115', '01', '1111', '10', '1992-08-12', '171', '120.52', '北京大学', '3_301', '20_201_2010100', '1', '1_11_111', '1', '11_110115', '13651833982', 'lyl288@sian.com', '200093', '上海市浦东新区张江镇益江路511弄玉兰香苑二期A 18号楼511', '上进心强', '0001', '01', '0', '3', '2017-10-20 14:15:35', '法规法规的', '03', '', null);
+INSERT INTO `flow_job_1` VALUES ('2', '张娜林', '340122199204102723', '15902151578', '', '2', '02', '12_120106', '02', '222', '20', '1999-02-14', '178', '153.23', '浙江大学', '3_302', '30_301_3010200', '2', '2_21_212', '2', '12_120106', '13917539831', '465381236@qq.com', '200438', '上海市杨浦区军工路516号上海理工大学', '有责任心', '0002', '01', '0', '3', '2017-10-20 09:13:48', 'fgfgfgfgf', '03', '', null);
+INSERT INTO `flow_job_1` VALUES ('3', '李建林1', '140107199506170616', '13501793949', '', '1', '01', '43_430100', '03', '3333', '21', '1992-08-12', '168', '120.52', '南昌大学', '3_303', '30_302_3020100', '3', '1_11_111', '6_601', '43_430100', '15858205215', 'buku675hot@qq.com', '200090', '上海市虹口区沽源路229弄九号楼', '负责人，好男人', '0003', '01', '0', '3', '2017-10-20 14:15:35', '法规法规的', '03', '', '0000-00-00 00:00:00');
+INSERT INTO `flow_job_1` VALUES ('4', '张娜林1', '342501199210187278', '18362633593', '', '2', '01', '44_440300', '04', '44444', '22', '1999-02-14', '180', '153.23', '武汉大学', '3_304', '20_201_2010100', '1', '2_21_212', '7_701', '44_440300', '18818228592', '2242947972@qq.com', '200231', '上海市松江区广富林路', '上进心强', '0004', '01', '0', '2', '0000-00-00 00:00:00', '', '03', '', '0000-00-00 00:00:00');
+INSERT INTO `flow_job_1` VALUES ('7', '李建林4', '142326199302140126', '18918753346', '', '1', '01', '44_440500', '05', '55555', '23', '1992-08-12', '175', '120.52', '清华大学', '3_305', '30_301_3010200', '2', '1_11_111', '8', '44_440500', '18215104653', '1427176367@qq.com', '200092', '上海市杨浦区彰武路100号', '上进心强', '0005', '01', '0', '0', '0000-00-00 00:00:00', '', '03', '', '0000-00-00 00:00:00');
+INSERT INTO `flow_job_1` VALUES ('8', '张娜林4', '36232119910821352X', '13122293510', '', '2', '01', '45_450400', '06', '66666', '30', '1999-02-14', '176', '153.23', '清华大学', '3_306', '30_302_3020100', '1', '2_21_212', '3_303', '45_450400', '13162533985', 'wanyt168@126.com', '200444', '上海市闵行区黎安路380弄20号602', '上进心强', '0006', '01', '0', '0', '0000-00-00 00:00:00', '', '03', '', '0000-00-00 00:00:00');
+INSERT INTO `flow_job_1` VALUES ('9', '李建林5', '310110199408235164', '13795257783', '', '1', '02', '50_500101', '07', '7777', '40', '1992-08-12', '165', '120.52', '清华大学', '3_307', '30_303_3034200', '2', '1_11_111', '4', '50_500101', '15921787526', 'zty9104@126.com', '201203', '上海市彰武路100号2号楼616', '上进心强', '0007', '01', '0', '3', '2017-10-20 09:13:48', 'fgfgfgfgf', '03', '', '0000-00-00 00:00:00');
+INSERT INTO `flow_job_1` VALUES ('10', '张娜林5', '31010819900920051X', '13795473680', '', '2', '01', '50_500111', '08', '8888', '30', '1999-02-14', '162', '153.23', '清华大学', '2_207', '30_304_3040400', '2', '2_21_212', '4', '50_500111', '15921558016', 'zjian3103@163.com', '201203', '上大路99号上海大学', '上进心强', '0008', '01', '0', '2', '0000-00-00 00:00:00', '', '03', '', '0000-00-00 00:00:00');
 
 -- ----------------------------
 -- Table structure for flow_job_set_edu_1
@@ -1803,7 +1814,7 @@ CREATE TABLE `flow_job_set_edu_1` (
   `eduPost` varchar(255) DEFAULT NULL COMMENT '任职职务',
   `eduBurseHonorary` text COMMENT '奖学金及荣誉称号',
   PRIMARY KEY (`eduID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of flow_job_set_edu_1
@@ -1821,11 +1832,12 @@ CREATE TABLE `flow_job_set_fam_1` (
   `famCom` varchar(64) DEFAULT NULL COMMENT '所在工作单位',
   `famPost` varchar(64) DEFAULT NULL COMMENT '任职岗位',
   PRIMARY KEY (`famID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of flow_job_set_fam_1
 -- ----------------------------
+INSERT INTO `flow_job_set_fam_1` VALUES ('1', '10', '01', '李建军', '上海计算机急急急工地', '经理');
 
 -- ----------------------------
 -- Table structure for flow_job_set_work_1
@@ -1840,11 +1852,12 @@ CREATE TABLE `flow_job_set_work_1` (
   `wkCom` varchar(255) NOT NULL COMMENT '所在单位',
   `wkInfo` text NOT NULL COMMENT '工作简述',
   PRIMARY KEY (`wkID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of flow_job_set_work_1
 -- ----------------------------
+INSERT INTO `flow_job_set_work_1` VALUES ('1', '10', '2017-10-20 11:59:23', '2017-10-20 11:59:26', '热热我', '二二五', '二恶烷若');
 
 -- ----------------------------
 -- Table structure for person
@@ -1929,7 +1942,7 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', 'admin', 'guanliyuan', 'fcea920f7412b5da7be0cf42b8c93759', '3', '14', '2017-10-16 09:41:05', '2017-10-19 13:15:22', '1022', '13285716129');
+INSERT INTO `user` VALUES ('1', 'admin', 'guanliyuan', 'fcea920f7412b5da7be0cf42b8c93759', '3', '15', '2017-10-16 09:41:05', '2017-10-20 09:13:25', '1022', '13285716129');
 
 -- ----------------------------
 -- Table structure for workset
