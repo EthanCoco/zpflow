@@ -100,7 +100,7 @@ class Share extends Model
 		$key = $data['key'];
 		$fileInfo = $data['fileInfo'];
 		$fileName = $fileInfo['fileName'].date('Y-m-d',time()).time();
-		
+		//exit(print($fileName) );
 		$excelInfo = self::getKeyInfo($key);
 		
 		unset($data['key']);
