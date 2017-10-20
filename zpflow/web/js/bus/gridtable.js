@@ -458,7 +458,19 @@ function init_stepIndex_three_grid(stepIndex_three_urls,stepIndex_three_recID,st
 		    	}
 	    ]],
         onDblClickRow: function(index,row){
-        	
+        	layui.use('layer', function(){
+			 	var layer = layui.layer;
+			 	layer.open({
+		    		type:2,
+		    		title:'详细信息【'+row.perName+'】',
+		    		area:["700px",$(window).height()-100+'px'],
+		    		content:__rczp_zgsc_stepIndex_three_urls__.__qamdetial_url+"&perID="+row.perID+"&recID="+__rczp_zgsc_stepIndex_three_recID__,
+		    		btn:['关闭'],
+		    		btn2:function(){
+		    			layer.closeAll();
+		    		}
+		    	}); 
+			});
 	    },
         onLoadSuccess: function(data){
         	var tabs = data.tabInfo;
