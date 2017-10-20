@@ -127,7 +127,6 @@ class QuaexamController extends BaseController{
 	}
 	
 	public function actionPerdetlQuaexam(){
-		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 		$request = Yii::$app->request;
 		
 		$recID = $request->get('recID');
@@ -187,9 +186,7 @@ class QuaexamController extends BaseController{
 				];
 			}
 		}
-		
-		return ['base'=>$mainJson,'eduset'=>$eduJson,'famset'=>$famJson,'workset'=>$workJson];
-				
+		return $this->renderPartial('flow3_perdet',['base'=>$mainJson,'eduset'=>$eduJson,'famset'=>$famJson,'workset'=>$workJson]);
 	}
 	
 	function object_to_array($obj){
