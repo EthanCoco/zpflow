@@ -65,8 +65,91 @@ class Share extends Model
         return $codeNameArr;
     }
 	
-	
-	
+//	public static function getKeyInfo($key){
+//		$result = [];
+//		switch($key){
+//			case 'flow3' : 
+//				$result = [
+//					'tempExcel'	=>	'../web/mbfile/rczp_zgsc_flow3.xls',
+//					'keys' =>[
+//						[
+//							'key'=>['perName','perIDCard','perPhone','perGender'],
+//							'num'=>2,
+//							'index'=>1
+//						],
+//						[
+//							'key'=>['eduStart','eduEnd'],
+//							'num'=>1,
+//							'index'=>2
+//						],
+//						[
+//							'key'=>[],
+//							'num'=>1,
+//							'index'=>3
+//						]
+//					],
+//				];
+//			break;
+//			default:break;
+//		}
+//
+//		return $result;
+//	}
+//	
+//	public static function  exportCommonExcel($data = []){
+//		@ini_set('memory_limit', '2048M');
+//		set_time_limit(0);
+//		error_reporting(E_ALL);
+//		date_default_timezone_set('PRC');
+//		$key = $data['key'];
+//		$excelInfo = self::getKeyInfo($key);
+//		
+//		
+//		unset($data['key']);
+//		ksort($data);
+//		foreach($data as $key=>$v){
+//			echo $key."<br/>";
+//		}
+		
+		
+		
+//		$timeNow = date('Y-m-d H:i:s',time());
+//		//文件名
+//		$excelName = $prex_name . date('YmdHis');
+//		$objPHPExcel = \PHPExcel_IOFactory::createReader("Excel5")->load("../web/mbfile/rczp_zgsc_flow3.xls");
+//		
+//		$objPHPExcel -> getSheet($sheetIndex) -> setTitle($titleName);
+//		
+//		//写入数据
+//		foreach($dataInfos as $info){
+//			$column = count($info);
+//			$temp = 0;
+//			for($n = 0; $n <$column; $n++){
+//				if($temp == $column){
+//					break;
+//				}else{
+//					$pcoordinate = PHPExcel_Cell::stringFromColumnIndex($n).''.$num;
+//					if($keys[$temp]=='id'){
+//						$objPHPExcel->setActiveSheetIndex($sheetIndex)->setCellValue($pcoordinate, ($num-1));
+//					}else{
+//						$objPHPExcel->setActiveSheetIndex($sheetIndex)->setCellValue($pcoordinate, ' ' . $info[$keys[$temp]] . ' ');
+//					}
+//		            $temp++;
+//				}
+//			}
+//			$num++;
+//		}
+//		
+//		//清除缓冲区,避免乱码
+//		ob_end_clean();
+//		$filename = iconv("utf-8","gb2312",$excelName);
+//		header ( 'Content-Type: application/vnd.ms-excel' );
+//		header ( 'Content-Disposition: attachment;filename="'.$filename.'.xls"'); 
+//		header ( 'Cache-Control: max-age=0' );
+//		$objWriter = PHPExcel_IOFactory::createWriter ($objPHPExcel,'Excel5'); //在内存中准备一个excel2003文件
+//		$objWriter->save ( 'php://output' );
+//		exit;
+//	}
 	
 	public static function getCodeInfo($codeType = []){
 		$len = count($codeType);
