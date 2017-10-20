@@ -118,7 +118,7 @@ var __stepIndex_three_recend = "";
 var __stepIndex_three_urls__ = {
 	'__list_url' : "<?= yii\helpers\Url::to(['quaexam/list-info']); ?>",
 	'__qamstatus_url' : "<?= yii\helpers\Url::to(['quaexam/status-quaexam']); ?>",
-	'__recdel_url' : "<?= yii\helpers\Url::to(['quaexam/del-quaexam']); ?>",
+	'__qamdetial_url' : "<?= yii\helpers\Url::to(['quaexam/perdetl-quaexam']); ?>",
 };
 
 $(function(){
