@@ -210,12 +210,24 @@ class QuaexamController extends BaseController{
 		$flag = $request->post('flag');
 		$recID = $request->post('recID');
 		$condition = $this->object_to_array(json_decode($conditionEN));
-		
 		$tableName = Share::MainTableName($recID);
 		$infos = 	(new yii\db\Query())->from($tableName)
 										->where($condition)
 										->orderby('perIndex asc')
 										->all();
+		
+		$dataJson = [];
+		foreach($infos as $info){
+			$codes = [
+					['perGender','XB'],['perJob','XZ'],['perNation','AI'],['perOrigin','AB'],['perPolitica','AG'],['perMarried','CG'],
+					['perDegree','BC'],['perMajor','AJ'],['perEducation','XL'],['perForeignLang','MC'],['perComputerLevel','MD'],['perEduPlace','AB'],
+					['perPub','GS'],['perStatus','SCJG'],['perReResult1','FKJG'],
+				];
+				
+			$mainCode = Share::codeValue($codes,$info);
+			$dataJson [] = array_merge($info,$mainCode);
+		}
+		
 		$fileInfo = [];
 		switch($flag){
 			case '-1' : 
@@ -238,7 +250,7 @@ class QuaexamController extends BaseController{
 		//exit(var_dump($infos));
 		
 		if($type == 0){
-			Share::exportCommonExcel(['sheet0'=>['data'=>$infos],'key'=>'flow3','fileInfo'=>$fileInfo]);
+			Share::exportCommonExcel(['sheet0'=>['data'=>$dataJson],'key'=>'flow3','fileInfo'=>$fileInfo]);
 		}
 		
 		//TODO
