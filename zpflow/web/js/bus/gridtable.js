@@ -678,7 +678,7 @@ function stepIndex_three_export(type){
 		}
 //	 	var index = layer.load(0, {time: 1000*1000}); 
 	 	//layer.close(index); 
-	 	
+//	 	alert(__rczp_zgsc_stepIndex_three_tab__);return ;
 	 	$("#stepIndex_three_exportForm").find("input[name='condition']").val(JSON.stringify(__rezp_zgsc_stepIndex_three_condition));
 	 	$("#stepIndex_three_exportForm").find("input[name='type']").val(type);
 	 	$("#stepIndex_three_exportForm").find("input[name='flag']").val(__rczp_zgsc_stepIndex_three_tab__);
