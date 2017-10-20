@@ -207,6 +207,7 @@ class QuaexamController extends BaseController{
 		$request = Yii::$app->request;
 		$conditionEN = $request->post('condition');
 		$type = $request->post('type');
+		$flag = $request->post('flag');
 		$recID = $request->post('recID');
 		$condition = $this->object_to_array(json_decode($conditionEN));
 		
@@ -215,9 +216,29 @@ class QuaexamController extends BaseController{
 										->where($condition)
 										->orderby('perIndex asc')
 										->all();
+		$fileInfo = [];
+		switch($flag){
+			case '-1' : 
+				$fileInfo = ['fileName'=>'资格审查所有人员信息'];
+				break;
+			case '1' :
+				$fileInfo = ['fileName'=>'资格审查待审人员信息'];
+				break;
+			case '2' :
+				$fileInfo = ['fileName'=>'资格审查通过审核人员信息'];
+				break;
+			case '3' :
+				$fileInfo = ['fileName'=>'资格审查审核不通过人员信息'];
+				break;
+			default :
+				$fileInfo = ['fileName'=>''];
+				break;
+		}
+		
+		//exit(var_dump($infos));
 		
 		if($type == 0){
-			//Share::exportCommonExcel(['sheet1'=>['data'=>$infos],'key'=>'flow3']);
+			Share::exportCommonExcel(['sheet0'=>['data'=>$infos],'key'=>'flow3','fileInfo'=>$fileInfo]);
 		}
 		
 		//TODO
