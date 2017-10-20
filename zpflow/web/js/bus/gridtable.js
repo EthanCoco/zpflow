@@ -676,13 +676,33 @@ function stepIndex_three_export(type){
 			layer.alert('当前列表没有任何数据，不需要导出！');
 			return;
 		}
-//	 	var index = layer.load(0, {time: 1000*1000}); 
-	 	//layer.close(index); 
-//	 	alert(__rczp_zgsc_stepIndex_three_tab__);return ;
-	 	$("#stepIndex_three_exportForm").find("input[name='condition']").val(JSON.stringify(__rezp_zgsc_stepIndex_three_condition));
-	 	$("#stepIndex_three_exportForm").find("input[name='type']").val(type);
-	 	$("#stepIndex_three_exportForm").find("input[name='flag']").val(__rczp_zgsc_stepIndex_three_tab__);
-	 	$("#stepIndex_three_exportForm").find("input[name='recID']").val(__rczp_zgsc_stepIndex_three_recID__);
-		$("#stepIndex_three_exportForm").submit();
+	 	
+	 	if(type == 0){
+	 		//var index = layer.load(0, {time: 1000*1000}); 
+		 	//layer.close(index); 
+		 	$("#stepIndex_three_exportForm").find("input[name='condition']").val(JSON.stringify(__rezp_zgsc_stepIndex_three_condition));
+		 	$("#stepIndex_three_exportForm").find("input[name='type']").val(type);
+		 	$("#stepIndex_three_exportForm").find("input[name='flag']").val(__rczp_zgsc_stepIndex_three_tab__);
+		 	$("#stepIndex_three_exportForm").find("input[name='recID']").val(__rczp_zgsc_stepIndex_three_recID__);
+			$("#stepIndex_three_exportForm").submit();
+	 	}else{
+	 		//alert("'"+JSON.stringify(__rezp_zgsc_stepIndex_three_condition)+"'");return;
+	 		layer.open({
+	    		type:2,
+	    		title:'自定义导出字段',
+	    		area:[$(window).width()/2+"px",$(window).height()-100+'px'],
+	    		content:__rczp_zgsc_stepIndex_three_urls__.__qamexpclm_url+"&type="+type,
+	    		btn:['确定','关闭'],
+	    		yes: function(){
+	    			$("iframe[id*='layui-layer-iframe'")[0].contentWindow.stepIndexThreeExpclm(); 
+	    			//var rows = $("iframe[id*='layui-layer-iframe'").contents().find("#stepIndex_three_expclm").datagrid('getSelections');
+		        },
+	    		btn2:function(){
+	    			layer.closeAll();
+	    		}
+		    });
+	 	}
+	 	
+	 	
 	});
 }

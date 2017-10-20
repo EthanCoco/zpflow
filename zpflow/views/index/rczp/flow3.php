@@ -120,6 +120,7 @@ var __stepIndex_three_urls__ = {
 	'__list_url' : "<?= yii\helpers\Url::to(['quaexam/list-info']); ?>",
 	'__qamstatus_url' : "<?= yii\helpers\Url::to(['quaexam/status-quaexam']); ?>",
 	'__qamdetial_url' : "<?= yii\helpers\Url::to(['quaexam/perdetl-quaexam']); ?>",
+	'__qamexpclm_url' : "<?= yii\helpers\Url::to(['quaexam/expclm-quaexam']); ?>",
 };
 
 $(function(){

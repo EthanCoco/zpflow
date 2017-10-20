@@ -202,6 +202,11 @@ class QuaexamController extends BaseController{
 	    return $obj;
 	}
 	
+	public function actionExpclmQuaexam(){
+		$type = Yii::$app->request->get('type');
+		return $this->renderPartial('flow3_expclm',['type'=>$type]);
+	}
+	
 	public function actionExportQuaexam(){
 		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 		$request = Yii::$app->request;
@@ -247,13 +252,69 @@ class QuaexamController extends BaseController{
 				break;
 		}
 		
-		//exit(var_dump($infos));
-		
 		if($type == 0){
 			Share::exportCommonExcel(['sheet0'=>['data'=>$dataJson],'key'=>'flow3','fileInfo'=>$fileInfo]);
+		}else{
+			@ini_set('memory_limit', '2048M');
+			set_time_limit(0);
+			error_reporting(E_ALL);
+			date_default_timezone_set('PRC');
+			$fileName = $fileInfo['fileName'].date('Y-m-d',time()).time();
+			
+			$extracolumns = rtrim( trim($request->post('extracolumns')), '、');
+			$ecolumns = $request->post('ecolumns');
+			$zcolumns = $request->post('zcolumns');
+			$keys = explode(',', $ecolumns);	
+			$zkeys = explode(',', $zcolumns);
+			if(!empty($extracolumns)){
+				$extraInfo = explode('、', $extracolumns);
+				$extraLen = count($extraInfo);
+				for($i = 0; $i < $extraLen; $i++){
+					array_push($zkeys,$extraInfo[$i]);
+				}
+			}
+			$objPHPExcel = new \PHPExcel();
+			$header = count($zkeys);
+			$temp_header = 0;
+			for($n = 0; $n < $header; $n++){
+				if($temp_header == $header){
+					break;
+				}else{
+					$pcoordinate = \PHPExcel_Cell::stringFromColumnIndex($n).''.'1';
+					$objPHPExcel->setActiveSheetIndex(0)->setCellValue($pcoordinate, $zkeys[$temp_header]);
+		            $temp_header++;
+				}
+			}
+			
+			$objPHPExcel -> getSheet(0) -> setTitle("人员基本信息");
+			$num = 2;
+			foreach($dataJson as $info){
+				$column = count($keys);
+				$temp = 0;
+				for($n = 0; $n < $column; $n++){
+					if($temp == $column){
+						break;
+					}else{
+						$pcoordinate = \PHPExcel_Cell::stringFromColumnIndex($n).''.$num;
+						if($keys[$temp] == 'id'){
+							$objPHPExcel->setActiveSheetIndex(0)->setCellValue($pcoordinate, ($num-1));
+						}else{
+							$objPHPExcel->setActiveSheetIndex(0)->setCellValue($pcoordinate, ' ' . $info[$keys[$temp]] . ' ');
+						}
+			            $temp++;
+					}
+				}
+				$num++;
+			}
+			
+			ob_end_clean();
+			$fileName = iconv("utf-8","gb2312",$fileName);
+			header ( 'Content-Type: application/vnd.ms-excel' );
+			header ( 'Content-Disposition: attachment;filename="'.$fileName.'.xls"'); 
+			header ( 'Cache-Control: max-age=0' );
+			$objWriter = \PHPExcel_IOFactory::createWriter ($objPHPExcel,'Excel5'); //在内存中准备一个excel2003文件
+			$objWriter->save ( 'php://output' );
+			exit;
 		}
-		
-		//TODO
-				
 	}
 }
