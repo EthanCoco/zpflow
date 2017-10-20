@@ -535,7 +535,7 @@ function init_stepIndex_three_grid(stepIndex_three_urls,stepIndex_three_recID,st
 				  	iconCls:'icon-edit',
 				   	text:'额外通知设置',
 				   	handler:function(){
-				   		
+				   		stepIndex_three_extraset();
 				   	}
 			   	}]
 			});
@@ -575,7 +575,7 @@ function init_stepIndex_three_grid(stepIndex_three_urls,stepIndex_three_recID,st
 				  	iconCls:'icon-edit',
 				   	text:'额外通知设置',
 				   	handler:function(){
-				   		
+				   		stepIndex_three_extraset();
 				   	}
 			   	}]
 			});
@@ -640,7 +640,6 @@ function stepIndex_three_check(perStatus){
 					},'json');
 				}); 
 			}else{
-				
 				layer.confirm('您确定要'+msg+'勾选的【'+len+'】条数据么', function(index){
 					layer.prompt({
 					  	formType: 2,
@@ -659,7 +658,6 @@ function stepIndex_three_check(perStatus){
 						},'json');
 					});
 				}); 
-				
 			}
 		}else{
 			layer.alert("勾选的人员中存在已经公示过结果的人员，不允许操作！");
@@ -704,5 +702,75 @@ function stepIndex_three_export(type){
 	 	}
 	 	
 	 	
+	});
+}
+
+function stepIndex_three_extraset(){
+	layui.use('layer', function(){
+	 	var layer = layui.layer;
+	 	
+ 		layer.open({
+    		type:2,
+    		title:'额外通知信息设置',
+    		area:["600px",$(window).height()*3/4+'px'],
+    		content:__rczp_zgsc_stepIndex_three_urls__.__qamextrap_url+"&recID="+__rczp_zgsc_stepIndex_three_recID__,
+    		btn:['确定','关闭'],
+    		yes: function(){
+    			$("iframe[id*='layui-layer-iframe'")[0].contentWindow.stepIndexThreeExtraset(); 
+	        },
+    		btn2:function(){
+    			layer.closeAll();
+    		}
+	    });
+	});
+}
+
+function stepIndex_three_pub(type){
+	layui.use('layer', function(){
+	 	var layer = layui.layer;
+	 	var check_flag = 0;
+	 	$.ajax({
+	 		type:"post",
+	 		url:__rczp_zgsc_stepIndex_three_urls__.__pubcheck_url,
+	 		async:false,
+	 		dataType:'json',
+	 		data:{'recID':__rczp_zgsc_stepIndex_three_recID__},
+	 		success:function(json){
+	 			if(json.result){
+	 				check_flag = 1;
+	 			}
+	 		}
+	 	});
+	 	
+	 	if(check_flag){
+	 		layer.alert("存在未审核完成的人员，全部审核完成后才可以公示信息");
+	 		return;
+	 	}
+			 	
+	 	var perIDs = [];
+	 	var msg = ['您确定要<span style="color:red;">公示全部通过</span>的人员么','您确定要<span style="color:red;">公示全部不通过</span>的人员么','您确定要<span style="color:red;">公示全部</span>人员么','您确定要<span style="color:red;">公示勾选</span>的人员么'];
+	 	if(type == 3){
+	 		var rows = $("#stepIndex_three").datagrid('getSelections');
+			var len = rows.length;
+			if(len == 0){
+				layer.alert("请勾选需要公示的数据！");
+				return;
+			}
+			for(var i = 0; i < len; i++){
+				perIDs.push(rows[i]['perID']);
+			}
+	 	}
+		
+		layer.confirm(msg[type], function(index){
+		  	$.post(__rczp_zgsc_stepIndex_three_urls__.__perpub_url,{'perIDs':perIDs,'recID':__rczp_zgsc_stepIndex_three_recID__,'type':type},function(json){
+				if(json.result){
+					layer.msg(json.msg);
+					init_stepIndex_three_grid(__rczp_zgsc_stepIndex_three_urls__,__rczp_zgsc_stepIndex_three_recID__,__rczp_zgsc_stepIndex_three_tab__,__rczp_zgsc_stepIndex_three_show_flag__,__rczp_zgsc_stepIndex_three_recend__);
+					layer.close(index);
+				}else{
+					layer.alert(json.msg);
+				}
+			},'json');
+		}); 
 	});
 }

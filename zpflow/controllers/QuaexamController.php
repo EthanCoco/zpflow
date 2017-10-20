@@ -5,6 +5,7 @@ use yii\helpers\Html;
 use Yii;
 
 use app\models\Share;
+use app\models\Qumextra;
 
 class QuaexamController extends BaseController{
 	public $enableCsrfValidation = false;
@@ -317,4 +318,70 @@ class QuaexamController extends BaseController{
 			exit;
 		}
 	}
+
+	public function actionExtrapQuaexam(){
+		$recID = Yii::$app->request->get('recID');
+		$infos = Qumextra::find()->where(['recID'=>$recID])->one();
+		return $this->renderPartial('flow3_extrap',['recID'=>$recID,'infos'=>$infos]);
+	}
+	
+	public function actionSaveExtraQuaexam(){
+		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+		$request = Yii::$app->request;
+		$recID = $request->post('recID');
+		$qraPassType = $request->post('qraPassType');
+		$qraPassMsg = $request->post('qraPassMsg');
+		$qraNoPassType = $request->post('qraNoPassType');
+		$qraNoPassMsg = $request->post('qraNoPassMsg');
+		
+		Qumextra::deleteAll(['recID'=>$recID]);
+		$qumextra = new Qumextra();
+		$qumextra->recID = $recID;
+		$qumextra->qraPassType = $qraPassType;
+		$qumextra->qraPassMsg = $qraPassMsg;
+		$qumextra->qraNoPassType = $qraNoPassType;
+		$qumextra->qraNoPassMsg = $qraNoPassMsg;
+		if($qumextra->insert()){
+			return ['result'=>1,'msg'=>'设置成功'];
+		}else{
+			return ['result'=>0,'msg'=>'设置失败'];
+		}
+	}
+	
+	public function actionPubckQuaexam(){
+		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+		$request = Yii::$app->request;
+		$recID = $request->post('recID');
+		$tableName = Share::MainTableName($recID);
+		$flag = (new yii\db\Query())->from($tableName)->where(['perStatus'=>1])->count();
+		return ['result'=>$flag];
+	}
+	
+	public function actionPerpubQuaexam(){
+		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+		$request = Yii::$app->request;
+		$recID = $request->post('recID');
+		$type = intval($request->post('type'));
+		$tableName = Share::MainTableName($recID);
+		$db = Yii::$app->db->createCommand();
+		$msg = ['公示全部通过人员','公示全部不通过人员','全部人员公示','公示勾选的人员'];
+		
+		if($type == 3){
+			$perIDs = $request->post('perIDs');
+			$flag = $db	->update($tableName,['perPub'=>1,],['perID'=>$perIDs])->execute();
+		}elseif($type == 0){
+			$flag = $db	->update($tableName,['perPub'=>1,],['perStatus'=>2])->execute();
+		}elseif($type == 1){
+			$flag = $db	->update($tableName,['perPub'=>1,],['perStatus'=>3])->execute();
+		}elseif($type == 2){
+			$flag = $db	->update($tableName,['perPub'=>1,],['perStatus'=>[2,3]])->execute();
+		}
+		
+		if($flag){
+			return ['result'=>1,'msg'=>$msg[$type].'成功'];
+		}else{
+			return ['result'=>0,'msg'=>$msg[$type].'失败'];
+		}
+	}
+	
 }
