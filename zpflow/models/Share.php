@@ -21,16 +21,52 @@ class Share extends Model
 	public static function codeValue($codeArr = [],$data = ''){
         $codeNameArr = [];//代码名称数组
         foreach($codeArr as $code){
+            $val = $data[$code[0]];
+			$val_arr = explode("_", $val);
+			$val_len = count($val_arr);
+			if($val_len == 1){
+				$codeFind = Code::find()->where(['codeID'=>$val,'codeTypeID'=>$code[1],'codeStatus'=>1])->one();
+				if(!empty($codeFind)){
+	                $codeNameArr[$code[0]] = $codeFind->codeName;
+	            }else{
+	            	$codeNameArr[$code[0]] = '';
+	            }
+			}else{
+				$val_name = '';
+				for($i = 0; $i < $val_len; $i++ ){
+					$codeFind = Code::find()->where(['codeID'=>$val_arr[$i],'codeTypeID'=>$code[1],'codeStatus'=>1])->one();
+					if(!empty($codeFind)){
+						if($i == ($val_len -1) ){
+							$val_name .= $codeFind->codeName;
+						}else{
+							$val_name .= $codeFind->codeName.' ';
+						}
+		                
+		            }
+				}
+				$codeNameArr[$code[0]] = $val_name;
+			}
+			
+        }
+        return $codeNameArr;
+    }
+	
+	public static function codeValue1111($codeArr = [],$data = ''){
+        $codeNameArr = [];//代码名称数组
+        foreach($codeArr as $code){
             $codeVal = $data[$code[0]];
             $codeFind = Code::find()->where(['codeID'=>$codeVal,'codeTypeID'=>$code[1],'codeStatus'=>1])->one();
             if(!empty($codeFind)){
                 $codeNameArr[$code[0]] = $codeFind->codeName;
             }else{
-                $codeNameArr[$code[0]] = '';
+                  $codeNameArr[$code[0]] = '';
             }
         }
         return $codeNameArr;
     }
+	
+	
+	
 	
 	public static function getCodeInfo($codeType = []){
 		$len = count($codeType);
@@ -53,7 +89,7 @@ class Share extends Model
     }
 	
 	public static function SetTableNames($rec){
-		return ['flow_job_set_edu'.$rec,'flow_job_set_fam'.$rec,'flow_job_set_work'.$rec];
+		return ['flow_job_set_edu_'.$rec,'flow_job_set_fam_'.$rec,'flow_job_set_work_'.$rec];
 	}
 	
 	public static function SetTableName($rec,$set){
@@ -75,8 +111,8 @@ class Share extends Model
 					  `perWorkPlace` varchar(255) NOT NULL COMMENT '现工作单位',
 					  `perMarried` varchar(64) NOT NULL COMMENT '婚姻状况',
 					  `perBirth` varchar(128) NULL DEFAULT NULL COMMENT '出生年月',
-					  `perHeight` decimal(4,2) DEFAULT NULL COMMENT '身高',
-					  `perWeight` decimal(4,2) DEFAULT NULL COMMENT '体重',
+					  `perHeight` int(11) DEFAULT NULL COMMENT '身高',
+					  `perWeight` decimal(8,2) DEFAULT NULL COMMENT '体重',
 					  `perUniversity` varchar(255) DEFAULT NULL COMMENT '毕业院校',
 					  `perDegree` varchar(128) DEFAULT NULL COMMENT '学位',
 					  `perMajor` varchar(128) DEFAULT NULL COMMENT '专业',
