@@ -159,7 +159,7 @@ class QuaexamController extends BaseController{
 										->all();
 		
 		
-		$phpexcel = \PHPExcel_IOFactory::createReader("Excel5")->load("../web/templatefile/zigeshencha1.xls");
+		$phpexcel = \PHPExcel_IOFactory::createReader("Excel5")->load("../web/mbfile/rczp_zgsc_flow3.xls");
 		
 				
 	}
