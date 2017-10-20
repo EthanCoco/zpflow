@@ -83,6 +83,7 @@
 
 <form id="stepIndex_three_exportForm" action="<?= yii\helpers\Url::to(['quaexam/export-quaexam']); ?>" method="post" style="display:none;">
     <input type="text" name="type" />
+    <input type="text" name="flag" />
     <input type="text" name="recID" />
     <input type="text" name="condition" />
 </form>
