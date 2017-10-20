@@ -126,6 +126,72 @@ class QuaexamController extends BaseController{
 		}
 	}
 	
+	public function actionPerdetlQuaexam(){
+		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+		$request = Yii::$app->request;
+		
+		$recID = $request->get('recID');
+		$perID = $request->get('perID');
+		
+		$mainInfo = (new \yii\db\Query())->from(Share::MainTableName($recID))->where(['perID'=>$perID])->one();
+		$codes = [
+					['perGender','XB'],['perJob','XZ'],['perNation','AI'],['perOrigin','AB'],['perPolitica','AG'],['perMarried','CG'],
+					['perDegree','BC'],['perMajor','AJ'],['perEducation','XL'],['perForeignLang','MC'],['perComputerLevel','MD'],['perEduPlace','AB'],
+				];
+		$mainCode = Share::codeValue($codes,$mainInfo);
+		$mainJson = array_merge($mainInfo,$mainCode);
+		
+		$tables_set = Share::SetTableNames($recID);
+		$eduSetInfo = (new \yii\db\Query())->from($tables_set[0])->where(['perID'=>$perID])->orderby('eduStart asc')->all();
+		$eduJson = [];
+		if(!empty($eduSetInfo)){
+			foreach($eduSetInfo as $edu){
+				$edu_code = [['eduMajor','AJ']] ;
+				$edu_code_info = Share::codeValue($edu_code,$edu);
+				$eduJson[] = [
+					'eduStart'	=>	!empty($edu['eduStart']) ? substr($edu['eduStart'], 0,10) : '',
+					'eduEnd'	=>	!empty($edu['eduEnd']) ? substr($edu['eduEnd'], 0,10) : '',
+					'eduSchool'	=>	$edu['eduSchool'],
+					'eduMajor'	=>	$edu_code_info['eduMajor'],
+					'eduPost'	=>	$edu['eduPost'],
+					'eduBurseHonorary'	=>	$edu['eduBurseHonorary'],
+				];
+			}
+		}
+		
+		$famSetInfo = (new \yii\db\Query())->from($tables_set[1])->where(['perID'=>$perID])->all();
+		$famJson = [];
+		if(!empty($famSetInfo)){
+			foreach($famSetInfo as $fam){
+				$fam_code = [['famRelation','JTGX']] ;
+				$fam_code_info = Share::codeValue($fam_code,$fam);
+				$famJson[] = [
+					'famRelation'	=>	$fam_code_info['famRelation'],
+					'famName'	=>	$fam['famName'],
+					'famCom'	=>	$fam['famCom'],
+					'famPost'	=>	$fam['famPost'],
+				];
+			}
+		}
+		
+		$workSetInfo = (new \yii\db\Query())->from($tables_set[2])->where(['perID'=>$perID])->orderby('wkStart asc')->all();
+		$workJson = [];
+		if(!empty($workSetInfo)){
+			foreach($workSetInfo as $work){
+				$workJson[] = [
+					'wkStart'	=>	!empty($work['wkStart']) ? substr($work['wkStart'], 0,10) : '',
+					'wkEnd'		=>	!empty($work['wkEnd']) ? substr($work['wkEnd'], 0,10) : '',
+					'wkPost'	=>	$work['wkPost'],
+					'wkCom'		=>	$work['wkCom'],
+					'wkInfo'	=>	$work['wkInfo'],
+				];
+			}
+		}
+		
+		return ['base'=>$mainJson,'eduset'=>$eduJson,'famset'=>$famJson,'workset'=>$workJson];
+				
+	}
+	
 	function object_to_array($obj){
 	    $obj = (array)$obj;
 	    foreach ($obj as $k => $v){
