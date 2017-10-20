@@ -203,12 +203,7 @@ class QuaexamController extends BaseController{
 	}
 	
 	public function actionExportQuaexam(){
-		@ini_set('memory_limit', '2048M');
-		set_time_limit(0);
-		error_reporting(E_ALL);
 		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-		date_default_timezone_set('PRC');
-		$timeNow = date('Y-m-d H:i:s',time());
 		$request = Yii::$app->request;
 		$conditionEN = $request->post('condition');
 		$type = $request->post('type');
@@ -221,8 +216,10 @@ class QuaexamController extends BaseController{
 										->orderby('perIndex asc')
 										->all();
 		
+		if($type == 0){
+			//Share::exportCommonExcel(['sheet1'=>['data'=>$infos],'key'=>'flow3']);
+		}
 		
-		$phpexcel = \PHPExcel_IOFactory::createReader("Excel5")->load("../web/mbfile/rczp_zgsc_flow3.xls");
 		//TODO
 				
 	}
