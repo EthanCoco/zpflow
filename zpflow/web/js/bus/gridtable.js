@@ -681,6 +681,7 @@ function stepIndex_three_export(type){
 	 	
 	 	$("#stepIndex_three_exportForm").find("input[name='condition']").val(JSON.stringify(__rezp_zgsc_stepIndex_three_condition));
 	 	$("#stepIndex_three_exportForm").find("input[name='type']").val(type);
+	 	$("#stepIndex_three_exportForm").find("input[name='flag']").val(__rczp_zgsc_stepIndex_three_tab__);
 	 	$("#stepIndex_three_exportForm").find("input[name='recID']").val(__rczp_zgsc_stepIndex_three_recID__);
 		$("#stepIndex_three_exportForm").submit();
 	});
