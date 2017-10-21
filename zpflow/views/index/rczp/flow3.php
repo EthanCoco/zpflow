@@ -7,6 +7,7 @@
 	        <?php } ?>
 	 	</select>
 	</span>
+	<span id="stepIndex_three_head_pubinfo" style="color: red;"></span>
 </div>
 
 <div class="layui-row" id="stepIndex_three_search">
