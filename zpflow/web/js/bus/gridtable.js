@@ -370,6 +370,7 @@ var __rczp_zgsc_stepIndex_three_recID__ = "";
 var __rczp_zgsc_stepIndex_three_recend__ = "";
 var __rezp_zgsc_stepIndex_three_total = 0;
 var __rezp_zgsc_stepIndex_three_condition = {};
+var __rczp_zgsc_stepIndex_three_sendmsg__content__ = "";
 
 function init_stepIndex_three_grid(stepIndex_three_urls,stepIndex_three_recID,stepIndex_three_tab,stepIndex_three_show_flag,stepIndex_three_recend){
 	var __stepIndex_three_search = {
@@ -463,7 +464,7 @@ function init_stepIndex_three_grid(stepIndex_three_urls,stepIndex_three_recID,st
 			 	layer.open({
 		    		type:2,
 		    		title:'详细信息【'+row.perName+'】',
-		    		area:[$(window).width()/2+"px",$(window).height()-100+'px'],
+		    		area:[$(window).width()/5*4+"px",$(window).height()-100+'px'],
 		    		content:__rczp_zgsc_stepIndex_three_urls__.__qamdetial_url+"&perID="+row.perID+"&recID="+__rczp_zgsc_stepIndex_three_recID__,
 		    		btn:['关闭'],
 		    		btn2:function(){
@@ -799,9 +800,64 @@ function stepIndex_three_perprint(type){
 			window.open(__rczp_zgsc_stepIndex_three_urls__.__perprint_url+"&recID="+__rczp_zgsc_stepIndex_three_recID__+"&type="+type+"&perIDs="+perIDs);
 			layer.close(index);
 		});
-		
-		
 	});
-	
-	
+}
+
+
+function stepIndex_three_msgtip(type){
+	layui.use('layer', function(){
+	 	var layer = layui.layer;
+	 	
+	 	var msg = ['您确定要<span style="color:red;">通知所有通过人员</span>么','您确定要<span style="color:red;">通知所有未通过人员</span>么','您确定要<span style="color:red;">通知所有已审核人员（不包括待审人员）</span>么','您确定要<span style="color:red;">通知所勾选人员</span>么'];
+	 	var msgtip = ['通过人员','未通过人员','已审核人员','勾选人员'];
+	 	var perIDs = "";
+	 	var flag = 0;
+	 	if(type == 3){
+	 		var rows = $("#stepIndex_three").datagrid('getSelections');
+			var len = rows.length;
+			if(len == 0){
+				layer.alert("请勾选需要短信通知的人员！");
+				return;
+			}
+			for(var i = 0; i < len; i++){
+				if(rows[i]['perStatus'] == '1'){
+					flag = 1;
+					break;
+				}
+				
+				if(i == len -1){
+					perIDs += rows[i]['perID'];
+				}else{
+					perIDs += rows[i]['perID']+",";
+				}
+			}
+			
+			if(flag == 1){
+				layer.alert('勾选的人员中存在未审核的人员');
+				return ;
+			}
+	 	}
+	 	
+		layer.prompt({
+		  	formType: 2,
+		  	value: '',
+		  	title: '设置短信通知内容<span style="color:red;">【'+msgtip[type]+"】</span>",
+		  	area: ['300px', '150px']
+		}, function(value, index, elem){
+		  	__rczp_zgsc_stepIndex_three_sendmsg__content__ = value;
+    	 	layer.open({
+		  		type:2,
+		  		title:'确认信息<span style="color:red;">【'+msgtip[type]+'】</span>',
+		  		area:[$(window).width()*3/4+"px",'520px'],
+		  		content:__rczp_zgsc_stepIndex_three_urls__.__qumsendmsg_url+"&recID="+__rczp_zgsc_stepIndex_three_recID__+"&type="+type+"&perIDs="+perIDs,
+		  		btn:['发送','关闭'],
+		  		yes: function(){
+		  			$("iframe[id*='layui-layer-iframe'")[0].contentWindow.stepIndexThreeSendMsg(); 
+			    },
+		  		btn2:function(){
+		  			layer.close(layer.getFrameIndex(window.name));
+		  		}
+		    });
+		});
+	});
 }
