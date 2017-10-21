@@ -100,6 +100,15 @@
 	<li rel="stepIndex_three_checkpub"><a href="javascript:;" onclick="stepIndex_three_pub(3)" title="勾选公示">勾选公示</a></li>
 </ul> 
 
+<ul class="tabsMoreList" id="stepIndex_three_perprint" style="margin-left:0px;right:0px;bottom:53px;top:auto">
+	<li rel="stepIndex_three_perprint"><a href="javascript:;" onclick="stepIndex_three_perprint(0)" title="打印全部">打印全部</a></li>
+	<li rel="stepIndex_three_perprint"><a href="javascript:;" onclick="stepIndex_three_perprint(1)" title="打印全部审核">打印全部审核</a></li>
+	<li rel="stepIndex_three_perprint"><a href="javascript:;" onclick="stepIndex_three_perprint(2)" title="打印全部公示人员">打印全部公示人员</a></li>
+	<li rel="stepIndex_three_perprint"><a href="javascript:;" onclick="stepIndex_three_perprint(3)" title="打印全部未审核人员">打印全部未审核人员</a></li>
+	<li rel="stepIndex_three_perprint"><a href="javascript:;" onclick="stepIndex_three_perprint(4)" title="勾选打印">勾选打印</a></li>
+
+</ul>
+
 <ul class="tabsMoreList" id="stepIndex_three_msgtip" style="margin-left:0px;right:0px;bottom:53px;top:auto">
 	<li rel="stepIndex_three_msgtip"><a href="javascript:;" onclick="stepIndex_three_msgtip(0)" title="通知通过人员">通知通过人员</a></li>
 	<li rel="stepIndex_three_msgtip"><a href="javascript:;" onclick="stepIndex_three_msgtip(1)" title="通知未通过人员">通知未通过人员</a></li>
@@ -124,6 +133,7 @@ var __stepIndex_three_urls__ = {
 	'__qamextrap_url' : "<?= yii\helpers\Url::to(['quaexam/extrap-quaexam']); ?>",
 	'__perpub_url' : "<?= yii\helpers\Url::to(['quaexam/perpub-quaexam']); ?>",
 	'__pubcheck_url' : "<?= yii\helpers\Url::to(['quaexam/pubck-quaexam']); ?>",
+	'__perprint_url' : "<?= yii\helpers\Url::to(['quaexam/perprint-quaexam']); ?>",
 };
 
 $(function(){
