@@ -6,4 +6,10 @@ return [
     'login_secret'	=>	'3c75ebb9d07916c5eb94d2e490286780',
     /*打印人员修改加密*/
     'per_print_zip_secret'=>	'lijianlin_zpflow_print_zip',
+    /*聚合短信接口key*/
+	'juhe_key'	=>	'*****************',
+	/*聚合短信模板ID*/
+	'juhe_tpl_id' => 4526,
+	
+	
 ];
