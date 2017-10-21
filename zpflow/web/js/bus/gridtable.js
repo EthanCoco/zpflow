@@ -68,69 +68,68 @@ function init_stepIndex_one_grid(stepIndex_one_urls){
 			$('#stepIndex_one').datagrid('resize',{
 	    		height: $(window).height()-124-25
 	    	});
-	    }
-    });
-    
-    $("#stepIndex_one").datagrid('getPager').pagination({buttons:[
-		{
-		   	iconCls:'icon-add',
-		   	text:'添加',
-		   	handler:function(){
-				layui.use('layer', function(){
-				 	var layer = layui.layer;
-				  	layer.open({
-		        		type:2,
-		        		title:'添加招聘年度',
-		        		area:["600px",'420px'],
-		        		content:stepIndex_one_urls.__repair_url+"&flag=add"
-		        	}); 
-				});
-		   	}
-	   	},'-',{
-		  	iconCls:'icon-remove',
-		   	text:'删除',
-		   	handler:function(){
-		   		layui.use('layer', function(){
-				 	var layer = layui.layer;
-				 	var rows = $("#stepIndex_one").datagrid("getSelections");
-					var len = rows.length;
-					if(len == 0){
-						layui.layer.alert("请选择要删除的招聘信息");
-						return;
-					}
-					
-					var selectInfoIds = [];
-					var flag = 0;
-					for(var i = 0; i < len; i++){
-				   		if(rows[i]["recDefault"] != "0"){
-				   			flag = 1;
-	           				break;
-				   		}else{
-				   			selectInfoIds.push(rows[i].recID);
-				   		}
+		    $("#stepIndex_one").datagrid('getPager').pagination({buttons:[
+				{
+				   	iconCls:'icon-add',
+				   	text:'添加',
+				   	handler:function(){
+						layui.use('layer', function(){
+						 	var layer = layui.layer;
+						  	layer.open({
+				        		type:2,
+				        		title:'添加招聘年度',
+				        		area:["600px",'420px'],
+				        		content:stepIndex_one_urls.__repair_url+"&flag=add"
+				        	}); 
+						});
 				   	}
-					
-					if(!flag){
-						layer.confirm('您确定要删除勾选的【'+len+'】条数据么', function(index){
-						  	$.post(__rczp_zpsz_stepIndex_one_urls__.__recdel_url,{'recIDs':selectInfoIds},function(json){
-								if(json.result){
-									layer.msg(json.msg);
-									init_stepIndex_one_grid(__rczp_zpsz_stepIndex_one_urls__);
-									layer.close(index);
-								}else{
-									layer.alert(json.msg);
-								}
-							},'json');
-						}); 
-					}else{
-						layui.layer.alert("选择删除的数据中包含已结束或进行中招聘信息");
-						return;
+			   	},'-',{
+				  	iconCls:'icon-remove',
+				   	text:'删除',
+				   	handler:function(){
+				   		layui.use('layer', function(){
+						 	var layer = layui.layer;
+						 	var rows = $("#stepIndex_one").datagrid("getSelections");
+							var len = rows.length;
+							if(len == 0){
+								layui.layer.alert("请选择要删除的招聘信息");
+								return;
+							}
+							
+							var selectInfoIds = [];
+							var flag = 0;
+							for(var i = 0; i < len; i++){
+						   		if(rows[i]["recDefault"] != "0"){
+						   			flag = 1;
+			           				break;
+						   		}else{
+						   			selectInfoIds.push(rows[i].recID);
+						   		}
+						   	}
+							
+							if(!flag){
+								layer.confirm('您确定要删除勾选的【'+len+'】条数据么', function(index){
+								  	$.post(__rczp_zpsz_stepIndex_one_urls__.__recdel_url,{'recIDs':selectInfoIds},function(json){
+										if(json.result){
+											layer.msg(json.msg);
+											init_stepIndex_one_grid(__rczp_zpsz_stepIndex_one_urls__);
+											layer.close(index);
+										}else{
+											layer.alert(json.msg);
+										}
+									},'json');
+								}); 
+							}else{
+								layui.layer.alert("选择删除的数据中包含已结束或进行中招聘信息");
+								return;
+							}
+						});
+						
 					}
-				});
-				
-			}
-	   	}]
-	});
+			   	}]
+			});
+		}
+    });
 }
 
 function pubRecruit(recID,recYear,recBatch){
@@ -254,76 +253,76 @@ function init_stepIndex_two_grid_AB(stepIndex_two_urls,stepIndex_two_recID,stepI
 			$('#stepIndex_two_' + stepIndex_two_datagrid_flag).datagrid('resize',{
 	    		height: $(window).height()-124-25-60
 	    	});
-	    }
-    });
 	
-	if(__rczp_zpgg_stepIndex_two_show_flag__ == "1"){
-		var msg = "";
-	 	if(__rczp_zpgg_stepIndex_two_datagrid_flag__ == "A"){
-	 		msg = "招聘公告";
-	 	}else{
-	 		msg = "单位简介";
-	 	}
-		$('#stepIndex_two_' + __rczp_zpgg_stepIndex_two_datagrid_flag__).datagrid('getPager').pagination({buttons:[
-			{
-			   	iconCls:'icon-add',
-			   	text:'添加',
-			   	handler:function(){
-					layui.use('layer', function(){
-					 	var layer = layui.layer;
-					 	layer.open({
-			        		type:2,
-			        		title:'添加'+msg,
-			        		area:["650px",'505px'],
-			        		content:__rczp_zpgg_stepIndex_two_urls__.__repair_url+"&flag=add&ancType="+__rczp_zpgg_stepIndex_two_datagrid_flag__
-			        	}); 
-					});
-			   	}
-		   	},'-',{
-			  	iconCls:'icon-remove',
-			   	text:'删除',
-			   	handler:function(){
-			   		layui.use('layer', function(){
-					 	var layer = layui.layer;
-					 	var rows = $('#stepIndex_two_' + __rczp_zpgg_stepIndex_two_datagrid_flag__).datagrid("getSelections");
-						var len = rows.length;
-						if(len == 0){
-							layui.layer.alert("请选择要删除的"+msg);
-							return;
-						}
-						
-						var selectInfoIds = [];
-						var flag = 0;
-						for(var i = 0; i < len; i++){
-					   		if(rows[i].ancStatus != "0"){
-					   			flag = 1;
-		           				break;
-					   		}else{
-					   			selectInfoIds.push(rows[i].ancID);
-					   		}
+			if(__rczp_zpgg_stepIndex_two_show_flag__ == "1"){
+				var msg = "";
+			 	if(__rczp_zpgg_stepIndex_two_datagrid_flag__ == "A"){
+			 		msg = "招聘公告";
+			 	}else{
+			 		msg = "单位简介";
+			 	}
+				$('#stepIndex_two_' + __rczp_zpgg_stepIndex_two_datagrid_flag__).datagrid('getPager').pagination({buttons:[
+					{
+					   	iconCls:'icon-add',
+					   	text:'添加',
+					   	handler:function(){
+							layui.use('layer', function(){
+							 	var layer = layui.layer;
+							 	layer.open({
+					        		type:2,
+					        		title:'添加'+msg,
+					        		area:["650px",'505px'],
+					        		content:__rczp_zpgg_stepIndex_two_urls__.__repair_url+"&flag=add&ancType="+__rczp_zpgg_stepIndex_two_datagrid_flag__
+					        	}); 
+							});
 					   	}
-						
-						if(!flag){
-							layer.confirm('您确定要删除勾选的【'+len+'】条'+msg+'数据么', function(index){
-							  	$.post(__rczp_zpgg_stepIndex_two_urls__.__recdel_url,{'ancIDs':selectInfoIds},function(json){
-									if(json.result){
-										layer.msg(json.msg);
-										init_stepIndex_two_grid_AB(__rczp_zpgg_stepIndex_two_urls__,__rczp_zpgg_stepIndex_two_recID__,__rczp_zpgg_stepIndex_two_datagrid_flag__,__rczp_zpgg_stepIndex_two_show_flag__);
-										layer.close(index);
-									}else{
-										layer.alert(json.msg);
-									}
-								},'json');
-							}); 
-						}else{
-							layui.layer.alert("选择删除的数据中包含已发布的"+msg+"信息");
-							return;
+				   	},'-',{
+					  	iconCls:'icon-remove',
+					   	text:'删除',
+					   	handler:function(){
+					   		layui.use('layer', function(){
+							 	var layer = layui.layer;
+							 	var rows = $('#stepIndex_two_' + __rczp_zpgg_stepIndex_two_datagrid_flag__).datagrid("getSelections");
+								var len = rows.length;
+								if(len == 0){
+									layui.layer.alert("请选择要删除的"+msg);
+									return;
+								}
+								
+								var selectInfoIds = [];
+								var flag = 0;
+								for(var i = 0; i < len; i++){
+							   		if(rows[i].ancStatus != "0"){
+							   			flag = 1;
+				           				break;
+							   		}else{
+							   			selectInfoIds.push(rows[i].ancID);
+							   		}
+							   	}
+								
+								if(!flag){
+									layer.confirm('您确定要删除勾选的【'+len+'】条'+msg+'数据么', function(index){
+									  	$.post(__rczp_zpgg_stepIndex_two_urls__.__recdel_url,{'ancIDs':selectInfoIds},function(json){
+											if(json.result){
+												layer.msg(json.msg);
+												init_stepIndex_two_grid_AB(__rczp_zpgg_stepIndex_two_urls__,__rczp_zpgg_stepIndex_two_recID__,__rczp_zpgg_stepIndex_two_datagrid_flag__,__rczp_zpgg_stepIndex_two_show_flag__);
+												layer.close(index);
+											}else{
+												layer.alert(json.msg);
+											}
+										},'json');
+									}); 
+								}else{
+									layui.layer.alert("选择删除的数据中包含已发布的"+msg+"信息");
+									return;
+								}
+							});
 						}
-					});
-				}
-		   	}]
-		});
-	}
+				   	}]
+				});
+			}
+		}
+    });
 }
 
 function pubAnnounce(ancID,type,ancName){
@@ -371,7 +370,9 @@ var __rczp_zgsc_stepIndex_three_recend__ = "";
 var __rezp_zgsc_stepIndex_three_total = 0;
 var __rezp_zgsc_stepIndex_three_condition = {};
 var __rczp_zgsc_stepIndex_three_sendmsg__content__ = "";
-
+var __rczp_zgsc_stepIndex_three_btnOperate__ = {};
+var __rczp_zgsc_stepIndex_three_tab_header_info = {};
+var __rczp_zgsc_stepIndex_three_header_info = {};
 function init_stepIndex_three_grid(stepIndex_three_urls,stepIndex_three_recID,stepIndex_three_tab,stepIndex_three_show_flag,stepIndex_three_recend){
 	var __stepIndex_three_search = {
 		'perName' : "",
@@ -474,18 +475,23 @@ function init_stepIndex_three_grid(stepIndex_three_urls,stepIndex_three_recID,st
 			});
 	    },
         onLoadSuccess: function(data){
-        	var tabs = data.tabInfo;
+        	$("#stepIndex_three_head_pubinfo").html("");
+        	$("#stepIndex_three_head_pubinfo").html("【已公示："+data.headerInfo.pub+"人，未公示："+data.headerInfo.nopub+"人】");
+        	
+        	__rczp_zgsc_stepIndex_three_header_info = data.headerInfo;
+        	__rczp_zgsc_stepIndex_three_tab_header_info = data.tabInfo;
         	__rezp_zgsc_stepIndex_three_total = data.total;
         	__rezp_zgsc_stepIndex_three_condition = data.exportInfo.condition;
+        	__rczp_zgsc_stepIndex_three_btnOperate__ = data.btnOperate;
         	$("#stepIndex_three_tab #stepIndex_three_tabli1").html("");
         	$("#stepIndex_three_tab #stepIndex_three_tabli2").html("");
         	$("#stepIndex_three_tab #stepIndex_three_tabli3").html("");
         	$("#stepIndex_three_tab #stepIndex_three_tabli4").html("");
         	
-        	$("#stepIndex_three_tab #stepIndex_three_tabli1").html("("+tabs.tab1+")");
-        	$("#stepIndex_three_tab #stepIndex_three_tabli2").html("("+tabs.tab2+")");
-        	$("#stepIndex_three_tab #stepIndex_three_tabli3").html("("+tabs.tab3+")");
-        	$("#stepIndex_three_tab #stepIndex_three_tabli4").html("("+tabs.tab4+")");
+        	$("#stepIndex_three_tab #stepIndex_three_tabli1").html("("+__rczp_zgsc_stepIndex_three_tab_header_info.tab1+")");
+        	$("#stepIndex_three_tab #stepIndex_three_tabli2").html("("+__rczp_zgsc_stepIndex_three_tab_header_info.tab2+")");
+        	$("#stepIndex_three_tab #stepIndex_three_tabli3").html("("+__rczp_zgsc_stepIndex_three_tab_header_info.tab3+")");
+        	$("#stepIndex_three_tab #stepIndex_three_tabli4").html("("+__rczp_zgsc_stepIndex_three_tab_header_info.tab4+")");
         	
         	$("#stepIndex_three_tab #stepIndex_three_tabli1").css("display","");
         	$("#stepIndex_three_tab #stepIndex_three_tabli2").css("display","");
@@ -495,109 +501,128 @@ function init_stepIndex_three_grid(stepIndex_three_urls,stepIndex_three_recID,st
 			$('#stepIndex_three').datagrid('resize',{
 	    		height: $(window).height()-124-25-60-30-5
 	    	});
-	    }
+	    	
+		    var nowData = formatDateTime();
+		    if(stepIndex_three_show_flag == "1"){
+		    	if(nowData > __rczp_zgsc_stepIndex_three_recend__){
+		    		var pageShow = __rczp_zgsc_stepIndex_three_header_info.nopub + __rczp_zgsc_stepIndex_three_tab_header_info.tab1;
+		    		if(pageShow == 0){
+		    			$("#stepIndex_three").datagrid('getPager').pagination({buttons:[
+							{
+							  	iconCls:'icon-export',
+							   	text:'导出Excel',
+							   	handler:function(){
+							   		manager_showMore(this,'stepIndex_three_export');
+							   	}
+						   	},'-',{
+							  	iconCls:'icon-print',
+							   	text:'打印报名表',
+							   	handler:function(){
+							   		manager_showMore(this,'stepIndex_three_perprint');
+							   	}
+						   	}]
+						});
+		    		}else{
+			    		$("#stepIndex_three").datagrid('getPager').pagination({buttons:[
+							{
+							   	iconCls:'icon-ok',
+							   	text:'审核',
+							   	handler:function(){
+									manager_showMore(this,'stepIndex_three_checklist');
+							   	}
+						   	},'-',{
+							  	iconCls:'icon-pub',
+							   	text:'公示',
+							   	handler:function(){
+							   		manager_showMore(this,'stepIndex_three_checkpub');
+							   	}
+						   	},'-',{
+							  	iconCls:'icon-export',
+							   	text:'导出Excel',
+							   	handler:function(){
+							   		manager_showMore(this,'stepIndex_three_export');
+							   	}
+						   	},'-',{
+							  	iconCls:'icon-print',
+							   	text:'打印报名表',
+							   	handler:function(){
+							   		manager_showMore(this,'stepIndex_three_perprint');
+							   	}
+						   	},'-',{
+							  	iconCls:'icon-tip',
+							   	text:'短信提醒',
+							   	handler:function(){
+							   		manager_showMore(this,'stepIndex_three_msgtip');
+							   	}
+						   	},'-',{
+							  	iconCls:'icon-edit',
+							   	text:'额外通知设置',
+							   	handler:function(){
+							   		stepIndex_three_extraset();
+							   	}
+						   	}]
+						});
+					}
+		    	}else{
+		    		$("#stepIndex_three").datagrid('getPager').pagination({buttons:[
+						{
+						   	iconCls:'icon-undo',
+						   	text:'报名撤回',
+						   	handler:function(){
+								stepIndex_three_check(0);
+						   	}
+					   	},'-',{
+						   	iconCls:'icon-ok',
+						   	text:'审核',
+						   	handler:function(){
+								manager_showMore(this,'stepIndex_three_checklist');
+						   	}
+					   	},'-',{
+						  	iconCls:'icon-export',
+						   	text:'导出Excel',
+						   	handler:function(){
+						   		manager_showMore(this,'stepIndex_three_export');
+						   	}
+					   	},'-',{
+						  	iconCls:'icon-print',
+						   	text:'打印报名表',
+						   	handler:function(){
+						   		manager_showMore(this,'stepIndex_three_perprint');
+						   	}
+					   	},'-',{
+						  	iconCls:'icon-tip',
+						   	text:'短信提醒',
+						   	handler:function(){
+						   		manager_showMore(this,'stepIndex_three_msgtip');
+						   	}
+					   	},'-',{
+						  	iconCls:'icon-edit',
+						   	text:'额外通知设置',
+						   	handler:function(){
+						   		stepIndex_three_extraset();
+						   	}
+					   	}]
+					});
+		    	}
+		    }else{
+		    	$("#stepIndex_three").datagrid('getPager').pagination({buttons:[
+					{
+					  	iconCls:'icon-export',
+					   	text:'导出Excel',
+					   	handler:function(){
+					   		manager_showMore(this,'stepIndex_three_export');
+					   	}
+				   	},'-',{
+					  	iconCls:'icon-print',
+					   	text:'打印报名表',
+					   	handler:function(){
+					   		manager_showMore(this,'stepIndex_three_perprint');
+					   	}
+				   	}]
+				});
+		    }
+        }
     });
-    
-    var nowData = formatDateTime();
-    if(stepIndex_three_show_flag == "1"){
-    	if(nowData > __rczp_zgsc_stepIndex_three_recend__){
-    		$("#stepIndex_three").datagrid('getPager').pagination({buttons:[
-				{
-				   	iconCls:'icon-ok',
-				   	text:'审核',
-				   	handler:function(){
-						manager_showMore(this,'stepIndex_three_checklist');
-				   	}
-			   	},'-',{
-				  	iconCls:'icon-pub',
-				   	text:'公示',
-				   	handler:function(){
-				   		manager_showMore(this,'stepIndex_three_checkpub');
-				   	}
-			   	},'-',{
-				  	iconCls:'icon-export',
-				   	text:'导出Excel',
-				   	handler:function(){
-				   		manager_showMore(this,'stepIndex_three_export');
-				   	}
-			   	},'-',{
-				  	iconCls:'icon-print',
-				   	text:'打印报名表',
-				   	handler:function(){
-				   		manager_showMore(this,'stepIndex_three_perprint');
-				   	}
-			   	},'-',{
-				  	iconCls:'icon-tip',
-				   	text:'短信提醒',
-				   	handler:function(){
-				   		manager_showMore(this,'stepIndex_three_msgtip');
-				   	}
-			   	},'-',{
-				  	iconCls:'icon-edit',
-				   	text:'额外通知设置',
-				   	handler:function(){
-				   		stepIndex_three_extraset();
-				   	}
-			   	}]
-			});
-    	}else{
-    		$("#stepIndex_three").datagrid('getPager').pagination({buttons:[
-				{
-				   	iconCls:'icon-undo',
-				   	text:'报名撤回',
-				   	handler:function(){
-						stepIndex_three_check(0);
-				   	}
-			   	},'-',{
-				   	iconCls:'icon-ok',
-				   	text:'审核',
-				   	handler:function(){
-						manager_showMore(this,'stepIndex_three_checklist');
-				   	}
-			   	},'-',{
-				  	iconCls:'icon-export',
-				   	text:'导出Excel',
-				   	handler:function(){
-				   		manager_showMore(this,'stepIndex_three_export');
-				   	}
-			   	},'-',{
-				  	iconCls:'icon-print',
-				   	text:'打印报名表',
-				   	handler:function(){
-				   		manager_showMore(this,'stepIndex_three_perprint');
-				   	}
-			   	},'-',{
-				  	iconCls:'icon-tip',
-				   	text:'短信提醒',
-				   	handler:function(){
-				   		manager_showMore(this,'stepIndex_three_msgtip');
-				   	}
-			   	},'-',{
-				  	iconCls:'icon-edit',
-				   	text:'额外通知设置',
-				   	handler:function(){
-				   		stepIndex_three_extraset();
-				   	}
-			   	}]
-			});
-    	}
-    }else{
-    	$("#stepIndex_three").datagrid('getPager').pagination({buttons:[
-			{
-			  	iconCls:'icon-export',
-			   	text:'导出Excel',
-			   	handler:function(){
-			   		manager_showMore(this,'stepIndex_three_export');
-			   	}
-		   	},'-',{
-			  	iconCls:'icon-print',
-			   	text:'打印报名表',
-			   	handler:function(){
-			   		manager_showMore(this,'stepIndex_three_perprint');
-			   	}
-		   	}]
-		});
-    }
 }
 
 function stepIndex_three_check(perStatus){
@@ -729,6 +754,11 @@ function stepIndex_three_extraset(){
 function stepIndex_three_pub(type){
 	layui.use('layer', function(){
 	 	var layer = layui.layer;
+	 	if(__rczp_zgsc_stepIndex_three_btnOperate__.isInfos == 0){
+	 		layer.alert("当前没有任何数据不需要公示");
+	 		return;
+	 	}
+	 	
 	 	var check_flag = 0;
 	 	$.ajax({
 	 		type:"post",
@@ -760,6 +790,22 @@ function stepIndex_three_pub(type){
 			for(var i = 0; i < len; i++){
 				perIDs.push(rows[i]['perID']);
 			}
+	 	}else if(type == 0){
+	 		if(__rczp_zgsc_stepIndex_three_tab_header_info.tab2 == 0){
+	 			layer.alert("没有审核通过的人员数据");
+	 			return;
+	 		}
+	 	}else if(type == 1){
+	 		if(__rczp_zgsc_stepIndex_three_tab_header_info.tab3 == 0){
+	 			layer.alert("没有审核不通过的人员数据");
+	 			return;
+	 		}
+	 	}else if(type == 2){
+	 		var tabscount = __rczp_zgsc_stepIndex_three_tab_header_info.tab2+__rczp_zgsc_stepIndex_three_tab_header_info.tab3;
+	 		if(tabscount == 0){
+	 			layer.alert("没有需要公示的人员数据");
+	 			return;
+	 		}
 	 	}
 		
 		layer.confirm(msg[type], function(index){
@@ -779,6 +825,12 @@ function stepIndex_three_pub(type){
 function stepIndex_three_perprint(type){
 	layui.use('layer', function(){
 	 	var layer = layui.layer;
+	 	if(__rczp_zgsc_stepIndex_three_btnOperate__.isInfos == 0){
+	 		layer.alert("当前没有任何数据，不需要打印");
+	 		return;
+	 	}
+	 	
+	 	
 	 	var perIDs = "";
 	 	var msg = ['您确定要<span style="color:red;">打印全部人员</span>么','您确定要<span style="color:red;">打印全部审核人员</span>么','您确定要<span style="color:red;">打印全部公示人员</span>么','您确定要<span style="color:red;">打印全部未审核人员</span>么','您确定要<span style="color:red;">打印勾选</span>的人员么'];
 	 	if(type == 4){
@@ -795,7 +847,29 @@ function stepIndex_three_perprint(type){
 					perIDs += rows[i]['perID']+",";
 				}
 			}
+	 	}else if(type == 0){
+	 		if(__rczp_zgsc_stepIndex_three_tab_header_info.tab4 == 0){
+	 			layer.alert("没有需要打印的人员信息！");
+				return;
+	 		}
+	 	}else if(type == 1){
+	 		var tabscount = __rczp_zgsc_stepIndex_three_tab_header_info.tab2+__rczp_zgsc_stepIndex_three_tab_header_info.tab3;
+	 		if(tabscount == 0){
+	 			layer.alert("没有全部审核的人员数据，不需要打印");
+	 			return;
+	 		}
+	 	}else if(type == 2){
+	 		if(__rczp_zgsc_stepIndex_three_header_info.pub == 0){
+	 			layer.alert("没有已公示的人员数据，不需要打印");
+	 			return;
+	 		}
+	 	}else if(type == 3){
+	 		if(__rczp_zgsc_stepIndex_three_tab_header_info.tab1 == 0){
+	 			layer.alert("没有未审核的人员数据，不需要打印");
+	 			return;
+	 		}
 	 	}
+	 	
 		layer.confirm(msg[type], function(index){
 			window.open(__rczp_zgsc_stepIndex_three_urls__.__perprint_url+"&recID="+__rczp_zgsc_stepIndex_three_recID__+"&type="+type+"&perIDs="+perIDs);
 			layer.close(index);
@@ -807,6 +881,10 @@ function stepIndex_three_perprint(type){
 function stepIndex_three_msgtip(type){
 	layui.use('layer', function(){
 	 	var layer = layui.layer;
+	 	if(__rczp_zgsc_stepIndex_three_btnOperate__.isInfos == 0){
+	 		layer.alert("当前没有任何数据，不需要短信提醒");
+	 		return;
+	 	}
 	 	
 	 	var msg = ['您确定要<span style="color:red;">通知所有通过人员</span>么','您确定要<span style="color:red;">通知所有未通过人员</span>么','您确定要<span style="color:red;">通知所有已审核人员（不包括待审人员）</span>么','您确定要<span style="color:red;">通知所勾选人员</span>么'];
 	 	var msgtip = ['通过人员','未通过人员','已审核人员','勾选人员'];
@@ -836,6 +914,22 @@ function stepIndex_three_msgtip(type){
 				layer.alert('勾选的人员中存在未审核的人员');
 				return ;
 			}
+	 	}else if(type == 0){
+	 		if(__rczp_zgsc_stepIndex_three_tab_header_info.tab2 == 0){
+	 			layer.alert("没有审核通过的人员数据，不需要短信通知");
+ 				return;
+	 		}
+	 	}else if(type == 1){
+	 		if(__rczp_zgsc_stepIndex_three_tab_header_info.tab3 == 0){
+	 			layer.alert("没有审核不通过的人员数据，不需要短信通知");
+ 				return;
+	 		}
+	 	}else if(type == 2){
+	 		var tabscount = __rczp_zgsc_stepIndex_three_tab_header_info.tab2+__rczp_zgsc_stepIndex_three_tab_header_info.tab3;
+	 		if(tabscount == 0){
+	 			layer.alert("没有已审核的人员数据，不需要短信通知");
+	 			return;
+	 		}
 	 	}
 	 	
 		layer.prompt({
