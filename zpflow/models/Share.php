@@ -86,6 +86,16 @@ class Share extends Model
 					],
 				];
 			break;
+			case 'flow3_print' :
+				$result = [
+					'tempExcel'	=>	'../web/mbfile/rczp_zgsc_flow3_print.xls',
+					'keys' => [
+						'index'=>0,
+						'sheetName'=>'人员基本信息',
+						'zipName'=>'考生报名表',
+					],
+				];				
+			break;	
 			default:break;
 		}
 
