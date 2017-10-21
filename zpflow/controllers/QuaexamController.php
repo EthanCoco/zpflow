@@ -80,7 +80,20 @@ class QuaexamController extends BaseController{
 			'tab4'	=> $tab4,
 		];
 		
-		return ['rows'=>$infos,'total'=>$count,'tabInfo'=>$tabJson,'exportInfo'=>['condition'=>$condition]];
+		$isInfo = (new yii\db\Query())->from($tableName)->where(['AND',['not',['perStatus'=>0]]])->count();
+		$isInfos = intval($isInfo) == 0 ? 0 : 1; 
+		
+		$noPubInfo = (new yii\db\Query())->from($tableName)->where(['perPub'=>0])->count();
+		$pubInfo = (new yii\db\Query())->from($tableName)->where(['perPub'=>1])->count();
+		
+		return [
+				'rows'=>$infos,
+				'total'=>$count,
+				'tabInfo'=>$tabJson,
+				'exportInfo'=>['condition'=>$condition],
+				'btnOperate'=>['isInfos'=>$isInfos],
+				'headerInfo'=>['pub'=>$pubInfo,'nopub'=>$noPubInfo]
+			];
 	}
 
 	public function actionStatusQuaexam(){
