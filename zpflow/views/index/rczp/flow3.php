@@ -112,7 +112,7 @@
 <ul class="tabsMoreList" id="stepIndex_three_msgtip" style="margin-left:0px;right:0px;bottom:53px;top:auto">
 	<li rel="stepIndex_three_msgtip"><a href="javascript:;" onclick="stepIndex_three_msgtip(0)" title="通知通过人员">通知通过人员</a></li>
 	<li rel="stepIndex_three_msgtip"><a href="javascript:;" onclick="stepIndex_three_msgtip(1)" title="通知未通过人员">通知未通过人员</a></li>
-	<li rel="stepIndex_three_msgtip"><a href="javascript:;" onclick="stepIndex_three_msgtip(2)" title="通知已审核人员（不包括待审人员）">通知已已审核人员</a></li>
+	<li rel="stepIndex_three_msgtip"><a href="javascript:;" onclick="stepIndex_three_msgtip(2)" title="通知已审核人员（不包括待审人员）">通知已审核人员</a></li>
 	<li rel="stepIndex_three_msgtip"><a href="javascript:;" onclick="stepIndex_three_msgtip(3)" title="通知勾选人员">短信通知勾选人员</a></li>
 </ul>
 
@@ -134,6 +134,7 @@ var __stepIndex_three_urls__ = {
 	'__perpub_url' : "<?= yii\helpers\Url::to(['quaexam/perpub-quaexam']); ?>",
 	'__pubcheck_url' : "<?= yii\helpers\Url::to(['quaexam/pubck-quaexam']); ?>",
 	'__perprint_url' : "<?= yii\helpers\Url::to(['quaexam/perprint-quaexam']); ?>",
+	'__qumsendmsg_url' : "<?= yii\helpers\Url::to(['quaexam/sendmsg-quaexam']); ?>",
 };
 
 $(function(){
