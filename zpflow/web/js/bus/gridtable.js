@@ -523,7 +523,7 @@ function init_stepIndex_three_grid(stepIndex_three_urls,stepIndex_three_recID,st
 				  	iconCls:'icon-print',
 				   	text:'打印报名表',
 				   	handler:function(){
-				   		
+				   		manager_showMore(this,'stepIndex_three_perprint');
 				   	}
 			   	},'-',{
 				  	iconCls:'icon-tip',
@@ -563,7 +563,7 @@ function init_stepIndex_three_grid(stepIndex_three_urls,stepIndex_three_recID,st
 				  	iconCls:'icon-print',
 				   	text:'打印报名表',
 				   	handler:function(){
-				   		
+				   		manager_showMore(this,'stepIndex_three_perprint');
 				   	}
 			   	},'-',{
 				  	iconCls:'icon-tip',
@@ -592,7 +592,7 @@ function init_stepIndex_three_grid(stepIndex_three_urls,stepIndex_three_recID,st
 			  	iconCls:'icon-print',
 			   	text:'打印报名表',
 			   	handler:function(){
-			   		
+			   		manager_showMore(this,'stepIndex_three_perprint');
 			   	}
 		   	}]
 		});
@@ -753,7 +753,7 @@ function stepIndex_three_pub(type){
 	 		var rows = $("#stepIndex_three").datagrid('getSelections');
 			var len = rows.length;
 			if(len == 0){
-				layer.alert("请勾选需要公示的数据！");
+				layer.alert("请勾选需要公示的人员！");
 				return;
 			}
 			for(var i = 0; i < len; i++){
@@ -773,4 +773,35 @@ function stepIndex_three_pub(type){
 			},'json');
 		}); 
 	});
+}
+
+function stepIndex_three_perprint(type){
+	layui.use('layer', function(){
+	 	var layer = layui.layer;
+	 	var perIDs = "";
+	 	var msg = ['您确定要<span style="color:red;">打印全部人员</span>么','您确定要<span style="color:red;">打印全部审核人员</span>么','您确定要<span style="color:red;">打印全部公示人员</span>么','您确定要<span style="color:red;">打印全部未审核人员</span>么','您确定要<span style="color:red;">打印勾选</span>的人员么'];
+	 	if(type == 4){
+	 		var rows = $("#stepIndex_three").datagrid('getSelections');
+			var len = rows.length;
+			if(len == 0){
+				layer.alert("请勾选需要打印的人员！");
+				return;
+			}
+			for(var i = 0; i < len; i++){
+				if(i == len -1){
+					perIDs += rows[i]['perID'];
+				}else{
+					perIDs += rows[i]['perID']+",";
+				}
+			}
+	 	}
+		layer.confirm(msg[type], function(index){
+			window.open(__rczp_zgsc_stepIndex_three_urls__.__perprint_url+"&recID="+__rczp_zgsc_stepIndex_three_recID__+"&type="+type+"&perIDs="+perIDs);
+			layer.close(index);
+		});
+		
+		
+	});
+	
+	
 }
