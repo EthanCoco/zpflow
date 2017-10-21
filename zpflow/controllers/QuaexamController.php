@@ -845,4 +845,96 @@ class QuaexamController extends BaseController{
 		$zip->ZipAndDownload($dir,'考生报名表');
 		exit;
 	}
+
+	public function actionSendmsgQuaexam(){
+		$request = Yii::$app->request;
+		$recID = $request->get('recID');
+		$type = $request->get('type');
+		$perIDs = $request->get('perIDs');
+		return $this->renderPartial('flow3_sendmsg',['recID'=>$recID,'type'=>$type,'perIDs'=>$perIDs]);
+	}
+	
+	public function actionSendInfoQuaexam(){
+		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+		$request = Yii::$app->request;
+		$recID = $request->get('recID');
+		$type = $request->get('type');
+		$perIDs = $request->get('perIDs');
+		$tableName = Share::MainTableName($recID);
+		//var msgtip = ['通过人员','未通过人员','已审核人员','勾选人员'];
+		switch($type){
+			case '0' : 
+				$condition = ['perStatus'=>2];
+				break;
+			case '1' :
+				$condition = ['perStatus'=>3];
+				break;
+			case '2' :
+				$condition = ['perStatus'=>[2,3]];
+				break;
+			case '3' :
+				$condition = ['perID'=>explode(',', $perIDs)];
+				break;
+			default :
+				$condition = ['where'=>[]];
+				break;
+		}
+		
+		$infos = 	(new yii\db\Query())->select(['perName','perIndex','perPhone','perStatus','perPub'])
+										->from($tableName)
+										->where($condition)
+										->orderby('perIndex asc')
+										->all();
+		return ['rows'=>$infos];
+	}
+	
+	public function actionSendDoQuaexam(){
+		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+		$perPhones = Yii::$app->request->get('perPhones');
+		$content = Yii::$app->request->get('content');
+		
+		$juheKey = Yii::$app->params['juhe_key'];//您申请的APPKEY
+		$tpl_id = Yii::$app->params['juhe_tpl_id'];//您申请的短信模板ID，根据实际情况修改
+		$tpl_value = '#content#='.$content;//您设置的模板变量，根据实际情况修改
+		
+		$phones = explode(',', $perPhones);
+		$len = count($phones);
+		$flag = 0;
+		$msg_error = '失败发送：<br/>';
+		$msg_success = '发送成功：<br/>';
+		$_msg_success_temp = '发送成功：<br/>';
+		for($i = 0; $i < $len ; $i++){
+			$smsConf = [
+			    'key'   => $juheKey, 
+			    'mobile'    => $phones[$i], 
+			    'tpl_id'    => $tpl_id, 
+			    'tpl_value' =>$tpl_value 
+			];
+			$responseContent = Share::juhecurl($smsConf,1); //请求发送短信
+			if($responseContent){
+				$result = json_decode($responseContent,true);
+    			$error_code = $result['error_code'];
+				if($error_code != 0){
+					$flag++;
+					$msg_error .= "手机号码=".$phones[$i]."；失败原因：". $result['reason']."<br/>";
+				}else{
+					$msg_success .= "手机号码=".$phones[$i]."<br/>";
+				}
+			}else{
+				$msg_error .= "手机号码=".$phones[$i]."；失败原因：请求失败<br/>";
+				$flag++;
+			}
+		}
+		if($flag){
+			$msg = "";
+			if($_msg_success_temp == $msg_success){
+				$msg = $msg_error;
+			}else{
+				$msg = $msg_error.'<br/>'.$msg_success;
+			}
+			return ['result'=>0,'msg'=>$msg];
+		}else{
+			return ['result'=>1,'msg'=>'发送成功'];
+		}
+	}
 }
