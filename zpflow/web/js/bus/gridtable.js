@@ -736,7 +736,7 @@ function stepIndex_three_pub(type){
 	 		dataType:'json',
 	 		data:{'recID':__rczp_zgsc_stepIndex_three_recID__},
 	 		success:function(json){
-	 			if(json.result){
+	 			if(json.result != 0){
 	 				check_flag = 1;
 	 			}
 	 		}
