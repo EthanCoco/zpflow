@@ -254,13 +254,57 @@ class Share extends Model
 					  `perMark` varchar(255) DEFAULT NULL COMMENT '备注信息',
 					  `perIndex` varchar(255) NOT NULL COMMENT '报名序号',
 					  `perJob` varchar(64) NOT NULL COMMENT '应聘岗位性质',
-					  `perPub`  int(1) NOT NULL DEFAULT '0' COMMENT '公示结果（0=未公示，1=已公示）',
+					  `perTicketNo` varchar(128) NOT NULL COMMENT '准考证号',
+					  `perGroupSet` varchar(20) NOT NULL COMMENT '所属组别',
 					  `perStatus` int(1) NOT NULL DEFAULT '0' COMMENT '状态（0=待报，1=待审，2=审核通过，3=审核不通过）',
 					  `perCheckTime` timestamp NULL DEFAULT NULL COMMENT '审核时间',
 					  `perReason` varchar(255) DEFAULT NULL COMMENT '审核不通过原因',
-					  `perReResult1` varchar(64)  NOT NULL DEFAULT '03' COMMENT '资格审查反馈结果',
-					  `perReGiveup1` varchar(255) NOT NULL COMMENT '资格审查反馈原因',
-					  `perReTime1` timestamp NULL DEFAULT NULL COMMENT '资格审查反馈时间',
+					  
+					  `perPub`  int(1) NOT NULL DEFAULT '0' COMMENT '资格审查公示结果（0=未公示，1=已公示）',
+					  `perReResult1` varchar(64)  NOT NULL DEFAULT '03' COMMENT '资格审查反馈结果(是否参加考试)【01=确定参加，02=放弃参加，03=未反馈】',
+					  `perReGiveup1` varchar(255) NOT NULL COMMENT '资格审查反馈原因(是否参加考试反馈原因)',
+					  `perReTime1` timestamp NULL DEFAULT NULL COMMENT '资格审查反馈时间(是否参加考试反馈时间)',
+					  
+					  `perPub2`  int(1) NOT NULL DEFAULT '0' COMMENT '考生分组及通知(是否通知【公示】)（0=未通知，1=已通知）',
+					  `perRead2` int(1) NOT NULL DEFAULT '1' COMMENT '考生分组及通知（通知阅读情况【1=未读，2=已读】）',
+					  `perReResult2` varchar(64)  NOT NULL DEFAULT '03' COMMENT '考生分组及通知反馈结果【01=确定参加，02=放弃参加，03=未反馈】',
+					  `perReGiveup2` varchar(255) NOT NULL COMMENT '考生分组及通知反馈原因',
+					  `perReTime2` timestamp NULL DEFAULT NULL COMMENT '考生分组及通知反馈时间',
+					  
+					  `perViewScore` varchar(64) DEFAULT NULL COMMENT '面试成绩',
+					  `perPenScore` varchar(64) DEFAULT NULL COMMENT '笔试成绩',
+					  `perExamResult`  int(1) NOT NULL DEFAULT '0' COMMENT '考试结果【0=待处理，1=通过，2=不通过】',
+					  
+					  `perGradePub`  int(1) NOT NULL DEFAULT '0' COMMENT '考试结果录入及公示(成绩是否公布)（0=未公布，1=已公布）',
+					  `perPub3`  int(1) NOT NULL DEFAULT '0' COMMENT '考试结果录入及公示(考试结果是否公示)（0=未公示，1=已公示）',
+					  
+					  `perRead3` int(1) NOT NULL DEFAULT '1' COMMENT '考试结果录入及公示（通知阅读情况【1=未读，2=已读】）',
+					  `perReResult3` varchar(64)  NOT NULL DEFAULT '03' COMMENT '考试结果录入及公示(是否参加体检)【01=确定参加，02=放弃参加，03=未反馈】',
+					  `perReGiveup3` varchar(255) NOT NULL COMMENT '考生分组及通知反馈原因(是否参加体检反馈原因)',
+					  `perReTime3` timestamp NULL DEFAULT NULL COMMENT '考生分组及通知反馈时间(是否参加体检反馈时间)',
+					  
+					  `perPub4`  int(1) NOT NULL DEFAULT '0' COMMENT '体检安排公示（0=未公示，1=已公示）',
+					  `perRead4` int(1) NOT NULL DEFAULT '1' COMMENT '体检安排（通知阅读情况【1=未读，2=已读】）',
+					  `perReResult4` varchar(64)  NOT NULL DEFAULT '03' COMMENT '体检安排(是否参加体检)【01=确定参加，02=放弃参加，03=未反馈】',
+					  `perReGiveup4` varchar(255) NOT NULL COMMENT '体检安排(是否参加体检反馈原因)',
+					  `perReTime4` timestamp NULL DEFAULT NULL COMMENT '体检安排(是否参加体检反馈时间)',
+					  
+					  `perMedCheck1`  int(1) NOT NULL DEFAULT '0' COMMENT '体检结果（0=无数据，1=合格，2=不合格）',
+					  `perMedCheck2`  int(1) NOT NULL DEFAULT '0' COMMENT '复查结果（0=无数据，1=合格，2=不合格）',
+					  `perMedCheck3`  int(1)   DEFAULT NULL COMMENT '体检最终结果（1=通过，2=不通过）',
+					  `perMedMark`  varchar(255) NOT NULL COMMENT '体检信息备注',
+					  
+					  `perPub5`  int(1) NOT NULL DEFAULT '0' COMMENT '体检结果录入公示（0=未公示，1=已公示）',
+					  `perRead5` int(1) NOT NULL DEFAULT '1' COMMENT '体检结果录入（通知阅读情况【1=未读，2=已读】）',
+					  `perReResult5` varchar(64)  NOT NULL DEFAULT '03' COMMENT '体检结果录入(是否参加政审)【01=确定参加，02=放弃参加，03=未反馈】',
+					  `perReGiveup5` varchar(255) NOT NULL COMMENT '体检结果录入(是否参加政审反馈原因)',
+					  `perReTime5` timestamp NULL DEFAULT NULL COMMENT '体检结果录入(是否参加政审反馈时间)',
+					  
+					  `perCarefulMark`  varchar(255) NOT NULL COMMENT '政审备注信息',
+					  `perCarefulStatus`  int(1) NOT NULL DEFAULT '0' COMMENT '政审结果（0=待审，1=通过，2=不通过）',
+					  `perPub6`  int(1) NOT NULL DEFAULT '0' COMMENT '政审是否公示（0=未公示，1=已公示）',
+					  `perRead6` int(1) NOT NULL DEFAULT '1' COMMENT '政审通知阅读情况【1=未读，2=已读】',
+					  
 					  PRIMARY KEY (`perID`)
 					) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 					
