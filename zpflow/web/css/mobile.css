@@ -30,11 +30,12 @@
     color: #fff;
     padding: 13px 15%;
     font-family: "微软雅黑";
-    font-size: 15px;
+    font-size: 14px;
 }
 
-.mobile-titile span.current {
-    border-bottom: 2px solid #f68a36;
+.mobile-titile span a.current {
+    border-bottom: 3px solid #f68a36;
+    z-index: 999999;
 }
 
 a {
@@ -43,6 +44,77 @@ a {
     outline: none;
 }
 
+.mobile-index1-title1{
+	background: #d2e1ee;
+    color: #fff;
+    padding: 0px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    border-right: 1px solid;
+}
+
+.mobile-index1-title2{
+	background: #d2e1ee;
+    color: #fff;
+    padding: 0px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    border-left: 1px solid;
+}
+
+.mobile-index1-title1 a,.mobile-index1-title2 a {
+    display: block;
+    color: #5b5a5a;
+    margin-top: 0px;
+    font-size: 13px;
+    font-weight: bold;
+    color: #207bc4!important;
+}
+    
+.mobile-index1-content {
+    padding: 0;
+    position: relative;
+    margin-bottom: 60px;
+    background: none;
+}
+
+.mobile-index1-list {
+    background: none;
+    margin: 10px 20px;
+    border-radius: 2px;
+    background-color: #fff;
+    background-clip: padding-box;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .3);
+    overflow: hidden;
+   
+}
+
+.mobile-index1-list p.list-title {
+    text-align: center;
+    font-weight: bold;
+    font-size: 15px;
+    margin: 20px 0px 0px 0px;
+    /*font-family: "宋体";*/
+   opacity: 0.6;
+}
+
+.mobile-index1-list p.list-subtitle {
+    text-align: center;
+    line-height: 24px;
+    margin-bottom: 10px;
+}
+
+.mobile-index1-list p.list-subtitle span {
+    margin: 0px 8px;
+}
+
+.mobile-index1-list .list-content {
+    line-height: 24px;
+    text-indent: 25px;
+    padding: 0px 10px 0px 10px;
+}
 
 
 .mobile-footer {
