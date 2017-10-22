@@ -51,6 +51,13 @@ $config = [
         */
     ],
     'params' => $params,
+    
+	'modules' => [
+        'mobile' => [
+            'class' => 'app\modules\mobile\Module',
+        ],
+    ],
+    
 ];
 
 if (YII_ENV_DEV) {
