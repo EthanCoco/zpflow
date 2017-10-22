@@ -10,7 +10,7 @@ use app\assets\AppAsset;
 
 AppAsset::register($this);
 $this->registerJsFile("@web/js/common/jquery-1.9.1.min.js", ['depends' => ['yii\web\YiiAsset'], 'position' => $this::POS_HEAD]);
-$this -> title = '';
+$this -> title = 'XXXXX招聘';
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -35,22 +35,22 @@ $this -> title = '';
 	<div class="layui-row" id="moblie-header">
 	    <div class="layui-col-xs3">
 	    	<div class="mobile-titile">
-	    		<span index=1><a href="<?= yii\helpers\Url::to(['default/index','index'=>1]); ?>">公告资讯</a></span>
+	    		<span><a  index=1 href="<?= yii\helpers\Url::to(['default/index','index'=>1]); ?>">公告资讯</a></span>
 	    	</div>
 	    </div>
 	    <div class="layui-col-xs3">
 	    	<div class="mobile-titile">
-	    		<span index=2><a href="<?= yii\helpers\Url::to(['default/index','index'=>2]); ?>">招聘查询</a></span>
+	    		<span><a index=2 href="<?= yii\helpers\Url::to(['default/index','index'=>2]); ?>">招聘查询</a></span>
 	    	</div>
 	    </div>
 	    <div class="layui-col-xs3">
 	    	<div class="mobile-titile">
-	    		<span index=3><a href="<?= yii\helpers\Url::to(['default/index','index'=>3]); ?>">常见问题</a></span>
+	    		<span><a index=3 href="<?= yii\helpers\Url::to(['default/index','index'=>3]); ?>">常见问题</a></span>
 	    	</div>
 	    </div>
 	    <div class="layui-col-xs3">
 	    	<div class="mobile-titile">
-	    		<span index=4><a href="<?= yii\helpers\Url::to(['default/index','index'=>4]); ?>">消息中心</a></span>
+	    		<span><a index=4 href="<?= yii\helpers\Url::to(['default/index','index'=>4]); ?>">消息中心</a></span>
 	    	</div>
 	    	
 	    </div>
