@@ -1,0 +1,59 @@
+.bg-mobile {
+    background-color: #f4f4f4;
+}
+
+.mobile-content {
+    width: 100%;
+    margin: 0px auto;
+    position: relative;
+    height: 100%;
+}
+
+
+.mobile-titile {
+    background: #1975be;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    line-height: 50px;
+    text-align: center;
+    color: #fff;
+}
+
+.mobile-titile span {
+    display: block;
+    text-align: center;
+}
+
+.mobile-titile span a {
+    color: #fff;
+    padding: 13px 15%;
+    font-family: "微软雅黑";
+    font-size: 15px;
+}
+
+.mobile-titile span.current {
+    border-bottom: 2px solid #f68a36;
+}
+
+a {
+    text-decoration: none;
+    color: #555;
+    outline: none;
+}
+
+
+
+.mobile-footer {
+    padding: 6px 0px;
+    background: #1975be;
+    text-align: center;
+    color: #fff;
+    line-height: 20px;
+    font-size: 12px;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
