@@ -23,6 +23,7 @@ class AppAsset extends AssetBundle
         'js/plugin/easyui/themes/color.css',
         'js/plugin/easyui/themes/icon.css',
         'css/index.css',
+        'css/mobile.css',
         
     ];
     public $js = [
