@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhostphpstudy
-Source Server Version : 50553
+Source Server         : localhost
+Source Server Version : 50617
 Source Host           : localhost:3306
 Source Database       : zpflow
 
 Target Server Type    : MYSQL
-Target Server Version : 50553
+Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2017-10-20 17:55:21
+Date: 2017-10-22 22:56:57
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -29,14 +29,13 @@ CREATE TABLE `announce` (
   `ancType` char(1) DEFAULT NULL COMMENT '公告类别（A=招聘简介，B=公司简介）',
   `ancStatus` int(1) NOT NULL DEFAULT '0' COMMENT '发布状态（0=未发布，1=已发布）',
   PRIMARY KEY (`ancID`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of announce
 -- ----------------------------
-INSERT INTO `announce` VALUES ('1', '1', '人生回头看，走好前方路', '<p>人生需要沉淀，宁静才能致远；<a href=\"http://www.duwenzhang.com/wenzhang/renshengzheli/\">人生</a>需要反思，常回头看看，才能在品味<a href=\"http://www.duwenzhang.com/huati/deshi/index1.html\">得失</a>和甘苦中升华；向前看是<a href=\"http://www.duwenzhang.com/huati/mengxiang/index1.html\">梦想</a>和<a href=\"http://www.duwenzhang.com/huati/mubiao/index1.html\">目标</a>；向后看是检验和修正。\n</p><p><a href=\"http://www.duwenzhang.com/wenzhang/renshengzheli/ganwu/20140704/296123.html\"><img alt=\"人生回头看，走好前方路\" src=\"http://www.duwenzhang.com/upimg/140704/1_161130.jpg\" width=\"274\" height=\"183\" border=\"0\" align=\"right\"></a>　　有多sss少事，如果当初回头看看，就会做得更好；有多少抉择，如果能回头一思，可以免去多少错误和<a href=\"http://www.duwenzhang.com/huati/yihan/index1.html\">遗憾</a>。回头，其实身后也写着前方的路。</p>\n<p>　　不艾，不怨，心坦然；<a href=\"http://www.duwenzhang.com/wenzhang/shenghuosuibi/\">生活</a>，有苦乐；人生，有起落。学会挥袖从容，暖笑无殇；<a href=\"http://www.duwenzhang.com/huati/kuaile/index1.html\">快乐</a>，不是<a href=\"http://www.duwenzhang.com/huati/yongyou/index1.html\">拥有</a>的多，而是计较的少；<a href=\"http://www.duwenzhang.com/huati/leguan/index1.html\">乐观</a>，不是没<a href=\"http://www.duwenzhang.com/huati/fannao/index1.html\">烦恼</a>，而是懂得<a href=\"http://www.duwenzhang.com/huati/zhizu/index1.html\">知足</a>……</p>\n<p>　　这个时代的规律就是没有绝对公平竞争，接受这一点，然后武装自己投身到轰轰烈烈的不公平竞争中去。顺应规律而行，也是达尔文主义。</p>\n<p>　　1。　当你被<a href=\"http://www.duwenzhang.com/huati/shibai/index1.html\">失败</a>拥抱时，<a href=\"http://www.duwenzhang.com/huati/chenggong/index1.html\">成功</a>可能正在一边等着吻你。</p>\n<p>　　2。　有能力的让他做；没能力的教他做；做不来的管理他。</p>\n<p>　　3。　钱能买到的东西，最后都不值钱。</p>\n<p>　　4。　对什么都看不顺眼的人，疲劳的一定不仅仅是眼睛。</p>\n<p>　　5。　礼貌像只气垫：里面可能什么也没有，但是能奇妙的减少颠簸。</p>\n<p>　　我们能够做的全部事情，就是<a href=\"http://www.duwenzhang.com/huati/zhenxi/index1.html\">珍惜</a>身边所拥有的一切。不要总是用工作忙来疏离。未来也许会更好，也许没有，家人、亲人、爱人却已是此刻的全部。拥抱身边人吧，从现在开始。感谢生活，请感谢绊倒你的人，他强化了你的双腿！请感谢欺骗你的人，他增进了你的智慧！</p>\n<p>　　有时候不是不懂，只是不想懂；有时候不是不知道，只是不想说出来；有时候不是不明白，而是明白了也无能为力，于是就保持了<a href=\"http://www.duwenzhang.com/huati/chenmo/index1.html\">沉默</a>。心若计较，处处都有怨言；心若放宽，时时都是祥和。世间不如意事十之八九，能对你百依百顺的人，能让你如愿以偿的事毕竟很少。你若计较，没有一样让你满意。</p>\n<p>　　<a href=\"http://www.duwenzhang.com/huati/zuoren/index1.html\">做人</a>，简单就好；生活，宁静就好。人生走到最后，都要回归朴素和简单，将日子过成一杯白开水的味道，一碗清粥的简单。才能品尝到生活真实的味道，<a href=\"http://www.duwenzhang.com/huati/xingfu/index1.html\">幸福</a>便会不期而至。</p>\n<p>　　纽扣第一颗就扣错了，可你扣到最后一颗才发现；有些事一开始就是错的，可只有到最后才不得不承认。当心倦了累了，记得停下来，给<a href=\"http://www.duwenzhang.com/huati/xinling/index1.html\">心灵</a>寻一份安暖，给自己找一方晴空。谁是谁<a href=\"http://www.duwenzhang.com/huati/shengming/index1.html\">生命</a>中的过客，谁是谁生命的转轮，那前世的尘，今世的风，无穷无尽的<a href=\"http://www.duwenzhang.com/huati/shanggan/index1.html\">哀伤</a>的精魂……</p>\n<p>　　人应该带着<a href=\"http://www.duwenzhang.com/huati/weixiao/index1.html\">微笑</a>面对生活，带着激情面对工作，带着<a href=\"http://www.duwenzhang.com/huati/zhenqing/index1.html\">真情</a>面对家人，带着热情面对挑战。生活中充满了艰辛和苦痛，生活中同时又充满了收获和快乐；生活中充满了不幸和<a href=\"http://www.duwenzhang.com/huati/cuozhe/index1.html\">挫折</a>；生活中同时又充满了奇迹和机遇。当你可以选择，请用最甜美的笑面对生活；如果你不能选择，请<a href=\"http://www.duwenzhang.com/huati/nuli/index1.html\">努力</a>用最甜美的笑面对生活。</p>\n<p>　　人生有如梦境，岁月亦无情。我们的生活总是很拥挤，总是很忙碌，过去的已成为历史，而未来还是未知，我们不须为昨日而哀叹，也不必为明天而担忧，我们要活在今天，活在过去与将来的隔仓里，才能把今天的事做好，明天才会有<a href=\"http://www.duwenzhang.com/huati/xiwang/index1.html\">希望</a>。</p>\n<p>　　与其盼着别人的<a href=\"http://www.duwenzhang.com/huati/wanmei/index1.html\">完美</a>，不如现在行动修行不完美的自己。人，穷时简单，富了复杂；不想再画地为牢，寄托在着一个<a href=\"http://www.duwenzhang.com/huati/huiyi/index1.html\">回忆</a>的世界里，让疼痛缠绵着<a href=\"http://www.duwenzhang.com/\">故事</a>，写满苦不堪言，回不去的的往昔。或许；下一段风景停靠的驿站，再相遇，还<a href=\"http://www.duwenzhang.com/huati/meihao/index1.html\">美好</a>。</p>\n<p>　　卸下向世界对抗的戾气，去拥有不再需要对别人察言观色的从容和无需声张的厚实。<a href=\"http://www.duwenzhang.com/huati/zhongdian/index1.html\">终点</a>线只是一个记号而已，其实并没有什么意义，关键是这一路你是如何跑的。人生也是如此。我已无暇顾及过去，我要按自己的方式向前走。</p>\n<p>　　上班需要<a href=\"http://www.duwenzhang.com/huati/yongqi/index1.html\">勇气</a>，上学需要勇气，开创需要勇气，坚持需要勇气，<a href=\"http://www.duwenzhang.com/huati/lianai/index1.html\">恋爱</a>需要勇气，结婚需要勇气，反省需要勇气，成功需要勇气，失败也需要勇气。愿你每天都能获得你所需要的勇气。</p>\n<p>　　每次我<a href=\"http://www.duwenzhang.com/huati/cuoguo/index1.html\">错过</a>了那个人之后，我才会发现哪些地方我做的不好。我曾经想，为什么要这么折腾，为什么是那么不靠谱。然而<a href=\"http://www.duwenzhang.com/wenzhang/shenghuosuibi/chengzhang/\">成长</a>就是这样，你不断地跟熟悉的东西告别，跟熟悉的人告别。人生中所有漂泊的人不过只是为了有一天能够不再漂泊，能够保护起自己的家人。</p>', null, null, 'A', '1');
-INSERT INTO `announce` VALUES ('2', '1', 'asa', '<p>sssasasasasasa</p><p>layedit 需要先构建编辑器 再输出数据</p>\n<p>如果取值 慢于 构建编辑器 &nbsp;那么数据在编辑器中就无法显示了</p>\n<pre>layui.use(\'layedit\',function() {<br>    var layedit = layui.layedit;<br><br>    //构建一个默认的编辑器<br>    var index = layedit.build(\'LAY_demo1\');<br>});<br><br></pre>\n<pre>//js本地赋值<br>$(document).ready(function() {<br>    var $title1 = $(\"#newsTitle_1\");<br>    var $content1 = $(\"#LAY_demo1\");<br>    var $person1 = $(\"#newsPerson_1\");<br>    var $time1 = $(\"#newsTime_1\");<br>    $.ajax({<br>        url: \'../json/newsTable.json\',<br>        type: \'get\',<br>        data: \" \", //入参<br>        dataType: \'json\',</pre>', null, null, 'A', '1');
-INSERT INTO `announce` VALUES ('3', '2', '复古风格', '法规的规范鬼斧神工', null, null, 'A', '0');
+INSERT INTO `announce` VALUES ('4', '1', '过分过分', '发个非官方好好干换个号', null, null, 'A', '0');
+INSERT INTO `announce` VALUES ('5', '1', '复古风格', '辅导班VB地点GV你', '1', '2017-10-22 01:25:40', 'B', '1');
 
 -- ----------------------------
 -- Table structure for code
@@ -1728,6 +1727,27 @@ CREATE TABLE `eduset` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for examiner
+-- ----------------------------
+DROP TABLE IF EXISTS `examiner`;
+CREATE TABLE `examiner` (
+  `exmID` int(11) NOT NULL COMMENT '考官ID',
+  `recID` int(11) NOT NULL COMMENT '招聘ID',
+  `exmName` varchar(60) NOT NULL COMMENT '考官姓名',
+  `exmType` int(1) DEFAULT NULL COMMENT '考官类别（1=主考官，2=固定考官，3=监督员）',
+  `exmCom` varchar(255) NOT NULL COMMENT '考官所在单位',
+  `exmPost` varchar(255) NOT NULL COMMENT '考官职务',
+  `exmPhone` varchar(20) NOT NULL COMMENT '考官手机号码',
+  `exmCertNo` varchar(60) NOT NULL COMMENT '考官证书编号',
+  `exmAttr` int(1) DEFAULT NULL COMMENT '考官属性（1=公务员局考官，2=其他考官）',
+  PRIMARY KEY (`exmID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of examiner
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for famset
 -- ----------------------------
 DROP TABLE IF EXISTS `famset`;
@@ -1778,27 +1798,53 @@ CREATE TABLE `flow_job_1` (
   `perMark` varchar(255) DEFAULT NULL COMMENT '备注信息',
   `perIndex` varchar(255) NOT NULL COMMENT '报名序号',
   `perJob` varchar(64) NOT NULL COMMENT '应聘岗位性质',
-  `perPub` int(1) NOT NULL DEFAULT '0' COMMENT '公示结果（0=未公示，1=已公示）',
+  `perTicketNo` varchar(128) NOT NULL COMMENT '准考证号',
+  `perGroupSet` varchar(20) NOT NULL COMMENT '所属组别',
   `perStatus` int(1) NOT NULL DEFAULT '0' COMMENT '状态（0=待报，1=待审，2=审核通过，3=审核不通过）',
   `perCheckTime` timestamp NULL DEFAULT NULL COMMENT '审核时间',
   `perReason` varchar(255) DEFAULT NULL COMMENT '审核不通过原因',
-  `perReResult1` varchar(64) NOT NULL DEFAULT '03' COMMENT '资格审查反馈结果',
-  `perReGiveup1` varchar(255) NOT NULL COMMENT '资格审查反馈原因',
-  `perReTime1` timestamp NULL DEFAULT NULL COMMENT '资格审查反馈时间',
+  `perPub` int(1) NOT NULL DEFAULT '0' COMMENT '资格审查公示结果（0=未公示，1=已公示）',
+  `perReResult1` varchar(64) NOT NULL DEFAULT '03' COMMENT '资格审查反馈结果(是否参加考试)【01=确定参加，02=放弃参加，03=未反馈】',
+  `perReGiveup1` varchar(255) NOT NULL COMMENT '资格审查反馈原因(是否参加考试反馈原因)',
+  `perReTime1` timestamp NULL DEFAULT NULL COMMENT '资格审查反馈时间(是否参加考试反馈时间)',
+  `perPub2` int(1) NOT NULL DEFAULT '0' COMMENT '考生分组及通知(是否通知【公示】)（0=未通知，1=已通知）',
+  `perRead2` int(1) NOT NULL DEFAULT '1' COMMENT '考生分组及通知（通知阅读情况【1=未读，2=已读】）',
+  `perReResult2` varchar(64) NOT NULL DEFAULT '03' COMMENT '考生分组及通知反馈结果【01=确定参加，02=放弃参加，03=未反馈】',
+  `perReGiveup2` varchar(255) NOT NULL COMMENT '考生分组及通知反馈原因',
+  `perReTime2` timestamp NULL DEFAULT NULL COMMENT '考生分组及通知反馈时间',
+  `perViewScore` varchar(64) DEFAULT NULL COMMENT '面试成绩',
+  `perPenScore` varchar(64) DEFAULT NULL COMMENT '笔试成绩',
+  `perExamResult` int(1) NOT NULL DEFAULT '0' COMMENT '考试结果【0=待处理，1=通过，2=不通过】',
+  `perGradePub` int(1) NOT NULL DEFAULT '0' COMMENT '考试结果录入及公示(成绩是否公布)（0=未公布，1=已公布）',
+  `perPub3` int(1) NOT NULL DEFAULT '0' COMMENT '考试结果录入及公示(考试结果是否公示)（0=未公示，1=已公示）',
+  `perRead3` int(1) NOT NULL DEFAULT '1' COMMENT '考试结果录入及公示（通知阅读情况【1=未读，2=已读】）',
+  `perReResult3` varchar(64) NOT NULL DEFAULT '03' COMMENT '考试结果录入及公示(是否参加体检)【01=确定参加，02=放弃参加，03=未反馈】',
+  `perReGiveup3` varchar(255) NOT NULL COMMENT '考生分组及通知反馈原因(是否参加体检反馈原因)',
+  `perReTime3` timestamp NULL DEFAULT NULL COMMENT '考生分组及通知反馈时间(是否参加体检反馈时间)',
+  `perPub4` int(1) NOT NULL DEFAULT '0' COMMENT '体检安排公示（0=未公示，1=已公示）',
+  `perRead4` int(1) NOT NULL DEFAULT '1' COMMENT '体检安排（通知阅读情况【1=未读，2=已读】）',
+  `perReResult4` varchar(64) NOT NULL DEFAULT '03' COMMENT '体检安排(是否参加体检)【01=确定参加，02=放弃参加，03=未反馈】',
+  `perReGiveup4` varchar(255) NOT NULL COMMENT '体检安排(是否参加体检反馈原因)',
+  `perReTime4` timestamp NULL DEFAULT NULL COMMENT '体检安排(是否参加体检反馈时间)',
+  `perMedCheck1` int(1) NOT NULL DEFAULT '0' COMMENT '体检结果（0=无数据，1=合格，2=不合格）',
+  `perMedCheck2` int(1) NOT NULL DEFAULT '0' COMMENT '复查结果（0=无数据，1=合格，2=不合格）',
+  `perMedCheck3` int(1) DEFAULT NULL COMMENT '体检最终结果（1=通过，2=不通过）',
+  `perMedMark` varchar(255) NOT NULL COMMENT '体检信息备注',
+  `perPub5` int(1) NOT NULL DEFAULT '0' COMMENT '体检结果录入公示（0=未公示，1=已公示）',
+  `perRead5` int(1) NOT NULL DEFAULT '1' COMMENT '体检结果录入（通知阅读情况【1=未读，2=已读】）',
+  `perReResult5` varchar(64) NOT NULL DEFAULT '03' COMMENT '体检结果录入(是否参加政审)【01=确定参加，02=放弃参加，03=未反馈】',
+  `perReGiveup5` varchar(255) NOT NULL COMMENT '体检结果录入(是否参加政审反馈原因)',
+  `perReTime5` timestamp NULL DEFAULT NULL COMMENT '体检结果录入(是否参加政审反馈时间)',
+  `perCarefulMark` varchar(255) NOT NULL COMMENT '政审备注信息',
+  `perCarefulStatus` int(1) NOT NULL DEFAULT '0' COMMENT '政审结果（0=待审，1=通过，2=不通过）',
+  `perPub6` int(1) NOT NULL DEFAULT '0' COMMENT '政审是否公示（0=未公示，1=已公示）',
+  `perRead6` int(1) NOT NULL DEFAULT '1' COMMENT '政审通知阅读情况【1=未读，2=已读】',
   PRIMARY KEY (`perID`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of flow_job_1
 -- ----------------------------
-INSERT INTO `flow_job_1` VALUES ('1', '李建林', '362330199208122410', '13681088750', '', '1', '01', '11_110115', '01', '1111', '10', '1992-08-12', '171', '120.52', '北京大学', '3_301', '20_201_2010100', '1', '1_11_111', '1', '11_110115', '13651833982', 'lyl288@sian.com', '200093', '上海市浦东新区张江镇益江路511弄玉兰香苑二期A 18号楼511', '上进心强', '0001', '01', '0', '3', '2017-10-20 14:15:35', '法规法规的', '03', '', null);
-INSERT INTO `flow_job_1` VALUES ('2', '张娜林', '340122199204102723', '15902151578', '', '2', '02', '12_120106', '02', '222', '20', '1999-02-14', '178', '153.23', '浙江大学', '3_302', '30_301_3010200', '2', '2_21_212', '2', '12_120106', '13917539831', '465381236@qq.com', '200438', '上海市杨浦区军工路516号上海理工大学', '有责任心', '0002', '01', '0', '3', '2017-10-20 09:13:48', 'fgfgfgfgf', '03', '', null);
-INSERT INTO `flow_job_1` VALUES ('3', '李建林1', '140107199506170616', '13501793949', '', '1', '01', '43_430100', '03', '3333', '21', '1992-08-12', '168', '120.52', '南昌大学', '3_303', '30_302_3020100', '3', '1_11_111', '6_601', '43_430100', '15858205215', 'buku675hot@qq.com', '200090', '上海市虹口区沽源路229弄九号楼', '负责人，好男人', '0003', '01', '0', '3', '2017-10-20 14:15:35', '法规法规的', '03', '', '0000-00-00 00:00:00');
-INSERT INTO `flow_job_1` VALUES ('4', '张娜林1', '342501199210187278', '18362633593', '', '2', '01', '44_440300', '04', '44444', '22', '1999-02-14', '180', '153.23', '武汉大学', '3_304', '20_201_2010100', '1', '2_21_212', '7_701', '44_440300', '18818228592', '2242947972@qq.com', '200231', '上海市松江区广富林路', '上进心强', '0004', '01', '0', '2', '0000-00-00 00:00:00', '', '03', '', '0000-00-00 00:00:00');
-INSERT INTO `flow_job_1` VALUES ('7', '李建林4', '142326199302140126', '18918753346', '', '1', '01', '44_440500', '05', '55555', '23', '1992-08-12', '175', '120.52', '清华大学', '3_305', '30_301_3010200', '2', '1_11_111', '8', '44_440500', '18215104653', '1427176367@qq.com', '200092', '上海市杨浦区彰武路100号', '上进心强', '0005', '01', '0', '0', '0000-00-00 00:00:00', '', '03', '', '0000-00-00 00:00:00');
-INSERT INTO `flow_job_1` VALUES ('8', '张娜林4', '36232119910821352X', '13122293510', '', '2', '01', '45_450400', '06', '66666', '30', '1999-02-14', '176', '153.23', '清华大学', '3_306', '30_302_3020100', '1', '2_21_212', '3_303', '45_450400', '13162533985', 'wanyt168@126.com', '200444', '上海市闵行区黎安路380弄20号602', '上进心强', '0006', '01', '0', '0', '0000-00-00 00:00:00', '', '03', '', '0000-00-00 00:00:00');
-INSERT INTO `flow_job_1` VALUES ('9', '李建林5', '310110199408235164', '13795257783', '', '1', '02', '50_500101', '07', '7777', '40', '1992-08-12', '165', '120.52', '清华大学', '3_307', '30_303_3034200', '2', '1_11_111', '4', '50_500101', '15921787526', 'zty9104@126.com', '201203', '上海市彰武路100号2号楼616', '上进心强', '0007', '01', '0', '3', '2017-10-20 09:13:48', 'fgfgfgfgf', '03', '', '0000-00-00 00:00:00');
-INSERT INTO `flow_job_1` VALUES ('10', '张娜林5', '31010819900920051X', '13795473680', '', '2', '01', '50_500111', '08', '8888', '30', '1999-02-14', '162', '153.23', '清华大学', '2_207', '30_304_3040400', '2', '2_21_212', '4', '50_500111', '15921558016', 'zjian3103@163.com', '201203', '上大路99号上海大学', '上进心强', '0008', '01', '0', '2', '0000-00-00 00:00:00', '', '03', '', '0000-00-00 00:00:00');
 
 -- ----------------------------
 -- Table structure for flow_job_set_edu_1
@@ -1814,7 +1860,7 @@ CREATE TABLE `flow_job_set_edu_1` (
   `eduPost` varchar(255) DEFAULT NULL COMMENT '任职职务',
   `eduBurseHonorary` text COMMENT '奖学金及荣誉称号',
   PRIMARY KEY (`eduID`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of flow_job_set_edu_1
@@ -1832,12 +1878,11 @@ CREATE TABLE `flow_job_set_fam_1` (
   `famCom` varchar(64) DEFAULT NULL COMMENT '所在工作单位',
   `famPost` varchar(64) DEFAULT NULL COMMENT '任职岗位',
   PRIMARY KEY (`famID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of flow_job_set_fam_1
 -- ----------------------------
-INSERT INTO `flow_job_set_fam_1` VALUES ('1', '10', '01', '李建军', '上海计算机急急急工地', '经理');
 
 -- ----------------------------
 -- Table structure for flow_job_set_work_1
@@ -1852,12 +1897,44 @@ CREATE TABLE `flow_job_set_work_1` (
   `wkCom` varchar(255) NOT NULL COMMENT '所在单位',
   `wkInfo` text NOT NULL COMMENT '工作简述',
   PRIMARY KEY (`wkID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of flow_job_set_work_1
 -- ----------------------------
-INSERT INTO `flow_job_set_work_1` VALUES ('1', '10', '2017-10-20 11:59:23', '2017-10-20 11:59:26', '热热我', '二二五', '二恶烷若');
+
+-- ----------------------------
+-- Table structure for gstexm
+-- ----------------------------
+DROP TABLE IF EXISTS `gstexm`;
+CREATE TABLE `gstexm` (
+  `gstexmID` int(11) NOT NULL AUTO_INCREMENT,
+  `recID` int(11) NOT NULL COMMENT '招聘ID',
+  `gstID` int(11) NOT NULL COMMENT '组别ID',
+  `exmID` int(11) NOT NULL COMMENT '考官ID',
+  PRIMARY KEY (`gstexmID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of gstexm
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for medical
+-- ----------------------------
+DROP TABLE IF EXISTS `medical`;
+CREATE TABLE `medical` (
+  `medID` int(11) NOT NULL AUTO_INCREMENT COMMENT '体检安排ID',
+  `recID` int(11) NOT NULL COMMENT '招聘ID',
+  `medStartTime` varchar(20) NOT NULL COMMENT '体检开始时间',
+  `medEndTime` varchar(20) NOT NULL COMMENT '体检截止时间',
+  `medPlace` varchar(255) NOT NULL COMMENT '体检地点',
+  PRIMARY KEY (`medID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of medical
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for person
@@ -1898,6 +1975,25 @@ CREATE TABLE `person` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for qumextra
+-- ----------------------------
+DROP TABLE IF EXISTS `qumextra`;
+CREATE TABLE `qumextra` (
+  `qraID` int(11) NOT NULL AUTO_INCREMENT COMMENT '额外通知ID',
+  `recID` int(11) NOT NULL COMMENT '招聘ID',
+  `qraPassMsg` varchar(255) NOT NULL COMMENT '审核通过额外信息',
+  `qraPassType` int(1) DEFAULT NULL COMMENT '审核通过信息显示位置（1=追加已有前面，2=追加已有后面，3=追加已有前面并换行，4=追加已有后面并换行，5=重新编辑通知信息（换行已@字符分割））',
+  `qraNoPassMsg` varchar(255) NOT NULL COMMENT '审核不通过额外信息',
+  `qraNoPassType` int(1) DEFAULT NULL COMMENT '审核通过信息显示位置（1=追加已有前面，2=追加已有后面，3=追加已有前面并换行，4=追加已有后面并换行，5=重新编辑通知信息（换行已@字符分割））',
+  PRIMARY KEY (`qraID`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of qumextra
+-- ----------------------------
+INSERT INTO `qumextra` VALUES ('4', '1', 'gghghghttytytytrytry', '5', 'kkkkkfsl;dfwdfhsdfsdfjshdfsvssfdfdfd', '4');
+
+-- ----------------------------
 -- Table structure for recruit
 -- ----------------------------
 DROP TABLE IF EXISTS `recruit`;
@@ -1912,14 +2008,33 @@ CREATE TABLE `recruit` (
   `recHealthPlace` varchar(255) NOT NULL COMMENT '体检地点',
   `recBack` int(1) DEFAULT '0' COMMENT '是否归档',
   PRIMARY KEY (`recID`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of recruit
 -- ----------------------------
-INSERT INTO `recruit` VALUES ('1', '2017', '01', '1', '2017-10-18 00:00:00', '2017-10-19 06:00:00', '浙江大学', '浙江大学附属医院', '0');
+INSERT INTO `recruit` VALUES ('1', '2017', '01', '1', '2017-10-18 00:00:00', '2017-10-31 06:00:00', '浙江大学', '浙江大学附属医院', '1');
 INSERT INTO `recruit` VALUES ('2', '2017', '02', '0', '2017-10-18 00:00:00', '2017-10-27 00:00:00', '5555', '5555', '0');
-INSERT INTO `recruit` VALUES ('3', '2017', '03', '0', '2017-10-19 00:00:00', '2017-10-28 00:00:00', '', '', '0');
+
+-- ----------------------------
+-- Table structure for setgroup
+-- ----------------------------
+DROP TABLE IF EXISTS `setgroup`;
+CREATE TABLE `setgroup` (
+  `gstID` int(11) NOT NULL COMMENT '组别ID',
+  `recID` int(11) NOT NULL COMMENT '招聘ID',
+  `gstItvStartTime` varchar(20) NOT NULL COMMENT '考试起始时间',
+  `gstItvEndTime` varchar(20) NOT NULL COMMENT '考试截止时间',
+  `gstGroup` int(11) DEFAULT NULL COMMENT '所属组别',
+  `gstItvPlace` varchar(255) NOT NULL COMMENT '考试地点',
+  `gstType` int(1) DEFAULT NULL COMMENT '组别人员类型（1=考官，2=考生）',
+  `gstStartEnd` varchar(255) DEFAULT NULL COMMENT '辅助字段（考试起止时间）',
+  PRIMARY KEY (`gstID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of setgroup
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for user
@@ -1942,7 +2057,7 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', 'admin', 'guanliyuan', 'fcea920f7412b5da7be0cf42b8c93759', '3', '15', '2017-10-16 09:41:05', '2017-10-20 09:13:25', '1022', '13285716129');
+INSERT INTO `user` VALUES ('1', 'admin', 'guanliyuan', 'fcea920f7412b5da7be0cf42b8c93759', '3', '16', '2017-10-16 09:41:05', '2017-10-20 20:14:55', '1022', '13285716129');
 
 -- ----------------------------
 -- Table structure for workset
