@@ -70,7 +70,6 @@ a {
     margin-top: 0px;
     font-size: 13px;
     font-weight: bold;
-    color: #207bc4!important;
 }
     
 .mobile-index1-content {
@@ -113,8 +112,48 @@ a {
 .mobile-index1-list .list-content {
     line-height: 24px;
     text-indent: 25px;
-    padding: 0px 10px 0px 10px;
+    padding: 0px 10px;
 }
+
+.color-gg{
+	color: #207bc4!important;
+}
+
+.current-back{
+	box-shadow: none!important;
+	background-color:transparent!important;
+	border: none!important;
+}
+
+.mobile-table-list {
+    background: none;
+    margin: 10px 20px;
+    border-radius: 2px;
+    background-color: #fff;
+    background-clip: padding-box;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, .3);
+    overflow: hidden;
+}
+
+.mobile-table-list span.titles {
+    line-height: 20px;
+    min-height: 20px;
+    padding-left: 0px;
+}
+
+.mobile-table-list span {
+    display: block;
+}
+.titles {
+    line-height: 20px;
+    min-height: 20px;
+    padding-left: 0px;
+    display: inline-block;
+    text-indent: 20px;
+    text-align: center;
+    font-weight: bold;
+}
+
 
 
 .mobile-footer {
