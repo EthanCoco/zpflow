@@ -17,7 +17,8 @@
 		</div>
 	</div>
 </div>
-
+<div class="layui-row" id="mobile-index1-page-info" style="display: none;text-align: right;padding-right: 10px;">
+</div>
 <script>
 var index = <?= $index;?>;
 var anc_type = 'A';
@@ -34,7 +35,8 @@ function mobile_anc(type){
 }
 
 function mobile_anc_getlist(option){
-	layui.use('layer',function(){
+	layui.use(['layer','laypage'],function(){
+		 var laypage = layui.laypage;
 		if(!option){
 			option = {"anc_type":anc_type,"page":"1","rows":"5"};
 		}
@@ -54,15 +56,17 @@ function mobile_anc_getlist(option){
 	    		replyInfo = {};
 	    		
 	    		if(total == 0){
+	    			$("#mobile-index1-page-info").css('display','none');
 	    			tableObj.addClass('current-back');
 		    		tableObj.html("<p style='font-size: 15px;text-align:center;font-family:\"微软雅黑\";'>暂无消息！</p>");
 	    		}else if(total == 1){
+	    			$("#mobile-index1-page-info").css('display','none');
 	    			tableObj.removeClass('current-back');
 	    			var html = "";
 	    			html = "<p class='list-title' >"+rows[0].ancName+"</p>";
 		    		var str = "";
 		    		if(rows[0].ancTime!='') {
-		    			var info = "<span>发布日期："+rows[0].ancTime + "</span>";
+		    			var info = "<span>发布日期："+rows[0]['ancTime'] + "</span>";
 		    			str = str==""?info:str+info;
 		    		}
 		    		if(str!='')
@@ -72,16 +76,16 @@ function mobile_anc_getlist(option){
 	    		}else{
 	    			tableObj.removeClass('current-back');
 	    			var html = "";
-				
-	    			for(var i = 0;i < total; i++){
+	    			var len = rows.length;
+	    			for(var i = 0;i < len; i++){
 	    				var dates = rows[i].ancTime;
 	    				if(dates != '' && dates != '0000-00-00 00:00:00'){
 	    					var datesArr = dates.split(" ");
 	    					dates = datesArr[0];
 	    				}
-	    				
+	    				var dt_url = "<?= yii\helpers\Url::to(['ggzx/anc-one']);?>"+"&ancID="+rows[i].ancID;
 	    				html = html + "<div class='mobile-table-list'>";
-	    				html = html + "<a><div>";
+	    				html = html + "<a href="+dt_url+"><div>";
 	    				html = html + "<span class='titles'>"+rows[i].ancName+"</span>";
 	    				var texts = rows[i].ancInfo;
 	    					
@@ -92,7 +96,25 @@ function mobile_anc_getlist(option){
 			    	}
 			    	tableObj.html(html);
 			    	//分页效果
-			    	//TODO
+			    	if(total <= 5){
+			    		$("#mobile-index1-page-info").css('display','none');
+			    	}else{
+			    		$("#mobile-index1-page-info").css('display','block');
+			    		laypage.render({
+						  	elem: 'mobile-index1-page-info',
+						  	count: total,
+						  	curr: location.hash.replace('#!page=', ''),
+  							hash: 'page', 
+						  	jump: function(obj, first){
+						    	var page = obj.curr; 
+							    //首次不执行
+							    if(!first){
+							      	mobile_anc_getlist({"anc_type":anc_type,"page":page,"rows":"5"});
+							    }
+						  	}
+						});
+			    		
+			    	}	
 	    		}
 			}
 		});

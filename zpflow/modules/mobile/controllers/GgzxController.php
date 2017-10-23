@@ -37,7 +37,7 @@ class GgzxController extends Controller
 						$temp_str = $anc['ancInfo'];
 						$temp_str = Share::deleteHtml($temp_str);
 						$len = strlen($temp_str);
-						if($len>90){
+						if($len > 90){
 							$temp_str = mb_substr($temp_str,0,90,'utf-8')."...";
 						}
 						$jsonData[] = [
