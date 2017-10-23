@@ -18,6 +18,16 @@ class Share extends Model
 		return $str; 
 	}
 	
+	public static function deleteHtml($str){
+		$str = preg_replace( "@<script(.*?)</script>@is", "", $str ); 
+		$str = preg_replace( "@<iframe(.*?)</iframe>@is", "", $str ); 
+		$str = preg_replace( "@<style(.*?)</style>@is", "", $str ); 
+		$str = preg_replace( "@<(.*?)>@is", "", $str ); 
+
+		$str= htmlspecialchars_decode($str);
+		return $str; 
+	}	
+	
 	public static function codeValue($codeArr = [],$data = ''){
         $codeNameArr = [];//代码名称数组
         foreach($codeArr as $code){
