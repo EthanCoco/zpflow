@@ -61,7 +61,7 @@ class DefaultController extends Controller
 				//1 报名还未开始（等待下次）
 				$flowtype = 1;
 			}
-			return $this->render('index'.\yii\helpers\Html::decode($index),['index'=>$index,'flowtype'=>$flowtype]);
+			return $this->render('index'.\yii\helpers\Html::decode($index),['index'=>$index,'flowtype'=>$flowtype,'recInfo'=>$recInfo]);
 		}
 		
         return $this->render('index'.\yii\helpers\Html::decode($index),['index'=>$index]);
