@@ -11,6 +11,7 @@ $(document).ready(function() {
 	$("#moblie-header span a[index='"+index+"']").addClass('current');
 	mobile_load_zpcx();
 });
+
 function mobile_load_zpcx(){
 	switch(flowtype){
 		case "1" :
