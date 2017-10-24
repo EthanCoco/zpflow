@@ -14,7 +14,7 @@
 	<div class="layui-row"  style="padding:25px 0 ;">
 	    <div class="layui-col-xs4"><label class="mobile-input-label">密码：</label></div>
 	    <div class="layui-col-xs8">
-	      	<input id="login_pwd" style="font-size: 13px;" class="layui-input" placeholder="请输入密码" type="text">
+	      	<input id="login_pwd" style="font-size: 13px;" class="layui-input" placeholder="请输入密码"  type="password">
 	    </div>
   	</div>
 	
@@ -43,9 +43,6 @@
 	</div>	
 </div>
 
-
-
-
 <script>
 var index = "<?= $index ?>"
 $(function(){
@@ -53,14 +50,34 @@ $(function(){
 });
 
 function mobile_user_login(){
-	layui.use('layer',function(){
-		var layer = layui.layer;
-		var login_name = $("#login_name").val().trim();
-		var login_pwd = $("#login_pwd").val().trim();
-		var login_vcode = $("#login_vcode").val().trim();
-		if(login_name == "" || login_pwd == ""){
-			//layer.msg('不开心。。', {icon: 5,anim:6});
-			layer.alert("Dsdsd");
+	var login_name = $("#login_name").val().trim();
+	var login_pwd = $("#login_pwd").val().trim();
+	var login_vcode = $("#login_vcode").val().trim();
+	if(login_name == "" || login_pwd == ""){
+		layer.open({content: '身份证号或密码不能为空',skin: 'footer',time: 2 });
+		return;
+	}
+	if(!validateIdCard(login_name)){
+		return;
+	}
+	
+	if(login_vcode == ""){
+		layer.open({content: '验证码不能为空',skin: 'footer',time: 2 });
+		return;
+	}
+	
+	$.ajax({
+		type:"post",
+		url:"<?= yii\helpers\Url::to(['default/login-do']); ?>",
+		data:{'User':{'name':login_name,'password':MD5(login_pwd),'vcode':login_vcode}},
+		dataType:'json',
+		async:true,
+		success:function(json){
+			if(json.result){
+				window.location.href = "<?= yii\helpers\Url::to(['default/index']) ?>"+"&index="+index;
+			}else{
+				layer.open({content: json.msg,btn: '我知道了'});
+			}
 		}
 	});
 }

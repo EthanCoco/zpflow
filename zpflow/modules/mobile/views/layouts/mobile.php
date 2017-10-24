@@ -9,7 +9,9 @@ use yii\bootstrap\NavBar;
 use app\assets\AppAsset;
 
 AppAsset::register($this);
+$this->registerCssFile("@web/js/plugin/layer_mobile/need/layer.css", ['depends' => ['yii\web\YiiAsset'], 'position' => $this::POS_HEAD]);
 $this->registerJsFile("@web/js/common/jquery-1.9.1.min.js", ['depends' => ['yii\web\YiiAsset'], 'position' => $this::POS_HEAD]);
+$this->registerJsFile("@web/js/plugin/layer_mobile/layer.js", ['depends' => ['yii\web\YiiAsset'], 'position' => $this::POS_HEAD]);
 $this -> title = 'XXXXX招聘';
 ?>
 <?php $this->beginPage() ?>
