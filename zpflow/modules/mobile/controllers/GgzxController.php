@@ -68,6 +68,6 @@ class GgzxController extends Controller
 		$ancID = $request->get('ancID');
 		
 		$info = Announce::findOne($ancID);
-		return $this->render('index',['info'=>$info,'ancType'=>$ancType]);
+		return $this->render('mobile/default/index',['info'=>$info,'ancType'=>$ancType,'index'=>1]);
 	}
 }
