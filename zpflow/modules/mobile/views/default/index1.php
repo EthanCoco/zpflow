@@ -112,6 +112,8 @@ function mobile_anc_getlist(option){
 			    		laypage.render({
 						  	elem: 'mobile-index1-page-info',
 						  	count: total,
+						  	limit: 5,
+						  	groups:1,
 						  	curr: json.current_page,
 						  	jump: function(obj, first){
 						    	anc_current_page = obj.curr; 
