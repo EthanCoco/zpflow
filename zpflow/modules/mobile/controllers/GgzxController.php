@@ -11,6 +11,7 @@ use app\models\Share;
 class GgzxController extends Controller
 {
 	public $enableCsrfValidation = false;
+	public $layout = 'mobile'; 
 	
     public function actionAncList(){
     	Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;	
@@ -25,7 +26,7 @@ class GgzxController extends Controller
 		$recInfo = Recruit::find()->where(['recDefault'=>1])->one();
 		
 		if(empty($recInfo)){
-			return ["rows"=>[],"total"=>0];
+			return ["rows"=>[],"total"=>0,'current_page'=>$page];
 		}else{
 			$ancInfo = Announce::find()->where(['ancStatus'=>1,'recID'=>$recInfo['recID'],'ancType'=>$anc_type])->offset($offset)->limit($rows)->orderby("ancTime DESC")->asArray()->all();
 			$ancTotal = Announce::find()->where(['ancStatus'=>1,'recID'=>$recInfo['recID'],'ancType'=>$anc_type])->count();
@@ -50,13 +51,23 @@ class GgzxController extends Controller
 							'ancInfo'	=>	$temp_str,
 						];
 					}
-					return ["total"=>$ancTotal,"rows"=>$jsonData];
+					return ["total"=>$ancTotal,"rows"=>$jsonData,'current_page'=>$page];
 				}else{
-					return ["total"=>$ancTotal,"rows"=>$ancInfo];
+					return ["total"=>$ancTotal,"rows"=>$ancInfo,'current_page'=>$page];
 				}
 			}else{
-				return ["rows"=>[],"total"=>0];
+				return ["rows"=>[],"total"=>0,'current_page'=>$page];
 			}
 		}
     }
+
+	public function actionAncOne(){
+    	$request = Yii::$app->request;
+		
+		$ancType = $request->get('ancType');
+		$ancID = $request->get('ancID');
+		
+		$info = Announce::findOne($ancID);
+		return $this->render('index',['info'=>$info,'ancType'=>$ancType]);
+	}
 }

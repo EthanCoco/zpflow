@@ -1,11 +1,11 @@
 <div class="layui-row">
 	<div class="layui-col-xs6">
-    	<div class="mobile-index1-title1">
-    		<a index='A' href="javascript:;" onclick="mobile_anc('A')">通知公告</a>
+    	<div class="mobile-index1-title1 mobile-index1-color-gg">
+    		<a index='A' href="javascript:;" class="color-gg" onclick="mobile_anc('A')">通知公告</a>
     	</div>
     </div>
 	<div class="layui-col-xs6">
-		<div class="mobile-index1-title2">
+		<div class="mobile-index1-title2 mobile-index1-color-gg">
 	    	<a index='B' href="javascript:;" onclick="mobile_anc('B')">单位简介</a>
 	   </div>
 	</div>
@@ -17,11 +17,12 @@
 		</div>
 	</div>
 </div>
-<div class="layui-row" id="mobile-index1-page-info" style="display: none;text-align: right;padding-right: 10px;">
+<div class="layui-row" id="mobile-index1-page-info" style="display: none;text-align: right;padding-right: 10px;margin-bottom: 30px;">
 </div>
 <script>
 var index = <?= $index;?>;
 var anc_type = 'A';
+var anc_current_page = 1;
 $(document).ready(function() {
 	mobile_anc_getlist();
 	$("#moblie-header span a[index='"+index+"']").addClass('current');
@@ -29,7 +30,7 @@ $(document).ready(function() {
 
 function mobile_anc(type){
 	anc_type = type;
-	$('mobile-index1-title* a').removeClass('color-gg');
+	$('.mobile-index1-color-gg a').removeClass('color-gg');
 	$('a[index="'+type+'"]').addClass('color-gg');
 	mobile_anc_getlist();
 }
@@ -38,7 +39,7 @@ function mobile_anc_getlist(option){
 	layui.use(['layer','laypage'],function(){
 		 var laypage = layui.laypage;
 		if(!option){
-			option = {"anc_type":anc_type,"page":"1","rows":"5"};
+			option = {"anc_type":anc_type,"page":anc_current_page,"rows":"5"};
 		}
 		$.ajax({
 			type:"get",
@@ -47,7 +48,6 @@ function mobile_anc_getlist(option){
 			data:option,
 			async:true,
 			success:function(json){
-				//alert(JSON.stringify(json));
 				var rows = json.rows;
 		    	var total = json.total;
 		    	var tableObj = $("#mobile-index1-list-info");
@@ -83,7 +83,7 @@ function mobile_anc_getlist(option){
 	    					var datesArr = dates.split(" ");
 	    					dates = datesArr[0];
 	    				}
-	    				var dt_url = "<?= yii\helpers\Url::to(['ggzx/anc-one']);?>"+"&ancID="+rows[i].ancID;
+	    				var dt_url = "<?= yii\helpers\Url::to(['ggzx/anc-one']);?>"+"&ancID="+rows[i].ancID+"&ancType="+rows[i].ancType;
 	    				html = html + "<div class='mobile-table-list'>";
 	    				html = html + "<a href="+dt_url+"><div>";
 	    				html = html + "<span class='titles'>"+rows[i].ancName+"</span>";
@@ -103,13 +103,12 @@ function mobile_anc_getlist(option){
 			    		laypage.render({
 						  	elem: 'mobile-index1-page-info',
 						  	count: total,
-						  	curr: location.hash.replace('#!page=', ''),
-  							hash: 'page', 
+						  	curr: json.current_page,
 						  	jump: function(obj, first){
-						    	var page = obj.curr; 
+						    	anc_current_page = obj.curr; 
 							    //首次不执行
 							    if(!first){
-							      	mobile_anc_getlist({"anc_type":anc_type,"page":page,"rows":"5"});
+							      	mobile_anc_getlist({"anc_type":anc_type,"page":anc_current_page,"rows":"5"});
 							    }
 						  	}
 						});
