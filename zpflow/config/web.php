@@ -3,6 +3,7 @@
 $params = require(__DIR__ . '/params.php');
 $db = require(__DIR__ . '/db.php');
 Yii::$classMap['PHPZip'] = '@app/libs/zip.php';
+Yii::$classMap['ValidateCode'] = '@app/libs/validateCode/ValidateCode.class.php';
 
 $config = [
     'id' => 'zpflow',
