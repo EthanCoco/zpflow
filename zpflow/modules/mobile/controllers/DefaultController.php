@@ -79,4 +79,33 @@ class DefaultController extends Controller
 			return ['result'=>0,'msg'=>Share::comErrors($errors)];
 		}
 	}
+
+	public function actionRegister(){
+		date_default_timezone_set('PRC');
+		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+		$request = Yii::$app->request;
+		$data = $request->post()['User'];
+		$model = new User();
+		$model->setScenario(User::SCENARIO_REGISTER);
+		if($model->load($request->post()) && $model->validate()){
+			
+			$flag = Yii::$app->db->createCommand()->insert('user', [
+					    'name' => $data['name'],
+					    'realName' =>  $data['realName'],
+					    'password'=>$data['password'],
+					    'userType'=>1,
+					    'userRegisterTime'=>date('Y-m-d H:i:s',time()),
+					    'phone'=>$data['phone']
+					])->execute();
+			
+			if($flag){
+				return ['result'=>1,'msg'=>'注册成功'];
+			}else{
+				return ['result'=>0,'msg'=>'注册失败'];
+			}
+		}else{
+			$errors = $model->getFirstErrors();
+			return ['result'=>0,'msg'=>Share::comErrors($errors)];
+		}
+	}
 }
