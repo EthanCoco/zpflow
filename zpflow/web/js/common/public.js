@@ -82,3 +82,23 @@ function validateIdCard(idCard){
 	  	return false;
 	 }
 }
+
+/*校验密码*/
+function validatePwd(passWord){
+	var regExp = /^[0-9 | A-Z | a-z]{6,20}$/;
+	if(!passWord.match(regExp)){
+		return false;
+	}else{
+		return true;
+	}
+}
+
+/*校验手机号码*/
+function validatePhone(phoneNum){
+	var phoneExp = /^0?1[0-9][0-9]\d{8}$/;
+	if(!phoneNum.match(phoneExp)){
+		return false;
+	}else{
+		return true;
+	}
+}
