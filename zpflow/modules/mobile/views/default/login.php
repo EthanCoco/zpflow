@@ -23,7 +23,7 @@
 	    <div class="layui-col-xs4">
 	      	<input id="login_vcode" style="font-size: 13px;" class="layui-input" placeholder="请输入验证码" type="text">
 	    </div>
-	    <div class="layui-col-xs4"><img class="mobile-valcode" src="<?= yii\helpers\Url::to(['default/valcode']); ?>" onclick="this.src='<?= yii\helpers\Url::to(['default/valcode']); ?>&'+Math.random();" /></div>
+	    <div class="layui-col-xs4"><img id="mobile-vcode-img" class="mobile-valcode" src="<?= yii\helpers\Url::to(['default/valcode']); ?>" onclick="this.src='<?= yii\helpers\Url::to(['default/valcode']); ?>&'+Math.random();" /></div>
   	</div>
 	
 	<div class="layui-row">
@@ -109,10 +109,12 @@ function mobile_user_login(){
 		return;
 	}
 	if(!validateIdCard(login_name)){
+		$("#login_name").focus();
 		return;
 	}
 	
 	if(login_vcode == ""){
+		$("#login_vcode").focus();
 		layer.open({content: '验证码不能为空',skin: 'footer',time: 2 });
 		return;
 	}
@@ -129,6 +131,11 @@ function mobile_user_login(){
 			if(json.result){
 				window.location.href = "<?= yii\helpers\Url::to(['default/index']) ?>"+"&index="+index;
 			}else{
+				if(typeof json.type !== "undefined"){
+					$("#mobile-vcode-img").click();
+					$("#login_vcode").val("");
+					$("#login_vcode").focus();
+				}
 				layer.open({content: json.msg,btn: '我知道了'});
 			}
 		}
