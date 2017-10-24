@@ -29,7 +29,7 @@ $this -> title = 'XXXXX招聘';
   <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
 </head>
-<body class="bg-mobile">
+<body class="bg-mobile" style="height:100%; width: 100%;">
 <?php $this->beginBody() ?>
 <div class="mobile-content">
 	<div class="layui-row" id="moblie-header">
@@ -67,9 +67,6 @@ $this -> title = 'XXXXX招聘';
 	</div>
 </div>
 <?php $this->endBody() ?>
-<script type="text/javascript">
-
-</script>
 </body>
 </html>
 <?php $this->endPage() ?>
