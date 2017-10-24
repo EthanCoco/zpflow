@@ -60,14 +60,18 @@ class GgzxController extends Controller
 			}
 		}
     }
-
+	
 	public function actionAncOne(){
+    	Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
     	$request = Yii::$app->request;
 		
 		$ancType = $request->get('ancType');
 		$ancID = $request->get('ancID');
 		
 		$info = Announce::findOne($ancID);
-		return $this->render('mobile/default/index',['info'=>$info,'ancType'=>$ancType,'index'=>1]);
+		
+		return ['info'=>$info,'ancType'=>$ancType,'index'=>1];
+//		return $this->render('index',['info'=>$info,'ancType'=>$ancType,'index'=>1]);
 	}
+	
 }

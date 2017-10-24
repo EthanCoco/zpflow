@@ -19,6 +19,14 @@
 </div>
 <div class="layui-row" id="mobile-index1-page-info" style="display: none;text-align: right;padding-right: 10px;margin-bottom: 30px;">
 </div>
+
+<!--<div class="layui-row" id="mobile-index1-detail" style="display: none;text-align: right;padding-right: 10px;margin-bottom: 80px;">
+		<a href="../index/show.php?menupid=2&menuid=4&articleid=122" >首篇</a>
+	    <a href="../index/show.php?menupid=2&menuid=4&articleid=121" >上篇</a>
+	    <a href="../index/show.php?menupid=2&menuid=4&arrrticleid=119" >下篇</a>
+	    <a href="../index/show.php?menupid=2&menuid=4&articleid=100" >末篇</a>
+</div>-->
+
 <script>
 var index = <?= $index;?>;
 var anc_type = 'A';
@@ -48,6 +56,7 @@ function mobile_anc_getlist(option){
 			data:option,
 			async:true,
 			success:function(json){
+//				$("#mobile-index1-detail").css('display','none');
 				var rows = json.rows;
 		    	var total = json.total;
 		    	var tableObj = $("#mobile-index1-list-info");
@@ -85,7 +94,7 @@ function mobile_anc_getlist(option){
 	    				}
 	    				var dt_url = "<?= yii\helpers\Url::to(['ggzx/anc-one']);?>"+"&ancID="+rows[i].ancID+"&ancType="+rows[i].ancType;
 	    				html = html + "<div class='mobile-table-list'>";
-	    				html = html + "<a href="+dt_url+"><div>";
+	    				html = html + "<a href='javascript:;' onclick=detail_anc_info("+rows[i].ancID+",'"+rows[i].ancType+"')><div>";
 	    				html = html + "<span class='titles'>"+rows[i].ancName+"</span>";
 	    				var texts = rows[i].ancInfo;
 	    					
@@ -119,5 +128,34 @@ function mobile_anc_getlist(option){
 		});
 	});
 }
+
+function detail_anc_info(ancID,ancType){
+	$.ajax({
+		type:"get",
+		url:"<?= yii\helpers\Url::to(['ggzx/anc-one']);?>",
+		async:true,
+		dataType:'json',
+		data:{'ancID':ancID,'ancType':ancType},
+		success:function(json){
+			var tableObj = $("#mobile-index1-list-info");
+    		tableObj.empty();
+			$("#mobile-index1-page-info").css('display','none');
+//			$("#mobile-index1-detail").css('display','block');
+			tableObj.removeClass('current-back');
+			var html = "";
+			html = "<p class='list-title' >"+json['info'].ancName+"</p>";
+    		var str = "";
+    		if(json.ancTime!='') {
+    			var info = "<span>发布日期："+json['info']['ancTime'] + "</span>";
+    			str = str==""?info:str+info;
+    		}
+    		if(str!='')
+    		html = html + "<p class='list-subtitle'>"+str+"</p>";
+    		html = html + "<div class='list-content'>"+json['info'].ancInfo+"</div>";
+    		tableObj.html(html);
+		}
+	});
+}
+
 
 </script>

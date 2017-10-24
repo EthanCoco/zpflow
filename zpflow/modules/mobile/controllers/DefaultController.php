@@ -4,6 +4,7 @@ namespace app\modules\mobile\controllers;
 
 use yii\web\Controller;
 use Yii;
+use app\models\Announce;
 
 /**
  * Default controller for the `mobile` module
@@ -24,4 +25,5 @@ class DefaultController extends Controller
 		//var_dump($infos);
         return $this->render('index'.\yii\helpers\Html::decode($index),['index'=>$index]);
     }
+	
 }
