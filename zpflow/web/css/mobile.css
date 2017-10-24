@@ -167,7 +167,7 @@ a {
     bottom: 0;
 }
 
-#mobile-login {
+#mobile-login,#mobile-reg {
     margin: 0 5%;
     font-size: 14px;
     font-family: "微软雅黑";
