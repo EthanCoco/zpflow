@@ -52,7 +52,7 @@ class DefaultController extends Controller
 		$codenum = $request->post()['User']['vcode'];
 		$validCode = \Yii::$app->session->get('authnum_session');
 		if(strtolower($codenum) != $validCode){
-			return ['result'=>0,'msg'=>'验证码错误'];
+			return ['result'=>0,'msg'=>'验证码错误','type'=>1];
 		}
 		$model = new User();
 		$model->setScenario(User::SCENARIO_LOGIN);
