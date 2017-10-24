@@ -6,7 +6,7 @@ use yii\web\Controller;
 use Yii;
 use app\models\User;
 use app\models\Share;
-
+use app\models\Recruit;
 /**
  * Default controller for the `mobile` module
  */
@@ -19,6 +19,7 @@ class DefaultController extends Controller
      * @return string
      */
     public function actionIndex(){
+    	date_default_timezone_set('PRC');
     	$index = \yii\helpers\Html::encode(Yii::$app->request->get('index',''));
 		$index = $index == '' ? 1 : $index;
     	
@@ -32,6 +33,37 @@ class DefaultController extends Controller
 				return $this->render('login',['index'=>2]);
 			}
 		}
+		
+		if($index == 2){
+			$recInfo = Recruit::find()->where(['recDefault'=>1])->asArray()->one();
+			if(!empty($recInfo)){
+				$idCard = Yii::$app->user->identity->name;
+				$nowDate = date('Y-m-d H:i:s',time());
+				$num = (new \yii\db\Query())->from(Share::MainTableName($recInfo['recID']))->where(['perIDCard'=>$idCard])->count();
+				//正在报名
+				if($nowDate < $recInfo['recEnd']){
+					//2 正在报名 已经报名 	3 正在报名 还未开始报名
+					$flowtype = $num == 1 ? 2 : 3;
+				}else{
+					//结束报名了
+					if($num == 1 && $recInfo['recBack'] == 0){
+						//4 报名结束了，正在等待后续结果 该次招聘还未归档	
+						$flowtype = 4;
+					}elseif($num == 1 && $recInfo['recBack'] == 1){
+						//4 报名结束了，该次招聘已经归档	
+						$flowtype = 1;
+					}elseif($num == 0){
+						//还没有报名无法报名了（等待下次）	
+						$flowtype = 1;
+					}
+				}
+			}else{
+				//1 报名还未开始（等待下次）
+				$flowtype = 1;
+			}
+			return $this->render('index'.\yii\helpers\Html::decode($index),['index'=>$index,'flowtype'=>$flowtype]);
+		}
+		
         return $this->render('index'.\yii\helpers\Html::decode($index),['index'=>$index]);
     }
 	
