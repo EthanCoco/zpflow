@@ -200,9 +200,13 @@ a {
     line-height: 20px;
     position: relative;
     background: #fff;
-    border: 1px solid #e6e6e6;;
+    border: 1px solid #e6e6e6;
     color: #666;
     /*padding-right: 3px;*/
+}
+
+.mobile-input-label >span.star{
+    color: red;
 }
 
 .mobile-valcode{
@@ -216,4 +220,21 @@ a {
 
 .mobile-forget-pwd{
 	text-align: right;padding-top:20px ;color: #888888;
+}
+
+.mobile-enter-title {
+	width: 100%;
+    text-align: center;
+    padding: 5% 0px 5% 0px;
+}
+
+.mobile-enter-title h2 {
+	display: inline-block;
+    padding-bottom: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    color: #207bc4;
+    font-size: 17px;
+    font-weight: bold;
+    font-family: "微软雅黑";
 }
