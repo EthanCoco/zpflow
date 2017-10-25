@@ -17,7 +17,7 @@ $(document).ready(function() {
 
 function mobile_load_zpcx(){
 	$("#index2_content").empty();
-	$("#index2_content").load("<?= yii\helpers\Url::to(['zpcx/index']); ?>"+"&=index="+flowtype);
+	$("#index2_content").load("<?= yii\helpers\Url::to(['zpcx/index']); ?>"+"&index="+flowtype);
 //	switch(flowtype){
 //		case "1" :
 //		  	//alert('期待下次报名');
