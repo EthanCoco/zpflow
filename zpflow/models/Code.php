@@ -52,4 +52,17 @@ class Code extends \yii\db\ActiveRecord
             'isLeaf'	=>	'Is Leaf',
         ];
     }
+	
+	public static function getCodeSel($typeData = []){
+    	$codeInfo = [];
+    	foreach($typeData as $type){
+    		if($type[1] == 1){
+	    		$code = self::find()->where(['codeTypeID'=>$type[0]])->select(['codeID','codeName'])->asArray()->all();
+    		}else{
+	    		$code = self::find()->where(['AND',['codeTypeID'=>$type[0],'isLeaf'=>$type[1]],['not',['codePiD'=>-1]]])->select(['codeID','codeName'])->asArray()->all();
+    		}
+    		$codeInfo[$type[0]] = $code;
+    	}
+    	return $codeInfo;
+    }
 }
