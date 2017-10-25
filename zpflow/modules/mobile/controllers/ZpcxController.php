@@ -16,4 +16,8 @@ class ZpcxController extends Controller
     	$index = \yii\helpers\Html::encode(Yii::$app->request->get('index',1));
 		return $this->renderPartial('index'.\yii\helpers\Html::decode($index));
     }
+	
+	public function actionEntry(){
+		return $this->renderPartial('entry');
+	}
 }
