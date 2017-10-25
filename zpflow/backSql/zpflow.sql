@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhostphpstudy
-Source Server Version : 50553
+Source Server         : localhost
+Source Server Version : 50617
 Source Host           : localhost:3306
 Source Database       : zpflow
 
 Target Server Type    : MYSQL
-Target Server Version : 50553
+Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2017-10-25 17:53:21
+Date: 2017-10-25 23:59:39
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -1880,11 +1880,12 @@ CREATE TABLE `flow_job_1` (
   `perPub6` int(1) NOT NULL DEFAULT '0' COMMENT '政审是否公示（0=未公示，1=已公示）',
   `perRead6` int(1) NOT NULL DEFAULT '1' COMMENT '政审通知阅读情况【1=未读，2=已读】',
   PRIMARY KEY (`perID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of flow_job_1
 -- ----------------------------
+INSERT INTO `flow_job_1` VALUES ('4', '李建林', '362330199208122410', '13285716129', '', '1', '01', '23_230100', '10', '', '10', '2017-10-25 00:00:00', null, null, '东华理工大学', '4_401', '304_3040100', '1', '1_11', '3_301', '23_230100', '18720989539', '2319048747@qq.com', '333110', 'dfsdfdsfdf', 'fdfdfdf', '', '01', '', '', '0', null, null, '0', '03', '', null, '0', '1', '03', '', null, null, null, '0', '0', '0', '1', '03', '', null, '0', '1', '03', '', null, '0', '0', null, '', '0', '1', '03', '', null, '', '0', '0', '1');
 
 -- ----------------------------
 -- Table structure for flow_job_set_edu_1
@@ -2007,12 +2008,14 @@ CREATE TABLE `person` (
   `perPostCode` varchar(32) DEFAULT NULL COMMENT '邮政编码',
   `perAddr` varchar(255) DEFAULT NULL COMMENT '联系地址',
   `perMark` varchar(255) DEFAULT NULL COMMENT '备注信息',
+  `perJob` varchar(64) DEFAULT NULL COMMENT '应聘岗位性质',
   PRIMARY KEY (`perID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of person
 -- ----------------------------
+INSERT INTO `person` VALUES ('2', '李建林', '362330199208122410', '13285716129', '', '1', '01', '23_230100', '10', '', '10', '2017-10-25 00:00:00', null, null, '东华理工大学', '4_401', '304_3040100', '1', '1_11', '3_301', '23_230100', '18720989539', '2319048747@qq.com', '333110', 'dfsdfdsfdf', 'fdfdfdf', '01');
 
 -- ----------------------------
 -- Table structure for qumextra
