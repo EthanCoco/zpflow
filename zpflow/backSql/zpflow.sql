@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2017-10-24 20:49:11
+Date: 2017-10-25 17:53:21
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -2092,13 +2092,13 @@ CREATE TABLE `user` (
   `companyID` int(11) DEFAULT NULL COMMENT '单位id',
   `phone` varchar(255) DEFAULT NULL COMMENT '手机号码',
   PRIMARY KEY (`uid`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COMMENT='用户表';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='用户表';
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
 INSERT INTO `user` VALUES ('1', 'admin', 'guanliyuan', 'fcea920f7412b5da7be0cf42b8c93759', '3', '19', '2017-10-16 09:41:05', '2017-10-24 16:52:21', '1022', '13285716129');
-INSERT INTO `user` VALUES ('2', '362330199208122410', '李建林', 'fcea920f7412b5da7be0cf42b8c93759', '1', '7', '2017-10-24 17:39:56', '2017-10-24 20:05:17', null, '13285716129');
+INSERT INTO `user` VALUES ('2', '362330199208122410', '李建林', 'fcea920f7412b5da7be0cf42b8c93759', '1', '10', '2017-10-24 17:39:56', '2017-10-25 11:28:41', null, '13285716129');
 
 -- ----------------------------
 -- Table structure for workset
