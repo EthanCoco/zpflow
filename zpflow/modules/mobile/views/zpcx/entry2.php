@@ -63,9 +63,6 @@
 		</div>
 	<?php } ?>
 	
-	
-	
-	
 	<div class="layui-row">
 		<div class="layui-col-xs4">
 			<div style="text-align: center;">
@@ -84,36 +81,45 @@
 
 
 <script>
-var __entey_perID = "";
+var __recID__ = "<?= $recID ?>";
+var __perID__ = "<?= $perID ?>"
+
+var __next_flag = 0;
+<?php if(!empty($eduInfo)){ ?>
+	__next_flag = 1;
+<?php } ?>
+
 $(function(){
-	var currYear = (new Date()).getFullYear();	
-	var opt={};
-	opt.date = {preset : 'date'};
-	opt.datetime = {preset : 'datetime'};
-	opt.time = {preset : 'time'};
-	opt.default = {
-		theme: 'android-ics light', //皮肤样式
-        display: 'modal', //显示方式 
-        mode: 'scroller', //日期选择模式
-		dateFormat: 'yyyy-mm-dd',
-		lang: 'zh',
-		showNow: true,
-		nowText: "今天",
-        startYear: currYear - 117, //开始年份
-        endYear: currYear + 40 //结束年份
-	};
-  	//$("#perBirth").mobiscroll($.extend(opt['date'], opt['default']));
-  	
+	if(__next_flag == 0){
+		$("#next_info2").attr('disabled','disabled');
+		$("#next_info2").addClass("layui-btn-disabled");
+	}else{
+		$("#next_info2").removeAttr('disabled');
+		$("#next_info2").removeClass("layui-btn-disabled");
+	}
 });
 
 function delete_edu2(eduID){
 	layer.open({content:'确定要删除么？',btn: ['确定','取消'],yes: function(index){
-	      	alert(eduID);
-	      	layer.close(index);
+	      	$.post("<?= yii\helpers\Url::to(['zpcx/del-edu']); ?>",{'recID':__recID__,'eduID':eduID},function(json){
+	      		if(json.result){
+	      			$("#index2_content").load("<?= yii\helpers\Url::to(['zpcx/entry2']); ?>");
+	      			layer.close(index);
+	      		}else{
+	      			layer.open({content: json.msg,btn: '我知道了'});
+	      		}
+	      	},'json');
 	    }
 	});
 }
 
+function mofiy_edu2(eduID){
+	$("#index2_content").load("<?= yii\helpers\Url::to(['zpcx/entry2-repair']); ?>"+"&eduID="+eduID+"&recID="+__recID__+"&perID="+__perID__);
+}
+
+function add_info2(){
+	$("#index2_content").load("<?= yii\helpers\Url::to(['zpcx/entry2-repair']); ?>"+"&eduID="+"&recID="+__recID__+"&perID="+__perID__);
+}
 
 function pre_info2(){
 	$("#index2_content").load("<?= yii\helpers\Url::to(['zpcx/entry']); ?>");
