@@ -126,6 +126,6 @@ function pre_info2(){
 }
 
 function next_info2(){
-	$("#index2_content").load("<?= yii\helpers\Url::to(['zpcx/entry3']); ?>");
+	$("#index2_content").load("<?= yii\helpers\Url::to(['zpcx/entry3']); ?>"+"&recID="+__recID__+"&perID="+__perID__);
 }
 </script>

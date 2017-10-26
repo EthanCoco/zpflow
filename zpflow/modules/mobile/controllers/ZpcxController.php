@@ -185,7 +185,9 @@ class ZpcxController extends Controller
 	}
 	
 	public function actionEntry3(){
-		return $this->renderPartial('entry3');
+		$recID = Yii::$app->request->get('recID');
+		$perID = Yii::$app->request->get('perID');
+		return $this->renderPartial('entry3',['recID'=>$recID,'perID'=>$perID]);
 	}
 	
 	public function actionEntry4(){

@@ -30,7 +30,10 @@
 
 
 <script>
-var __entey_perID = "";
+var __recID__ = "<?= $recID ?>";
+var __perID__ = "<?= $perID ?>";
+
+alert(__perID__+"    "+__recID__);
 $(function(){
 	var currYear = (new Date()).getFullYear();	
 	var opt={};
@@ -48,8 +51,6 @@ $(function(){
         startYear: currYear - 117, //开始年份
         endYear: currYear + 40 //结束年份
 	};
-  	//$("#perBirth").mobiscroll($.extend(opt['date'], opt['default']));
-  	
 });
 
 function pre_info3(){
