@@ -2,6 +2,7 @@
 	<div class="layui-row">
 		<div class="mobile-enter-title">
 			<h2>报名信息</h2>
+			<p style="color: red;">您已经报名，资料信息正在审核当中，请耐性等候...</p>
 	    </div>
 	</div>
 	
