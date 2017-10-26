@@ -39,10 +39,24 @@
 				    	<label class="mobile-input-label2"><span><?php echo $work['wkCom']; ?></span></label>
 				    </div>
 				</div>
+				<!--<div class="layui-row">
+				    <div class="layui-col-xs4"><label class="mobile-input-label">工作简述：</label></div>
+				    <div class="layui-col-xs8">
+				    	<label class="mobile-input-label2"><span><php echo $work['wkInfo']; ?></span></label>
+				    </div>
+				</div>-->
+				
 				<div class="layui-row">
 				    <div class="layui-col-xs4"><label class="mobile-input-label">工作简述：</label></div>
 				    <div class="layui-col-xs8">
-				    	<label class="mobile-input-label2"><span><?php echo $work['wkInfo']; ?></span></label>
+				    	<label class="mobile-input-label2"><span></span></label>
+				    </div>
+				</div>
+				<div class="layui-row">
+					<div style="margin-left: -2px;color: #666;">
+					    <div class="layui-textarea">
+					    	<?php echo $work['wkInfo']; ?>
+					    </div>
 				    </div>
 				</div>
 			</fieldset>

@@ -234,11 +234,16 @@
 	    </div>
 	</div>
 	
-	<div class="layui-row" style="padding:0 0 25px 0;">
+	<div class="layui-row">
 	    <div class="layui-col-xs4"><label class="mobile-input-label"><span class="star"></span>备注：</label></div>
 	    <div class="layui-col-xs8">
-	      	<input id="perMark" title="备注" style="font-size: 12px;" class="layui-input" placeholder="请输入备注信息" type="text" must="0" page="1">
+	    	<label class="mobile-input-label3">&nbsp;</label>
 	    </div>
+	</div>
+	<div class="layui-row" style="padding:0 0 25px 0;">
+		<div style="margin-left: -2px;">
+			<textarea id="perMark" title="备注" style="font-size: 12px;" class="layui-textarea" placeholder="请输入备注信息" must="0" page="1"></textarea>
+		</div>
 	</div>
 	
 	<div class="layui-row">

@@ -44,11 +44,23 @@
 	      	<input id="eduPost" title="任职职务" style="font-size: 12px;" class="layui-input" placeholder="" type="text"  must="0" page="1">
 	    </div>
 	</div>
-	<div class="layui-row" style="padding:0 0 25px 0;">
+	<!--<div class="layui-row" style="padding:0 0 25px 0;">
 	    <div class="layui-col-xs4"><label class="mobile-input-label"><span class="star"></span>奖学金及荣誉：</label></div>
 	    <div class="layui-col-xs8">
 	      	<input id="eduBurseHonorary" title="奖学金及荣誉" style="font-size: 12px;" class="layui-input" placeholder="" type="text"  must="0" page="1">
 	    </div>
+	</div>-->
+	
+	<div class="layui-row">
+	    <div class="layui-col-xs4"><label class="mobile-input-label"><span class="star"></span>奖学金及荣誉称号：</label></div>
+	    <div class="layui-col-xs8">
+	    	<label class="mobile-input-label3">&nbsp;</label>
+	    </div>
+	</div>
+	<div class="layui-row" style="padding:0 0 25px 0;">
+		<div style="margin-left: -2px;">
+			<textarea id="eduBurseHonorary" title="奖学金及荣誉称号" style="font-size: 12px;" class="layui-textarea" placeholder="请输入奖学金及荣誉称号" must="0" page="1"></textarea>
+		</div>
 	</div>
 	
 	<div class="layui-row">

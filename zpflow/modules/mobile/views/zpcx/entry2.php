@@ -47,7 +47,14 @@
 				<div class="layui-row">
 				    <div class="layui-col-xs4"><label class="mobile-input-label">奖学金及荣誉：</label></div>
 				    <div class="layui-col-xs8">
-				    	<label class="mobile-input-label2"><span><?php echo $edu['eduBurseHonorary']; ?></span></label>
+				    	<label class="mobile-input-label2"><span></span></label>
+				    </div>
+				</div>
+				<div class="layui-row">
+					<div style="margin-left: -2px;color: #666;">
+					    <div class="layui-textarea">
+					    	<?php echo $edu['eduBurseHonorary']; ?>
+					    </div>
 				    </div>
 				</div>
 			</fieldset>

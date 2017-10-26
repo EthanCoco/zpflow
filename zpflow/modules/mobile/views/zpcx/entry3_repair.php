@@ -30,11 +30,23 @@
 	      	<input id="wkCom" title="所在单位" style="font-size: 12px;" class="layui-input" placeholder="" type="text"  must="1" page="1">
 	    </div>
 	</div>
-	<div class="layui-row" style="padding:0 0 25px 0;">
+	<!--<div class="layui-row" style="padding:0 0 25px 0;">
 	    <div class="layui-col-xs4"><label class="mobile-input-label"><span class="star">*</span>工作简述：</label></div>
 	    <div class="layui-col-xs8">
 	      	<input id="wkInfo" title="奖学金及荣誉" style="font-size: 12px;" class="layui-input" placeholder="" type="text"  must="1" page="1">
 	    </div>
+	</div>-->
+	
+	<div class="layui-row">
+	    <div class="layui-col-xs4"><label class="mobile-input-label"><span class="star">*</span>工作简述：</label></div>
+	    <div class="layui-col-xs8">
+	    	<label class="mobile-input-label3">&nbsp;</label>
+	    </div>
+	</div>
+	<div class="layui-row" style="padding:0 0 25px 0;">
+		<div style="margin-left: -2px;">
+			<textarea id="wkInfo" title="工作简述" style="font-size: 12px;" class="layui-textarea" placeholder="请输入工作简述" must="1" page="1"></textarea>
+		</div>
 	</div>
 	
 	<div class="layui-row">
