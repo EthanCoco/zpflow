@@ -271,3 +271,16 @@ a {
 .mobile-input-label2>span{
 	margin-left: 3px;
 }
+.mobile-input-label3{
+	float: left;
+    display: block;
+    padding: 8px 0px;
+    width: 99%;
+    font-weight: 400;
+    text-align: left;
+    line-height: 20px;
+    position: relative;
+    background: #fff;
+    border: 1px solid #e6e6e6;
+    color: #666;
+}
