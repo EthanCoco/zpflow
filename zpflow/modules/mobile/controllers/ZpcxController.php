@@ -88,7 +88,7 @@ class ZpcxController extends Controller
 		$recInfo = Recruit::find()->where(['recDefault'=>1])->asArray()->one();
 		$edutable = Share::SetTableName($recInfo['recID'],'edu');
 		$baseInfo = (new \yii\db\Query())->from(Share::MainTableName($recInfo['recID']))->where(['perIDCard'=>$idcard])->one();
-		$eduInfo = (new \yii\db\Query())->from($edutable)->where(['perID'=>$baseInfo['perID']])->all();
+		$eduInfo = (new \yii\db\Query())->from($edutable)->where(['perID'=>$baseInfo['perID']])->orderBy('eduStart asc')->all();
 		$jsonData = [];
 		if(empty($eduInfo)){
 			$personInfo = (new \yii\db\Query())->from('person')->where(['perIDCard'=>$idcard])->one();
@@ -106,7 +106,7 @@ class ZpcxController extends Controller
 						'eduBurseHonorary'=>$binfo['eduBurseHonorary'],
 					])->execute();
 				}
-				$jsonData = (new \yii\db\Query())->from($edutable)->where(['perID'=>$baseInfo['perID']])->orderBy('eduStart desc')->all();
+				$jsonData = (new \yii\db\Query())->from($edutable)->where(['perID'=>$baseInfo['perID']])->orderBy('eduStart asc')->all();
 			}
 		}else{
 			$jsonData = $eduInfo;
@@ -190,7 +190,7 @@ class ZpcxController extends Controller
 		$perID = Yii::$app->request->get('perID');
 		$worktable = Share::SetTableName($recID,'work');
 		
-		$workInfo = (new \yii\db\Query())->from($worktable)->where(['perID'=>$perID])->all();
+		$workInfo = (new \yii\db\Query())->from($worktable)->where(['perID'=>$perID])->orderBy('wkStart asc')->all();
 		
 		$jsonData = [];
 		if(empty($workInfo)){
@@ -208,7 +208,7 @@ class ZpcxController extends Controller
 						'wkInfo'=>$binfo['wkInfo'],
 					])->execute();
 				}
-				$jsonData = (new \yii\db\Query())->from($worktable)->where(['perID'=>$perID])->orderBy('wkStart desc')->all();
+				$jsonData = (new \yii\db\Query())->from($worktable)->where(['perID'=>$perID])->orderBy('wkStart asc')->all();
 			}
 		}else{
 			$jsonData = $workInfo;
@@ -287,7 +287,7 @@ class ZpcxController extends Controller
 		$perID = Yii::$app->request->get('perID');
 		$famtable = Share::SetTableName($recID,'fam');
 		
-		$famInfo = (new \yii\db\Query())->from($famtable)->where(['perID'=>$perID])->all();
+		$famInfo = (new \yii\db\Query())->from($famtable)->where(['perID'=>$perID])->orderBy('famRelation asc')->all();
 		
 		$jsonData = [];
 		if(empty($famInfo)){
@@ -304,11 +304,12 @@ class ZpcxController extends Controller
 						'famPost'=>$binfo['famPost'],
 					])->execute();
 				}
-				$jsonData = (new \yii\db\Query())->from($famtable)->where(['perID'=>$perID])->orderBy('famRelation desc')->all();
+				$jsonData = (new \yii\db\Query())->from($famtable)->where(['perID'=>$perID])->orderBy('famRelation asc')->all();
 			}
 		}else{
 			$jsonData = $famInfo;
 		}
+		
 		$jsonInfo = [];
 		if(!empty($jsonData)){
 			foreach($jsonData as $data){
@@ -379,5 +380,16 @@ class ZpcxController extends Controller
 		}
 	}
 	
+	public function actionSubEntry(){
+		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+		$recID = Yii::$app->request->post('recID');
+		$perID = Yii::$app->request->post('perID');
+		$flag = Yii::$app->db->createCommand()->update(Share::MainTableName($recID),['perStatus'=>1],['perID'=>$perID])->execute();
+		if($flag !== false){
+			return ['result'=>1,'msg'=>'报名成功'];
+		}else{
+			return ['result'=>0,'msg'=>'报名失败'];
+		}
+	}
 	
 }

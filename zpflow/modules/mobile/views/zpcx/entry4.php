@@ -109,4 +109,21 @@ function mofiy_fam4(famID){
 function add_info4(){
 	$("#index2_content").load("<?= yii\helpers\Url::to(['zpcx/entry4-repair']); ?>"+"&famID="+"&recID="+__recID__+"&perID="+__perID__);
 }
+
+function submit_info4(){
+	//alert(111);return;
+	layer.open({content:'确定信息无误，确定要提交么？',btn: ['确定','取消'],yes: function(index){
+	      	$.post("<?= yii\helpers\Url::to(['zpcx/sub-entry']); ?>",{'recID':__recID__,'perID':__perID__},function(json){
+	      		if(json.result){
+	      			layer.open({content:json.msg,btn: ['确定'],yes: function(index){
+	      					location.href = "<?= yii\helpers\Url::to(['default/index','index'=>2]); ?>";
+	      				}
+	      			});
+	      		}else{
+	      			layer.open({content: json.msg,btn: '我知道了'});
+	      		}
+	      	},'json');
+	    }
+	});
+}
 </script>
