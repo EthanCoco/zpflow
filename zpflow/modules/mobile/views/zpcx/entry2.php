@@ -60,7 +60,7 @@
 		</div>
 	<?php } ?>
 	
-	<div class="layui-row">
+	<div class="layui-row" style="padding:25px 0 0 0;">
 		<div class="layui-col-xs4">
 			<div style="text-align: center;">
 			<button id="pre_info2" onclick="pre_info2()" class="layui-btn layui-btn-normal layui-btn-radius" style="min-width: 80px;width: 60%;">上一步</button></div>

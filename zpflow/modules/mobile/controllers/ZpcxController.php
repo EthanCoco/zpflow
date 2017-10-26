@@ -106,7 +106,7 @@ class ZpcxController extends Controller
 						'eduBurseHonorary'=>$binfo['eduBurseHonorary'],
 					])->execute();
 				}
-				$jsonData = (new \yii\db\Query())->from($edutable)->where(['perID'=>$baseInfo['perID']])->orderBy('eduStart asc')->all();
+				$jsonData = (new \yii\db\Query())->from($edutable)->where(['perID'=>$baseInfo['perID']])->orderBy('eduStart desc')->all();
 			}
 		}else{
 			$jsonData = $eduInfo;
@@ -190,7 +190,6 @@ class ZpcxController extends Controller
 		$perID = Yii::$app->request->get('perID');
 		$worktable = Share::SetTableName($recID,'work');
 		
-//		$baseInfo = (new \yii\db\Query())->from(Share::MainTableName($recInfo['recID']))->where(['perIDCard'=>$idcard])->one();
 		$workInfo = (new \yii\db\Query())->from($worktable)->where(['perID'=>$perID])->all();
 		
 		$jsonData = [];
@@ -209,7 +208,7 @@ class ZpcxController extends Controller
 						'wkInfo'=>$binfo['wkInfo'],
 					])->execute();
 				}
-				$jsonData = (new \yii\db\Query())->from($workInfo)->where(['perID'=>$perID])->orderBy('wkStart asc')->all();
+				$jsonData = (new \yii\db\Query())->from($worktable)->where(['perID'=>$perID])->orderBy('wkStart desc')->all();
 			}
 		}else{
 			$jsonData = $workInfo;
@@ -286,9 +285,99 @@ class ZpcxController extends Controller
 		$idcard = Yii::$app->user->identity->name;
 		$recID = Yii::$app->request->get('recID');
 		$perID = Yii::$app->request->get('perID');
+		$famtable = Share::SetTableName($recID,'fam');
 		
+		$famInfo = (new \yii\db\Query())->from($famtable)->where(['perID'=>$perID])->all();
 		
-		return $this->renderPartial('entry4',['recID'=>$recID,'perID'=>$perID]);
+		$jsonData = [];
+		if(empty($famInfo)){
+			$personInfo = (new \yii\db\Query())->from('person')->where(['perIDCard'=>$idcard])->one();
+			$famInfo_base = (new \yii\db\Query())->from('famset')->where(['perID'=>$personInfo['perID']])->all();
+			if(!empty($famInfo_base)){
+				//插入数据
+				foreach($famInfo_base as $binfo){
+					Yii::$app->db->createCommand()->insert($famtable,[
+						'perID'=>$perID,
+						'famRelation'=>$binfo['famRelation'],
+						'famName'=>$binfo['famName'],
+						'famCom'=>$binfo['famCom'],
+						'famPost'=>$binfo['famPost'],
+					])->execute();
+				}
+				$jsonData = (new \yii\db\Query())->from($famtable)->where(['perID'=>$perID])->orderBy('famRelation desc')->all();
+			}
+		}else{
+			$jsonData = $famInfo;
+		}
+		$jsonInfo = [];
+		if(!empty($jsonData)){
+			foreach($jsonData as $data){
+				$fam_code = [['famRelation','JTGX']] ;
+				$fam_code_info = Share::codeValue($fam_code,$data);
+				$jsonInfo [] = [
+					'famID'=>$data['famID'],
+					'perID'=>$data['perID'],
+					'famRelation'=>$fam_code_info['famRelation'],
+					'famName'=>$data['famName'],
+					'famCom'=>$data['famCom'],
+					'famPost'=>$data['famPost'],
+				];
+			}
+		}
+		return $this->renderPartial('entry4',['famInfo'=>$jsonInfo,'recID'=>$recID,'perID'=>$perID]);
 	}
+	
+	public function actionDelFam(){
+		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+		$recID = Yii::$app->request->post('recID');
+		$famID = Yii::$app->request->post('famID');
+		$flag = Yii::$app->db->createCommand()->delete(Share::SetTableName($recID,'fam'),['famID'=>$famID])->execute();
+		if($flag){
+			return ['result'=>1,'msg'=>'删除成功'];
+		}else{
+			return ['result'=>0,'msg'=>'删除失败'];
+		}
+	}
+	
+	public function actionEntry4Repair(){
+		$recID = Yii::$app->request->get('recID');
+		$famID = Yii::$app->request->get('famID','');
+		$perID = Yii::$app->request->get('perID');
+		
+		if($famID == ""){
+			$info = [];
+			$title = "添加家庭成员";
+		}else{
+			$info = (new \yii\db\Query())->from(Share::SetTableName($recID,'fam'))->where(['famID'=>$famID])->one();
+			$title = "修改家庭成员";
+		}
+		$codeInfo = Code::getCodeSel([['JTGX',1]]);
+		return $this->renderPartial('entry4_repair',['famID'=>$famID,'recID'=>$recID,'title'=>$title,'codes'=>$codeInfo,'famInfo'=>$info,'perID'=>$perID]);
+	}
+	
+	public function actionEntry4Save(){
+		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+		$recID = Yii::$app->request->post('recID');
+		$famID = Yii::$app->request->post('famID','');
+		$perID = Yii::$app->request->post('perID');
+		$data = Yii::$app->request->post()['Fam'];
+		if($famID == ''){
+			$data['perID'] = $perID;
+			$flag = Yii::$app->db->createCommand()->insert(Share::SetTableName($recID,'fam'),$data)->execute();
+			if($flag){
+				return ['result'=>1,'msg'=>'保存成功'];
+			}else{
+				return ['result'=>0,'msg'=>'保存失败'];
+			}
+		}else{
+			$flag = Yii::$app->db->createCommand()->update(Share::SetTableName($recID,'fam'),$data,['famID'=>$famID])->execute();
+			if($flag !== false){
+				return ['result'=>1,'msg'=>'修改成功'];
+			}else{
+				return ['result'=>0,'msg'=>'修改失败'];
+			}
+		}
+	}
+	
 	
 }
