@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhostphpstudy
-Source Server Version : 50553
+Source Server         : localhost
+Source Server Version : 50617
 Source Host           : localhost:3306
 Source Database       : zpflow
 
 Target Server Type    : MYSQL
-Target Server Version : 50553
+Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2017-10-26 20:47:14
+Date: 2017-10-26 23:44:19
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -1887,7 +1887,7 @@ CREATE TABLE `flow_job_1` (
 -- ----------------------------
 -- Records of flow_job_1
 -- ----------------------------
-INSERT INTO `flow_job_1` VALUES ('4', '李建林', '362330199208122410', '13285716129', '', '1', '01', '23_230100', '10', '', '10', '2017-10-25 00:00:00', null, null, '东华理工大学', '4_401', '304_3040100', '1', '1_11', '3_301', '23_230100', '18720989539', '2319048747@qq.com', '333110', '浙江杭州', 'fdfdfdf', '', '01', '', '', '0', null, null, '0', '03', '', null, '0', '1', '03', '', null, null, null, '0', '0', '0', '1', '03', '', null, '0', '1', '03', '', null, '0', '0', null, '', '0', '1', '03', '', null, '', '0', '0', '1');
+INSERT INTO `flow_job_1` VALUES ('4', '李建林', '362330199208122410', '13285716129', '', '1', '01', '23_230100', '10', '', '10', '2017-10-25 00:00:00', null, null, '东华理工大学', '4_401', '304_3040200', '1', '1_11', '3_301', '23_230100', '18720989539', '2319048747@qq.com', '333110', '浙江杭州', 'dsdsdsdsd', '', '01', '', '', '1', null, null, '0', '03', '', null, '0', '1', '03', '', null, null, null, '0', '0', '0', '1', '03', '', null, '0', '1', '03', '', null, '0', '0', null, '', '0', '1', '03', '', null, '', '0', '0', '1');
 
 -- ----------------------------
 -- Table structure for flow_job_set_edu_1
@@ -1903,14 +1903,14 @@ CREATE TABLE `flow_job_set_edu_1` (
   `eduPost` varchar(255) DEFAULT NULL COMMENT '任职职务',
   `eduBurseHonorary` text COMMENT '奖学金及荣誉称号',
   PRIMARY KEY (`eduID`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of flow_job_set_edu_1
 -- ----------------------------
 INSERT INTO `flow_job_set_edu_1` VALUES ('5', '4', '2010-10-26 00:00:00', '2015-10-26 00:00:00', 'XXX学校', '304_3040100', '班长', '1212121212');
 INSERT INTO `flow_job_set_edu_1` VALUES ('6', '4', '2016-10-26 00:00:00', '2017-10-26 00:00:00', '浙江大学', '304_3040100', '团委', '国家一级奖学金');
-INSERT INTO `flow_job_set_edu_1` VALUES ('8', '4', '2008-10-26 00:00:00', '2015-07-26 00:00:00', '是多少', '101_1010100', '大叔大婶', '法规法规的发苟富贵');
+INSERT INTO `flow_job_set_edu_1` VALUES ('8', '4', '2008-10-26 00:00:00', '2015-07-26 00:00:00', '是多少', '101_1010100', '大叔大婶', '法规法规的发苟富贵sdsadsadsad');
 
 -- ----------------------------
 -- Table structure for flow_job_set_fam_1
@@ -1945,12 +1945,13 @@ CREATE TABLE `flow_job_set_work_1` (
   `wkCom` varchar(255) NOT NULL COMMENT '所在单位',
   `wkInfo` text NOT NULL COMMENT '工作简述',
   PRIMARY KEY (`wkID`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of flow_job_set_work_1
 -- ----------------------------
 INSERT INTO `flow_job_set_work_1` VALUES ('4', '4', '2017-10-26 00:00:00', '2017-10-26 00:00:00', 'dssd', 'dsds', 'dsds');
+INSERT INTO `flow_job_set_work_1` VALUES ('5', '4', '2016-10-26 00:00:00', '2017-10-26 00:00:00', 'fdfdf', 'dfdf', 'fdfdfggfgfgfg');
 
 -- ----------------------------
 -- Table structure for gstexm
@@ -2109,7 +2110,7 @@ CREATE TABLE `user` (
 -- Records of user
 -- ----------------------------
 INSERT INTO `user` VALUES ('1', 'admin', 'guanliyuan', 'fcea920f7412b5da7be0cf42b8c93759', '3', '19', '2017-10-16 09:41:05', '2017-10-24 16:52:21', '1022', '13285716129');
-INSERT INTO `user` VALUES ('2', '362330199208122410', '李建林', 'fcea920f7412b5da7be0cf42b8c93759', '1', '11', '2017-10-24 17:39:56', '2017-10-26 09:25:45', null, '13285716129');
+INSERT INTO `user` VALUES ('2', '362330199208122410', '李建林', 'fcea920f7412b5da7be0cf42b8c93759', '1', '12', '2017-10-24 17:39:56', '2017-10-26 21:09:21', null, '13285716129');
 
 -- ----------------------------
 -- Table structure for workset
