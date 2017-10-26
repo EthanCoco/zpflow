@@ -185,13 +185,110 @@ class ZpcxController extends Controller
 	}
 	
 	public function actionEntry3(){
+		$idcard = Yii::$app->user->identity->name;
 		$recID = Yii::$app->request->get('recID');
 		$perID = Yii::$app->request->get('perID');
-		return $this->renderPartial('entry3',['recID'=>$recID,'perID'=>$perID]);
+		$worktable = Share::SetTableName($recID,'work');
+		
+//		$baseInfo = (new \yii\db\Query())->from(Share::MainTableName($recInfo['recID']))->where(['perIDCard'=>$idcard])->one();
+		$workInfo = (new \yii\db\Query())->from($worktable)->where(['perID'=>$perID])->all();
+		
+		$jsonData = [];
+		if(empty($workInfo)){
+			$personInfo = (new \yii\db\Query())->from('person')->where(['perIDCard'=>$idcard])->one();
+			$workInfo_base = (new \yii\db\Query())->from('workset')->where(['perID'=>$personInfo['perID']])->all();
+			if(!empty($workInfo_base)){
+				//插入数据
+				foreach($workInfo_base as $binfo){
+					Yii::$app->db->createCommand()->insert($worktable,[
+						'perID'=>$perID,
+						'wkStart'=>$binfo['wkStart'],
+						'wkEnd'=>$binfo['wkEnd'],
+						'wkPost'=>$binfo['wkPost'],
+						'wkCom'=>$binfo['wkCom'],
+						'wkInfo'=>$binfo['wkInfo'],
+					])->execute();
+				}
+				$jsonData = (new \yii\db\Query())->from($workInfo)->where(['perID'=>$perID])->orderBy('wkStart asc')->all();
+			}
+		}else{
+			$jsonData = $workInfo;
+		}
+		$jsonInfo = [];
+		if(!empty($jsonData)){
+			foreach($jsonData as $data){
+				$jsonInfo [] = [
+					'wkID'=>$data['wkID'],
+					'perID'=>$data['perID'],
+					'wkStart'=>!empty($data['wkStart']) ? substr($data['wkStart'], 0,10) : '',
+					'wkEnd'=>!empty($data['wkEnd']) ? substr($data['wkEnd'], 0,10) : '',
+					'wkPost'=>$data['wkPost'],
+					'wkCom'=>$data['wkCom'],
+					'wkInfo'=>$data['wkInfo'],
+				];
+			}
+		}
+		return $this->renderPartial('entry3',['workInfo'=>$jsonInfo,'recID'=>$recID,'perID'=>$perID]);
+	}
+	
+	public function actionEntry3Repair(){
+		$recID = Yii::$app->request->get('recID');
+		$wkID = Yii::$app->request->get('wkID','');
+		$perID = Yii::$app->request->get('perID');
+		
+		if($wkID == ""){
+			$info = [];
+			$title = "添加工作经历";
+		}else{
+			$info = (new \yii\db\Query())->from(Share::SetTableName($recID,'work'))->where(['wkID'=>$wkID])->one();
+			$title = "修改工作经历";
+		}
+		return $this->renderPartial('entry3_repair',['wkID'=>$wkID,'recID'=>$recID,'title'=>$title,'workInfo'=>$info,'perID'=>$perID]);
+	}
+	
+	public function actionEntry3Save(){
+		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+		$recID = Yii::$app->request->post('recID');
+		$wkID = Yii::$app->request->post('wkID','');
+		$perID = Yii::$app->request->post('perID');
+		$data = Yii::$app->request->post()['Work'];
+		if($wkID == ''){
+			$data['perID'] = $perID;
+			$flag = Yii::$app->db->createCommand()->insert(Share::SetTableName($recID,'work'),$data)->execute();
+			if($flag){
+				return ['result'=>1,'msg'=>'保存成功'];
+			}else{
+				return ['result'=>0,'msg'=>'保存失败'];
+			}
+		}else{
+			$flag = Yii::$app->db->createCommand()->update(Share::SetTableName($recID,'work'),$data,['wkID'=>$wkID])->execute();
+			if($flag !== false){
+				return ['result'=>1,'msg'=>'修改成功'];
+			}else{
+				return ['result'=>0,'msg'=>'修改失败'];
+			}
+		}
+	}
+	
+	public function actionDelWork(){
+		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+		$recID = Yii::$app->request->post('recID');
+		$wkID = Yii::$app->request->post('wkID');
+		$flag = Yii::$app->db->createCommand()->delete(Share::SetTableName($recID,'work'),['wkID'=>$wkID])->execute();
+		if($flag){
+			return ['result'=>1,'msg'=>'删除成功'];
+		}else{
+			return ['result'=>0,'msg'=>'删除失败'];
+		}
 	}
 	
 	public function actionEntry4(){
-		return $this->renderPartial('entry4');
+		$idcard = Yii::$app->user->identity->name;
+		$recID = Yii::$app->request->get('recID');
+		$perID = Yii::$app->request->get('perID');
+		
+		
+		return $this->renderPartial('entry4',['recID'=>$recID,'perID'=>$perID]);
 	}
 	
 }
