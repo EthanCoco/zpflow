@@ -16,14 +16,98 @@ class ZpcxController extends Controller
     public function actionIndex(){
     	$index = \yii\helpers\Html::encode(Yii::$app->request->get('index',1));
 		$jsonData = [];
+		$entryData = [];
 		if($index == 3){
 			$recInfo = Recruit::find()->where(['recDefault'=>1])->asArray()->one();
 			$codes = [['recBatch','PC']];
 			$mainCode = Share::codeValue($codes,$recInfo);
 			$jsonData = array_merge($recInfo,$mainCode);
+		}elseif($index == 2){
+			$entryData = $this->load_entry_info();
 		}
-		return $this->renderPartial('index'.\yii\helpers\Html::decode($index),['recInfo'=>$jsonData]);
+		return $this->renderPartial('index'.\yii\helpers\Html::decode($index),['recInfo'=>$jsonData,'entryData'=>$entryData]);
     }
+	
+	private function load_entry_info(){
+		$idcard = Yii::$app->user->identity->name;	
+		$recInfo = Recruit::find()->where(['recDefault'=>1])->asArray()->one();
+		$keys = [['recBatch','PC']];
+		$codes = Share::codeValue($keys,$recInfo);
+		$recData = array_merge($recInfo,$codes);
+		
+		$recID = $recInfo['recID'];
+		
+		$jsonData['recData'] = $recData;
+		
+		$mainInfo = (new \yii\db\Query())->from(Share::MainTableName($recID))->where(['perIDCard'=>$idcard])->one();
+		$codes = [
+					['perGender','XB'],['perJob','XZ'],['perNation','AI'],['perOrigin','AB'],['perPolitica','AG'],['perMarried','CG'],
+					['perDegree','BC'],['perMajor','AJ'],['perEducation','XL'],['perForeignLang','MC'],['perComputerLevel','MD'],['perEduPlace','AB'],
+				];
+		$mainCode = Share::codeValue($codes,$mainInfo);
+		$mainCode['perBirth'] = !empty($mainInfo['perBirth']) ? substr($mainInfo['perBirth'], 0,10) : '';
+		$mainJson = array_merge($mainInfo,$mainCode);
+		
+		$jsonData['baseData'] = $mainJson;
+		
+		$perID = $mainJson['perID'];
+		
+		$tables_set = Share::SetTableNames($recID);
+		$eduSetInfo = (new \yii\db\Query())->from($tables_set[0])->where(['perID'=>$perID])->orderby('eduStart asc')->all();
+		$eduJson = [];
+		if(!empty($eduSetInfo)){
+			foreach($eduSetInfo as $edu){
+				$edu_code = [['eduMajor','AJ']] ;
+				$edu_code_info = Share::codeValue($edu_code,$edu);
+				$eduJson[] = [
+					'eduStart'	=>	!empty($edu['eduStart']) ? substr($edu['eduStart'], 0,10) : '',
+					'eduEnd'	=>	!empty($edu['eduEnd']) ? substr($edu['eduEnd'], 0,10) : '',
+					'eduSchool'	=>	$edu['eduSchool'],
+					'eduMajor'	=>	$edu_code_info['eduMajor'],
+					'eduPost'	=>	$edu['eduPost'],
+					'eduBurseHonorary'	=>	$edu['eduBurseHonorary'],
+				];
+			}
+		}
+		
+		$jsonData['eduData'] = $eduJson;
+		
+		$famSetInfo = (new \yii\db\Query())->from($tables_set[1])->where(['perID'=>$perID])->all();
+		$famJson = [];
+		if(!empty($famSetInfo)){
+			foreach($famSetInfo as $fam){
+				$fam_code = [['famRelation','JTGX']] ;
+				$fam_code_info = Share::codeValue($fam_code,$fam);
+				$famJson[] = [
+					'famRelation'	=>	$fam_code_info['famRelation'],
+					'famName'	=>	$fam['famName'],
+					'famCom'	=>	$fam['famCom'],
+					'famPost'	=>	$fam['famPost'],
+				];
+			}
+		}
+		
+		$jsonData['famData'] = $famJson;
+		
+		$workSetInfo = (new \yii\db\Query())->from($tables_set[2])->where(['perID'=>$perID])->orderby('wkStart asc')->all();
+		$workJson = [];
+		if(!empty($workSetInfo)){
+			foreach($workSetInfo as $work){
+				$workJson[] = [
+					'wkStart'	=>	!empty($work['wkStart']) ? substr($work['wkStart'], 0,10) : '',
+					'wkEnd'		=>	!empty($work['wkEnd']) ? substr($work['wkEnd'], 0,10) : '',
+					'wkPost'	=>	$work['wkPost'],
+					'wkCom'		=>	$work['wkCom'],
+					'wkInfo'	=>	$work['wkInfo'],
+				];
+			}
+		}
+		
+		$jsonData['workData'] = $workJson;
+		
+		return $jsonData;
+	}
+	
 	
 	public function actionEntry(){
 		$idcard = Yii::$app->user->identity->name;
