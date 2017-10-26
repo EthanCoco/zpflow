@@ -84,18 +84,34 @@ class ZpcxController extends Controller
 	}
 	
 	public function actionEntry2(){
-//		$idcard = Yii::$app->user->identity->name;
-//		$recInfo = Recruit::find()->where(['recDefault'=>1])->asArray()->one();
-//		$perID_type = 1;
-//		$basePerInfo = (new \yii\db\Query())->from(Share::MainTableName($recInfo['recID']))->where(['perIDCard'=>$idcard])->one();
-//		if(empty($basePerInfo)){
-//			$perID_type = 2;
-//			$basePerInfo = Person::find()->where(['perIDCard'=>$idcard])->one();	
-//		}
-//		$codes = [['XB',1],['AB',0],['AI',1],['AG',1],['XL',1],['BC',0],['CG',1],['MC',0],['MD',0],['AJ',0],['XZ',1]];
-//      $codeInfo = Code::getCodeSel($codes);
-//		return $this->renderPartial('entry',['codes'=>$codeInfo,'basePerInfo'=>$basePerInfo,'perID_type'=>$perID_type]);
-		return $this->renderPartial('entry2');
+		$idcard = Yii::$app->user->identity->name;
+		$recInfo = Recruit::find()->where(['recDefault'=>1])->asArray()->one();
+		$edutable = Share::SetTableName($recInfo['recID'],'edu');
+		$baseInfo = (new \yii\db\Query())->from(Share::MainTableName($recInfo['recID']))->where(['perIDCard'=>$idcard])->one();
+		$eduInfo = (new \yii\db\Query())->from($edutable)->where(['perID'=>$baseInfo['perID']])->all();
+		$jsonData = [];
+		if(empty($eduInfo)){
+			$personInfo = (new \yii\db\Query())->from('person')->where(['perIDCard'=>$idcard])->one();
+			$eduInfo_base = (new \yii\db\Query())->from('eduset')->where(['perID'=>$personInfo['perID']])->all();
+			if(!empty($eduInfo_base)){
+				//插入数据
+				foreach($eduInfo_base as $binfo){
+					Yii::$app->db->createCommand()->insert($edutable,[
+						'perID'=>$baseInfo['perID'],
+						'eduStart'=>$binfo['eduStart'],
+						'eduEnd'=>$binfo['eduEnd'],
+						'eduSchool'=>$binfo['eduSchool'],
+						'eduMajor'=>$binfo['eduMajor'],
+						'eduPost'=>$binfo['eduPost'],
+						'eduBurseHonorary'=>$binfo['eduBurseHonorary'],
+					])->execute();
+				}
+				$jsonData = (new \yii\db\Query())->from($edutable)->where(['perID'=>$baseInfo['perID']])->order('eduStart asc')->all();
+			}
+		}else{
+			$jsonData = $eduInfo;
+		}
+		return $this->renderPartial('entry2',['eduInfo'=>$jsonData]);
 	}
 	
 	public function actionEntry3(){
