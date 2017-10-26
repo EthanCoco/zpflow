@@ -71,11 +71,9 @@
 	</div>
 </div>
 
-
 <script>
 var __recID__ = "<?= $recID ?>";
 var __perID__ = "<?= $perID ?>";
-
 var __next_flag = 0;
 <?php if(!empty($workInfo)){ ?>
 	__next_flag = 1;

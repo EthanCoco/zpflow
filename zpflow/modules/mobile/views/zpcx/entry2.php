@@ -5,9 +5,6 @@
 	    </div>
 	</div>
 	
-	<!--<div id="entry2-base-div">
-		
-	</div>-->
 	<?php if(!empty($eduInfo)){ ?>
 		<?php foreach($eduInfo as $edu){ ?>
 			<fieldset class="layui-elem-field site-demo-button" style="margin-top: 10px;">
@@ -79,11 +76,9 @@
 	</div>
 </div>
 
-
 <script>
 var __recID__ = "<?= $recID ?>";
 var __perID__ = "<?= $perID ?>"
-
 var __next_flag = 0;
 <?php if(!empty($eduInfo)){ ?>
 	__next_flag = 1;

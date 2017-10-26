@@ -171,5 +171,4 @@ function save_info2(){
 		}
 	});
 }
-
 </script>
