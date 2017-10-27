@@ -296,3 +296,39 @@ a {
     border: 1px solid #e6e6e6;
     text-align: center;
 }
+
+.mobile-personal-header{
+	background: url(./../images/mobile/mobile_personal.jpg);
+    background-size: 100% 100%;
+}    
+.mobile-info-detail {
+    padding: 15px;
+    display: -webkit-box;
+    display: -moz-box;
+}
+.mobile-info-photo img {
+    display: block;
+    width: 55px;
+    height: 55px;
+    border-radius: 100%;
+    border: 1px solid #fff;
+}
+.mobile-info-name {
+    -webkit-box-flex: 1;
+    -moz-box-flex: 1;
+    margin: 0 0 0 10px;
+}
+.mobile-info-name .mobile-nickname {
+    height: 30px;
+    line-height: 30px;
+    overflow: hidden;
+}
+.mobile-login-name {
+    line-height: 24px;
+    height: 24px;
+    overflow: hidden;
+}
+.mobile-login-name p {
+    color: #666;
+    font-size: 14px;
+}
