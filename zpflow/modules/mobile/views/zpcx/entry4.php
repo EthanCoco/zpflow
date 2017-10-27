@@ -44,7 +44,7 @@
 	<?php }else{ ?>
 		<div class="mobile-index2-content-index1">
 			<p style='font-size: 15px;text-align:center;font-family:\"微软雅黑\";'>
-				您还没有填写工作经历，报名条件中，必须至少有一条工作经历，点击下方添加按钮添加
+				您还没有填写家庭成员，报名条件中，必须至少有一条家庭成员信息（父母双过者，填写监护人员），点击下方添加按钮添加
 			</p>
 		</div>
 	<?php } ?>
