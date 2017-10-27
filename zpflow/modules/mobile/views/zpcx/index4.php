@@ -88,9 +88,33 @@
 				    	<b><?= $dealData['step2']['step2Result']; ?></b>
 				    	<p><b>资格审查日期：</b></p>
 				    	<b><?= $dealData['step2']['perCheckTime']; ?></b>
+				    	<?php if($dealData['baseData']['perStatus'] == 2 && $dealData['baseData']['perReResult1'] == '03'){ ?>
+					    	<p style="padding-top: 25px;">恭喜您资格审查通过，是否会参加考试？</p>
+					    	<div style="padding: 10px;text-align: center;">
+								<button onclick="flow2_reback('01')" class="layui-btn layui-btn-normal layui-btn-small layui-btn-radius" >确定参加</button>
+								<button onclick="flow2_reback('02')" class="layui-btn layui-btn-normal layui-btn-small layui-btn-radius" >放弃参加</button>
+					    	</div>
+				    	<?php }	?>
 				    </div>
 			    </div>
 			</div>
+			<?php if($dealData['baseData']['perStatus'] == 2 && $dealData['baseData']['perReResult1'] != '03'){ ?>
+			<div class="layui-row">
+				<div style="margin-left: -2px;color: #666;">
+				    <div class="layui-textarea">
+				    	<p><b>资格审查环节反馈信息：</b></p>
+				    	<?php if($dealData['baseData']['perStatus'] == 2 && $dealData['baseData']['perReResult1'] == '01'){ ?>
+				    		<p><b>反馈结果：确定参加考试</b></p>
+				    		<p><b>反馈时间：<?= $dealData['baseData']['perReTime1'] ?></b></p>
+				    	<?php }elseif($dealData['baseData']['perStatus'] == 2 && $dealData['baseData']['perReResult1'] == '02'){ ?>
+				    		<p><b>反馈结果：放弃参加考试</b></p>
+				    		<p><b>放弃原因：<?= $dealData['baseData']['perReGiveup1'] ?></b></p>
+				    		<p><b>反馈时间：<?= $dealData['baseData']['perReTime1'] ?></b></p>
+				    	<?php }	?>
+				    </div>
+			    </div>
+			</div>
+			<?php }	?>
 		</fieldset>
 		
 		<!--//TODO 考试安排环节 --> 
@@ -98,7 +122,13 @@
 		
 		
 	<?php } ?>
-	
-	
-		
 </div>
+
+<script>
+
+function flow2_reback(type){
+	if(type == '01'){
+		
+	}
+}	
+</script>
