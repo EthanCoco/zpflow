@@ -117,7 +117,8 @@ class ZpcxController extends Controller
 		
 		$timeNow = date('Y-m-d H:i:s',time());
 		
-		$timeNowMonth = date('Ym',time());
+		$recInfo = Recruit::find()->where(['recDefault'=>1])->asArray()->one();
+		$timeNowMonth = $recInfo['recYear'].$recInfo['recBatch'];
 		
 		$tmpfile = time();
 		$fileName = $tmpfile.'.'.explode("/", $type)[1];
