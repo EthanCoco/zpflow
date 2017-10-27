@@ -20,13 +20,13 @@ function mobile_load_zpcx(){
 	$("#index2_content").load("<?= yii\helpers\Url::to(['zpcx/index']); ?>"+"&index="+flowtype);
 //	switch(flowtype){
 //		case "1" :
-//		  	//alert('期待下次报名');
+//		  	//alert('期待下次报名');okay
 //		break;
 //		case "2" :
-//		  	//alert("正在报名 已经报名");
+//		  	//alert("正在报名 已经报名");okay
 //		break;
 //		case "3" :
-//		  	//alert("正在报名 还未报名 前去报名");
+//		  	//alert("正在报名 还未报名 前去报名");okay
 //		break;
 //		case "4" :
 //		  	//alert("报名结束 正在处理等待结果（考试，体检，政审环节）");
