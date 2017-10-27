@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhost
-Source Server Version : 50617
+Source Server         : localhostphpstudy
+Source Server Version : 50553
 Source Host           : localhost:3306
 Source Database       : zpflow
 
 Target Server Type    : MYSQL
-Target Server Version : 50617
+Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2017-10-26 23:44:19
+Date: 2017-10-27 16:40:43
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -1881,13 +1881,14 @@ CREATE TABLE `flow_job_1` (
   `perCarefulStatus` int(1) NOT NULL DEFAULT '0' COMMENT '政审结果（0=待审，1=通过，2=不通过）',
   `perPub6` int(1) NOT NULL DEFAULT '0' COMMENT '政审是否公示（0=未公示，1=已公示）',
   `perRead6` int(1) NOT NULL DEFAULT '1' COMMENT '政审通知阅读情况【1=未读，2=已读】',
+  `perBack` int(1) NOT NULL DEFAULT '0' COMMENT '报名主动撤回次数（最多三次）',
   PRIMARY KEY (`perID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of flow_job_1
 -- ----------------------------
-INSERT INTO `flow_job_1` VALUES ('4', '李建林', '362330199208122410', '13285716129', '', '1', '01', '23_230100', '10', '', '10', '2017-10-25 00:00:00', null, null, '东华理工大学', '4_401', '304_3040200', '1', '1_11', '3_301', '23_230100', '18720989539', '2319048747@qq.com', '333110', '浙江杭州', 'dsdsdsdsd', '', '01', '', '', '1', null, null, '0', '03', '', null, '0', '1', '03', '', null, null, null, '0', '0', '0', '1', '03', '', null, '0', '1', '03', '', null, '0', '0', null, '', '0', '1', '03', '', null, '', '0', '0', '1');
+INSERT INTO `flow_job_1` VALUES ('4', '李建林', '362330199208122410', '13285716129', './uploadfile/image/201701/1509068601.jpeg', '1', '01', '23_230100', '10', '', '10', '2017-10-25 00:00:00', null, null, '东华理工大学', '4_401', '304_3040200', '1', '1_11', '3_301', '23_230100', '18720989539', '2319048747@qq.com', '333110', '浙江杭州', 'dsdsdsdsd', '0004', '01', '', '', '2', '2017-10-27 15:45:02', '', '1', '02', '临时有事，不得不放弃考试', '2017-10-27 16:37:19', '0', '1', '03', '', null, null, null, '0', '0', '0', '1', '03', '', null, '0', '1', '03', '', null, '0', '0', null, '', '0', '1', '03', '', null, '', '0', '0', '1', '0');
 
 -- ----------------------------
 -- Table structure for flow_job_set_edu_1
@@ -2038,12 +2039,12 @@ CREATE TABLE `qumextra` (
   `qraNoPassMsg` varchar(255) NOT NULL COMMENT '审核不通过额外信息',
   `qraNoPassType` int(1) DEFAULT NULL COMMENT '审核通过信息显示位置（1=追加已有前面，2=追加已有后面，3=追加已有前面并换行，4=追加已有后面并换行，5=重新编辑通知信息（换行已@字符分割））',
   PRIMARY KEY (`qraID`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of qumextra
 -- ----------------------------
-INSERT INTO `qumextra` VALUES ('4', '1', 'gghghghttytytytrytry', '5', 'kkkkkfsl;dfwdfhsdfsdfjshdfsvssfdfdfd', '4');
+INSERT INTO `qumextra` VALUES ('7', '1', '请于11月20号到25号查看考试安排相关通知', '2', '敬请期待下次招聘！', '4');
 
 -- ----------------------------
 -- Table structure for recruit
@@ -2065,7 +2066,7 @@ CREATE TABLE `recruit` (
 -- ----------------------------
 -- Records of recruit
 -- ----------------------------
-INSERT INTO `recruit` VALUES ('1', '2017', '01', '1', '2017-10-18 00:00:00', '2017-10-31 06:00:00', '浙江大学', '浙江大学附属医院', '0');
+INSERT INTO `recruit` VALUES ('1', '2017', '01', '1', '2017-10-18 00:00:00', '2017-10-26 06:00:00', '浙江大学', '浙江大学附属医院', '0');
 INSERT INTO `recruit` VALUES ('2', '2017', '02', '0', '2017-10-18 00:00:00', '2017-10-27 00:00:00', '5555', '5555', '0');
 
 -- ----------------------------
@@ -2109,8 +2110,8 @@ CREATE TABLE `user` (
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', 'admin', 'guanliyuan', 'fcea920f7412b5da7be0cf42b8c93759', '3', '19', '2017-10-16 09:41:05', '2017-10-24 16:52:21', '1022', '13285716129');
-INSERT INTO `user` VALUES ('2', '362330199208122410', '李建林', 'fcea920f7412b5da7be0cf42b8c93759', '1', '12', '2017-10-24 17:39:56', '2017-10-26 21:09:21', null, '13285716129');
+INSERT INTO `user` VALUES ('1', 'admin', 'guanliyuan', 'fcea920f7412b5da7be0cf42b8c93759', '3', '20', '2017-10-16 09:41:05', '2017-10-27 14:58:54', '1022', '13285716129');
+INSERT INTO `user` VALUES ('2', '362330199208122410', '李建林', 'fcea920f7412b5da7be0cf42b8c93759', '1', '13', '2017-10-24 17:39:56', '2017-10-27 08:53:15', null, '13285716129');
 
 -- ----------------------------
 -- Table structure for workset
