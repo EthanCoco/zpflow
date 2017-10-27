@@ -313,6 +313,8 @@
 
 var __index2_recID__ = "<?= $entryData['recData']['recID']; ?>";
 var __index2_recEnd__ = "<?= $entryData['recData']['recEnd']; ?>";
+var __index2_backtimes__ = "<?= $entryData['baseData']['perBack'] ?>";
+var __index2_perID__ = "<?= $entryData['baseData']['perID'] ?>";
 
 $(function(){
 	var nowData = formatDateTime();
@@ -326,8 +328,22 @@ $(function(){
 });
 
 function enrty_back(){
-	
+	if(__index2_backtimes__ == 3){
+		layer.open({content: "报名撤回已经操作三次了，不允许再次撤回",btn: '我知道了'});
+		return;
+	}
+	layer.open({content:'信息已经在审核当中了，您确定要报名撤回了？<br/><span style="color:red;">当前已撤回'+__index2_backtimes__+'次</span>',btn: ['确定','取消'],yes: function(index){
+	      	$.post("<?= yii\helpers\Url::to(['zpcx/entry-back']); ?>",{'recID':__index2_recID__,'perID':__index2_perID__,'perBack':__index2_backtimes__},function(json){
+	      		if(json.result){
+	      			layer.open({content:json.msg,btn: ['确定'],yes: function(index){
+	      					location.href = "<?= yii\helpers\Url::to(['default/index','index'=>2]); ?>";
+	      				}
+	      			});
+	      		}else{
+	      			layer.open({content: json.msg,btn: '我知道了'});
+	      		}
+	      	},'json');
+	    }
+	});
 }
-
-
 </script>

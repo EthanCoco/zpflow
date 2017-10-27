@@ -528,4 +528,18 @@ class ZpcxController extends Controller
 		}
 	}
 	
+	public function actionEntryBack(){
+		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+		$recID = Yii::$app->request->post('recID');
+		$perID = Yii::$app->request->post('perID');
+		$perBack = intval(Yii::$app->request->post('perBack'));
+		$tableName = Share::MainTableName($recID);
+		$flag = Yii::$app->db->createCommand()->update($tableName,['perStatus'=>0,'perBack'=>($perBack+1)],['perID'=>$perID])->execute();
+		if($flag){
+			return ['result'=>1,'msg'=>'撤回报名成功！<br/><span style="color:red;">您已经是第'.($perBack+1).'次撤回，剩余可撤回报名次数'.(3-($perBack+1)).'</span>'];
+		}else{
+			return ['result'=>0,'msg'=>'撤回失败'];
+		}
+	}
+	
 }
