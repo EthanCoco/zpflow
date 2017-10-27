@@ -5,6 +5,24 @@
 	    </div>
 	</div>
 	
+	<div class="layui-upload">
+		<div class="layui-row">
+		    <div class="layui-col-xs4"><label class="mobile-input-label"><span class="star">*</span>照片：</label></div>
+		    <div class="layui-col-xs8">
+		    	<label class="mobile-input-label3"><button type="button" class="layui-btn layui-btn-mini" style="height: 19px;line-height: 19px;margin-left: 10px;" id="uploadImg">上传图片</button></label>
+		    </div>
+		</div>
+	  	<div class="layui-upload-list">
+	    	<img class="layui-upload-img" id="perPhoto_img">
+	    	<p id="errorText"></p>
+	  	</div>
+	</div> 
+	<div class="layui-row" style="display: none;">
+	    <div class="layui-col-xs4"><label class="mobile-input-label"><span class="star"></span>照片上传文件</label></div>
+	    <div class="layui-col-xs8">
+	      	<input id="perPhoto" title="照片" style="font-size: 12px;" class="layui-input" type="text" must="1" page="1">
+	    </div>
+	</div>
 	<div class="layui-row">
 	    <div class="layui-col-xs4"><label class="mobile-input-label"><span class="star">*</span>姓名：</label></div>
 	    <div class="layui-col-xs8">
@@ -261,6 +279,39 @@
 <script>
 var __entey_perID = "";
 $(function(){
+	layui.use('upload', function(){
+	  	var $ = layui.jquery
+	  	,upload = layui.upload;
+	  
+	  	//普通图片上传
+	  	var uploadInst = upload.render({
+	    	elem: '#uploadImg'
+	    	,url: "<?= yii\helpers\Url::to(['zpcx/upload']); ?>"
+	    	,before: function(obj){
+		      	//预读本地文件示例，不支持ie8
+		      	obj.preview(function(index, file, result){
+		        	$('#perPhoto_img').attr('src', result); //图片链接（base64）
+		      	});
+	    	}
+		    ,done: function(res){
+		      	if(res.code > 0){
+		        	return layer.msg('上传失败');
+		      	}else{
+		      		$("#perPhoto").val("");
+		      		$("#perPhoto").val(res.data.src);
+		      	}
+		    }
+		    ,error: function(){
+		      	//演示失败状态，并实现重传
+		      	var demoText = $('#errorText');
+		      	demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini perPhoto-reload" style="height: 19px;line-height: 19px;margin-bottom: 5px;">重试</a>');
+		      	demoText.find('.perPhoto-reload').on('click', function(){
+		        	uploadInst.upload();
+		      	});
+		    }
+	  	});
+	});
+	
 	var currYear = (new Date()).getFullYear();	
 	var opt={};
 	opt.date = {preset : 'date'};
@@ -329,6 +380,8 @@ $(function(){
 		$("#perAddr").val("<?= $basePerInfo['perAddr'] ?>");
 		$("#perJob").val("<?= $basePerInfo['perJob'] ?>");
 		$("#perMark").val("<?= $basePerInfo['perMark'] ?>");
+		$("#perPhoto_img").attr('src',"<?= $basePerInfo['perPhoto'] ?>");
+		$("#perPhoto").val("<?= $basePerInfo['perPhoto'] ?>");
   	<?php } ?>
   	
   	if(__entey_perID == ""){
@@ -424,6 +477,7 @@ function save_info1(){
 	dataObj['perAddr'] = $("#perAddr").val();
 	dataObj['perJob'] = $("#perJob").val();
 	dataObj['perMark'] = $("#perMark").val();
+	dataObj['perPhoto'] = $("#perPhoto").val();
 	
 	$.ajax({
 		type:"post",
