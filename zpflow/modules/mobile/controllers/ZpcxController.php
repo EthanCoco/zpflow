@@ -500,7 +500,27 @@ class ZpcxController extends Controller
 		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 		$recID = Yii::$app->request->post('recID');
 		$perID = Yii::$app->request->post('perID');
-		$flag = Yii::$app->db->createCommand()->update(Share::MainTableName($recID),['perStatus'=>1],['perID'=>$perID])->execute();
+		$tableName = Share::MainTableName($recID);
+		
+		$maxID = (new \yii\db\Query())->from($tableName)->max('perIndex');
+		
+        if($maxID == '' || $maxID == null){
+        	$perIndex = "0001";
+        }else{
+        	$tempMaxID = intval($maxID) + 1;
+        	if($tempMaxID > 0 && $tempMaxID < 10){
+        		$perIndex = '000'.$tempMaxID;
+        	}else if($tempMaxID >= 10 && $tempMaxID < 100){
+        		$perIndex = '00'.$tempMaxID;
+        	}else if($tempMaxID >= 100 && $tempMaxID < 1000){
+        		$perIndex = '0'.$tempMaxID;
+        	}else{
+        		$perIndex = strval($tempMaxID);
+        	}
+        }
+		
+		$flag = Yii::$app->db->createCommand()->update($tableName,['perStatus'=>1,'perIndex'=>$perIndex],['perID'=>$perID])->execute();
+		
 		if($flag !== false){
 			return ['result'=>1,'msg'=>'报名成功'];
 		}else{
