@@ -284,3 +284,15 @@ a {
     border: 1px solid #e6e6e6;
     color: #666;
 }
+
+.layui-upload-img {
+    width: 92px;
+    height: 92px;
+    margin: 10px;
+}
+
+.layui-upload-list{
+	background: #fff;
+    border: 1px solid #e6e6e6;
+    text-align: center;
+}
