@@ -11,6 +11,18 @@
 			  	<legend>
 			  		基本信息
 			  	</legend>
+			  	
+				<div class="layui-row">
+				    <div class="layui-col-xs4"><label class="mobile-input-label">照片：</label></div>
+				    <div class="layui-col-xs8">
+				    	<label class="mobile-input-label2"><span></span></label>
+				    </div>
+				</div>
+				<div style="margin-left: -2px;color: #666;">
+				    <div class="layui-textarea" style="text-align: center;">
+				    	<img class="layui-upload-img" src="<?= $entryData['baseData']['perPhoto']; ?>">
+				    </div>
+			    </div>
 				<div class="layui-row">
 				    <div class="layui-col-xs4"><label class="mobile-input-label">姓名：</label></div>
 				    <div class="layui-col-xs8">
