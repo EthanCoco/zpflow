@@ -8,6 +8,7 @@ use app\models\Code;
 use app\models\Person;
 use app\models\Share;
 use app\models\Recruit;
+use app\models\Qumextra;
 
 class ZpcxController extends Controller
 {
@@ -17,6 +18,7 @@ class ZpcxController extends Controller
     	$index = \yii\helpers\Html::encode(Yii::$app->request->get('index',1));
 		$jsonData = [];
 		$entryData = [];
+		$dealingData = [];
 		if($index == 3){
 			$recInfo = Recruit::find()->where(['recDefault'=>1])->asArray()->one();
 			$codes = [['recBatch','PC']];
@@ -24,9 +26,90 @@ class ZpcxController extends Controller
 			$jsonData = array_merge($recInfo,$mainCode);
 		}elseif($index == 2){
 			$entryData = $this->load_entry_info();
+		}elseif($index == 4){
+			$dealingData = $this->load_entrying_step_info();
 		}
-		return $this->renderPartial('index'.\yii\helpers\Html::decode($index),['recInfo'=>$jsonData,'entryData'=>$entryData]);
+		return $this->renderPartial('index'.\yii\helpers\Html::decode($index),['recInfo'=>$jsonData,'entryData'=>$entryData,'dealData'=>$dealingData]);
     }
+	
+	private function load_entrying_step_info(){
+		$idcard = Yii::$app->user->identity->name;	
+		$recInfo = Recruit::find()->where(['recDefault'=>1])->asArray()->one();
+		$keys = [['recBatch','PC']];
+		$codes = Share::codeValue($keys,$recInfo);
+		$recData = array_merge($recInfo,$codes);
+		$recID = $recInfo['recID'];
+		$jsonData['recData'] = $recData;
+		
+		$mainInfo = (new \yii\db\Query())->from(Share::MainTableName($recID))->where(['perIDCard'=>$idcard])->one();
+		
+		$jsonData['baseData'] = $mainInfo;
+		
+		$perID = $mainInfo['perID'];
+		$codes = [
+					['perGender','XB'],['perJob','XZ'],['perStatus','SCJG']
+				];
+		$mainCode = Share::codeValue($codes,$mainInfo);
+		$mainCode['perBirth'] = !empty($mainInfo['perBirth']) ? substr($mainInfo['perBirth'], 0,10) : '';
+		$mainJson = array_merge($mainInfo,$mainCode);
+		
+		$step1 = [
+			'perName' => $mainJson['perName'],
+			'perIDCard' => $mainJson['perIDCard'],
+			'perGender' => $mainJson['perGender'],
+			'perPhone' => $mainJson['perPhone'],
+			'perBirth' => $mainJson['perBirth'],
+			'perEmail' => $mainJson['perEmail'],
+			'perJob' => $mainJson['perJob'],
+			'perIndex' => $mainJson['perIndex'],
+			'perUniversity' => $mainJson['perUniversity'],
+		];
+		
+		$jsonData['step1'] = $step1;
+		
+		if($mainInfo['perPub'] == 0){
+			$jsonData['title'] = '资料信息正在审核当中，请耐性等候...';
+		}elseif($mainInfo['perPub'] == 1){
+			if($mainInfo['perStatus'] == 2){
+				$jsonData['title'] = '恭喜您，资格审查通过！';
+				$step2_content = '恭喜您，资格审查通过';
+			}elseif($mainInfo['perStatus'] == 3){
+				$jsonData['title'] = '很遗憾，您的资格审查结果未通过！';
+				$step2_content = '很遗憾，您的资格审查结果未通过！不通过原因：'.$mainInfo['perReason'];
+			}
+			$step2 = [
+				'perCheckTime'=>$mainJson['perCheckTime'],
+				'step2Result'=>($this->load_qumextra_info($recID,$mainInfo['perStatus'],$step2_content))
+			];
+			$jsonData['step2'] = $step2;
+			//TODO考试安排环节
+		}
+		
+		return $jsonData;
+	}
+	
+	
+	private function load_qumextra_info($recID,$type,$content){
+		$qumInfo = Qumextra::find()->where(['recID'=>$recID])->one();
+		if(empty($qumInfo)){
+			return $content;
+		}
+		
+		$result = '';
+		$dealInfo = $type == 2 ? $qumInfo['qraPassMsg'] : $qumInfo['qraNoPassMsg'];
+		$swtype = $type == 2 ? $qumInfo['qraPassType'] : $qumInfo['qraNoPassType'];
+		
+		switch($swtype)	{
+			case '1' : 	$result = $dealInfo.'，'.$content;	break;
+			case '2' : 	$result = $content.'！'.$dealInfo;	break;
+			case '3' : 	$result = $dealInfo.'<br/>'.$content;	break;
+			case '4' : 	$result = $content.'<br/>'.$dealInfo;	break;
+			case '5' :	$result = str_replace('@','<br/>',$dealInfo);	break;
+			default	:	$result = $content;	break;
+		}	
+		return $result;	
+	}
+	
 	
 	private function load_entry_info(){
 		$idcard = Yii::$app->user->identity->name;	
