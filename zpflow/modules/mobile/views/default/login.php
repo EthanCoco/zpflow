@@ -97,6 +97,7 @@
 <script>
 var index = "<?= $index ?>"
 $(function(){
+	$("#mobile-vcode-img").click();
 	$("#moblie-header span a[index='"+index+"']").addClass('current');
 });
 
