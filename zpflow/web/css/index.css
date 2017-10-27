@@ -72,9 +72,10 @@ img {
     z-index: 998;
     width: auto;
     overflow: hidden;
-    overflow-y: hidden;
+    overflow-y: auto;
     overflow-y: auto;
     box-sizing: border-box;
+    min-width: 1000px;
 }
 
 .layui-layout-admin .layui-body {
@@ -238,3 +239,63 @@ img {
 .tabsMoreList li a { display:block; width:94px; height:25px; padding:0 12px; line-height:25px; margin: 0px auto;overflow:hidden;white-space:nowrap; text-overflow:ellipsis;}
 .tabsMoreList li a:hover {text-decoration:none;background-repeat: repeat-x;}
 .tabsMoreList li.selected a { font-weight:bold;}
+
+
+.layui-side-flow4{
+	top: 124px;
+	width: 60px;
+	overflow-x: hidden;
+}
+
+.flow4-header-menu {
+    padding: 10px 0px 40px 15px;
+    border-bottom: solid 1px #95b8e7;
+}
+
+.flow4-header-menu a {
+    height: 16px;
+    display: block;
+    float: left;
+    border: solid 1px #95b8e7;
+    background: #FFFFFF;
+    color: #0e2d5f;
+    padding: 6px 10px 7px 10px;
+}
+
+.flow4-header-menu span {
+    float: left;
+    display: block;
+    width: 30px;
+    height: 17px;
+    margin: 5px 10px;
+}
+
+.flow4-header-menu a.current {
+    font-weight: bold;
+    background: #ACE9F9;
+}
+.flow4-header-menu a:hover {
+    background: #ACE9F9;
+}
+
+
+.layui-body-flow4 {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 998;
+    width: auto;
+    overflow: hidden;
+    overflow-y: auto;
+    overflow-y: auto;
+    box-sizing: border-box;
+    min-width: 1000px;
+    /*background: red;;*/
+}
+
+.layui-body-flow4 {
+    top: 83px;
+    bottom: 0;
+}
