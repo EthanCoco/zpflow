@@ -7,6 +7,7 @@ use Yii;
 use app\models\User;
 use app\models\Share;
 use app\models\Recruit;
+use app\models\Person;
 /**
  * Default controller for the `mobile` module
  */
@@ -63,6 +64,10 @@ class DefaultController extends Controller
 			}
 			//exit(var_dump($flowtype));
 			return $this->render('index'.\yii\helpers\Html::decode($index),['index'=>$index,'flowtype'=>$flowtype,'recInfo'=>$recInfo]);
+		}elseif($index == 4){
+			$idcard = Yii::$app->user->identity->name;
+			$perInfo = Person::find()->where(['perIDCard'=>$idcard])->one();
+			return $this->render('index'.\yii\helpers\Html::decode($index),['index'=>$index,'perInfo'=>$perInfo]);
 		}
 		
         return $this->render('index'.\yii\helpers\Html::decode($index),['index'=>$index]);
