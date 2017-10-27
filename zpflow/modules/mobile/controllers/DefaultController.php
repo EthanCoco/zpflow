@@ -39,7 +39,7 @@ class DefaultController extends Controller
 			if(!empty($recInfo)){
 				$idCard = Yii::$app->user->identity->name;
 				$nowDate = date('Y-m-d H:i:s',time());
-				$num = (new \yii\db\Query())->from(Share::MainTableName($recInfo['recID']))->where(['perIDCard'=>$idCard,'perStatus'=>1])->count();
+				$num = (new \yii\db\Query())->from(Share::MainTableName($recInfo['recID']))->where(['perIDCard'=>$idCard,'perStatus'=>[1,2,3]])->count();
 				//正在报名
 				if($nowDate < $recInfo['recEnd']){
 					//2 正在报名 已经报名 	3 正在报名 还未开始报名
