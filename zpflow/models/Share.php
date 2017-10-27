@@ -264,6 +264,9 @@ class Share extends Model
 					  `perMark` varchar(255) DEFAULT NULL COMMENT '备注信息',
 					  `perIndex` varchar(255) NOT NULL COMMENT '报名序号',
 					  `perJob` varchar(64) NOT NULL COMMENT '应聘岗位性质',
+					  
+					  `perBack` int(1) NOT NULL DEFAULT '0' COMMENT '报名主动撤回次数（最多三次，三次后不允许撤回）',
+					  
 					  `perTicketNo` varchar(128) NOT NULL COMMENT '准考证号',
 					  `perGroupSet` varchar(20) NOT NULL COMMENT '所属组别',
 					  `perStatus` int(1) NOT NULL DEFAULT '0' COMMENT '状态（0=待报，1=待审，2=审核通过，3=审核不通过）',
