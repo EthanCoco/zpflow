@@ -625,4 +625,24 @@ class ZpcxController extends Controller
 		}
 	}
 	
+	public function actionFlow2Reback(){
+		date_default_timezone_set('PRC');
+		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+		$recID = Yii::$app->request->post('recID');
+		$perID = Yii::$app->request->post('perID');
+		$perReResult1 = Yii::$app->request->post('perReResult1');
+		$perReGiveup1 = Yii::$app->request->post('perReGiveup1','');
+		
+		$flag = Yii::$app->db->createCommand()->update(Share::MainTableName($recID),[
+								'perReResult1'=>$perReResult1,
+								'perReGiveup1'=>$perReGiveup1,
+								'perReTime1'=>date('Y-m-d H:i:s',time())
+							],['perID'=>$perID])->execute();
+		
+		if($flag){
+			return ['result'=>1,'msg'=>'操作成功'];
+		}else{
+			return ['result'=>0,'msg'=>'操作失败'];
+		}
+	}
 }

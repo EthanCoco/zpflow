@@ -125,10 +125,45 @@
 </div>
 
 <script>
-
+var __flow2_recID__ = "<?= $dealData['recData']['recID'] ?>";
+var __flow_perID__ = "<?= $dealData['baseData']['perID']; ?>";
 function flow2_reback(type){
 	if(type == '01'){
-		
+		layer.open({content:'是否确认参加考试？',btn: ['确定','取消'],yes: function(index){
+				$.post("<?= yii\helpers\Url::to(['zpcx/flow2-reback']); ?>",{'perReResult1':type,'perReGiveup1':'','recID':__flow2_recID__,'perID':__flow_perID__},function(json){
+					if(json.result){
+						location.href = "<?= yii\helpers\Url::to(['default/index','index'=>2]); ?>";
+					}else{
+						layer.open({content: json.msg,btn: '我知道了'});
+					}
+				},'json');
+		    }
+		});
+	}else{
+		layer.open({
+		    type: 1,
+		    content: '<textarea id="perReGiveup1" style="font-size: 12px;" class="layui-textarea" placeholder="请输入放弃原因"></textarea>',
+		    anim: 'up',
+		    style: 'position:fixed; bottom:0; left:0; width: 100%; height: 150px; padding:10px 0; border:none;',
+		    btn:['确定','取消'],
+		    yes: function(index){
+		    	var perReGiveup1 = $("#perReGiveup1").val();
+		    	if(perReGiveup1 == ""){
+		    		return layer.open({content: '请填写放弃原因',skin: 'msg',time: 2 });
+		    	}
+		    	
+		    	layer.open({content:'是否确认放弃参加考试？',btn: ['确定','取消'],yes: function(index){
+						$.post("<?= yii\helpers\Url::to(['zpcx/flow2-reback']); ?>",{'perReResult1':type,'perReGiveup1':perReGiveup1,'recID':__flow2_recID__,'perID':__flow_perID__},function(json){
+							if(json.result){
+								location.href = "<?= yii\helpers\Url::to(['default/index','index'=>2]); ?>";
+							}else{
+								layer.open({content: json.msg,btn: '我知道了'});
+							}
+						},'json');
+				    }
+				});
+		    }
+		});
 	}
 }	
 </script>
