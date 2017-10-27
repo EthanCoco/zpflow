@@ -55,7 +55,7 @@ $this -> title = 'XXXXX招聘';
 	    </div>
 	    <div class="layui-col-xs3">
 	    	<div class="mobile-titile">
-	    		<span><a index=4 href="<?= yii\helpers\Url::to(['default/index','index'=>4]); ?>">消息中心</a></span>
+	    		<span><a index=4 href="<?= yii\helpers\Url::to(['default/index','index'=>4]); ?>">个人中心</a></span>
 	    	</div>
 	    	
 	    </div>
