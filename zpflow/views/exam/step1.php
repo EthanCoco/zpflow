@@ -139,8 +139,11 @@ function init_flow4_step1_datagrid(){
 	    	});
 	    	
 	    	if(__flow4_show_flag__ == "1"){
-		    	$("#flow4_step1_datagrid").datagrid('getPager').pagination({buttons:[
-					{
+		    	$("#flow4_step1_datagrid").datagrid('getPager').pagination({
+		    		showPageList:false,
+		    		displayMsg:'',
+		    		layout:['sep','refresh'],
+		    		buttons:[{
 					  	iconCls:'icon-add',
 					   	text:'添加',
 					   	handler:function(){
