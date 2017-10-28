@@ -169,3 +169,52 @@ function validateIdCard1(idCard){
 	  	return false;
 	 }
 }
+
+/*合并数据列*/
+function mergeCellsByField(tableID, colList, mainColIndex) {
+    var ColArray = colList.split(",");//合并列参数（field）分割成数组模式
+    var tTable = $('#' + tableID);//合并表ID
+    var TableRowCnts = tTable.datagrid("getRows").length;//获取表长度
+    var tmpA;//临时变量A
+    var tmpB;//临时变量B
+    var PerTxt = "";
+    var CurTxt = "";//当前数据
+    var alertStr = "";
+    for (var i = 0; i <= TableRowCnts ; i++) {
+        if(i == TableRowCnts){//
+            CurTxt = "";
+        }else{
+            CurTxt = tTable.datagrid("getRows")[i][ColArray[mainColIndex]];//获取当前合并参数的列数据
+        }
+        if(PerTxt == CurTxt){
+            tmpA += 1;
+        }else{
+            tmpB += tmpA;
+            for(var j = 0; j < ColArray.length; j++){//遍历相同数据
+                tTable.datagrid('mergeCells', {//合并列
+                    index: i - tmpA,
+                    field: ColArray[j],
+                    rowspan: tmpA,
+                    colspan: null
+                });
+            }
+            tmpA = 1;
+        }
+        PerTxt = CurTxt;
+    }
+}
+
+/*将代码值转换成对应的中文*/
+function transCodeInfo(jsonInfo,codeIndex,codeVal){
+	if(codeVal==""){
+		return codeVal;
+	}
+	var result = "";
+	for(var i=0; i<jsonInfo.length; i++){
+		if(jsonInfo[i]['codeTypeID']==codeIndex && jsonInfo[i]['id']==codeVal){
+			result = jsonInfo[i]['text'];
+			break;
+		}
+	}
+	return result;
+}
