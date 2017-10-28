@@ -3,7 +3,7 @@
 	<span>
 	  	<select id="recID_id" name="recID_name" lay-verify="required" class="input1" onchange="selRecruitID(this)">
 		    <?php foreach($pcInfo as $pc){ ?>
-	        	<option recend="<?php echo $pc['recend']; ?>" code="<?php echo $pc['code']; ?>" value="<?php echo $pc['id']; ?>"><?php echo $pc['value']; ?></option>
+	        	<option defaultplace="<?php echo $pc['recViewPlace']; ?>" recend="<?php echo $pc['recend']; ?>" code="<?php echo $pc['code']; ?>" value="<?php echo $pc['id']; ?>"><?php echo $pc['value']; ?></option>
 	        <?php } ?>
 	 	</select>
 	</span>
@@ -51,11 +51,12 @@
 var __flow4_recID__ = "";
 var __flow4_show_flag__ = "";
 var __flow4_recend__ = "";
+var __flow4_defaultplace__ = "";
 $(function(){
 	__flow4_recID__ = $("#recID_id").val();
 	__flow4_show_flag__ = $("#recID_id option:selected").attr("code");
 	__flow4_recend__ = $("#recID_id option:selected").attr("recend");
-	
+	__flow4_defaultplace__ = $("#recID_id option:selected").attr("defaultplace");
 	loadFlow4Info(1);
 });
 
@@ -81,6 +82,7 @@ function selRecruitID(th){
 	__flow4_recID__ = $(th).val();
 	__flow4_show_flag__ = $("#recID_id option:selected").attr("code");
 	__flow4_recend__ = $("#recID_id option:selected").attr("recend");
+	__flow4_defaultplace__ = $("#recID_id option:selected").attr("defaultplace");
 	loadFlow4Info(1);
 }
 
