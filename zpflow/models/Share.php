@@ -61,6 +61,12 @@ class Share extends Model
         return $codeNameArr;
     }
 	
+	public static function mkdirs($dir, $mode = 0777){
+	    if (is_dir($dir) || @mkdir($dir, $mode)) return TRUE;
+	    if (!self::mkdirs(dirname($dir), $mode)) return FALSE;
+	    return @mkdir($dir, $mode);
+	}
+	
 	public static function codeValue1111($codeArr = [],$data = ''){
         $codeNameArr = [];//代码名称数组
         foreach($codeArr as $code){

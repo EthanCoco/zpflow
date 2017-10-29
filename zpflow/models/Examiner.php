@@ -34,11 +34,11 @@ class Examiner extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['exmID', 'recID', 'exmName', 'exmCom', 'exmPost', 'exmPhone', 'exmCertNo'], 'required'],
-            [['exmID', 'recID', 'exmType', 'exmAttr'], 'integer'],
-            [['exmName', 'exmCertNo'], 'string', 'max' => 60],
-            [['exmCom', 'exmPost'], 'string', 'max' => 255],
-            [['exmPhone', 'exmTime'], 'string', 'max' => 20],
+//          [['exmID', 'recID', 'exmName', 'exmCom', 'exmPost', 'exmPhone', 'exmCertNo'], 'required'],
+//          [['exmID', 'recID', 'exmType', 'exmAttr'], 'integer'],
+//          [['exmName', 'exmCertNo'], 'string', 'max' => 60],
+//          [['exmCom', 'exmPost'], 'string', 'max' => 255],
+//          [['exmPhone', 'exmTime'], 'string', 'max' => 20],
         ];
     }
 
