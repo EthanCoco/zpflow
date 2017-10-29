@@ -410,6 +410,7 @@ function init_stepIndex_three_grid(stepIndex_three_urls,stepIndex_three_recID,st
 	    pageList:[20,50,100,200],
 	    sortName:'perIndex',
 	    sortOrder:'ASC',
+	    toolbar:"#stepIndex_three_search",
 	    frozenColumns:[[
     		{field:'ck',checkbox:true},
 	        {field:'perIndex',title:'报名序号',width:'80',align:'center',sortable:true},
@@ -499,7 +500,7 @@ function init_stepIndex_three_grid(stepIndex_three_urls,stepIndex_three_recID,st
         	$("#stepIndex_three_tab #stepIndex_three_tabli4").css("display","");
         	
 			$('#stepIndex_three').datagrid('resize',{
-	    		height: $(window).height()-124-25-60-30-5
+	    		height: $(window).height()-124-25-50
 	    	});
 	    	
 		    var nowData = formatDateTime();
