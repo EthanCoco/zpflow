@@ -116,6 +116,21 @@ class Share extends Model
 	    return $response;
 	}
 	
+	public static function object_to_array($obj){
+	    $obj = (array)$obj;
+	    foreach ($obj as $k => $v){
+	        if (gettype($v) == 'resource'){
+	            return;
+	        }
+	        if (gettype($v) == 'object' || gettype($v) == 'array'){
+	            $obj[$k] = (array)self::object_to_array($v);
+	        }
+	    }
+	    return $obj;
+	}
+	
+	
+	
 	public static function getKeyInfo($key){
 		$result = [];
 		switch($key){
@@ -147,6 +162,21 @@ class Share extends Model
 					],
 				];				
 			break;	
+			case 'flow4_step2' :
+				 $result = [
+					'tempExcel'	=>	'../web/mbfile/flow4_step2.xls',
+					'keys' =>[
+						[
+							'key'=>[
+									'id','exmName','exmAttr','exmCom','exmType','exmPost','exmPhone','exmCertNo','exmTime'
+								],
+							'num'=>2,
+							'index'=>0,
+							'sheetName'=>'考官信息',
+						]
+					],
+				];
+			break;
 			default:break;
 		}
 
