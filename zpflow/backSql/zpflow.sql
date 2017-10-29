@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2017-10-29 18:32:31
+Date: 2017-10-29 22:20:02
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -1804,10 +1804,10 @@ CREATE TABLE `examiner` (
 -- ----------------------------
 -- Records of examiner
 -- ----------------------------
-INSERT INTO `examiner` VALUES ('3', '1', 'dd', '2', 'ddd', 'ddd', '12525252525', '343ff34343', '2', '2017-10-29');
-INSERT INTO `examiner` VALUES ('4', '1', 'ghj', '1', 'jjhg', 'jgh', '12525362362', 'hjhjh', '1', '');
-INSERT INTO `examiner` VALUES ('5', '1', 'uyu', '3', 'uyuy', 'uyuy', '15265869652', 'uu5uyyuytu', '2', '2017-10-29');
-INSERT INTO `examiner` VALUES ('6', '1', '打发打发', '1', '交换机', '法规的法规', '13285716129', 'dsds43434', '1', '2017-10-31');
+INSERT INTO `examiner` VALUES ('3', '1', '杨明', '2', '浙江大学', '大学教授', '12525252525', '001002MKJ', '2', '2017-10-31');
+INSERT INTO `examiner` VALUES ('4', '1', '李生', '1', '浙江大学', '院长', '12525362362', '00100AXC', '1', '');
+INSERT INTO `examiner` VALUES ('5', '1', '刘尚', '3', '上海公务员局', '招生部长', '15265869652', '001002AHY', '2', '2017-10-31');
+INSERT INTO `examiner` VALUES ('6', '1', '程海', '1', '上海公务员局', '人事部长', '13285716129', '001002ASD', '1', '2017-10-31');
 
 -- ----------------------------
 -- Table structure for famset
@@ -2035,11 +2035,16 @@ CREATE TABLE `gstexm` (
   `gstID` int(11) NOT NULL COMMENT '组别ID',
   `exmID` int(11) NOT NULL COMMENT '考官ID',
   PRIMARY KEY (`gstexmID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of gstexm
 -- ----------------------------
+INSERT INTO `gstexm` VALUES ('1', '1', '2', '3');
+INSERT INTO `gstexm` VALUES ('2', '1', '6', '3');
+INSERT INTO `gstexm` VALUES ('3', '1', '6', '4');
+INSERT INTO `gstexm` VALUES ('4', '1', '7', '4');
+INSERT INTO `gstexm` VALUES ('5', '1', '2', '5');
 
 -- ----------------------------
 -- Table structure for medical
@@ -2164,17 +2169,20 @@ CREATE TABLE `setgroup` (
   `gstType` int(1) DEFAULT NULL COMMENT '组别人员类型（1=考官，2=考生）',
   `gstStartEnd` varchar(255) DEFAULT NULL COMMENT '辅助字段（考试起止时间）',
   PRIMARY KEY (`gstID`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of setgroup
 -- ----------------------------
-INSERT INTO `setgroup` VALUES ('2', '1', '2017-11-14 08:30', '2017-11-14 18:30', '2', '驱蚊器无', '1', '2017-11-14 08:30 至 2017-11-14 18:30');
-INSERT INTO `setgroup` VALUES ('6', '1', '2017-10-29 00:30', '2017-10-30 00:30', '1', '浙江大学', '1', '2017-10-29 00:30 至 2017-10-30 00:30');
-INSERT INTO `setgroup` VALUES ('7', '1', '2017-10-30 00:32', '2017-10-31 00:32', '3', '浙江大学', '1', '2017-10-30 00:32 至 2017-10-31 00:32');
-INSERT INTO `setgroup` VALUES ('8', '1', '2017-10-29 00:33', '2017-10-31 00:33', '4', '浙江大学', '1', '2017-10-29 00:33 至 2017-10-31 00:33');
-INSERT INTO `setgroup` VALUES ('9', '1', '2017-10-29 00:33', '2017-10-30 00:33', '1', '浙江大学', '2', '2017-10-29 00:33 至 2017-10-30 00:33');
-INSERT INTO `setgroup` VALUES ('10', '1', '2017-10-29 00:33', '2017-10-31 00:34', '2', '浙江大学', '2', '2017-10-29 00:33 至 2017-10-31 00:34');
+INSERT INTO `setgroup` VALUES ('2', '1', '2017-10-31 08:30', '2017-10-31 18:30', '2', '驱蚊器无', '1', '2017-10-31 08:30 至 2017-10-31 18:30');
+INSERT INTO `setgroup` VALUES ('6', '1', '2017-10-31 08:30', '2017-10-31 18:30', '1', '浙江大学', '1', '2017-10-31 08:30 至 2017-10-31 18:30');
+INSERT INTO `setgroup` VALUES ('7', '1', '2017-10-31 08:30', '2017-10-31 18:30', '3', '浙江大学', '1', '2017-10-31 08:30 至 2017-10-31 18:30');
+INSERT INTO `setgroup` VALUES ('8', '1', '2017-10-31 08:30', '2017-10-31 18:30', '4', '浙江大学', '1', '2017-10-31 08:30 至 2017-10-31 18:30');
+INSERT INTO `setgroup` VALUES ('9', '1', '2017-10-31 08:30', '2017-10-31 18:30', '1', '浙江大学', '2', '2017-10-31 08:30 至 2017-10-31 18:30');
+INSERT INTO `setgroup` VALUES ('10', '1', '2017-10-31 08:30', '2017-10-31 18:30', '2', '浙江大学', '2', '2017-10-31 08:30 至 2017-10-31 18:30');
+INSERT INTO `setgroup` VALUES ('11', '1', '2017-10-31 08:30', '2017-10-31 18:30', '3', '浙江大学', '2', '2017-10-31 08:30 至 2017-10-31 18:30');
+INSERT INTO `setgroup` VALUES ('12', '1', '2017-10-31 08:30', '2017-10-31 18:30', '4', '浙江大学', '2', '2017-10-31 08:30 至 2017-10-31 18:30');
+INSERT INTO `setgroup` VALUES ('13', '1', '2017-10-31 08:30', '2017-10-31 18:30', '5', '浙江大学', '2', '2017-10-31 08:30 至 2017-10-31 18:30');
 
 -- ----------------------------
 -- Table structure for user
