@@ -4,9 +4,12 @@ use yii\web\Controller;
 use yii\helpers\Html;
 use Yii;
 
+use yii\web\NotFoundHttpException;
+
 use app\models\Examiner;
 use app\models\Gstexm;
 use app\models\Share;
+use app\models\Recruit;
 
 class ExaminerController extends BaseController{
 	public $enableCsrfValidation = false;
@@ -161,5 +164,164 @@ class ExaminerController extends BaseController{
 		exit;
 	}
 	
+	public function actionExaminerUpexcel(){
+		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+		date_default_timezone_set('PRC');
+		$file = $_FILES['file'];
+		$timeNow = date('Y-m-d H:i:s',time());
+		
+		$recInfo = Recruit::find()->where(['recDefault'=>1])->asArray()->one();
+		$timeNowMonth = $recInfo['recYear'].$recInfo['recBatch'];
+		
+		$fileName = time().'.xls';
+		
+		if($_FILES['file']['size'] > 2*1024*1024){
+			return ['code'=>'1','msg'=>'文件大小不能大于2M','data'=>['src'=>'']];
+		}
+		
+		$createDir = './uploadfile/upexcel/'.$timeNowMonth;
+		
+		Share::mkdirs($createDir);
+		
+		move_uploaded_file($_FILES['file']['tmp_name'], $createDir."/".$fileName);
+		
+		$resultFile = $createDir."/".$fileName;
+		
+		return ['code'=>0,'msg'=>'','data'=>['src'=>$createDir."/".$fileName]];
+	}
 	
+	public function actionExaminerUpexcelSure(){
+		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+		$request = Yii::$app->request;
+		$filePath = $request->post('filePath');
+		$recID = $request->post('recID');
+        $reader = \PHPExcel_IOFactory::createReader('Excel5');
+        $PHPExcel = $reader->load($filePath); 
+        $sheet = $PHPExcel->getSheet(0);
+        $highestRow = $sheet->getHighestRow(); // 取得总行数
+        $highestColumm = $sheet->getHighestColumn(); // 取得总列数
+        
+        $highestColumm= \PHPExcel_Cell::columnIndexFromString($highestColumm);
+		
+        if($highestColumm != 9){
+            return ['result'=>0,'msg'=>'模版不正确！'];
+        }
+		
+        $keys = ['exmName','exmAttr','exmCom','exmType','exmPost','exmPhone','exmCertNo','exmTime'];
+       
+        $datas = [];
+        $temp = 0;
+        
+        for ($row = 2; $row <= $highestRow; $row++){
+            $temp = 0;
+            $datatemp =[];
+			$tempStr = "";
+            for ($column = 1; $column < $highestColumm; $column++) {
+            	$datatemp[$keys[$temp]] = $sheet->getCellByColumnAndRow($column, $row)->getValue();
+				$tempStr .=$sheet->getCellByColumnAndRow($column, $row)->getValue();
+				
+                if($temp == 8){
+                    break;
+                }
+                $temp++;
+            }
+			
+			if($tempStr==""){
+				break;
+			}
+            $datas[] = $datatemp;
+        }
+        //检测数据完整性
+        if(empty($datas)){
+            return ['result'=>0,'msg'=>'导入数据为空！'];
+        }
+		
+        $index = 2;
+        $errorInfo = '';
+        $personIDdata = [];
+		$postTemp = [];
+		$numTemp = [];
+		
+        foreach($datas as $per){
+        	if($per['exmName'] == ''&&$per['exmAttr'] == ''&&$per['exmCom'] == ''&&$per['exmType'] == ''&&$per['exmPost'] == ''&&$per['exmCertNo'] == ''&&$per['exmPhone'] == ''&&$per['exmTime'] == ''){
+        		break;
+        	}
+			if($per['exmName'] == ''){
+				$errorInfo .= '第'.$index.'行考官姓名未填写！<br/>';
+			}
+			if($per['exmAttr'] == ''){
+				$errorInfo .= '第'.$index.'行考官属性未填写！<br/>';
+			}
+			if($per['exmCom'] == ''){
+				$errorInfo .= '第'.$index.'行考官所在单位未填写！<br/>';
+			}
+			if($per['exmType'] == ''){
+				$errorInfo .= '第'.$index.'行考官分类未填写！<br/>';
+			}
+			if($per['exmPost'] == ''){
+				$errorInfo .= '第'.$index.'行考官职务未填写！<br/>';
+			}
+			if($per['exmCertNo'] == ''){
+				$errorInfo .= '第'.$index.'行考官证书编号未填写！<br/>';
+			}
+			if($per['exmPhone'] == ''){
+				$errorInfo .= '第'.$index.'行考官手机号未填写！<br/>';
+			}
+			if($per['exmPhone'] != ''){
+				if(!preg_match("/^[\d]{11}$/", $per['exmPhone'])){
+					$errorInfo .= '第'.$index.'行手机号填写不正确！<br/>';
+				}
+			}
+			
+			if($per['exmTime'] != ''){
+				if(!preg_match("/^((((1[6-9]|[2-9]\d)\d{2})-(0?[13578]|1[02])-(0?[1-9]|[12]\d|3[01]))|(((1[6-9]|[2-9]\d)\d{2})-(0?[13456789]|1[012])-(0?[1-9]|[12]\d|30))|(((1[6-9]|[2-9]\d)\d{2})-0?2-(0?[1-9]|1\d|2[0-8]))|(((1[6-9]|[2-9]\d)(0[48]|[2468][048]|[13579][26])|((16|[2468][048]|[3579][26])00))-0?2-29-))$/", $per['exmTime'])){
+					$errorInfo .= '第'.$index.'行到岗时间填写不正确！<br/>';
+				}
+			}
+            $index++;
+        }
+		
+		if($errorInfo != ''){
+			return ['result'=>0,'msg'=>$errorInfo];
+		}else{
+			foreach($datas as $per){
+				$examiner = new Examiner();
+				$examiner->exmName = $per["exmName"];
+				$exmTypeArr = explode('=', $per["exmType"]);
+				$examiner->exmType = $exmTypeArr[0];
+				$examiner->exmCom = $per["exmCom"];
+				$examiner->exmPost = $per["exmPost"];
+				$examiner->exmPhone = $per["exmPhone"];
+				$examiner->exmCertNo = $per["exmCertNo"];
+				
+				if($per["exmTime"] != ""){
+					$tA = explode("-", $per["exmTime"]);
+					$a1 = $tA[0];
+					if(strlen($tA[1])==1){
+						$a1 .= "-0".$tA[1];
+					}else{
+						$a1 .="-".$tA[1];
+					}
+					if(strlen($tA[2])==1){
+						$a1 .= "-0".$tA[2];
+					}else{
+						$a1 .="-".$tA[2];
+					}
+					$examiner->exmTime = $a1;
+				}else{
+					$examiner->exmTime = '';
+				}
+				
+				$examiner->recID = $recID;
+				$exmAttrArr = explode('=', $per["exmAttr"]);
+				$examiner->exmAttr = $exmAttrArr[0];
+				if($examiner->save()){
+					
+				}else{
+					throw new NotFoundHttpException();
+				}
+			}
+			return ['result'=>1,'msg'=>'导入成功！'];	
+		}
+	}
 }
