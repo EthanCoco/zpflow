@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhostphpstudy
-Source Server Version : 50553
+Source Server         : localhost
+Source Server Version : 50617
 Source Host           : localhost:3306
 Source Database       : zpflow
 
 Target Server Type    : MYSQL
-Target Server Version : 50553
+Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2017-10-27 17:50:58
+Date: 2017-10-29 18:32:31
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -91,7 +91,7 @@ CREATE TABLE `code` (
   `codePid` varchar(64) DEFAULT NULL COMMENT '代码父ID',
   `isLeaf` int(1) DEFAULT NULL COMMENT '是否叶子节点(1：是，0：不是)',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1650 DEFAULT CHARSET=utf8 COMMENT='代码';
+) ENGINE=InnoDB AUTO_INCREMENT=1665 DEFAULT CHARSET=utf8 COMMENT='代码';
 
 -- ----------------------------
 -- Records of code
@@ -1745,6 +1745,21 @@ INSERT INTO `code` VALUES ('1646', '04', 'JTGX', '女儿', '4', '1', '0', '1');
 INSERT INTO `code` VALUES ('1647', '05', 'JTGX', '兄弟', '5', '1', '0', '1');
 INSERT INTO `code` VALUES ('1648', '06', 'JTGX', '姐妹', '6', '1', '0', '1');
 INSERT INTO `code` VALUES ('1649', '07', 'JTGX', '其他', '7', '1', '0', '1');
+INSERT INTO `code` VALUES ('1650', '1', 'ZBMC', '第一组', '1', '1', '0', '1');
+INSERT INTO `code` VALUES ('1651', '2', 'ZBMC', '第二组', '2', '1', '0', '1');
+INSERT INTO `code` VALUES ('1652', '3', 'ZBMC', '第三组', '3', '1', '0', '1');
+INSERT INTO `code` VALUES ('1653', '4', 'ZBMC', '第四组', '4', '1', '0', '1');
+INSERT INTO `code` VALUES ('1654', '5', 'ZBMC', '第五组', '5', '1', '0', '1');
+INSERT INTO `code` VALUES ('1655', '6', 'ZBMC', '第六组', '6', '1', '0', '1');
+INSERT INTO `code` VALUES ('1656', '7', 'ZBMC', '第七组', '7', '1', '0', '1');
+INSERT INTO `code` VALUES ('1657', '8', 'ZBMC', '第八组', '8', '1', '0', '1');
+INSERT INTO `code` VALUES ('1658', '9', 'ZBMC', '第九组', '9', '1', '0', '1');
+INSERT INTO `code` VALUES ('1659', '10', 'ZBMC', '第十组', '10', '1', '0', '1');
+INSERT INTO `code` VALUES ('1660', '1', 'KGLB', '主考官', '1', '1', '0', '1');
+INSERT INTO `code` VALUES ('1661', '2', 'KGLB', '固定考官', '2', '1', '0', '1');
+INSERT INTO `code` VALUES ('1662', '3', 'KGLB', '监督员', '3', '1', '0', '1');
+INSERT INTO `code` VALUES ('1663', '1', 'KGSX', '公务员考官', '1', '1', '0', '1');
+INSERT INTO `code` VALUES ('1664', '2', 'KGSX', '其他考官', '2', '1', '0', '1');
 
 -- ----------------------------
 -- Table structure for eduset
@@ -1773,7 +1788,7 @@ INSERT INTO `eduset` VALUES ('2', '2', '2016-10-26 14:25:23', '2017-10-26 14:25:
 -- ----------------------------
 DROP TABLE IF EXISTS `examiner`;
 CREATE TABLE `examiner` (
-  `exmID` int(11) NOT NULL COMMENT '考官ID',
+  `exmID` int(11) NOT NULL AUTO_INCREMENT COMMENT '考官ID',
   `recID` int(11) NOT NULL COMMENT '招聘ID',
   `exmName` varchar(60) NOT NULL COMMENT '考官姓名',
   `exmType` int(1) DEFAULT NULL COMMENT '考官类别（1=主考官，2=固定考官，3=监督员）',
@@ -1782,12 +1797,17 @@ CREATE TABLE `examiner` (
   `exmPhone` varchar(20) NOT NULL COMMENT '考官手机号码',
   `exmCertNo` varchar(60) NOT NULL COMMENT '考官证书编号',
   `exmAttr` int(1) DEFAULT NULL COMMENT '考官属性（1=公务员局考官，2=其他考官）',
+  `exmTime` varchar(20) DEFAULT NULL COMMENT '到岗时间',
   PRIMARY KEY (`exmID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of examiner
 -- ----------------------------
+INSERT INTO `examiner` VALUES ('3', '1', 'dd', '2', 'ddd', 'ddd', '12525252525', '343ff34343', '2', '2017-10-29');
+INSERT INTO `examiner` VALUES ('4', '1', 'ghj', '1', 'jjhg', 'jgh', '12525362362', 'hjhjh', '1', '');
+INSERT INTO `examiner` VALUES ('5', '1', 'uyu', '3', 'uyuy', 'uyuy', '15265869652', 'uu5uyyuytu', '2', '2017-10-29');
+INSERT INTO `examiner` VALUES ('6', '1', '打发打发', '1', '交换机', '法规的法规', '13285716129', 'dsds43434', '1', '2017-10-31');
 
 -- ----------------------------
 -- Table structure for famset
@@ -1883,12 +1903,22 @@ CREATE TABLE `flow_job_1` (
   `perRead6` int(1) NOT NULL DEFAULT '1' COMMENT '政审通知阅读情况【1=未读，2=已读】',
   `perBack` int(1) NOT NULL DEFAULT '0' COMMENT '报名主动撤回次数（最多三次）',
   PRIMARY KEY (`perID`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of flow_job_1
 -- ----------------------------
-INSERT INTO `flow_job_1` VALUES ('4', '李建林', '362330199208122410', '13285716129', './uploadfile/image/201701/1509068601.jpeg', '1', '01', '23_230100', '10', '', '10', '2017-10-25 00:00:00', null, null, '东华理工大学', '4_401', '304_3040200', '1', '1_11', '3_301', '23_230100', '18720989539', '2319048747@qq.com', '333110', '浙江杭州', 'dsdsdsdsd', '0004', '01', '', '', '2', '2017-10-27 15:45:02', '', '1', '02', '临时有事，不得不放弃考试', '2017-10-27 16:37:19', '0', '1', '03', '', null, null, null, '0', '0', '0', '1', '03', '', null, '0', '1', '03', '', null, '0', '0', null, '', '0', '1', '03', '', null, '', '0', '0', '1', '0');
+INSERT INTO `flow_job_1` VALUES ('4', '李建林', '362330199208122410', '13285716129', './uploadfile/image/201701/1509068601.jpeg', '1', '01', '23_230100', '10', '', '10', '2017-10-25 00:00:00', null, null, '东华理工大学', '4_401', '304_3040200', '1', '1_11', '3_301', '23_230100', '18720989539', '2319048747@qq.com', '333110', '浙江杭州', 'dsdsdsdsd', '0004', '01', '', '', '2', '2017-10-27 20:40:48', '', '1', '01', '', '2017-10-27 20:43:55', '0', '1', '03', '', null, null, null, '0', '0', '0', '1', '03', '', null, '0', '1', '03', '', null, '0', '0', null, '', '0', '1', '03', '', null, '', '0', '0', '1', '0');
+INSERT INTO `flow_job_1` VALUES ('5', 'dd', '320621199112163729', '13816591074', './uploadfile/image/201701/1509106414.jpeg', '2', '01', '31_310101', '01', '', '10', '2017-10-27', null, null, 'fdfdsfd', '1_101', '10_101', '1', '3_301', '7_701', '33_330100', '13816591074', '2319048747@qq.com', '333110', 'dsdfdf', 'asfdf是第三方', '0005', '02', '', '', '3', '2017-10-27 20:41:25', '潇洒发放', '0', '03', '', null, '0', '1', '03', '', null, null, null, '0', '0', '0', '1', '03', '', null, '0', '1', '03', '', null, '0', '0', null, '', '0', '1', '03', '', null, '', '0', '0', '1', '0');
+INSERT INTO `flow_job_1` VALUES ('6', '朱蔚云', '330522198712231025', '15250998698', './uploadfile/image/201701/1509106642.jpeg', '1', '01', '11_110100', '03', '', '10', '2007-10-27', null, null, 'we反对反对', '3_301', '101_1010100', '1', '3_301', '3_301', '12_120100', '', '2319048747@qq.com', '333110', '撒反对反对', '发送地方递四方速递', '0006', '01', '', '', '2', '2017-10-27 20:40:48', null, '1', '03', '', null, '0', '1', '03', '', null, null, null, '0', '0', '0', '1', '03', '', null, '0', '1', '03', '', null, '0', '0', null, '', '0', '1', '03', '', null, '', '0', '0', '1', '0');
+INSERT INTO `flow_job_1` VALUES ('7', '肖大鹏', '511102198012290013', '18516146044', './uploadfile/image/201701/1509106844.jpeg', '1', '01', '12_120100', '08', '', '20', '1984-10-27', null, null, 'fsdf', '4_401', '20_201', '1', '3_301', '3_301', '31_310101', '18516146044', '2319048747@qq.com', '333110', 'fdsfdsfd', '发发的规划合格机具款口干口苦个', '0007', '01', '', '', '2', '2017-10-27 20:40:48', null, '1', '03', '', null, '0', '1', '03', '', null, null, null, '0', '0', '0', '1', '03', '', null, '0', '1', '03', '', null, '0', '0', null, '', '0', '1', '03', '', null, '', '0', '0', '1', '0');
+INSERT INTO `flow_job_1` VALUES ('8', '梅雪娇', '331022198508200022', '15821376007', './uploadfile/image/201701/1509107020.jpeg', '2', '01', '13_130100', '03', '', '21', '1992-10-27', null, null, 'fdfdf', '1_101', '10_101', '1', '22_221', '6_601', '12_120100', '15821376007', '2319048747@qq.com', '333110', '大发沙发垫付发送佛挡杀佛', '是范德萨范德萨', '0008', '02', '', '', '2', '2017-10-27 20:40:48', null, '1', '03', '', null, '0', '1', '03', '', null, null, null, '0', '0', '0', '1', '03', '', null, '0', '1', '03', '', null, '0', '0', null, '', '0', '1', '03', '', null, '', '0', '0', '1', '0');
+INSERT INTO `flow_job_1` VALUES ('9', '多少度', '211103198302040325', '15821376007', './uploadfile/image/201701/1509107156.jpeg', '1', '01', '11_110100', '09', '', '10', '1994-10-27', null, null, '撒发放的', '4_401', '302_3020100', '1', '11_111', '6_601', '11_110100', '15821376007', '15821376007@qq.com', '333110', 'asdfdsf', '爱消除vftytyytry突然又突然一天人员突然一天', '0009', '01', '', '', '3', '2017-10-27 20:41:25', '潇洒发放', '0', '03', '', null, '0', '1', '03', '', null, null, null, '0', '0', '0', '1', '03', '', null, '0', '1', '03', '', null, '0', '0', null, '', '0', '1', '03', '', null, '', '0', '0', '1', '0');
+INSERT INTO `flow_job_1` VALUES ('10', '是', '650104199311300020', '15902195925', './uploadfile/image/201701/1509107293.jpeg', '1', '02', '12_120100', '02', '', '20', '1998-10-27', null, null, 'dsdsd', '2_201', '401_4010100', '2', '3_301', '6_601', '32_320100', '15902195925', '15902195925@qq.com', '333110', 'sdasd', '大时代撒多撒多多付多付过过过过过过过过过过过过过过过过过过', '0010', '02', '', '', '3', '2017-10-27 20:41:25', '潇洒发放', '0', '03', '', null, '0', '1', '03', '', null, null, null, '0', '0', '0', '1', '03', '', null, '0', '1', '03', '', null, '0', '0', null, '', '0', '1', '03', '', null, '', '0', '0', '1', '0');
+INSERT INTO `flow_job_1` VALUES ('11', '王晨莹', '370781199101240523', '15221879360', './uploadfile/image/201701/1509107425.jpeg', '1', '01', '31_310101', '03', '', '10', '1993-10-27', null, null, '辅导费', '2_201', '201_2010100', '3', '21_212', '6_601', '13_130100', '15221879360', '15221879360@qq.com', '333110', 'sas在线咨询', '阿萨德我问他问题', '0011', '01', '', '', '2', '2017-10-27 20:40:48', null, '1', '03', '', null, '0', '1', '03', '', null, null, null, '0', '0', '0', '1', '03', '', null, '0', '1', '03', '', null, '0', '0', null, '', '0', '1', '03', '', null, '', '0', '0', '1', '0');
+INSERT INTO `flow_job_1` VALUES ('12', '周云龙', '341181199109043017', '18811302610', './uploadfile/image/201701/1509107562.jpeg', '2', '02', '65_650100', '05', '', '23', '1995-10-27', null, null, 'dsdsds', '2_201', '101_1010100', '1', '22_221', '7_701', '12_120100', '18811302610', '18811302610@qq.com', '333110', '的发的顺丰到付大幅度', '师傅的师傅', '0012', '02', '', '', '2', '2017-10-27 20:40:48', null, '1', '03', '', null, '0', '1', '03', '', null, null, null, '0', '0', '0', '1', '03', '', null, '0', '1', '03', '', null, '0', '0', null, '', '0', '1', '03', '', null, '', '0', '0', '1', '0');
+INSERT INTO `flow_job_1` VALUES ('13', '刘思思', '310101198704040029', '18017365698', './uploadfile/image/201701/1509107693.jpeg', '2', '01', '35_350100', '12', '', '10', '1996-03-27', null, null, 'dsdsd', '4_401', '303_3030100', '3', '4_401', '3_301', '54_540100', '18017365698', '18017365698@qq.com', '333110', 's陈小春宣传宣传', '参差荇菜错错错错错错错错错错错错错错', '0013', '01', '', '', '2', '2017-10-27 20:40:48', null, '1', '03', '', null, '0', '1', '03', '', null, null, null, '0', '0', '0', '1', '03', '', null, '0', '1', '03', '', null, '0', '0', null, '', '0', '1', '03', '', null, '', '0', '0', '1', '0');
+INSERT INTO `flow_job_1` VALUES ('14', '邱祎琛', '310110199505195619', '15221652505', './uploadfile/image/201701/1509107830.jpeg', '2', '01', '23_230100', '12', '', '10', '1992-10-27', null, null, '范德萨范德萨', '1_101', '402_4020100', '2', '3_301', '3_301', '62_620100', '15221652505', '15221652505@qq.com', '333110', '防守打法的是', '的师傅的师傅', '0014', '02', '', '', '2', '2017-10-27 20:40:48', null, '1', '03', '', null, '0', '1', '03', '', null, null, null, '0', '0', '0', '1', '03', '', null, '0', '1', '03', '', null, '0', '0', null, '', '0', '1', '03', '', null, '', '0', '0', '1', '0');
 
 -- ----------------------------
 -- Table structure for flow_job_set_edu_1
@@ -1904,7 +1934,7 @@ CREATE TABLE `flow_job_set_edu_1` (
   `eduPost` varchar(255) DEFAULT NULL COMMENT '任职职务',
   `eduBurseHonorary` text COMMENT '奖学金及荣誉称号',
   PRIMARY KEY (`eduID`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of flow_job_set_edu_1
@@ -1912,6 +1942,19 @@ CREATE TABLE `flow_job_set_edu_1` (
 INSERT INTO `flow_job_set_edu_1` VALUES ('5', '4', '2010-10-26 00:00:00', '2015-10-26 00:00:00', 'XXX学校', '304_3040100', '班长', '1212121212');
 INSERT INTO `flow_job_set_edu_1` VALUES ('6', '4', '2016-10-26 00:00:00', '2017-10-26 00:00:00', '浙江大学', '304_3040100', '团委', '国家一级奖学金');
 INSERT INTO `flow_job_set_edu_1` VALUES ('8', '4', '2008-10-26 00:00:00', '2015-07-26 00:00:00', '是多少', '101_1010100', '大叔大婶', '法规法规的发苟富贵sdsadsadsad');
+INSERT INTO `flow_job_set_edu_1` VALUES ('10', '5', '2012-10-27 00:00:00', '2013-10-27 00:00:00', '但是反对', '10_101', '辅导费', '否第三方第三方地方地方');
+INSERT INTO `flow_job_set_edu_1` VALUES ('11', '5', '2016-10-27 00:00:00', '2017-10-27 00:00:00', '佛挡杀佛', '101_1010100', '胜多负少的', '防守打法多福多寿似懂非懂');
+INSERT INTO `flow_job_set_edu_1` VALUES ('12', '6', '2002-10-27 00:00:00', '2007-10-27 00:00:00', '防守打法的', '701_7010100', '丰富的', '佛挡杀佛打发打发打发');
+INSERT INTO `flow_job_set_edu_1` VALUES ('13', '6', '2010-06-27 00:00:00', '2017-10-27 00:00:00', '辅导费', '813_8130100', '辅导辅导', '发的顺丰到付大幅度否');
+INSERT INTO `flow_job_set_edu_1` VALUES ('14', '7', '1989-10-27 00:00:00', '2011-10-27 00:00:00', '固定发光飞碟', '30_301', '古典风格', '固定发光飞碟过分过分地方规定gfdg \nfgdfgdfg fg风格风格风格');
+INSERT INTO `flow_job_set_edu_1` VALUES ('15', '7', '2007-10-27 00:00:00', '2017-10-27 00:00:00', '固定古典风格', '301_3010100', '古典风格否', '高度分工的风格的风格分割发给对方规范');
+INSERT INTO `flow_job_set_edu_1` VALUES ('16', '8', '2003-10-27 00:00:00', '2010-10-27 00:00:00', '佛挡杀佛', '101_1010100', '发生的', '是非得失发光飞碟规范');
+INSERT INTO `flow_job_set_edu_1` VALUES ('17', '9', '2012-10-27 00:00:00', '2014-10-27 00:00:00', '古典风格', '716_7160100', '古典风格', '古典风格的发个梵蒂冈梵蒂冈');
+INSERT INTO `flow_job_set_edu_1` VALUES ('18', '10', '2004-10-27 00:00:00', '2008-10-27 00:00:00', '大时代', '201_2010100', '大叔大婶', '');
+INSERT INTO `flow_job_set_edu_1` VALUES ('19', '11', '2005-10-27 00:00:00', '2008-10-27 00:00:00', '奥术大师多', '813_8130100', '大时代', '多撒大所多撒多撒的');
+INSERT INTO `flow_job_set_edu_1` VALUES ('20', '12', '2004-10-27 00:00:00', '2006-10-27 00:00:00', '傻傻', '201_2010100', '', '大大是大时代');
+INSERT INTO `flow_job_set_edu_1` VALUES ('21', '13', '2009-10-27 00:00:00', '2011-10-27 00:00:00', '撒大声地', '813_8130100', '撒大声地', '多撒大所多撒多撒多');
+INSERT INTO `flow_job_set_edu_1` VALUES ('22', '14', '2002-10-27 00:00:00', '2011-10-27 00:00:00', '地方的发生', '715_7150100', '', '');
 
 -- ----------------------------
 -- Table structure for flow_job_set_fam_1
@@ -1925,13 +1968,29 @@ CREATE TABLE `flow_job_set_fam_1` (
   `famCom` varchar(64) DEFAULT NULL COMMENT '所在工作单位',
   `famPost` varchar(64) DEFAULT NULL COMMENT '任职岗位',
   PRIMARY KEY (`famID`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of flow_job_set_fam_1
 -- ----------------------------
 INSERT INTO `flow_job_set_fam_1` VALUES ('3', '4', '02', 'aaaaaa', 'dsdsd', 'dsdsd');
 INSERT INTO `flow_job_set_fam_1` VALUES ('4', '4', '01', 'dsds', 'dsds', 'dsdsd');
+INSERT INTO `flow_job_set_fam_1` VALUES ('5', '5', '01', '打发打发', '佛挡杀佛', '对对对');
+INSERT INTO `flow_job_set_fam_1` VALUES ('6', '5', '02', '大幅度', '打发打发', '打发打发');
+INSERT INTO `flow_job_set_fam_1` VALUES ('7', '6', '02', '辅导费', '辅导辅导', '防守打法');
+INSERT INTO `flow_job_set_fam_1` VALUES ('8', '6', '01', '发的方法的', '辅导费', '大幅度');
+INSERT INTO `flow_job_set_fam_1` VALUES ('9', '6', '05', '地方', ' 辅导辅导无法', '个复古风格');
+INSERT INTO `flow_job_set_fam_1` VALUES ('10', '7', '04', '个地方', '古典风格', '');
+INSERT INTO `flow_job_set_fam_1` VALUES ('11', '7', '01', '刚发的', ' 古典风格电饭锅发的', '个地方古典风格电饭锅否');
+INSERT INTO `flow_job_set_fam_1` VALUES ('12', '8', '01', '发的', '辅导费', '地方');
+INSERT INTO `flow_job_set_fam_1` VALUES ('13', '8', '02', '发生的', ' 佛挡杀佛地方', ' 范德萨范德萨发地方');
+INSERT INTO `flow_job_set_fam_1` VALUES ('14', '9', '02', '苟富贵', '苟富贵', '苟富贵');
+INSERT INTO `flow_job_set_fam_1` VALUES ('15', '10', '01', '大时代', ' 大时代', '大时代');
+INSERT INTO `flow_job_set_fam_1` VALUES ('16', '11', '02', '但是', '是多少', '大时代');
+INSERT INTO `flow_job_set_fam_1` VALUES ('17', '12', '01', '是', '多少', ' 大时代');
+INSERT INTO `flow_job_set_fam_1` VALUES ('18', '12', '02', '多少', '速度', '撒大声地');
+INSERT INTO `flow_job_set_fam_1` VALUES ('19', '13', '01', '防守打法', '防守打法', '');
+INSERT INTO `flow_job_set_fam_1` VALUES ('20', '14', '01', '大幅度', '发的', '打发打发');
 
 -- ----------------------------
 -- Table structure for flow_job_set_work_1
@@ -1946,13 +2005,25 @@ CREATE TABLE `flow_job_set_work_1` (
   `wkCom` varchar(255) NOT NULL COMMENT '所在单位',
   `wkInfo` text NOT NULL COMMENT '工作简述',
   PRIMARY KEY (`wkID`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of flow_job_set_work_1
 -- ----------------------------
 INSERT INTO `flow_job_set_work_1` VALUES ('4', '4', '2017-10-26 00:00:00', '2017-10-26 00:00:00', 'dssd', 'dsds', 'dsds');
 INSERT INTO `flow_job_set_work_1` VALUES ('5', '4', '2016-10-26 00:00:00', '2017-10-26 00:00:00', 'fdfdf', 'dfdf', 'fdfdfggfgfgfg');
+INSERT INTO `flow_job_set_work_1` VALUES ('6', '5', '2011-10-27 00:00:00', '2015-10-27 00:00:00', '辅导费', '防守打法的', '发送打发打发打发东方闪电范德萨发生地方');
+INSERT INTO `flow_job_set_work_1` VALUES ('7', '5', '2014-10-27 00:00:00', '2017-10-27 00:00:00', '但是反对', '佛挡杀佛', '范德萨范德萨发打发打发打发打广告覆盖');
+INSERT INTO `flow_job_set_work_1` VALUES ('8', '6', '2007-10-27 00:00:00', '2011-10-27 00:00:00', '辅导辅导', '发的顺丰到付', '辅导辅导费德国法国风格');
+INSERT INTO `flow_job_set_work_1` VALUES ('9', '6', '2012-10-27 00:00:00', '2017-10-27 00:00:00', '防守打法', '防守打法地方', '范德萨范德萨发大幅度');
+INSERT INTO `flow_job_set_work_1` VALUES ('10', '7', '2007-10-27 00:00:00', '2017-10-27 00:00:00', '公告', '固定', '的发个梵蒂冈梵蒂冈');
+INSERT INTO `flow_job_set_work_1` VALUES ('11', '8', '2007-10-27 00:00:00', '2017-10-27 00:00:00', '地方', '防守打法', ' 是的范德萨发递四方速递的地方');
+INSERT INTO `flow_job_set_work_1` VALUES ('12', '9', '2009-06-27 00:00:00', '2017-10-27 00:00:00', '东风股份', '个电饭锅的费', '规范规定发的高度分工的风格的风格');
+INSERT INTO `flow_job_set_work_1` VALUES ('13', '10', '2012-10-27 00:00:00', '2017-10-27 00:00:00', '颠三倒四多', '大时代', '啥答案多多多多多多多多多多多多多多多多多多多多多多多多');
+INSERT INTO `flow_job_set_work_1` VALUES ('14', '11', '2007-10-27 00:00:00', '2013-10-27 00:00:00', '大时代', '大叔大婶', '啊实打实的');
+INSERT INTO `flow_job_set_work_1` VALUES ('15', '12', '2007-10-27 00:00:00', '2017-10-27 00:00:00', '大时代', '第三代', '撒大声地所');
+INSERT INTO `flow_job_set_work_1` VALUES ('16', '13', '2007-10-27 00:00:00', '2015-10-27 00:00:00', '复古风格', '傻傻', '撒大声地防守打法');
+INSERT INTO `flow_job_set_work_1` VALUES ('17', '14', '2013-10-27 00:00:00', '2017-10-27 00:00:00', '水电费', '防守打法', '发送地方递四方速递发');
 
 -- ----------------------------
 -- Table structure for gstexm
@@ -2020,12 +2091,22 @@ CREATE TABLE `person` (
   `perMark` varchar(255) DEFAULT NULL COMMENT '备注信息',
   `perJob` varchar(64) DEFAULT NULL COMMENT '应聘岗位性质',
   PRIMARY KEY (`perID`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of person
 -- ----------------------------
 INSERT INTO `person` VALUES ('2', '李建林', '362330199208122410', '13285716129', './uploadfile/image/201701/1509068601.jpeg', '1', '01', '23_230100', '10', '', '10', '2017-10-25 00:00:00', null, null, '东华理工大学', '4_401', '304_3040100', '1', '1_11', '3_301', '23_230100', '18720989539', '2319048747@qq.com', '333110', 'dfsdfdsfdf', 'fdfdfdf', '01');
+INSERT INTO `person` VALUES ('3', 'dd', '320621199112163729', '13816591074', './uploadfile/image/201701/1509106414.jpeg', '2', '01', '31_310101', '01', '', '10', '2017-10-27 00:00:00', null, null, 'fdfdsfd', '1_101', '10_101', '1', '3_301', '7_701', '33_330100', '13816591074', '2319048747@qq.com', '333110', 'dsdfdf', 'asfdf是第三方', '02');
+INSERT INTO `person` VALUES ('4', '朱蔚云', '330522198712231025', '15250998698', './uploadfile/image/201701/1509106642.jpeg', '1', '01', '11_110100', '03', '', '10', '2007-10-27 00:00:00', null, null, 'we反对反对', '3_301', '101_1010100', '1', '3_301', '3_301', '12_120100', '', '2319048747@qq.com', '333110', '撒反对反对', '发送地方递四方速递', '01');
+INSERT INTO `person` VALUES ('5', '肖大鹏', '511102198012290013', '18516146044', './uploadfile/image/201701/1509106844.jpeg', '1', '01', '12_120100', '08', '', '20', '1984-10-27 00:00:00', null, null, 'fsdf', '4_401', '20_201', '1', '3_301', '3_301', '31_310101', '18516146044', '2319048747@qq.com', '333110', 'fdsfdsfd', '发发的规划合格机具款口干口苦个', '01');
+INSERT INTO `person` VALUES ('6', '梅雪娇', '331022198508200022', '15821376007', './uploadfile/image/201701/1509107020.jpeg', '2', '01', '13_130100', '03', '', '21', '1992-10-27 00:00:00', null, null, 'fdfdf', '1_101', '10_101', '1', '22_221', '6_601', '12_120100', '15821376007', '2319048747@qq.com', '333110', '大发沙发垫付发送佛挡杀佛', '是范德萨范德萨', '02');
+INSERT INTO `person` VALUES ('7', '多少度', '211103198302040325', '15821376007', './uploadfile/image/201701/1509107156.jpeg', '1', '01', '11_110100', '09', '', '10', '1994-10-27 00:00:00', null, null, '撒发放的', '4_401', '302_3020100', '1', '11_111', '6_601', '11_110100', '15821376007', '15821376007@qq.com', '333110', 'asdfdsf', '爱消除vftytyytry突然又突然一天人员突然一天', '01');
+INSERT INTO `person` VALUES ('8', '是', '650104199311300020', '15902195925', './uploadfile/image/201701/1509107293.jpeg', '1', '02', '12_120100', '02', '', '20', '1998-10-27 00:00:00', null, null, 'dsdsd', '2_201', '401_4010100', '2', '3_301', '6_601', '32_320100', '15902195925', '15902195925@qq.com', '333110', 'sdasd', '大时代撒多撒多多付多付过过过过过过过过过过过过过过过过过过', '02');
+INSERT INTO `person` VALUES ('9', '王晨莹', '370781199101240523', '15221879360', './uploadfile/image/201701/1509107425.jpeg', '1', '01', '31_310101', '03', '', '10', '1993-10-27 00:00:00', null, null, '辅导费', '2_201', '201_2010100', '3', '21_212', '6_601', '13_130100', '15221879360', '15221879360@qq.com', '333110', 'sas在线咨询', '阿萨德我问他问题', '01');
+INSERT INTO `person` VALUES ('10', '周云龙', '341181199109043017', '18811302610', './uploadfile/image/201701/1509107562.jpeg', '2', '02', '65_650100', '05', '', '23', '1995-10-27 00:00:00', null, null, 'dsdsds', '2_201', '101_1010100', '1', '22_221', '7_701', '12_120100', '18811302610', '18811302610@qq.com', '333110', '的发的顺丰到付大幅度', '师傅的师傅', '02');
+INSERT INTO `person` VALUES ('11', '刘思思', '310101198704040029', '18017365698', './uploadfile/image/201701/1509107693.jpeg', '2', '01', '35_350100', '12', '', '10', '1996-03-27 00:00:00', null, null, 'dsdsd', '4_401', '303_3030100', '3', '4_401', '3_301', '54_540100', '18017365698', '18017365698@qq.com', '333110', 's陈小春宣传宣传', '参差荇菜错错错错错错错错错错错错错错', '01');
+INSERT INTO `person` VALUES ('12', '邱祎琛', '310110199505195619', '15221652505', './uploadfile/image/201701/1509107830.jpeg', '2', '01', '23_230100', '12', '', '10', '1992-10-27 00:00:00', null, null, '范德萨范德萨', '1_101', '402_4020100', '2', '3_301', '3_301', '62_620100', '15221652505', '15221652505@qq.com', '333110', '防守打法的是', '的师傅的师傅', '02');
 
 -- ----------------------------
 -- Table structure for qumextra
@@ -2074,7 +2155,7 @@ INSERT INTO `recruit` VALUES ('2', '2017', '02', '0', '2017-10-18 00:00:00', '20
 -- ----------------------------
 DROP TABLE IF EXISTS `setgroup`;
 CREATE TABLE `setgroup` (
-  `gstID` int(11) NOT NULL COMMENT '组别ID',
+  `gstID` int(11) NOT NULL AUTO_INCREMENT COMMENT '组别ID',
   `recID` int(11) NOT NULL COMMENT '招聘ID',
   `gstItvStartTime` varchar(20) NOT NULL COMMENT '考试起始时间',
   `gstItvEndTime` varchar(20) NOT NULL COMMENT '考试截止时间',
@@ -2083,11 +2164,17 @@ CREATE TABLE `setgroup` (
   `gstType` int(1) DEFAULT NULL COMMENT '组别人员类型（1=考官，2=考生）',
   `gstStartEnd` varchar(255) DEFAULT NULL COMMENT '辅助字段（考试起止时间）',
   PRIMARY KEY (`gstID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of setgroup
 -- ----------------------------
+INSERT INTO `setgroup` VALUES ('2', '1', '2017-11-14 08:30', '2017-11-14 18:30', '2', '驱蚊器无', '1', '2017-11-14 08:30 至 2017-11-14 18:30');
+INSERT INTO `setgroup` VALUES ('6', '1', '2017-10-29 00:30', '2017-10-30 00:30', '1', '浙江大学', '1', '2017-10-29 00:30 至 2017-10-30 00:30');
+INSERT INTO `setgroup` VALUES ('7', '1', '2017-10-30 00:32', '2017-10-31 00:32', '3', '浙江大学', '1', '2017-10-30 00:32 至 2017-10-31 00:32');
+INSERT INTO `setgroup` VALUES ('8', '1', '2017-10-29 00:33', '2017-10-31 00:33', '4', '浙江大学', '1', '2017-10-29 00:33 至 2017-10-31 00:33');
+INSERT INTO `setgroup` VALUES ('9', '1', '2017-10-29 00:33', '2017-10-30 00:33', '1', '浙江大学', '2', '2017-10-29 00:33 至 2017-10-30 00:33');
+INSERT INTO `setgroup` VALUES ('10', '1', '2017-10-29 00:33', '2017-10-31 00:34', '2', '浙江大学', '2', '2017-10-29 00:33 至 2017-10-31 00:34');
 
 -- ----------------------------
 -- Table structure for user
@@ -2105,13 +2192,23 @@ CREATE TABLE `user` (
   `companyID` int(11) DEFAULT NULL COMMENT '单位id',
   `phone` varchar(255) DEFAULT NULL COMMENT '手机号码',
   PRIMARY KEY (`uid`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='用户表';
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COMMENT='用户表';
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
 INSERT INTO `user` VALUES ('1', 'admin', 'guanliyuan', 'fcea920f7412b5da7be0cf42b8c93759', '3', '20', '2017-10-16 09:41:05', '2017-10-27 14:58:54', '1022', '13285716129');
-INSERT INTO `user` VALUES ('2', '362330199208122410', '李建林', 'fcea920f7412b5da7be0cf42b8c93759', '1', '14', '2017-10-24 17:39:56', '2017-10-27 16:46:31', null, '13285716129');
+INSERT INTO `user` VALUES ('2', '362330199208122410', '李建林', 'fcea920f7412b5da7be0cf42b8c93759', '1', '15', '2017-10-24 17:39:56', '2017-10-27 20:39:22', null, '13285716129');
+INSERT INTO `user` VALUES ('3', '320621199112163729', '张清正', 'fcea920f7412b5da7be0cf42b8c93759', '1', '1', '2017-10-27 20:03:50', '2017-10-27 20:12:41', null, '13816591074');
+INSERT INTO `user` VALUES ('4', '330522198712231025', '朱蔚云', 'fcea920f7412b5da7be0cf42b8c93759', '1', '1', '2017-10-27 20:05:09', '2017-10-27 20:17:18', null, '15250998698');
+INSERT INTO `user` VALUES ('5', '511102198012290013', '肖大鹏', 'fcea920f7412b5da7be0cf42b8c93759', '1', '1', '2017-10-27 20:06:50', '2017-10-27 20:20:39', null, '18516146044');
+INSERT INTO `user` VALUES ('6', '331022198508200022', '梅雪娇', 'fcea920f7412b5da7be0cf42b8c93759', '1', '1', '2017-10-27 20:07:54', '2017-10-27 20:23:35', null, '15821376007');
+INSERT INTO `user` VALUES ('7', '211103198302040325', '多少度', 'fcea920f7412b5da7be0cf42b8c93759', '1', '1', '2017-10-27 20:08:38', '2017-10-27 20:25:51', null, '15821376007');
+INSERT INTO `user` VALUES ('8', '650104199311300020', '但是', 'fcea920f7412b5da7be0cf42b8c93759', '1', '1', '2017-10-27 20:09:55', '2017-10-27 20:28:00', null, '15902195925');
+INSERT INTO `user` VALUES ('9', '370781199101240523', '王晨莹', 'fcea920f7412b5da7be0cf42b8c93759', '1', '1', '2017-10-27 20:10:20', '2017-10-27 20:30:12', null, '15221879360');
+INSERT INTO `user` VALUES ('10', '341181199109043017', '周云龙', 'fcea920f7412b5da7be0cf42b8c93759', '1', '1', '2017-10-27 20:10:44', '2017-10-27 20:32:31', null, '18811302610');
+INSERT INTO `user` VALUES ('11', '310101198704040029', '刘思思', 'fcea920f7412b5da7be0cf42b8c93759', '1', '1', '2017-10-27 20:11:10', '2017-10-27 20:34:43', null, '18017365698');
+INSERT INTO `user` VALUES ('12', '310110199505195619', '邱祎琛', 'fcea920f7412b5da7be0cf42b8c93759', '1', '1', '2017-10-27 20:11:45', '2017-10-27 20:37:01', null, '15221652505');
 
 -- ----------------------------
 -- Table structure for workset
