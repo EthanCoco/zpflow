@@ -32,23 +32,64 @@ $this->title = '';
 	    <tr>
 	      	<td>选择文件</td>
 	      	<td>
-	      		<input id="fileName" name="fileName" type="text" class="input1" style="display:none"/>
-	        	<input id="file_upload" name="file_upload" type="file" multiple="false">
+	      		<input type="text" id="fileName"  style="display: none;"/>
+	      		<button type="button" class="layui-btn" id="step2_file_btn"><i class="layui-icon"></i>选择文件</button>
 	      	</td>
 	    </tr>
+	    <tr id="import_tr_sh" style="display: none;"><td colspan="2"><span id="showhtml"></span></td></tr>
 	    <tr>
 	      	<td>模板下载</td>
 	      	<td><a href="javascript:void(0)" style="text-decoration:underline;color:blue;" onclick='window.open("<?= Url::to(['examiner/examiner-importmb']) ?>");'>考官导入模板.xls</a></td>
 	    </tr>
 	</tbody>
 </table>
+
 </div>
 <?php $this->endBody() ?>
 <script>
-var step2_import_recID = "<?= $recID ?>";	
+var __step2_import_recID__ = "<?= $recID ?>";	
 $(function(){
-	
+	$("#fileName").val("");
+	$("#showhtml").html("");
+	$("#import_tr_sh").css('display','none');
+	layui.use(['upload','layer'], function(){
+	 	var upload = layui.upload,layer = layui.layer;
+	 	upload.render({
+		    elem: '#step2_file_btn',
+		    url: "<?= Url::to(['examiner/examiner-upexcel']) ?>",
+		    accept: 'file',
+		    exts: 'xls',
+		    size: 1024*1024*2,
+		    done: function(res){
+		    	if(res.code != '0'){
+		        	return layer.msg(res.msg);
+		      	}else{
+		      		$("#fileName").val(res.data.src);
+		      		$("#showhtml").html(res.data.src);
+		      		$("#import_tr_sh").css('display','');
+		      	}
+		    }
+		});
+	});
 });
+
+function step2_import_data_sure(){
+	layui.use(['upload','layer'], function(){
+	    $.post("<?= Url::to(['examiner/examiner-upexcel-sure']) ?>",{'recID':__step2_import_recID__,'filePath':$("#fileName").val()},function(json){
+			if(json.result){
+				parent.init_flow4_step2_datagrid();
+				parent.layer.msg(json.msg);
+				$("#fileName").val("");
+				$("#showhtml").html("");
+				$("#import_tr_sh").css('display','none');
+				parent.layer.close(parent.layer.getFrameIndex(window.name));
+			}else{
+				parent.layer.alert(json.msg);
+			}
+	    },'json');
+	});
+}
+
 </script>	
 </body>
 </html>

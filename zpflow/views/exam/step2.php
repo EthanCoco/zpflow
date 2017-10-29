@@ -211,11 +211,11 @@ function init_flow4_step2_datagrid(){
 					   			layer.open({
 						    		type:2,
 						    		title:'导入考官信息',
-						    		area:["500px",'250px'],
-						    		content:"<?= yii\helpers\Url::to(['exam/import-step2']); ?>"+"&&recID="+__flow4_recID__,
-						    		btn:['确定','取消'],
+						    		area:["500px",'350px'],
+						    		content:"<?= yii\helpers\Url::to(['exam/import-step2']); ?>"+"&recID="+__flow4_recID__,
+						    		btn:['上传','取消'],
 						    		yes: function(){
-						    			$("iframe[id*='layui-layer-iframe'")[0].contentWindow.step2_examiner_import(); 
+						    			$("iframe[id*='layui-layer-iframe'")[0].contentWindow.step2_import_data_sure(); 
 							        },
 						    		btn2:function(){
 						    			layer.closeAll();
