@@ -125,7 +125,7 @@ class SetgroupController extends BaseController{
 		
 		$flag = Gstexm::find()->where(['recID'=>$recID,'gstID'=>$gstID])->asArray()->count();
 		if($flag > 0){
-			return ['result'=>0,'该组别已经在使用中，不能删除'];
+			return ['result'=>0,'msg'=>'该组别已经在使用中，不能删除'];
 		}else{
 			if(Setgroup::deleteAll(['gstID'=>$gstID])){
 				return ['result'=>1,'msg'=>'删除成功'];

@@ -10,6 +10,7 @@ use app\models\Examiner;
 use app\models\Gstexm;
 use app\models\Share;
 use app\models\Recruit;
+use app\models\Setgroup;
 
 class ExaminerController extends BaseController{
 	public $enableCsrfValidation = false;
@@ -324,4 +325,79 @@ class ExaminerController extends BaseController{
 			return ['result'=>1,'msg'=>'导入成功！'];	
 		}
 	}
+	
+	public function actionExaminerGroupList(){
+		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+		$request = Yii::$app->request;
+		
+		$recID = $request->post('recID');
+		$sort = $request->post("sort"); 
+        $order = $request->post("order","asc");
+        
+        if($sort == 'gstStartEnd'){
+        	$sort = 'gstItvStartTime';
+        }
+        if($sort){
+	        $orderInfo = $sort.' '.$order;
+        }else{
+        	$orderInfo = 'gstItvStartTime asc,gstGroup asc';
+        }
+		$result = [];
+		
+		$total = Setgroup::find()->where(['recID'=>$recID,'gstType'=>1])->asArray()->count();
+		$dataInfos = Setgroup::find()->where(['recID'=>$recID,'gstType'=>1])->orderby($orderInfo)->asArray()->all();
+		
+		$examiner_num = Examiner::find()->where(['recID'=>$recID])->asArray()->count();
+		
+		$examiner_num_deal = Gstexm::find()->groupBy(['exmID'])->where(['recID'=>$recID])->count();
+		
+		$result["examiner_num"] = $examiner_num;
+		$result["examiner_num_deal"] = $examiner_num_deal;
+		$result["examiner_num_nodeal"] = intval($examiner_num)-intval($examiner_num_deal);
+		
+		$tempData = [];
+		if(!empty($dataInfos)){
+			$index = 0;
+			foreach($dataInfos as $info){
+				$codes = [['gstGroup','ZBMC']];
+				$mainCode = Share::codeValue($codes,$info);
+				
+				$infoData = Yii::$app->db->createCommand('select examiner.exmName from gstexm left join examiner  on examiner.exmID=gstexm.exmID where gstexm.gstID=:gstID and gstexm.recID=:recID')
+								           ->bindValue(':gstID', $info['gstID'])
+								           ->bindValue(':recID', $recID)
+								           ->queryAll();
+				
+				$str = "";
+				if(!empty($infoData)){
+					$count_num = count($infoData); 
+					for($i = 0 ; $i < $count_num ; $i++){
+						if($i == $count_num - 1){
+							$str .=$infoData[$i]['exmName'];
+						}else{
+							$str .=$infoData[$i]['exmName']."、";
+						}
+					}
+				}	
+				$tempData[$index]['gstID'] = $info['gstID'];
+				$tempData[$index]['gstStartEnd'] = $info['gstStartEnd'];
+				$tempData[$index]['gstGroup'] = $mainCode['gstGroup'];
+				$tempData[$index]['gstItvPlace'] = $info['gstItvPlace'];
+				$tempData[$index]['exmNames'] = $str;
+				$index++;			
+			}
+		}
+		
+		$result["rows"] = $tempData;
+		$result["total"] = $total;
+		
+		return $result;
+	}
+
+
+
+
+
+
+
+
 }
