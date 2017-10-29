@@ -10,61 +10,53 @@
 	<span id="stepIndex_three_head_pubinfo" style="color: red;"></span>
 </div>
 
-<div class="layui-row" id="stepIndex_three_search">
-    <div class="layui-col-xs2">
-      	<div class="layui-form" style="vertical-align: middle;">
-			<div class="layui-form-item layui-inline" style="margin-bottom: 0;">
-			    <label class="layui-form-label" style="width: 40px;margin-top: 1px;">姓名</label>
-			    <div class="layui-input-block" style="margin-left: 70px;">
-			      	<input class="layui-input" id="perName" name="perName" type="text" style="height: 30px;margin-top: 5px;">
-			    </div>
-		  	</div>
-		</div>
-    </div>
-    <div class="layui-col-xs2">
-    	<div class="layui-form-item layui-inline" style="margin-bottom: 0;">
-    		<label class="layui-form-label" style="width: 40px;margin-top: 1px;">性别</label>
-    		<div class="layui-input-block" style="margin-left: 70px;">
-				<select id="perGender" name="perGender" class="input1" style="margin-top: 5px;">
-			        <option value=""></option>
-			        <option value="1">男</option>
-			        <option value="2">女</option>
-		      	</select>
-	      	</div>
-      	</div>
-    </div>
-    <div class="layui-col-xs2">
-    	<div class="layui-form" style="vertical-align: middle;">
-	    	<div class="layui-form-item layui-inline" style="margin-bottom: 0;">
-		      	<label class="layui-form-label" style="width: 50px;margin-top: 1px;">出生日期</label>
-		      	<div class="layui-input-block" style="margin-left: 80px;">
-		        	<input class="layui-input" id="perBirth" name="perBirth" type="text" style="height: 30px;margin-top: 5px;">
+<div id="stepIndex_three_search" style="padding:5px">
+	<div class="layui-form">
+		<div class="layui-form-item" style="margin-bottom: 0;">
+		    <div class="layui-inline" style="margin-bottom: 0;">
+		      	<label class="layui-form-label" style="width: auto;font-size: 12px;">姓名</label>
+		      	<div class="layui-input-inline" style="margin-right: 0;width: auto;">
+		        	<input id="perName" name="perName" class="layui-input">
 		      	</div>
 		    </div>
-    	</div>
-    </div>
-    
-    <div class="layui-col-xs2">
-    	<div class="layui-form-item layui-inline" style="margin-bottom: 0;">
-    		<label class="layui-form-label" style="width: 80px;margin-top: 1px;">考试反馈结果</label>
-    		<div class="layui-input-block" style="margin-left: 110px;">
-				<select id="perReResult1" name="perReResult1" class="input1" style="margin-top: 5px;">
-			        <option value=""></option>
-			        <option value="01">确定参加</option>
-			        <option value="02">放弃参加</option>
-			        <option value="03">未反馈</option>
-		      	</select>
-	      	</div>
-      	</div>
-    </div>
-    
-    <div class="layui-col-xs4">
-    	<div  style="float: right;margin-right: 10px;margin-top: 2px;">
-    	<button id="stepIndex_three_search" onclick="stepIndex_three_search()" class="layui-btn">搜索</button>
-      	<button id="stepIndex_three_clear" onclick="stepIndex_three_clear()" class="layui-btn layui-btn-primary">清空</button>
-      	</div>
-    </div>
+		    <div class="layui-inline" style="margin-bottom: 0;">
+		      	<label class="layui-form-label" style="width: auto;font-size: 12px;">性别</label>
+		      	<div class="layui-input-inline" style="margin-right: 0;width: auto;">
+			        <select id="perGender" name="perGender"  lay-search="">
+			          	<option value=""></option>
+				        <option value="1">男</option>
+				        <option value="2">女</option>
+			        </select>
+		      	</div>
+		    </div>
+		    <div class="layui-inline" style="margin-bottom: 0;">
+		      	<label class="layui-form-label" style="width: auto;font-size: 12px;">出生日期</label>
+		      	<div class="layui-input-inline" style="margin-right: 0;width: auto;">
+		        	<input id="perBirth" name="perBirth" class="layui-input">
+		      	</div>
+		    </div>
+		    <div class="layui-inline" style="margin-bottom: 0;">
+		      	<label class="layui-form-label" style="width: auto;font-size: 12px;">考试反馈结果</label>
+		      	<div class="layui-input-inline" style="margin-right: 0;width: auto;">
+			        <select id="perReResult1" name="perReResult1"  lay-search="">
+			          	<option value=""></option>
+				        <option value="01">确定参加</option>
+				        <option value="02">放弃参加</option>
+				        <option value="03">未反馈</option>
+			        </select>
+		      	</div>
+		    </div>
+		    <div class="layui-inline" style="margin-bottom: 0;float: right;">
+			  	<div class="layui-btn-group">
+				    <button class="layui-btn" id="stepIndex_three_search" onclick="stepIndex_three_search()"><i class="layui-icon">&#xe615;</i></button>
+				    <button class="layui-btn layui-btn-primary" id="stepIndex_three_clear" onclick="stepIndex_three_clear()"><i class="layui-icon">&#xe640;</i></button>
+			 	</div>
+		 	</div>
+	  	</div>
+	  	
+	</div>
 </div>
+
 <hr class="layui-bg-blue" style="margin: 1px 0;">
 <div class="layui-tab layui-tab-brief" lay-filter="stepIndex_three_tab">
   	<ul class="layui-tab-title" id="stepIndex_three_tab">
@@ -160,8 +152,9 @@ $(function(){
 		  	__stepIndex_three_tab = this.getAttribute('lay-id');
 			init_stepIndex_three_grid(__stepIndex_three_urls__,__stepIndex_three_recID__,__stepIndex_three_tab,__stepIndex_three_show_flag,__stepIndex_three_recend);
 	  	});
+	  	
+	  	form.render('select');
 	});
-	
 });
 
 function selRecruitID(th){
@@ -176,10 +169,14 @@ function stepIndex_three_search(){
 }
 
 function stepIndex_three_clear(){
-	$("#stepIndex_three_search #perName").val("");
-	$("#stepIndex_three_search #perGender").val("");
-	$("#stepIndex_three_search #perBirth").val("");
-	$("#stepIndex_three_search #perReResult1").val("");
-	init_stepIndex_three_grid(__stepIndex_three_urls__,__stepIndex_three_recID__,__stepIndex_three_tab,__stepIndex_three_show_flag,__stepIndex_three_recend);
+	layui.use('form', function(){
+		var form = layui.form;
+		$("#stepIndex_three_search #perName").val("");
+		$("#stepIndex_three_search #perGender").val("");
+		$("#stepIndex_three_search #perBirth").val("");
+		$("#stepIndex_three_search #perReResult1").val("");
+		form.render('select');
+		init_stepIndex_three_grid(__stepIndex_three_urls__,__stepIndex_three_recID__,__stepIndex_three_tab,__stepIndex_three_show_flag,__stepIndex_three_recend);
+	});
 }
 </script>

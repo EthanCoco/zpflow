@@ -42,11 +42,17 @@
 	  	
 	</div>
 </div>
-
+<form id="flow4_step2_exportForm" action="<?= yii\helpers\Url::to(['examiner/examiner-export']); ?>" method="post" style="display:none;">
+    <input type="text" name="flag" />
+    <input type="text" name="recID" />
+    <input type="text" name="condition" />
+</form>
 
 
 <script>
 var __flow4_step2_datagrid_flag__ = "1";
+var __flow4_step2_condition__ ;
+var __flow4_step2_total__ = "0";
 $(function(){
 	layui.use(['element','form','layer', 'laydate'], function(){
 		var element = layui.element;
@@ -83,8 +89,16 @@ function init_flow4_step2_datagrid(){
         columns:[[
         	{field:'ck',checkbox:true,width:'10%'},
         	{width:'12%',field:'exmName',title:'姓名',align:'center',sortable:true},
-        	{width:'12%',field:'exmAttr',title:'考官属性',align:'center',sortable:true},
-        	{width:'10%',field:'exmType',title:'考官类别',align:'center',sortable:true},
+        	{width:'12%',field:'exmAttr',title:'考官属性',align:'center',sortable:true,
+        		formatter:function(value,row,index){
+	        		return value == "1" ? "公务员局考官" : "其他考官";
+	        	}
+        	},
+        	{width:'10%',field:'exmType',title:'考官类别',align:'center',sortable:true,
+        		formatter:function(value,row,index){
+	        		return value == "1" ? "主考官" : (value == "2" ? "固定考官" : "监督员");
+	        	}
+        	},
         	{width:'15%',field:'exmCom',title:'考官所在单位',align:'center'},
         	{width:'14%',field:'exmPost',title:'考官职务',align:'center'},
         	{width:'10%',field:'exmPhone',title:'手机号码',align:'center',sortable:true},
@@ -92,9 +106,30 @@ function init_flow4_step2_datagrid(){
         	{width:'10%',field:'exmTime',title:'到岗时间',align:'center'},
         ]],
     	onDblClickRow:function(index,row){
-	    	
+	    	if(__flow4_show_flag__ == "0"){
+	    		return;
+	    	}
+	    	layui.use('layer',function(){
+	   			var layer = layui.layer;
+	   			layer.open({
+		    		type:2,
+		    		title:'修改考官',
+		    		area:["400px",'550px'],
+		    		content:"<?= yii\helpers\Url::to(['exam/repair-step2']); ?>"+"&exmID="+row.exmID+"&recID="+__flow4_recID__,
+		    		btn:['保存','取消'],
+		    		yes: function(){
+		    			$("iframe[id*='layui-layer-iframe'")[0].contentWindow.step2_repair_save(); 
+			        },
+		    		btn2:function(){
+		    			layer.closeAll();
+		    		}
+			    });
+	   		});
 	    },
         onLoadSuccess: function(data){
+			__flow4_step2_condition__ = data.exportInfo.condition;
+			__flow4_step2_total__ = data.total;
+			
 			$("#flow4_step2_tabli1").html("");
         	$("#flow4_step2_tabli2").html("");
         	$("#flow4_step2_tabli3").html("");
@@ -120,24 +155,89 @@ function init_flow4_step2_datagrid(){
 					  	iconCls:'icon-add',
 					   	text:'添加',
 					   	handler:function(){
-					   		
+					   		layui.use('layer',function(){
+					   			var layer = layui.layer;
+					   			layer.open({
+						    		type:2,
+						    		title:'添加考官',
+						    		area:["400px",'550px'],
+						    		content:"<?= yii\helpers\Url::to(['exam/repair-step2']); ?>"+"&exmID=&recID="+__flow4_recID__,
+						    		btn:['保存','取消'],
+						    		yes: function(){
+						    			$("iframe[id*='layui-layer-iframe'")[0].contentWindow.step2_repair_save(); 
+							        },
+						    		btn2:function(){
+						    			layer.closeAll();
+						    		}
+							    });
+					   		});
 					   	}
 				   	},'-',{
 					  	iconCls:'icon-remove',
 					   	text:'删除',
 					   	handler:function(){
-					   		
+					   		layui.use('layer',function(){
+					   			var layer = layui.layer;
+						   		var rows = $("#flow4_step2_datagrid").datagrid('getSelections');
+								var len = rows.length;
+								if(len == 0){
+							       return layer.alert('请选择要删除的数据！');
+							    }
+							    
+							    var exmIDs = [];
+							    for( var i =0 ; i < len ; i++ ){
+							        exmIDs.push(rows[i]['exmID']);
+							    }
+							    
+							    layer.confirm('您确定要删除勾选的【'+len+'】条数据么', function(index){
+								  	$.post("<?= yii\helpers\Url::to(['examiner/examiner-del']); ?>",{'exmIDs':exmIDs,'recID':__flow4_recID__},function(json){
+										if(json.result){
+											layer.msg(json.msg);
+											init_flow4_step2_datagrid();
+											layer.close(index);
+										}else{
+											layer.alert(json.msg);
+										}
+									},'json');
+								}); 
+						    });
 					   	}
 				   	},'-',{
 					  	iconCls:'icon-import',
 					   	text:'Excel导入',
 					   	handler:function(){
-					   		
+					   		layui.use('layer',function(){
+					   			var layer = layui.layer;
+					   			layer.open({
+						    		type:2,
+						    		title:'导入考官信息',
+						    		area:["500px",'250px'],
+						    		content:"<?= yii\helpers\Url::to(['exam/import-step2']); ?>"+"&&recID="+__flow4_recID__,
+						    		btn:['确定','取消'],
+						    		yes: function(){
+						    			$("iframe[id*='layui-layer-iframe'")[0].contentWindow.step2_examiner_import(); 
+							        },
+						    		btn2:function(){
+						    			layer.closeAll();
+						    		}
+							    });
+					   		});
 					   	}
 				   	},'-',{
 					  	iconCls:'icon-export',
 					   	text:'Excel导出',
 					   	handler:function(){
+					   		layui.use('layer',function(){
+					   			var layer = layui.layer;
+					   			if(__flow4_step2_total__ == "0"){
+					   				return layer.alert("当前没有任何数据，不需要导出");
+					   			}
+					   			
+					   			$("#flow4_step2_exportForm").find("input[name='condition']").val(JSON.stringify(__flow4_step2_condition__));
+							 	$("#flow4_step2_exportForm").find("input[name='flag']").val(__flow4_step2_datagrid_flag__);
+							 	$("#flow4_step2_exportForm").find("input[name='recID']").val(__flow4_recID__);
+								$("#flow4_step2_exportForm").submit();
+					   		});
 					   	}
 				   	}]
 				});
@@ -150,6 +250,17 @@ function init_flow4_step2_datagrid(){
 					  	iconCls:'icon-export',
 					   	text:'Excel导出',
 					   	handler:function(){
+					   		layui.use('layer',function(){
+					   			var layer = layui.layer;
+					   			if(__flow4_step2_total__ == "0"){
+					   				return layer.alert("当前没有任何数据，不需要导出");
+					   			}
+					   			
+					   			$("#flow4_step2_exportForm").find("input[name='condition']").val(JSON.stringify(__flow4_step2_condition__));
+							 	$("#flow4_step2_exportForm").find("input[name='flag']").val(__flow4_step2_datagrid_flag__);
+							 	$("#flow4_step2_exportForm").find("input[name='recID']").val(__flow4_recID__);
+								$("#flow4_step2_exportForm").submit();
+					   		});
 					   	}
 				   	}]
 				});
