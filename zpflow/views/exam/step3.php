@@ -4,6 +4,7 @@
 <script>
 var __flow4_step3_title_info__ = {};
 var __flow4_step3_total_flag__ = "0";
+var __flow4_step3_msg_content__ = "";
 $(function(){
 	init_flow4_step3_datagrid();
 });
@@ -60,19 +61,56 @@ function init_flow4_step3_datagrid(){
 					  	iconCls:'icon-tip',
 					   	text:'短信提醒',
 					   	handler:function(){
-					   		
+					   		layui.use('layer',function(){
+					   			var layer = layui.layer;
+					   			if(data.examiner_num_deal == 0){
+					   				return layer.alert("还未安排考官");
+					   			}
+					   			layer.prompt({
+								  	formType: 2,
+								  	value: '',
+								  	title: '设置短信通知内容',
+								  	area: ['300px', '150px']
+								}, function(value, index, elem){
+									  	__flow4_step3_msg_content__ = value;
+							    	 	layer.open({
+									  		type:2,
+									  		title:'确认短信发送',
+									  		area:[$(window).width()*3/4+"px",'520px'],
+									  		content:"<?= yii\helpers\Url::to(['exam/send-msg-step3']); ?>"+"&recID="+__flow4_recID__,
+									  		btn:['发送','关闭'],
+									  		yes: function(){
+									  			$("iframe[id*='layui-layer-iframe'")[0].contentWindow.flow4_step3_send_msg_sure(); 
+										    },
+									  		btn2:function(){
+									  			layer.close(layer.getFrameIndex(window.name));
+									  		}
+									    });
+								});
+					   		});
 					   	}
 				   	},'-',{
 					  	iconCls:'icon-print',
 					   	text:'打印签到表',
 					   	handler:function(){
-					   		
+					   		layui.use('layer',function(){
+					   			if(data.examiner_num_deal == 0){
+					   				return layer.alert("还未安排考官");
+					   			}else{
+					   				window.open("<?= yii\helpers\Url::to(['examiner/examiner-download']); ?>"+"&recID="+__flow4_recID__);
+					   			}
+					   		});
 					   	}
 				   	},'-',{
 					  	iconCls:'icon-export',
 					   	text:'Excel导出',
 					   	handler:function(){
-					   		
+					   		layui.use('layer',function(){
+					   			if(data.total == "0"){
+					   				return layer.alert("当前没有任何数据，不需要导出");
+					   			}
+					   			window.open("<?= yii\helpers\Url::to(['examiner/examiner-export-step3']); ?>"+"&recID="+__flow4_recID__);
+					   		});
 					   	}
 				   	}]
 				});
@@ -85,7 +123,12 @@ function init_flow4_step3_datagrid(){
 					  	iconCls:'icon-export',
 					   	text:'Excel导出',
 					   	handler:function(){
-					   		
+					   		layui.use('layer',function(){
+					   			if(data.total == "0"){
+					   				return layer.alert("当前没有任何数据，不需要导出");
+					   			}
+					   			window.open("<?= yii\helpers\Url::to(['examiner/examiner-export-step3']); ?>"+"&recID="+__flow4_recID__);
+					   		});
 					   	}
 				   	}]
 				});
