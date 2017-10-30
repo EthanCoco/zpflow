@@ -135,7 +135,57 @@ class Share extends Model
 	    return $obj;
 	}
 	
-	
+	public static function ExcelStyleArrayInfoSet($type){
+		$resultStyle = [];
+		switch($type){
+			case 1 : 
+					//Excel表头样式
+					$resultStyle = array(
+								            'font' => array ('bold' => true),
+								            'alignment' => array(
+								            						'horizontal' => \PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+								            						'vertical'=>\PHPExcel_Style_Alignment::VERTICAL_CENTER 
+																),
+								            'borders' =>array(
+								            					'top' => array('style' => \PHPExcel_Style_Border::BORDER_THIN),
+						            									'left' => array('style' => \PHPExcel_Style_Border::BORDER_THIN),
+						            									'right' => array('style' => \PHPExcel_Style_Border::BORDER_THIN),
+						            									'bottom' => array('style' => \PHPExcel_Style_Border::BORDER_THIN)
+															)
+										);
+			break;
+			case 2 :
+					//Excel表体样式 文字靠左
+					$resultStyle = array(
+								            'font' => array ('bold' => false),
+								            'alignment' => array(
+								            						'horizontal' => \PHPExcel_Style_Alignment::HORIZONTAL_LEFT,
+								            						'vertical'=>\PHPExcel_Style_Alignment::VERTICAL_CENTER 
+																),
+								            'borders' =>array(
+								            					'top' => array('style' => \PHPExcel_Style_Border::BORDER_THIN),
+								            					'left' => array('style' => \PHPExcel_Style_Border::BORDER_THIN),
+								            					'right' => array('style' => \PHPExcel_Style_Border::BORDER_THIN),
+								            					'bottom' => array('style' => \PHPExcel_Style_Border::BORDER_THIN)
+															)
+										); 	
+			break;
+			case 3 : 
+					//Excel表体样式
+					$resultStyle = array(
+								            'borders' =>array(
+								            					'top' => array('style' => \PHPExcel_Style_Border::BORDER_THIN),
+						            									'left' => array('style' => \PHPExcel_Style_Border::BORDER_THIN),
+						            									'right' => array('style' => \PHPExcel_Style_Border::BORDER_THIN),
+						            									'bottom' => array('style' => \PHPExcel_Style_Border::BORDER_THIN)
+															)
+										);
+			break;
+			default:
+			break;
+		}
+		return $resultStyle;
+	}
 	
 	public static function getKeyInfo($key){
 		$result = [];
@@ -183,6 +233,36 @@ class Share extends Model
 					],
 				];
 			break;
+			case 'flow4_step3_mb' :
+				 $result = [
+					'tempExcel'	=>	'../web/mbfile/flow4_step3_downloadmb.xls',
+					'keys' =>[
+						[
+							'key'=>[
+									'id','gstGroup','gstStartEnd','exmType','exmName'
+								],
+							'num'=>3,
+							'index'=>0,
+							'sheetName'=>'考官签到表信息',
+						]
+					],
+				];
+			break;
+			case 'flow4_step3_export' :
+				 $result = [
+					'tempExcel'	=>	'../web/mbfile/flow4_step3_export.xls',
+					'keys' =>[
+						[
+							'key'=>[
+									'id','gstStartEnd','gstGroup','gstItvPlace','exmNames'
+								],
+							'num'=>2,
+							'index'=>0,
+							'sheetName'=>'考官签到表信息',
+						]
+					],
+				];
+			break;
 			default:break;
 		}
 
@@ -219,7 +299,7 @@ class Share extends Model
 					}else{
 						$pcoordinate = \PHPExcel_Cell::stringFromColumnIndex($n).''.$num;
 						if($keys[$temp] == 'id'){
-							$objPHPExcel->setActiveSheetIndex($v['index'])->setCellValue($pcoordinate, ($num-1));
+							$objPHPExcel->setActiveSheetIndex($v['index'])->setCellValue($pcoordinate,  ($num-1) );
 						}else{
 							$objPHPExcel->setActiveSheetIndex($v['index'])->setCellValue($pcoordinate, ' ' . $info[$keys[$temp]] . ' ');
 						}
