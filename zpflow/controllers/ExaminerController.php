@@ -393,11 +393,217 @@ class ExaminerController extends BaseController{
 		return $result;
 	}
 
+	public function actionExaminerDownload(){
+		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+		$recID = Yii::$app->request->get('recID');
+		
+		$recInfo = Recruit::find()->where(['recID'=>$recID])->asArray()->one();
+		$codeInfo = Share::codeValue([['recBatch','PC']],$recInfo);
+		
+		$fileTitle = $recInfo['recYear']."年".$codeInfo['recBatch']."XXXXXX人才招聘签到表（考官）";
+		
+		$infos = (new \yii\db\Query())
+    				->select("setgroup.gstGroup, setgroup.gstStartEnd,examiner.exmType,examiner.exmName")
+    				->from('gstexm')
+					->leftJoin('examiner', 'examiner.exmID = gstexm.exmID')
+					->leftJoin('setgroup','setgroup.gstID = gstexm.gstID')
+					->where(['gstexm.recID'=>$recID])
+					->orderBy('setgroup.gstGroup asc,setgroup.gstStartEnd asc,examiner.exmType asc')
+					->all();
+					
+		$dataJson = [];
+		foreach($infos as $info){
+			$codes = [['exmType','KGLB'],['gstGroup','ZBMC']];
+			$mainCode = Share::codeValue($codes,$info);
+			$dataJson [] = array_merge($info,$mainCode);
+		}
+		
+		@ini_set('memory_limit', '2048M');
+		set_time_limit(0);
+		error_reporting(E_ALL);
+		date_default_timezone_set('PRC');
+		$fileName = $fileTitle.date('Y-m-d',time()).time();
+		$excelInfo = Share::getKeyInfo('flow4_step3_mb');
+		
+		$objPHPExcel = \PHPExcel_IOFactory::createReader("Excel5")->load($excelInfo['tempExcel']);
+		$objPHPExcel->setActiveSheetIndex(0);
+		$objPHPExcel->getActiveSheet()->setTitle($excelInfo['keys'][0]['sheetName']);
+		$objPHPExcel->setActiveSheetIndex(0)->setCellValue('A1', $fileTitle);
+		
+		$index = 0;
+		foreach($excelInfo['keys'] as $v){
+			$objPHPExcel -> getSheet($v['index']) -> setTitle($v['sheetName']);
+			$dataInfos = $dataJson;
+			$num = $v['num'];
+			$keys = $v['key'];
+			foreach($dataInfos as $info){
+				$column = count($keys);
+				$temp = 0;
+				for($n = 0; $n < $column; $n++){
+					if($temp == $column){
+						break;
+					}else{
+						$pcoordinate = \PHPExcel_Cell::stringFromColumnIndex($n).''.$num;
+						if($keys[$temp] == 'id'){
+							$objPHPExcel->setActiveSheetIndex($v['index'])->setCellValue($pcoordinate,  ($num-2) );
+						}else{
+							$objPHPExcel->setActiveSheetIndex($v['index'])->setCellValue($pcoordinate, ' ' . $info[$keys[$temp]] . ' ');
+						}
+			            $temp++;
+					}
+					//$objPHPExcel->getActiveSheet(0)->getStyle($pcoordinate)->applyFromArray(Share::ExcelStyleArrayInfoSet(3));
+				}
+				$num++;
+			}
+			$index++;
+		}
 
+		ob_end_clean();
+		$fileName = iconv("utf-8","gb2312",$fileName);
+		header ( 'Content-Type: application/vnd.ms-excel' );
+		header ( 'Content-Disposition: attachment;filename="'.$fileName.'.xls"'); 
+		header ( 'Cache-Control: max-age=0' );
+		$objWriter = \PHPExcel_IOFactory::createWriter ($objPHPExcel,'Excel5'); 
+		$objWriter->save ( 'php://output' );
+		exit;
+	}
 
+	public function actionExaminerExportStep3(){
+		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+		$request = Yii::$app->request;
+		$recID = $request->get('recID');
+		
+		$dataInfos = Setgroup::find()->where(['recID'=>$recID,'gstType'=>1])->orderby('gstItvStartTime asc,gstGroup asc')->asArray()->all();
+		
+		$tempData = [];
+		if(!empty($dataInfos)){
+			$index = 0;
+			foreach($dataInfos as $info){
+				$codes = [['gstGroup','ZBMC']];
+				$mainCode = Share::codeValue($codes,$info);
+				
+				$infoData = Yii::$app->db->createCommand('select examiner.exmName from gstexm left join examiner  on examiner.exmID=gstexm.exmID where gstexm.gstID=:gstID and gstexm.recID=:recID')
+								           ->bindValue(':gstID', $info['gstID'])
+								           ->bindValue(':recID', $recID)
+								           ->queryAll();
+				
+				$str = "";
+				if(!empty($infoData)){
+					$count_num = count($infoData); 
+					for($i = 0 ; $i < $count_num ; $i++){
+						if($i == $count_num - 1){
+							$str .=$infoData[$i]['exmName'];
+						}else{
+							$str .=$infoData[$i]['exmName']."、";
+						}
+					}
+				}	
+				$tempData[$index]['id'] = $info['gstID'];
+				$tempData[$index]['gstStartEnd'] = $info['gstStartEnd'];
+				$tempData[$index]['gstGroup'] = $mainCode['gstGroup'];
+				$tempData[$index]['gstItvPlace'] = $info['gstItvPlace'];
+				$tempData[$index]['exmNames'] = $str;
+				$index++;			
+			}
+			Share::exportCommonExcel(['sheet0'=>['data'=>$tempData],'key'=>'flow4_step3_export','fileInfo'=>['fileName'=>'考官分组安排表']]);
+		}
+	}
 
+	public function actionExaminerSendmsgList(){
+		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+		$request = Yii::$app->request;
+		$recID = $request->get('recID');
+		
+		$infos = (new \yii\db\Query())
+    				->select("gstexm.exmID,examiner.exmName,examiner.exmType,examiner.exmAttr,examiner.exmPhone")
+    				->from('gstexm')
+					->leftJoin('examiner', 'examiner.exmID = gstexm.exmID')
+					->where(['gstexm.recID'=>$recID])
+					->groupBy(['gstexm.exmID'])
+					->orderBy('examiner.exmAttr')
+					->all();
+		$index = 0;
+		foreach($infos as $info){
+			$codes = [['exmType','KGLB'],['exmAttr','KGSX']];
+			$mainCode = Share::codeValue($codes,$info);
+			
+			$infoData = (new \yii\db\Query())
+	    				->select("setgroup.gstStartEnd,setgroup.gstGroup,setgroup.gstItvPlace")
+	    				->from('gstexm')
+						->leftJoin('setgroup', 'setgroup.gstID = gstexm.gstID')
+						->where(['gstexm.recID'=>$recID,'gstexm.exmID'=>$info['exmID']])
+						->orderBy('setgroup.gstStartEnd')
+						->all();
+			
+			
+			
+			$str = "";
+			if(!empty($infoData)){
+				foreach($infoData as $df){
+					$code_temp = [['gstGroup','ZBMC']];
+					$codes_info = Share::codeValue($code_temp,$df);
+					$str .= '【考试组别：'.$codes_info['gstGroup'].'、考试时间：'.$df['gstStartEnd'].'、考试地点：'.$df['gstItvPlace'].'】';
+				}
+			}	
+			$tempData[$index]['exmID'] = $info['exmID'];
+			$tempData[$index]['exmName'] = $info['exmName'];
+			$tempData[$index]['exmType'] = $mainCode['exmType'];
+			$tempData[$index]['exmAttr'] = $mainCode['exmAttr'];
+			$tempData[$index]['exmPhone'] = $info['exmPhone'];
+			$tempData[$index]['exmContent'] = $str;
+			$index++;
+		}
+		return ['rows'=>$tempData];
+	}
 
-
-
-
+	public function actionExaminerSendmsgDo(){
+		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+		$request = Yii::$app->request;
+		$phones = $request->post('exmPhones');
+		$exmContents = $request->post('exmContents');
+		$content = $request->post('content');
+		
+		$juheKey = Yii::$app->params['juhe_key'];//您申请的APPKEY
+		$tpl_id = Yii::$app->params['juhe_tpl_id'];//您申请的短信模板ID，根据实际情况修改
+		$tpl_value = '#content#='.$content;//您设置的模板变量，根据实际情况修改
+		
+		$len = count($phones);
+		$flag = 0;
+		$msg_error = '失败发送：<br/>';
+		$msg_success = '发送成功：<br/>';
+		$_msg_success_temp = '发送成功：<br/>';
+		for($i = 0; $i < $len ; $i++){
+			$smsConf = [
+			    'key'   => $juheKey, 
+			    'mobile'    => $phones[$i], 
+			    'tpl_id'    => $tpl_id, 
+			    'tpl_value' =>$tpl_value.'@@@'.$exmContents[$i] 
+			];
+			$responseContent = Share::juhecurl($smsConf,1); //请求发送短信
+			if($responseContent){
+				$result = json_decode($responseContent,true);
+    			$error_code = $result['error_code'];
+				if($error_code != 0){
+					$flag++;
+					$msg_error .= "手机号码=".$phones[$i]."；失败原因：". $result['reason']."<br/>";
+				}else{
+					$msg_success .= "手机号码=".$phones[$i]."<br/>";
+				}
+			}else{
+				$msg_error .= "手机号码=".$phones[$i]."；失败原因：请求失败<br/>";
+				$flag++;
+			}
+		}
+		if($flag){
+			$msg = "";
+			if($_msg_success_temp == $msg_success){
+				$msg = $msg_error;
+			}else{
+				$msg = $msg_error.'<br/>'.$msg_success;
+			}
+			return ['result'=>0,'msg'=>$msg];
+		}else{
+			return ['result'=>1,'msg'=>'发送成功'];
+		}
+	}
 }
