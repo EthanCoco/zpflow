@@ -5,6 +5,7 @@
 var __flow4_step3_title_info__ = {};
 var __flow4_step3_total_flag__ = "0";
 var __flow4_step3_msg_content__ = "";
+var __flow4_step3_single_gstID__ = "";
 $(function(){
 	init_flow4_step3_datagrid();
 });
@@ -30,7 +31,7 @@ function init_flow4_step3_datagrid(){
         	{width:'40%',field:'exmNames',title:'选择考官',align:'left'},
         ]],
         onClickRow:function(index,row){
-			flowThreeSingleID = row;
+			__flow4_step3_single_gstID__ = row.gstID;
         },
         onLoadSuccess: function(data){
         	mergeCellsByField("flow4_step3_datagrid", "gstStartEnd", 0);
@@ -55,6 +56,20 @@ function init_flow4_step3_datagrid(){
 					   	handler:function(){
 					   		layui.use('layer',function(){
 					   			var layer = layui.layer;
+					   			if(__flow4_step3_single_gstID__ == ""){
+					   				return layer.alert("请选择考官分配的组别");
+					   			}
+					   			layer.open({
+							  		type:2,
+							  		title:'分配考官',
+							  		area:[$(window).width()*3/4+"px",'520px'],
+							  		content:"<?= yii\helpers\Url::to(['exam/assign-exam-step3']); ?>"+"&recID="+__flow4_recID__+"&gstID="+__flow4_step3_single_gstID__,
+							  		btn2:function(){
+							  			layer.close(layer.getFrameIndex(window.name));
+							  		}
+							    });
+					   			
+					   			
 					   		});
 					   	}
 				   	},'-',{

@@ -85,8 +85,6 @@ function selRecruitID(th){
 	__flow4_defaultplace__ = $("#recID_id option:selected").attr("defaultplace");
 	loadFlow4Info(1);
 }
-
-
 </script>
 
 
