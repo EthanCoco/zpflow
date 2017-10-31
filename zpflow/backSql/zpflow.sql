@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2017-10-29 22:20:02
+Date: 2017-11-01 00:22:19
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -1799,7 +1799,7 @@ CREATE TABLE `examiner` (
   `exmAttr` int(1) DEFAULT NULL COMMENT '考官属性（1=公务员局考官，2=其他考官）',
   `exmTime` varchar(20) DEFAULT NULL COMMENT '到岗时间',
   PRIMARY KEY (`exmID`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of examiner
@@ -1808,6 +1808,30 @@ INSERT INTO `examiner` VALUES ('3', '1', '杨明', '2', '浙江大学', '大学�
 INSERT INTO `examiner` VALUES ('4', '1', '李生', '1', '浙江大学', '院长', '12525362362', '00100AXC', '1', '');
 INSERT INTO `examiner` VALUES ('5', '1', '刘尚', '3', '上海公务员局', '招生部长', '15265869652', '001002AHY', '2', '2017-10-31');
 INSERT INTO `examiner` VALUES ('6', '1', '程海', '1', '上海公务员局', '人事部长', '13285716129', '001002ASD', '1', '2017-10-31');
+INSERT INTO `examiner` VALUES ('7', '1', 'sdd', '1', 'ddd', 'ddd', '12525362523', 'ddddd', '1', '');
+INSERT INTO `examiner` VALUES ('8', '1', 'ddd', '1', 'dddd', 'dddd', '15269563521', 'dddd', '2', '');
+INSERT INTO `examiner` VALUES ('9', '1', 'dssa', '1', 'aa', 'aaa', '15896584574', 'dds', '1', '');
+INSERT INTO `examiner` VALUES ('10', '1', 'sddd', '1', '555', '555', '15248796666', 'www', '2', '');
+INSERT INTO `examiner` VALUES ('11', '1', 'ewewe', '1', '555', '555', '15248796666', 'www', '2', '');
+INSERT INTO `examiner` VALUES ('12', '1', 'sddddsd', '1', '555', '555', '15248796666', 'www', '2', '');
+INSERT INTO `examiner` VALUES ('13', '1', 'sas', '1', '555', '555', '15248796666', 'www', '2', '');
+INSERT INTO `examiner` VALUES ('14', '1', 'sddd颠三倒四多', '1', '555', '555', '15248796666', 'www', '2', '');
+INSERT INTO `examiner` VALUES ('15', '1', '飒飒啊', '1', '555', '555', '15248796666', 'www', '2', '');
+INSERT INTO `examiner` VALUES ('16', '1', 'daas', '1', '555', '555', '15248796666', 'www', '2', '');
+INSERT INTO `examiner` VALUES ('17', '1', 'ccc', '1', '555', '555', '15248796666', 'www', '2', '');
+INSERT INTO `examiner` VALUES ('18', '1', 'qqq', '1', '555', '555', '15248796666', 'www', '2', '');
+INSERT INTO `examiner` VALUES ('19', '1', 'aaaaaa', '1', '555', '555', '15248796666', 'www', '2', '');
+INSERT INTO `examiner` VALUES ('20', '1', '信息中心', '1', '555', '555', '15248796666', 'www', '2', '');
+INSERT INTO `examiner` VALUES ('21', '1', '不不不', '1', '555', '555', '15248796666', 'www', '2', '');
+INSERT INTO `examiner` VALUES ('22', '1', 'xzxzxzx', '1', '555', '555', '15248796666', 'www', '2', '');
+INSERT INTO `examiner` VALUES ('23', '1', 'ccccc', '1', '555', '555', '15248796666', 'www', '2', '');
+INSERT INTO `examiner` VALUES ('24', '1', '不不不小程序', '1', '555', '555', '15248796666', 'www', '2', '');
+INSERT INTO `examiner` VALUES ('25', '1', 'cxcxcxcxcxc', '1', '555', '555', '15248796666', 'www', '2', '');
+INSERT INTO `examiner` VALUES ('26', '1', 'xzxzxz', '1', '555', '555', '15248796666', 'www', '2', '');
+INSERT INTO `examiner` VALUES ('27', '1', '快快快', '1', '555', '555', '15248796666', 'www', '2', '');
+INSERT INTO `examiner` VALUES ('28', '1', 'ppp', '1', '555', '555', '15248796666', 'www', '2', '');
+INSERT INTO `examiner` VALUES ('29', '1', '发发发', '1', '555', '555', '15248796666', 'www', '2', '');
+INSERT INTO `examiner` VALUES ('30', '1', 'nnn', '1', '555', '555', '15248796666', 'www', '2', '');
 
 -- ----------------------------
 -- Table structure for famset
