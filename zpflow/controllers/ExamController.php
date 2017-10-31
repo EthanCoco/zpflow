@@ -38,4 +38,11 @@ class ExamController extends BaseController{
 		return $this->renderPartial('step3/sendmsg',['recID'=>$recID]);
 	}
 	
+	public function actionAssignExamStep3(){
+		$request = Yii::$app->request;
+		$recID = $request->get('recID');
+		$gstID = $request->get('gstID');
+		return $this->renderPartial('step3/assign-examiner',['recID'=>$recID,'gstID'=>$gstID]);
+	}
+	
 }

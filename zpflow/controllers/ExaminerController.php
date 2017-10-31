@@ -606,4 +606,165 @@ class ExaminerController extends BaseController{
 			return ['result'=>1,'msg'=>'发送成功'];
 		}
 	}
+	
+	public function actionExaminerTreeList(){
+		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+		$request = Yii::$app->request;
+		
+		$recID = $request->get('recID');
+		$gstID = $request->get('gstID');
+		
+		$result = [];
+		$resultInfo = [];
+		
+		$examiner_all = Examiner::find()->where(['recID'=>$recID])->asArray()->count();
+		$examiner_type1 = Examiner::find()->where(['recID'=>$recID,'exmType'=>1])->asArray()->count();
+		$examiner_type2 = Examiner::find()->where(['recID'=>$recID,'exmType'=>1])->asArray()->count();
+		$examiner_type3 = Examiner::find()->where(['recID'=>$recID,'exmType'=>3])->asArray()->count();
+		
+		$type_info1 = Examiner::find()->where(['recID'=>$recID,'exmType'=>1])->asArray()->all();
+		$type_info2 = Examiner::find()->where(['recID'=>$recID,'exmType'=>2])->asArray()->all();
+		$type_info3 = Examiner::find()->where(['recID'=>$recID,'exmType'=>3])->asArray()->all();
+		
+		$group_info = Gstexm::find()->where(['recID'=>$recID,'gstID'=>$gstID])->asArray()->all();
+		$result['group_info'] = $group_info;
+		
+		foreach($type_info1 as $data){//主考官
+			$str1 = "";
+			$infos1 = (new \yii\db\Query())
+    				->select("code.codeName")
+    				->from('gstexm')
+					->leftJoin('setgroup', 'setgroup.gstID = gstexm.gstID')
+					->leftJoin('code', "code.codeID = setgroup.gstGroup and code.codeTypeID = 'ZBMC' ")
+					->where(['gstexm.recID'=>$recID,'gstexm.exmID'=>$data['exmID']])
+					->all();
+			if(!empty($infos1)){
+				$len1 = count($infos1);
+				for($i = 0 ; $i < $len1 ; $i++){
+					if($i == $len1 - 1){
+						$str1 .= $infos1[$i]['codeName'];
+					}else{
+						$str1 .= $infos1[$i]['codeName']."、";
+					}
+				}
+			}else{
+				$str1 = "未安排";
+			}
+			
+			$resultInfo[] = [
+				'id'=>$data['exmID'],
+				'name'=>$data['exmName']."（".$str1."）",
+				'pId'=>'-2',
+				'isChild'=>1,
+				'type'=>1
+			];
+		}
+		
+		foreach($type_info2 as $data){//其他考官
+			$str2 = "";
+			$infos2 = (new \yii\db\Query())
+    				->select("code.codeName")
+    				->from('gstexm')
+					->leftJoin('setgroup', 'setgroup.gstID = gstexm.gstID')
+					->leftJoin('code', "code.codeID = setgroup.gstGroup and code.codeTypeID = 'ZBMC' ")
+					->where(['gstexm.recID'=>$recID,'gstexm.exmID'=>$data['exmID']])
+					->all();
+			if(!empty($infos2)){
+				$len2 = count($infos2);
+				for($i = 0 ; $i < $len2 ; $i++){
+					if($i == $len2 - 1){
+						$str2 .= $infos2[$i]['codeName'];
+					}else{
+						$str2 .= $infos2[$i]['codeName']."、";
+					}
+				}
+			}else{
+				$str2 = "未安排";
+			}
+			
+			$resultInfo[] = [
+				'id'=>$data['exmID'],
+				'name'=>$data['exmName']."（".$str2."）",
+				'pId'=>'-3',
+				'isChild'=>1,
+				'type'=>1
+			];
+		}
+		
+		foreach($type_info3 as $data){//监督员
+			$str3 = "";
+			$infos3 = (new \yii\db\Query())
+    				->select("code.codeName")
+    				->from('gstexm')
+					->leftJoin('setgroup', 'setgroup.gstID = gstexm.gstID')
+					->leftJoin('code', "code.codeID = setgroup.gstGroup and code.codeTypeID = 'ZBMC' ")
+					->where(['gstexm.recID'=>$recID,'gstexm.exmID'=>$data['exmID']])
+					->all();
+			if(!empty($infos3)){
+				$len3 = count($infos3);
+				for($i = 0 ; $i < $len3 ; $i++){
+					if($i == $len3 - 1){
+						$str3 .= $infos3[$i]['codeName'];
+					}else{
+						$str3 .= $infos3[$i]['codeName']."、";
+					}
+				}
+			}else{
+				$str3 = "未安排";
+			}
+			
+			$resultInfo[] = [
+				'id'=>$data['exmID'],
+				'name'=>$data['exmName']."（".$str3."）",
+				'pId'=>'-4',
+				'isChild'=>1,
+				'type'=>1
+			];
+		}
+
+        $resultInfo[] = ["id" => "-1", "name" => '考官总数（'.$examiner_all.'）', "pId" => "-1", "isParent" => "true", 'isChild'=>0,"type" => "-1"];
+		$resultInfo[] = ["id" => "-2", "name" => '主考官（'.$examiner_type1.'）', "pId" => "-1", "isParent" => "true", 'isChild'=>0,"type" => "-2"];
+		$resultInfo[] = ["id" => "-3", "name" => '其他考官（'.$examiner_type2.'）', "pId" => "-1", "isParent" => "true", 'isChild'=>0,"type" => "-3"];
+		$resultInfo[] = ["id" => "-4", "name" => '监督员（'.$examiner_type3.'）', "pId" => "-1", "isParent" => "true", 'isChild'=>0,"type" => "-4"];
+        $result['treeInfo'] = $resultInfo;
+        return $result;
+	}
+	
+	public function actionExaminerChooseList(){
+		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+		$request = Yii::$app->request;
+		
+		$recID = $request->get('recID');
+		$gstID = $request->get('gstID');
+		
+//		$result = [];
+//		$sql = "SELECT t.id,d.codeName zb,e.kgName,e.kgType FROM t_kgzb t 
+//		
+//		LEFT JOIN t_interviewstyle c ON c.id = t.zbid 
+//		LEFT JOIN t_code d ON d.codeID = c.itvStyle AND d.codeTypeID = 'ZBMC' 
+//		LEFT JOIN t_kginfo e ON e.id = t.kgid WHERE t.recruitSetID ='".$recruitSetID."' AND t.zbid = '".$zbid."' ";
+//		
+//		$db = Yii::$app->db;
+//		$command = $db->createCommand($sql);
+//		$rows = $command->queryAll();
+		$rows = (new \yii\db\Query())
+    				->select("gstexm.gstexmID,code.codeName,examiner.exmName,examiner.exmType")
+    				->from('gstexm')
+					->leftJoin('setgroup', 'setgroup.gstID = gstexm.gstID')
+					->leftJoin('code', "code.codeID = setgroup.gstGroup and code.codeTypeID = 'ZBMC' ")
+					->leftJoin('examiner', 'examiner.exmID = gstexm.exmID')
+					->where(['gstexm.recID'=>$recID,'gstexm.gstID'=>$gstID])
+					->all();
+		
+		
+		
+		$total = Gstexm::find()->where(['recID'=>$recID,'gstID'=>$gstID])->asArray()->count();
+		
+		$result['rows'] = $rows;
+		$result['total'] = $total;
+		
+        return $result;
+	}
+
+
 }
