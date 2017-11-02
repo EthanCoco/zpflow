@@ -8,10 +8,7 @@ use app\models\Announce;
 use app\models\Share;
 
 class AnnounceController extends BaseController{
-	public $enableCsrfValidation = false;
-	
 	public function actionListInfo(){
-		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 		$request = Yii::$app->request;
 		
 		$recID = $request->post('recID');
@@ -23,45 +20,34 @@ class AnnounceController extends BaseController{
 		
 		$listInfos = Announce::getListInfo($offset,$rows,['recID'=>$recID,'ancType'=>$ancType],"ancStatus desc,ancTime desc");
 		
-		return $listInfos;
+		return $this->jsonReturn($listInfos);
 	}
 	
 	public function actionPubAnnounce(){
-		date_default_timezone_set('PRC');
-		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-		$ancID = Yii::$app->request->post('ancID');
-		$ancStatus = intval(Yii::$app->request->post('ancStatus'));
+		$request = Yii::$app->request;
+		$ancID = $request->post('ancID');
+		$ancStatus = intval($request->post('ancStatus'));
+		
+		$data['ancStatus'] = $ancStatus;
 		if($ancStatus){
-			$anc = Announce::findOne($ancID);
-			$anc->ancStatus = $ancStatus;
-			$anc->ancTime = date('Y-m-d H:i:s',time());
-			$anc->ancPubUid = Yii::$app->user->identity->uid;
-			if($anc->save()){
-				return ['result'=>1,'msg'=>'发布成功'];
-			}else{
-				return ['result'=>0,'msg'=>'发布失败'];
-			}
+			$data['ancTime'] = date('Y-m-d H:i:s',time());
+			$data['ancPubUid'] = Yii::$app->user->identity->uid;
 		}else{
-			$anc = Announce::findOne($ancID);
-			$anc->ancStatus = $ancStatus;
-			$anc->ancTime = null;
-			$anc->ancPubUid = null;
-			if($anc->save()){
-				return ['result'=>1,'msg'=>'取消发布成功'];
-			}else{
-				return ['result'=>0,'msg'=>'取消发布失败'];
-			}
+			$data['ancTime'] = null;
+			$data['ancPubUid'] = null;
 		}
+		
+		return $this->jsonReturn(Announce::updateData($data,['ancID'=>$ancID],$ancStatus));
 	}
 	
 	public function actionDelAnnounce(){
-		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 		$ancIDs = Yii::$app->request->post('ancIDs');
 		if(Announce::deleteAll(['ancID'=>$ancIDs])){
-			return ['result'=>1,'msg'=>'删除成功'];
+			$result = ['result'=>1,'msg'=>'删除成功'];
 		}else{
-			return ['result'=>0,'msg'=>'删除失败'];
+			$result = ['result'=>0,'msg'=>'删除失败'];
 		}
+		return $this->jsonReturn($result);
 	}
 	
 	public function actionRepair(){
@@ -73,47 +59,38 @@ class AnnounceController extends BaseController{
 	}
 	
 	public function	actionRepairDo(){
-		date_default_timezone_set('PRC');
-		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 		$request = Yii::$app->request;
 		$ancStatus = intval($request->post('ancStatus'));
 		$ancID = $request->post('ancID');
 		$ancName = $request->post('ancName');
 		$ancInfo = $request->post('ancInfo');
 		$ancType = $request->post('ancType');
+		$recID = $request->post('recID');
 		
-		if($ancID == ""){
-			$anc = new Announce();
-		}else{
-			$anc = Announce::findOne($ancID);
-		}
-		$anc->recID = $request->post('recID');
-		$anc->ancName = $ancName;
-		$anc->ancInfo = $ancInfo;
-		$anc->ancStatus = $ancStatus;
-		$anc->ancType = $ancType;
+		$data['recID'] = $recID;
+		$data['ancName'] = $ancName;
+		$data['ancInfo'] = $ancInfo;
+		$data['ancStatus'] = $ancStatus;
+		$data['ancType'] = $ancType;
+		
 		if($ancStatus){
-			$anc->ancPubUid = Yii::$app->user->identity->uid;
-			$anc->ancTime = date('Y-m-d H:i:s',time());
-			if($anc->save()){
-				return ['result'=>1,'msg'=>'发布成功'];
-			}else{
-				return ['result'=>0,'msg'=>'发布失败'];
-			}
-		}else{
-			if($anc->save()){
-				return ['result'=>1,'msg'=>'保存成功'];
-			}else{
-				return ['result'=>0,'msg'=>'保存失败'];
-			}
+			$data['ancPubUid'] = Yii::$app->user->identity->uid;
+			$data['ancTime'] = date('Y-m-d H:i:s',time());
 		}
+		
+		if($ancID){
+			$result = Announce::updateData($data,['ancID'=>$ancID],$ancStatus);
+		}else{
+			$result = Announce::insertData($data);
+		}
+
+		return $this->jsonReturn($result);
 	}
 	
 	public function actionGetAnnounce(){
-		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 		$ancID = Yii::$app->request->post('ancID');
 		$info = Announce::findOne($ancID);
-		return $info;
+		return $this->jsonReturn($info);
 	}
 	
 	public function actionViewAnnounce(){
