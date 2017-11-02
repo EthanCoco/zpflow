@@ -23,21 +23,10 @@ class RecruitController extends BaseController{
 		
 		$infos = $listInfos['rows'];
 		$jsonData = [];
+		$codes = [['recBatch','PC']];
 		foreach($infos as $info){
-			$codes = [['recBatch','PC']];
 			$codeName = Share::codeValue($codes,$info);
 			$jsonData [] = array_merge($info,$codeName);
-//			$jsonData[] = [
-//				'recID'			=>	$info['recID'],
-//				'recYear'		=>	$info['recYear'],
-//				'recBatch'		=>	$codeName['recBatch'],
-//				'recDefault'	=>	$info['recDefault'],
-//				'recStart'		=>	$info['recStart'],
-//				'recEnd'		=>	$info['recEnd'],
-//				'recViewPlace'	=>	$info['recViewPlace'],
-//				'recHealthPlace'=>	$info['recHealthPlace'],
-//				'recBack'		=>	$info['recBack'],
-//			];
 		}
 		
 		return ['rows'=>$jsonData,'total'=>$listInfos['total']];
@@ -63,17 +52,10 @@ class RecruitController extends BaseController{
 		}
 		if($model->load($request->post()) && $model->validate()){
 			$data = $request->post()['Recruit'];
-			$model->recYear = $data['recYear'];
-			$model->recBatch = $data['recBatch'];
-			$model->recStart = $data['recStart'];
-			$model->recEnd = $data['recEnd'];
-			$model->recViewPlace = $data['recViewPlace'];
-			$model->recHealthPlace = $data['recHealthPlace'];
-			
-			if($model->save()){
-				return ['result'=>1,'msg'=>'保存成功'];
+			if($recID == ""){
+				return Recruit::insertData($data);
 			}else{
-				return ['result'=>0,'msg'=>'保存失败'];
+				return Recruit::updateData($data,['recID'=>$recID]);
 			}
 		}else{
 			$errors = $model->getFirstErrors();
@@ -95,8 +77,6 @@ class RecruitController extends BaseController{
 			$transaction = $db->beginTransaction();	
 			try{
 				$db->createCommand()->update(Recruit::tableName(),['recDefault'=>1],['recID'=>$recID])->execute();
-				//TODO	创建后续业务流程相关表
-				//$createBusTableSql = Share::CreateBusTable($recID);
 				$db->createCommand(Share::CreateBusTable($recID))->execute();
 				$transaction->commit();
 				return ['result'=>1,'msg'=>'发布成功'];
@@ -104,13 +84,6 @@ class RecruitController extends BaseController{
 			    $transaction->rollBack();
 			    return ['result'=>0,'msg'=>'发布失败'];
 			}
-//			$rec = Recruit::findOne($recID);
-//			$rec->recDefault = 1;
-//			if($rec->save()){
-//				return ['result'=>1,'msg'=>'发布成功'];
-//			}else{
-//				return ['result'=>0,'msg'=>'发布失败'];
-//			}
 		}elseif($info['recEnd'] > date('Y-m-d H:i:s',time())){
 			return ['result'=>0,'msg'=>'存在招聘年度正在进行中，还未结束，如要发布，请等进行中招聘结束'];
 		}elseif($info['recEnd'] < date('Y-m-d H:i:s',time())){
@@ -127,20 +100,6 @@ class RecruitController extends BaseController{
 				$transaction->rollBack();
 				return ['result'=>0,'msg'=>'发布失败'];
 			}
-//			$rec = Recruit::findOne($info['recID']);
-//			$rec->recDefault = 2;
-//			$rec->recBack = 1;
-//			$rec->save();
-//			
-//			Announce::updateAll(['ancStatus'=>2],['recID'=>$info['recID']]);
-//			
-//			$rec1 = Recruit::findOne($recID);
-//			$rec1->recDefault = 1;
-//			if($rec1->save()){
-//				return ['result'=>1,'msg'=>'发布成功'];
-//			}else{
-//				return ['result'=>0,'msg'=>'发布失败'];
-//			}
 		}
 	}
 	
