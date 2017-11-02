@@ -8,8 +8,6 @@ use app\models\Share;
 use app\models\Qumextra;
 
 class QuaexamController extends BaseController{
-	public $enableCsrfValidation = false;
-	
 	public function actionListInfo(){
 		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 		$request = Yii::$app->request;
@@ -86,19 +84,17 @@ class QuaexamController extends BaseController{
 		$noPubInfo = (new yii\db\Query())->from($tableName)->where(['perPub'=>0])->count();
 		$pubInfo = (new yii\db\Query())->from($tableName)->where(['perPub'=>1])->count();
 		
-		return [
-				'rows'=>$infos,
-				'total'=>$count,
-				'tabInfo'=>$tabJson,
-				'exportInfo'=>['condition'=>$condition],
-				'btnOperate'=>['isInfos'=>$isInfos],
-				'headerInfo'=>['pub'=>$pubInfo,'nopub'=>$noPubInfo]
-			];
+		return $this->jsonReturn([
+									'rows'=>$infos,
+									'total'=>$count,
+									'tabInfo'=>$tabJson,
+									'exportInfo'=>['condition'=>$condition],
+									'btnOperate'=>['isInfos'=>$isInfos],
+									'headerInfo'=>['pub'=>$pubInfo,'nopub'=>$noPubInfo]
+								]);
 	}
 
 	public function actionStatusQuaexam(){
-		date_default_timezone_set('PRC');
-		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 		$db = Yii::$app->db->createCommand();
 		$request = Yii::$app->request;
 		
@@ -134,10 +130,11 @@ class QuaexamController extends BaseController{
 		}
 		
 		if($flag !== false){
-			return ['result'=>1,'msg'=>$msg.'处理成功'];
+			$result = ['result'=>1,'msg'=>$msg.'处理成功'];
 		}else{
-			return ['result'=>0,'msg'=>$msg.'处理失败'];
+			$result = ['result'=>0,'msg'=>$msg.'处理失败'];
 		}
+		return $this->jsonReturn($result);
 	}
 	
 	public function actionPerdetlQuaexam(){
@@ -222,7 +219,6 @@ class QuaexamController extends BaseController{
 	}
 	
 	public function actionExportQuaexam(){
-		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 		$request = Yii::$app->request;
 		$conditionEN = $request->post('condition');
 		$type = $request->post('type');
@@ -339,7 +335,6 @@ class QuaexamController extends BaseController{
 	}
 	
 	public function actionSaveExtraQuaexam(){
-		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 		$request = Yii::$app->request;
 		$recID = $request->post('recID');
 		$qraPassType = $request->post('qraPassType');
@@ -355,23 +350,22 @@ class QuaexamController extends BaseController{
 		$qumextra->qraNoPassType = $qraNoPassType;
 		$qumextra->qraNoPassMsg = $qraNoPassMsg;
 		if($qumextra->insert()){
-			return ['result'=>1,'msg'=>'设置成功'];
+			$result =  ['result'=>1,'msg'=>'设置成功'];
 		}else{
-			return ['result'=>0,'msg'=>'设置失败'];
+			$result =  ['result'=>0,'msg'=>'设置失败'];
 		}
+		return $this->jsonReturn($result);
 	}
 	
 	public function actionPubckQuaexam(){
-		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 		$request = Yii::$app->request;
 		$recID = $request->post('recID');
 		$tableName = Share::MainTableName($recID);
 		$flag = (new yii\db\Query())->from($tableName)->where(['perStatus'=>1])->count();
-		return ['result'=>$flag];
+		return $this->jsonReturn(['result'=>$flag]);
 	}
 	
 	public function actionPerpubQuaexam(){
-		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 		$request = Yii::$app->request;
 		$recID = $request->post('recID');
 		$type = intval($request->post('type'));
@@ -391,14 +385,14 @@ class QuaexamController extends BaseController{
 		}
 		
 		if($flag !== false){
-			return ['result'=>1,'msg'=>$msg[$type].'成功'];
+			$result = ['result'=>1,'msg'=>$msg[$type].'成功'];
 		}else{
-			return ['result'=>0,'msg'=>$msg[$type].'失败'];
+			$result = ['result'=>0,'msg'=>$msg[$type].'失败'];
 		}
+		return $this->jsonReturn($result);
 	}
 	
 	public function actionPerprintQuaexam(){
-		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 		$request = Yii::$app->request;
 		$type = $request->get('type');
 		$recID = $request->get('recID');
@@ -868,7 +862,6 @@ class QuaexamController extends BaseController{
 	}
 	
 	public function actionSendInfoQuaexam(){
-		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 		$request = Yii::$app->request;
 		$recID = $request->get('recID');
 		$type = $request->get('type');
@@ -898,11 +891,10 @@ class QuaexamController extends BaseController{
 										->where($condition)
 										->orderby('perIndex asc')
 										->all();
-		return ['rows'=>$infos];
+		return $this->jsonReturn(['rows'=>$infos]);
 	}
 	
 	public function actionSendDoQuaexam(){
-		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 		$perPhones = Yii::$app->request->get('perPhones');
 		$content = Yii::$app->request->get('content');
 		
@@ -945,9 +937,10 @@ class QuaexamController extends BaseController{
 			}else{
 				$msg = $msg_error.'<br/>'.$msg_success;
 			}
-			return ['result'=>0,'msg'=>$msg];
+			$result = ['result'=>0,'msg'=>$msg];
 		}else{
-			return ['result'=>1,'msg'=>'发送成功'];
+			$result = ['result'=>1,'msg'=>'发送成功'];
 		}
+		return $this->jsonReturn($result);
 	}
 }
