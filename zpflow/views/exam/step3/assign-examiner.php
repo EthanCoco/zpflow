@@ -54,8 +54,8 @@ $this->title = '';
   	<p style="height: 40px;text-align: left;line-height: 40px;border-bottom: solid 1px #40AFFE; color:#6DBFFF;"><span>&nbsp;&nbsp;&nbsp;&nbsp;考官总数：所有/已安排/未安排：</span><span id="examiner_info"></span></p>
 	<div class="ztree" id='examiner_info_tree' style="overflow: auto;position: absolute;left: 0px;bottom: 30px;top: 40px;width: 290px;"></div>
 	<div style="text-align: center;vertical-align: middle;position: absolute;bottom: 0px;left:0px;width: 300px;border-top:solid 1px #6DBFFF;">
-	    <button class="layui-btn layui-btn-normal layui-btn-small" style="line-height: 15px;">选择</button>
-	    <button class="layui-btn layui-btn-normal layui-btn-primary layui-btn-small" style="line-height: 15px;">重置</button>
+	    <button onclick="flow4_step3_choose_examiner()" class="layui-btn layui-btn-normal layui-btn-small" style="line-height: 15px;">选择</button>
+	    <button onclick="load_flow4_step3_tree()" class="layui-btn layui-btn-normal layui-btn-primary layui-btn-small" style="line-height: 15px;">重置</button>
 	</div>
 </div>
   
@@ -65,8 +65,8 @@ $this->title = '';
     	
     </div>
     <div style="text-align: center;vertical-align: middle;position: absolute;bottom: 0px;left:0px;width: 100%;border-top:solid 1px #6DBFFF;">
-	    <button class="layui-btn layui-btn-normal layui-btn-small" style="line-height: 15px;">确定</button>
-	    <button class="layui-btn layui-btn-normal layui-btn-primary layui-btn-small" style="line-height: 15px;">删除</button>
+	    <!--<button onclick="flow4_step3_sure()" class="layui-btn layui-btn-normal layui-btn-small" style="line-height: 15px;">确定</button>-->
+	    <button onclick="flow4_step3_delete_examiner()" class="layui-btn layui-btn-normal layui-btn-small" style="line-height: 15px;">删除</button>
 	</div>
 </div>
 <?php $this->endBody() ?>
@@ -150,6 +150,88 @@ function flow4_step3__assign_examiner_choose_list() {
         	$("#examiner_choose").html(data.total);
 	    }
     });
+}
+
+function flow4_step3_choose_examiner(){
+	layui.use('layer',function(){
+		var layer = layui.layer;
+		var zTree = $.fn.zTree.getZTreeObj("examiner_info_tree");
+		var nodes = zTree.getCheckedNodes(true);
+		if(nodes.length == 0){
+			parent.layer.alert("请选择要安排的考官！");
+			return;
+		}
+		var exmID_info = [];
+		if(nodes.length > 0){
+			for(var i=0; i<nodes.length; i++){
+				if(nodes[i]['isChild'] == "1"){
+					exmID_info.push(nodes[i]['id']);
+				}
+			}
+		}
+		
+		parent.layer.confirm('您确定分配选择的考官', function(index){
+			$.ajax({
+				type:"POST",
+				url:"<?= Url::to(['examiner/examiner-choose-do']); ?>",
+				data:{'recID':__stepIndex_flow4_step3__assign_examiner_recID,'gstID':__stepIndex_flow4_step3_assign_examiner_gstID,'gstStartEnd':parent.__flow4_step3_single_gstStartEnd__,'exmIDs':exmID_info},
+				dataType:"json",
+				success: function(json){
+					if(json.result){
+						parent.layer.msg(json.msg);
+						init_flow4_step3_head_info();
+						parent.init_flow4_step3_datagrid();
+						load_flow4_step3_tree();
+						layer.close(index);
+					}else{
+						parent.layer.alert(json.msg);
+					}
+				}
+			});
+		});
+	});
+}
+
+function flow4_step3_delete_examiner(){
+	layui.use('layer',function(){
+		var layer = layui.layer;
+		var rows = $("#stepIndex_flow4_step3_assign_examiner").datagrid('getSelections');
+		var len = rows.length;
+		if(len == 0){
+	     	return parent.alert('请选择要删除的数据！');
+	    }
+	    var gstexmIDs = [];
+	    for(var i = 0 ; i < len ; i++){
+	        gstexmIDs.push(rows[i]['gstexmID']);
+	    }
+	    
+	    parent.layer.confirm('您确定删除选择的考官', function(index){
+			$.post("<?= Url::to(['examiner/examiner-choose-del']); ?>",{'gstexmIDs':gstexmIDs},function(json){
+	            if(json.result){
+	                parent.layer.msg('删除成功！');
+	                init_flow4_step3_head_info();
+	                parent.init_flow4_step3_datagrid();
+					load_flow4_step3_tree();
+					layer.close(index);
+	            }else{
+	                parent.layer.alert(json.msg);
+	            }
+	        },'json');
+		});
+    });
+}
+
+function init_flow4_step3_head_info(){
+	$.ajax({
+		type:"post",
+		url:"<?= Url::to(['examiner/examiner-choose-hinfo']); ?>",
+		data:{'recID':__stepIndex_flow4_step3__assign_examiner_recID},
+		dataType:"json",
+		success: function(json){
+			$("#examiner_info").html("");
+			$("#examiner_info").html(json.sy+"/"+json.yap+"/"+json.wap);
+		}
+	});
 }
 </script>	
 </body>

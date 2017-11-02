@@ -6,6 +6,7 @@ var __flow4_step3_title_info__ = {};
 var __flow4_step3_total_flag__ = "0";
 var __flow4_step3_msg_content__ = "";
 var __flow4_step3_single_gstID__ = "";
+var __flow4_step3_single_gstStartEnd__ = "";
 $(function(){
 	init_flow4_step3_datagrid();
 });
@@ -32,6 +33,7 @@ function init_flow4_step3_datagrid(){
         ]],
         onClickRow:function(index,row){
 			__flow4_step3_single_gstID__ = row.gstID;
+			__flow4_step3_single_gstStartEnd__ = row.gstStartEnd;
         },
         onLoadSuccess: function(data){
         	mergeCellsByField("flow4_step3_datagrid", "gstStartEnd", 0);
