@@ -119,6 +119,10 @@ class Recruit extends \yii\db\ActiveRecord
 		return ['rows'=>$rows,'total'=>$total];
 	}
 	
+	public static function getCount($where = []){
+		return self::find()->where($where)->count();
+	}
+	
 	public static function getOverRecBatch(){
 		$infos = self::find()->select(['recID','recYear','recBatch','recDefault','recEnd','recViewPlace'])
 							->where(['!=', 'recDefault', 0])
