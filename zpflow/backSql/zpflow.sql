@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhost
-Source Server Version : 50617
+Source Server         : localhostphpstudy
+Source Server Version : 50553
 Source Host           : localhost:3306
 Source Database       : zpflow
 
 Target Server Type    : MYSQL
-Target Server Version : 50617
+Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2017-11-01 00:22:19
+Date: 2017-11-02 20:09:12
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -29,7 +29,7 @@ CREATE TABLE `announce` (
   `ancType` char(1) DEFAULT NULL COMMENT '公告类别（A=招聘简介，B=公司简介）',
   `ancStatus` int(1) NOT NULL DEFAULT '0' COMMENT '发布状态（0=未发布，1=已发布）',
   PRIMARY KEY (`ancID`)
-) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of announce
@@ -44,8 +44,6 @@ INSERT INTO `announce` VALUES ('13', '1', 'fgfeg', '<p>ertretrtertr</p><p>edffgv
 INSERT INTO `announce` VALUES ('14', '1', '法规的规定非', '<p>梵蒂冈地方个</p><p>个地方gdfgfgdg郭德纲爸爸</p><p>保存VB从VBv</p><p>不橙V不橙V吧<br></p>', '1', '2017-10-23 16:02:56', 'A', '1');
 INSERT INTO `announce` VALUES ('15', '1', '东风股份', '<p>仍然通过人体tyrtyrtyytryrtyrtyt</p><p>gdfgfdggfdgdf法规的法规</p><p>发个地方官方</p><p>梵蒂冈地方个</p><p>股份的股份<br></p>', '1', '2017-10-23 16:03:18', 'A', '1');
 INSERT INTO `announce` VALUES ('16', '1', '古典风格', '<p>光伏发电个梵蒂冈</p><p>法规的法规<br></p>', '1', '2017-10-23 16:03:27', 'A', '1');
-INSERT INTO `announce` VALUES ('17', '1', '苟富贵', '丰东股份个', '1', '2017-10-23 16:03:37', 'A', '1');
-INSERT INTO `announce` VALUES ('18', '1', '给发个梵蒂冈', '梵蒂冈地方个电饭锅', '1', '2017-10-23 16:03:45', 'A', '1');
 INSERT INTO `announce` VALUES ('19', '1', 'fdfs', '导出佛挡杀佛的个发个非官方发个梵蒂冈分割否', '1', '2017-10-24 12:22:59', 'B', '1');
 INSERT INTO `announce` VALUES ('20', '1', '三个风格', '古典风格的法规的法规', '1', '2017-10-24 12:23:11', 'B', '1');
 INSERT INTO `announce` VALUES ('21', '1', '郭德纲法规', '梵蒂冈地方个电饭锅发郭德纲法规法规的发官方', '1', '2017-10-24 12:23:22', 'B', '1');
@@ -76,6 +74,8 @@ INSERT INTO `announce` VALUES ('45', '1', '几个号激光焊接干活', '&nbsp;
 INSERT INTO `announce` VALUES ('46', '1', '几个号激光焊接', '涵盖激光焊接和感觉', '1', '2017-10-24 12:32:23', 'B', '1');
 INSERT INTO `announce` VALUES ('47', '1', '结果集回复感觉', '官方几号放假官方', '1', '2017-10-24 12:32:33', 'B', '1');
 INSERT INTO `announce` VALUES ('48', '1', '减肥减肥刚回家', '房间号附加费环境规划', '1', '2017-10-24 12:32:39', 'B', '1');
+INSERT INTO `announce` VALUES ('49', '1', '生气啊撒', '大叔大婶', null, null, 'A', '0');
+INSERT INTO `announce` VALUES ('50', '1', '大叔大婶多', '撒大声地所多', '1', '2017-11-02 16:46:06', 'A', '1');
 
 -- ----------------------------
 -- Table structure for code
@@ -2177,7 +2177,7 @@ CREATE TABLE `recruit` (
 -- Records of recruit
 -- ----------------------------
 INSERT INTO `recruit` VALUES ('1', '2017', '01', '1', '2017-10-18 00:00:00', '2017-10-26 06:00:00', '浙江大学', '浙江大学附属医院', '0');
-INSERT INTO `recruit` VALUES ('2', '2017', '02', '0', '2017-10-18 00:00:00', '2017-10-27 00:00:00', '5555', '5555', '0');
+INSERT INTO `recruit` VALUES ('2', '2017', '02', '0', '2017-10-18 00:00:00', '2017-11-28 00:00:00', '5555', '5555', '0');
 
 -- ----------------------------
 -- Table structure for setgroup
