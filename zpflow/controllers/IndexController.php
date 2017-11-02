@@ -32,7 +32,7 @@ class IndexController extends BaseController{
 		$info = [];
 		if(intval($index) != 1){
 			$info = Recruit::getOverRecBatch();
-			$count = Recruit::find()->where(['recDefault'=>[1,2]])->count();
+			$count = Recruit::getCount(['recDefault'=>[1,2]]);
 			if(!$count){
 				return $this->renderPartial('help');
 			}
