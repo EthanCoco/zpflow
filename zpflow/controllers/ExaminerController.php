@@ -726,16 +726,6 @@ class ExaminerController extends BaseController{
 		$recID = $request->get('recID');
 		$gstID = $request->get('gstID');
 		
-//		$result = [];
-//		$sql = "SELECT t.id,d.codeName zb,e.kgName,e.kgType FROM t_kgzb t 
-//		
-//		LEFT JOIN t_interviewstyle c ON c.id = t.zbid 
-//		LEFT JOIN t_code d ON d.codeID = c.itvStyle AND d.codeTypeID = 'ZBMC' 
-//		LEFT JOIN t_kginfo e ON e.id = t.kgid WHERE t.recruitSetID ='".$recruitSetID."' AND t.zbid = '".$zbid."' ";
-//		
-//		$db = Yii::$app->db;
-//		$command = $db->createCommand($sql);
-//		$rows = $command->queryAll();
 		$rows = (new \yii\db\Query())
     				->select("gstexm.gstexmID,code.codeName,examiner.exmName,examiner.exmType")
     				->from('gstexm')
@@ -745,8 +735,6 @@ class ExaminerController extends BaseController{
 					->where(['gstexm.recID'=>$recID,'gstexm.gstID'=>$gstID])
 					->all();
 		
-		
-		
 		$total = Gstexm::find()->where(['recID'=>$recID,'gstID'=>$gstID])->asArray()->count();
 		
 		$result['rows'] = $rows;
@@ -754,6 +742,69 @@ class ExaminerController extends BaseController{
 		
         return $this->jsonReturn($result);
 	}
+	
+	public function actionExaminerChooseDo(){
+		$request = Yii::$app->request;
+		$recID = $request->post('recID');
+		$gstID = $request->post('gstID');
+		$gstStartEnd = $request->post('gstStartEnd');
+		$exmIDs = $request->post('exmIDs');
+		
+		$data_exist_info = Setgroup::find()->where(['AND',["recID"=>$recID,"gstStartEnd"=>$gstStartEnd],['not',['gstID'=>$gstID]]])->asArray()->all();
+		
+		if(!empty($data_exist_info)){
+			$gstIDs = [];
+			foreach($data_exist_info as $data){
+				$gstIDs[] = $data['gstID'];
+			}
+			
+			$num = Gstexm::find()->where(['recID'=>$recID,'gstID'=>$gstIDs,'exmID'=>$exmIDs])->asArray()->count();
+			
+			if($num > 0){
+				return $this->jsonReturn(['result'=>0,'msg'=>'勾选的考官中存在同一时间已被安排']);
+			}
+		}
 
-
+		$insertData = [];
+		
+		$len = count($exmIDs);
+		for($i = 0 ; $i < $len ; $i++){
+			$tempData = [];
+			array_push($tempData,$gstID,$recID,$exmIDs[$i]);
+			$insertData[$i] = $tempData;
+		}
+		
+		$flag = Yii::$app->db->createCommand()->batchInsert(Gstexm::tableName(), ['gstID', 'recID','exmID'], $insertData)->execute();
+		if($flag){
+			$result = ['result'=>1,'msg'=>'安排成功'];
+		}else{
+			$result = ['result'=>0,'msg'=>'安排失败'];
+		}
+		
+		return $this->jsonReturn($result);
+	}
+	
+	public function actionExaminerChooseDel(){
+		$gstexmIDs = Yii::$app->request->post('gstexmIDs');
+		if(Gstexm::deleteAll(['gstexmID'=>$gstexmIDs])){
+			$result = ['result'=>1,'msg'=>'删除成功'];
+		}else{
+			$result = ['result'=>0,'msg'=>'删除失败'];
+		}
+		return $this->jsonReturn($result);
+	}
+	
+	public function actionExaminerChooseHinfo(){
+		$recID = Yii::$app->request->post('recID');
+		
+		$examiner_num = Examiner::find()->where(['recID'=>$recID])->asArray()->count();
+		
+		$examiner_num_deal = Gstexm::find()->groupBy(['exmID'])->where(['recID'=>$recID])->count();
+		
+		$result["sy"] = $examiner_num;
+		$result["yap"] = $examiner_num_deal;
+		$result["wap"] = intval($examiner_num)-intval($examiner_num_deal);
+		
+		return $this->jsonReturn($result);
+	}
 }
