@@ -26,17 +26,18 @@ class RecruitController extends BaseController{
 		foreach($infos as $info){
 			$codes = [['recBatch','PC']];
 			$codeName = Share::codeValue($codes,$info);
-			$jsonData[] = [
-				'recID'			=>	$info['recID'],
-				'recYear'		=>	$info['recYear'],
-				'recBatch'		=>	$codeName['recBatch'],
-				'recDefault'	=>	$info['recDefault'],
-				'recStart'		=>	$info['recStart'],
-				'recEnd'		=>	$info['recEnd'],
-				'recViewPlace'	=>	$info['recViewPlace'],
-				'recHealthPlace'=>	$info['recHealthPlace'],
-				'recBack'		=>	$info['recBack'],
-			];
+			$jsonData [] = array_merge($info,$codeName);
+//			$jsonData[] = [
+//				'recID'			=>	$info['recID'],
+//				'recYear'		=>	$info['recYear'],
+//				'recBatch'		=>	$codeName['recBatch'],
+//				'recDefault'	=>	$info['recDefault'],
+//				'recStart'		=>	$info['recStart'],
+//				'recEnd'		=>	$info['recEnd'],
+//				'recViewPlace'	=>	$info['recViewPlace'],
+//				'recHealthPlace'=>	$info['recHealthPlace'],
+//				'recBack'		=>	$info['recBack'],
+//			];
 		}
 		
 		return ['rows'=>$jsonData,'total'=>$listInfos['total']];
