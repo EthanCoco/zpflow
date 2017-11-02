@@ -145,24 +145,26 @@ class Recruit extends \yii\db\ActiveRecord
 	}
 	
 	public static function insertData($data = []){
-		$result = Yii::$app->db->createCommand()->insert(self::tableName(),$data)->execute();
-		if($result){
-			return ['result'=>1,'msg'=>'保存成功'];
+		$flag = Yii::$app->db->createCommand()->insert(self::tableName(),$data)->execute();
+		if($flag){
+			$result = ['result'=>1,'msg'=>'保存成功'];
 		}else{
-			return ['result'=>0,'msg'=>'保存失败'];
+			$result = ['result'=>0,'msg'=>'保存失败'];
 		}
+		return $result;
 	}
 	
 	public static function updateData($data = [],$primary = []){
-		$result = Yii::$app->db->createCommand()->update(self::tableName(),$data,$primary)->execute();
-		if($result !== false){
-			if(!$result){
-				return ['result'=>0,'msg'=>'数据没有修改，不需要保存'];
+		$flag = Yii::$app->db->createCommand()->update(self::tableName(),$data,$primary)->execute();
+		if($flag !== false){
+			if(!$flag){
+				$result = ['result'=>0,'msg'=>'数据没有修改，不需要保存'];
 			}else{
-				return ['result'=>1,'msg'=>'保存成功'];
+				$result = ['result'=>1,'msg'=>'保存成功'];
 			}
 		}else{
-			return ['result'=>0,'msg'=>'保存失败'];
+			$result = ['result'=>0,'msg'=>'保存失败'];
 		}
+		return $result;
 	}
 }

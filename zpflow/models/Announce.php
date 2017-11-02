@@ -70,4 +70,28 @@ class Announce extends \yii\db\ActiveRecord
 		
 		return ['rows'=>$rows,'total'=>$total];
 	}
+	
+	public static function insertData($data = []){
+		$flag = Yii::$app->db->createCommand()->insert(self::tableName(),$data)->execute();
+		if($flag){
+			$result = ['result'=>1,'msg'=>'保存成功'];
+		}else{
+			$result = ['result'=>0,'msg'=>'保存失败'];
+		}
+		return $result;
+	}
+	
+	public static function updateData($data = [], $primary = [], $type = 0){
+		$msg = ['取消发布','发布'];
+		
+		$flag = Yii::$app->db->createCommand()->update(self::tableName(),$data,$primary)->execute();
+		
+		if($flag){
+			$result = ['result'=>1,'msg'=>$msg[$type].'成功'];
+		}else{
+			$result = ['result'=>0,'msg'=>$msg[$type].'失败'];
+		}
+		
+		return $result;
+	}
 }
