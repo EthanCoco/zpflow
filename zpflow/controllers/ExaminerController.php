@@ -13,10 +13,8 @@ use app\models\Recruit;
 use app\models\Setgroup;
 
 class ExaminerController extends BaseController{
-	public $enableCsrfValidation = false;
 	
 	public function actionListInfo(){
-		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 		$request = Yii::$app->request;
 		
 		$recID = $request->post('recID');
@@ -65,11 +63,10 @@ class ExaminerController extends BaseController{
 		
 		$result['exportInfo'] = ['condition'=>$condition];
 		
-		return $result;
+		return $this->jsonReturn($result);
 	}
 
 	public function actionExaminerSave(){
-		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 		$request = Yii::$app->request;
 		$db = Yii::$app->db->createCommand();
 		
@@ -77,28 +74,29 @@ class ExaminerController extends BaseController{
 		$data = $request->post()['Examiner'];
 		
 		if($exmID == ""){
-			$result = $db	->	insert('examiner',$data)->execute();
-			if($result){
-				return ['result'=>1,'msg'=>'保存成功'];
+			$flag = $db	->	insert(Examiner::tableName(),$data)->execute();
+			if($flag){
+				$result = ['result'=>1,'msg'=>'保存成功'];
 			}else{
-				return ['result'=>0,'msg'=>'保存失败'];
+				$result = ['result'=>0,'msg'=>'保存失败'];
 			}
 		}else{
-			$result = $db	->	update('examiner',$data, ['exmID'=>$exmID])->execute();
-			if($result !== false){
-				if(!$result){
-					return ['result'=>0,'msg'=>'数据没有修改，不需要保存'];
+			$flag = $db	->	update(Examiner::tableName(),$data, ['exmID'=>$exmID])->execute();
+			if($flag !== false){
+				if(!$flag){
+					$result = ['result'=>0,'msg'=>'数据没有修改，不需要保存'];
 				}else{
-					return ['result'=>1,'msg'=>'保存成功'];
+					$result = ['result'=>1,'msg'=>'保存成功'];
 				}
 			}else{
-				return ['result'=>0,'msg'=>'保存失败'];
+				$result = ['result'=>0,'msg'=>'保存失败'];
 			}
 		}
+		
+		return $this->jsonReturn($result);
 	}
 	
 	public function actionExaminerDel(){
-		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 		$request = Yii::$app->request;
 		
 		$exmIDs = $request->post('exmIDs');
@@ -106,18 +104,18 @@ class ExaminerController extends BaseController{
 		
 		$flag = Gstexm::find()->where(['recID'=>$recID,'exmID'=>$exmIDs])->asArray()->count();
 		if($flag > 0){
-			return ['result'=>0,'msg'=>'勾选的考官中存在已被安排的考官，不能删除！'];
+			$result = ['result'=>0,'msg'=>'勾选的考官中存在已被安排的考官，不能删除！'];
 		}else{
 			if(Examiner::deleteAll(['exmID'=>$exmIDs])){
-				return ['result'=>1,'msg'=>'删除成功'];
+				$result = ['result'=>1,'msg'=>'删除成功'];
 			}else{
-				return ['result'=>0,'msg'=>'删除失败'];
+				$result = ['result'=>0,'msg'=>'删除失败'];
 			}
 		}
+		return $this->jsonReturn($result);
 	}
 	
 	public function actionExaminerExport(){
-		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 		$request = Yii::$app->request;
 		$conditionEN = $request->post('condition');
 		$flag = $request->post('flag');
@@ -166,8 +164,6 @@ class ExaminerController extends BaseController{
 	}
 	
 	public function actionExaminerUpexcel(){
-		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-		date_default_timezone_set('PRC');
 		$file = $_FILES['file'];
 		$timeNow = date('Y-m-d H:i:s',time());
 		
@@ -188,11 +184,10 @@ class ExaminerController extends BaseController{
 		
 		$resultFile = $createDir."/".$fileName;
 		
-		return ['code'=>0,'msg'=>'','data'=>['src'=>$createDir."/".$fileName]];
+		return $this->jsonReturn(['code'=>0,'msg'=>'','data'=>['src'=>$createDir."/".$fileName]]);
 	}
 	
 	public function actionExaminerUpexcelSure(){
-		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 		$request = Yii::$app->request;
 		$filePath = $request->post('filePath');
 		$recID = $request->post('recID');
@@ -322,12 +317,11 @@ class ExaminerController extends BaseController{
 					throw new NotFoundHttpException();
 				}
 			}
-			return ['result'=>1,'msg'=>'导入成功！'];	
+			return $this->jsonReturn(['result'=>1,'msg'=>'导入成功！']);	
 		}
 	}
 	
 	public function actionExaminerGroupList(){
-		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 		$request = Yii::$app->request;
 		
 		$recID = $request->post('recID');
@@ -390,11 +384,10 @@ class ExaminerController extends BaseController{
 		$result["rows"] = $tempData;
 		$result["total"] = $total;
 		
-		return $result;
+		return $this->jsonReturn($result);
 	}
 
 	public function actionExaminerDownload(){
-		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 		$recID = Yii::$app->request->get('recID');
 		
 		$recInfo = Recruit::find()->where(['recID'=>$recID])->asArray()->one();
@@ -469,7 +462,6 @@ class ExaminerController extends BaseController{
 	}
 
 	public function actionExaminerExportStep3(){
-		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 		$request = Yii::$app->request;
 		$recID = $request->get('recID');
 		
@@ -510,7 +502,6 @@ class ExaminerController extends BaseController{
 	}
 
 	public function actionExaminerSendmsgList(){
-		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 		$request = Yii::$app->request;
 		$recID = $request->get('recID');
 		
@@ -553,11 +544,10 @@ class ExaminerController extends BaseController{
 			$tempData[$index]['exmContent'] = $str;
 			$index++;
 		}
-		return ['rows'=>$tempData];
+		return $this->jsonReturn(['rows'=>$tempData]);
 	}
 
 	public function actionExaminerSendmsgDo(){
-		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 		$request = Yii::$app->request;
 		$phones = $request->post('exmPhones');
 		$exmContents = $request->post('exmContents');
@@ -601,14 +591,14 @@ class ExaminerController extends BaseController{
 			}else{
 				$msg = $msg_error.'<br/>'.$msg_success;
 			}
-			return ['result'=>0,'msg'=>$msg];
+			$result = ['result'=>0,'msg'=>$msg];
 		}else{
-			return ['result'=>1,'msg'=>'发送成功'];
+			$result = ['result'=>1,'msg'=>'发送成功'];
 		}
+		return $this->jsonReturn($result);
 	}
 	
 	public function actionExaminerTreeList(){
-		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 		$request = Yii::$app->request;
 		
 		$recID = $request->get('recID');
@@ -727,11 +717,10 @@ class ExaminerController extends BaseController{
 		$resultInfo[] = ["id" => "-3", "name" => '其他考官（'.$examiner_type2.'）', "pId" => "-1", "isParent" => "true", 'isChild'=>0,"type" => "-3"];
 		$resultInfo[] = ["id" => "-4", "name" => '监督员（'.$examiner_type3.'）', "pId" => "-1", "isParent" => "true", 'isChild'=>0,"type" => "-4"];
         $result['treeInfo'] = $resultInfo;
-        return $result;
+        return $this->jsonReturn($result);
 	}
 	
 	public function actionExaminerChooseList(){
-		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 		$request = Yii::$app->request;
 		
 		$recID = $request->get('recID');
@@ -763,7 +752,7 @@ class ExaminerController extends BaseController{
 		$result['rows'] = $rows;
 		$result['total'] = $total;
 		
-        return $result;
+        return $this->jsonReturn($result);
 	}
 
 
