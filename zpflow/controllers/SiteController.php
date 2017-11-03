@@ -7,9 +7,12 @@ use yii\web\Controller;
 use app\models\User;
 use app\models\Share;
 
-class SiteController extends Controller
+class SiteController extends BaseController
 {
-	public $enableCsrfValidation = false;
+	public function init(){
+		date_default_timezone_set('PRC');
+	}
+	
 	/*登录页面*/
     public function actionLogin(){
     	if(!Yii::$app->user->isGuest){
@@ -22,10 +25,9 @@ class SiteController extends Controller
 	
 	/*登录*/
 	public function actionLoginDo(){
-		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 		$request = Yii::$app->request;
 		if(!Yii::$app->user->isGuest){
-			return ['result'=>1];
+			return $this->jsonReturn(['result'=>1]);
 		}
 		$model = new User();
 		$model->setScenario(User::SCENARIO_LOGIN);
@@ -34,23 +36,23 @@ class SiteController extends Controller
 			$password = $request->post()['User']['password'];
 		   	$info = User::findSingleByWhere(['name'=>$name,'password'=>$password]);
 			if(empty($info)){
-				return ['result'=>0,'msg'=>'账号或密码错误'];
-			}
-			if($info['userType'] == '1'){
-				return ['result'=>0,'msg'=>'对不起，您没有权限登录后台系统'];
-			}
-			if($model->login()){
+				$result = ['result'=>0,'msg'=>'账号或密码错误'];
+			}elseif($info['userType'] == '1'){
+				$result = ['result'=>0,'msg'=>'对不起，您没有权限登录后台系统'];
+			}elseif($model->login()){
 				if(User::afterLoginDo()){
-					return ['result'=>1];
+					$result = ['result'=>1];
+				}else{
+					$result = ['result'=>0,'msg'=>'服务器发生故障'];
 				}
-				return ['result'=>0,'msg'=>'服务器发生故障'];
 			}else{
-				return ['result'=>0,'msg'=>'服务器发生故障'];
+				$result = ['result'=>0,'msg'=>'服务器发生故障'];
 			}
 		}else{
 			$errors = $model->getFirstErrors();
-			return ['result'=>0,'msg'=>Share::comErrors($errors)];
+			$result = ['result'=>0,'msg'=>Share::comErrors($errors)];
 		}
+		return $this->jsonReturn($result);
 	}
 	
 	public function actionLogout(){
