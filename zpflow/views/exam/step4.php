@@ -80,12 +80,17 @@ $(function(){
 });
 
 function init_flow4_step4_datagrid(){
+	var perName = $("#perName").val().trim();
+	var perGender = $("#perGender").val();
+	var perIDCard = $("#perIDCard").val().trim();
+	var perGroupSet = $("#perGroupSet").val();
+	
 	$('#flow4_step4_datagrid').datagrid({
         width:'auto',
         height:'auto',
-//	    url:stepIndex_three_urls.__list_url,
+	    url:"<?= yii\helpers\Url::to(['examinee/examinee-deal-list']); ?>",
 	    method: "post",
-//	    queryParams: {'recID':stepIndex_three_recID,'type':stepIndex_three_tab,'search':__stepIndex_three_search},
+	    queryParams: {'recID':__flow4_recID__,'flag':__flow4_step4_datagrid_flag__,'perName':perName,'perGender':perGender,'perIDCard':perIDCard,'perGroupSet':perGroupSet},
 	    striped: true,
 	    fixed: true,
 	    fitColumns: false,
@@ -111,8 +116,8 @@ function init_flow4_step4_datagrid(){
 	        {field:'perPhone',title:'手机号码',width:'100',align:'center',rowspan:2},
 	        {field:'perTicketNo',title:'准考证号',width:'100',align:'center',rowspan:2,sortable:true},
 	        {field:'perGroupSet',title:'组别名称',width:'100',align:'center',rowspan:2,sortable:true},
-	        {field:'考试地点',title:'考试地点',width:'100',align:'center',rowspan:2},
-	        {field:'考试时间',title:'考试时间',width:'100',align:'center',rowspan:2,sortable:true},
+	        {field:'gstItvPlace',title:'考试地点',width:'100',align:'center',rowspan:2},
+	        {field:'gstStartEnd',title:'考试时间',width:'100',align:'center',rowspan:2,sortable:true},
 	        {field:'perRead2',title:'通知阅读情况',width:'100',align:'center',rowspan:2,sortable:true},
 	        
 	        {field:'perZGSC',title:'资格审查环节',width:'300',colspan:3,align:'center'},
