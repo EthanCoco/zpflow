@@ -3,10 +3,13 @@ namespace app\controllers;
 use yii\web\Controller;
 use yii\helpers\Html;
 use Yii;
+use yii\base\Event;
 
 use app\models\Recruit;
 use app\models\Share;
 use app\models\Announce;
+use app\events\Busevent;
+use app\events\Busdeal;
 
 class RecruitController extends BaseController{
 	
@@ -70,17 +73,17 @@ class RecruitController extends BaseController{
 		$transaction = $db->beginTransaction();	
 		try{
 			$info = Recruit::find()->where(['recDefault'=>'1'])->asArray()->one();
+			Event::on(Busevent::className() ,Busevent::CREATE_BUS_TABLE, [(new Busdeal()), 'create_bus_table_deal'],$recID);
 			if(empty($info)){
 				$db->createCommand()->update(Recruit::tableName(),['recDefault'=>1],['recID'=>$recID])->execute();
-				$db->createCommand(Share::CreateBusTable($recID))->execute();
+				(new Busevent())->create_bus_table();
 			}elseif($info['recEnd'] > date('Y-m-d H:i:s',time())){
 				return $this->jsonReturn(['result'=>0,'msg'=>'存在招聘年度正在进行中，还未结束，如要发布，请等进行中招聘结束']);
 			}elseif($info['recEnd'] < date('Y-m-d H:i:s',time())){
 				$db->createCommand()->update(Recruit::tableName(),['recDefault'=>2,'recBack'=>1],['recID'=>$info['recID']])->execute();
 				$db->createCommand()->update(Announce::tableName(),['ancStatus'=>2],['recID'=>$info['recID']])->execute();
 				$db->createCommand()->update(Recruit::tableName(),['recDefault'=>1],['recID'=>$recID])->execute();
-				//TODO	创建后续业务流程相关表
-				$db->createCommand(Share::CreateBusTable($recID))->execute();
+				(new Busevent())->create_bus_table();
 			}
 			$transaction->commit();
 			return $this->jsonReturn(['result'=>1,'msg'=>'发布成功']);
