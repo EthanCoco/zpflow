@@ -75,7 +75,7 @@ function changeSetWin(pos){
 function loadFlow4Info(pos){
 	var contentObj = $("#flow4_content #flow4_content"+pos);
 	contentObj.empty();
-	contentObj.load("<?= yii\helpers\Url::to(['exam/step']); ?>"+"&index="+pos);
+	contentObj.load("<?= yii\helpers\Url::to(['exam/step']); ?>"+"&index="+pos+"&recID="+__flow4_recID__);
 }
 
 function selRecruitID(th){
