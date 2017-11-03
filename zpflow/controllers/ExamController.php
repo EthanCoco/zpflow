@@ -5,11 +5,26 @@ use yii\helpers\Html;
 use Yii;
 
 use app\models\Examiner;
+use app\models\Setgroup;
+use app\models\Share;
 
 class ExamController extends BaseController{
 	public function actionStep(){
 		$index = Html::encode(Yii::$app->request->get('index',1));
-		return $this->renderPartial('step'.Html::decode($index));
+		$recID = Yii::$app->request->get('recID');
+		
+		$groupInfo = [];
+		if(intval($index) == 4){
+			$tempInfo = (new yii\db\Query())->select(['gstGroup gcode','gstGroup gname'])->from(Setgroup::tableName())->where(['recID'=>$recID,'gstType'=>2])->all();
+			if(!empty($tempInfo)){
+				foreach($tempInfo as $info){
+					$codeName = Share::codeValue([['gname','ZBMC']],$info);
+					$groupInfo [] = array_merge($info,$codeName);
+				}
+			}
+		}
+		
+		return $this->renderPartial('step'.Html::decode($index),['groupInfo'=>$groupInfo]);
 	}
 	
 	public function actionRepairStep2(){
