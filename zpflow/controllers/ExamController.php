@@ -7,6 +7,8 @@ use Yii;
 use app\models\Examiner;
 use app\models\Setgroup;
 use app\models\Share;
+use app\models\Comnotice;
+use app\models\Noticemb;
 
 class ExamController extends BaseController{
 	public function actionStep(){
@@ -24,7 +26,13 @@ class ExamController extends BaseController{
 			}
 		}
 		
-		return $this->renderPartial('step'.Html::decode($index),['groupInfo'=>$groupInfo]);
+		$flow3_to = 0;
+		if(intval($index) > 3){
+			$flow3_to = (new yii\db\Query())->from(Share::MainTableName($recID))
+												  ->where(['AND',['perPub'=>0],['not',['perStatus'=>0]]])
+												  ->count();
+		}
+		return $this->renderPartial('step'.Html::decode($index),['groupInfo'=>$groupInfo,'flow3_to'=>$flow3_to]);
 	}
 	
 	public function actionRepairStep2(){
@@ -57,5 +65,35 @@ class ExamController extends BaseController{
 		$gstID = $request->get('gstID');
 		return $this->renderPartial('step3/assign-examiner',['recID'=>$recID,'gstID'=>$gstID]);
 	}
+	
+	public function actionGroupBatchStep4(){
+		$recID = Yii::$app->request->get('recID');
+		$tempInfo = (new yii\db\Query())->select(['gstGroup gcode','gstGroup gname'])->from(Setgroup::tableName())->where(['recID'=>$recID,'gstType'=>2])->all();
+		$groupInfo = [];
+		if(!empty($tempInfo)){
+			foreach($tempInfo as $info){
+				$codeName = Share::codeValue([['gname','ZBMC']],$info);
+				$groupInfo [] = array_merge($info,$codeName);
+			}
+		}
+		return $this->renderPartial('step4/group-batch',['groupInfo'=>$groupInfo,'recID'=>$recID]);
+	}
+	
+	public function actionGroupEditStep4(){
+		$recID = Yii::$app->request->get('recID');
+		
+		$jsonInfo = Noticemb::find()->where(['recID'=>$recID])->one();
+		if(empty($jsonInfo)){
+			$comnotice_info = Comnotice::find()->where(['cmFlag'=>'flow4_step4'])->one();
+			$jsonInfo = [
+				'ntsID'=>'',
+				'ntsTitle' => $comnotice_info['cmTitle'],
+				'ntsContent' => $comnotice_info['cmContent']
+			];
+		}
+		
+		return $this->renderPartial('step4/group-edit',['recID'=>$recID,'nstnotice_info'=>$jsonInfo]);
+	}
+	
 	
 }
