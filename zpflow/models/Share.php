@@ -263,6 +263,37 @@ class Share extends Model
 					],
 				];
 			break;
+			case 'flow4_step4_mb' :
+				 $result = [
+					'tempExcel'	=>	'../web/mbfile/flow4_step4_downloadmb.xls',
+					'keys' =>[
+						[
+							'key'=>[
+									'id','perGroupSet','gstStartEnd','perName','perGender','perTicketNo','perPhone','perIDCard','perJob'
+								],
+							'num'=>3,
+							'index'=>0,
+							'sheetName'=>'考生签到表信息',
+						]
+					],
+				];
+			break;
+			case 'flow4_step4_export' :
+				 $result = [
+					'tempExcel'	=>	'../web/mbfile/flow4_step4_export.xls',
+					'keys' =>[
+						[
+							'key'=>[
+									'id','perIndex','perName','perIDCard','perGender','perBirth','perJob','perPhone','perTicketNo'
+									,'perGroupSet','gstStartEnd','gstItvPlace','perReResult1','perReGiveup1','perReTime1','perReResult2','perReGiveup2','perReTime2'
+								],
+							'num'=>3,
+							'index'=>0,
+							'sheetName'=>'考生分组信息',
+						]
+					],
+				];
+			break;
 			default:break;
 		}
 
