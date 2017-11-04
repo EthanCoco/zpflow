@@ -50,7 +50,7 @@ $this->title = '';
 <?php $this->beginBody() ?>
 <div class="layui-side_sendmsg">
 	<p style="padding:5px 10px 5px 10px; color: red;">
-    	参考字段：如果需要在右侧替换所需要替换的【字段名】，以$(美元符)包裹，如下格式$recYear$
+    	参考字段：如果需要在右侧替换所需要替换的【字段名】，如下格式recYear
     </p>
     <div id="flow4_step4__group_edit_datagrid">
     	

@@ -157,6 +157,9 @@ function init_flow4_step4_datagrid(){
 		    	}
 	    ]],
         onLoadSuccess: function(data){
+      		$("#stepIndex_four_head_pubinfo").html('');
+			$("#stepIndex_four_head_pubinfo").html('发布状态：'+ (data.pub_flag == 0 ? '未发布' : (data.pub_flag == 1 ? '暂无数据' : '已发布')));
+        	
         	$("#flow4_step4_tabli1").html("");
         	$("#flow4_step4_tabli2").html("");
         	$("#flow4_step4_tabli3").html("");
@@ -179,7 +182,7 @@ function init_flow4_step4_datagrid(){
 	    		if(__flow3_to__ != "0"){
 	    			$("#flow4_step4_datagrid").datagrid('getPager').pagination({
 			    		buttons:[{
-						  	iconCls:'icon-batch',
+						  	iconCls:'icon-setcard',
 						   	text:'自动生成准考证号',
 						   	handler:function(){
 						   		layui.use('layer',function(){
@@ -244,78 +247,136 @@ function init_flow4_step4_datagrid(){
 					   	}]
 					});
 	    		}else{
-			    	$("#flow4_step4_datagrid").datagrid('getPager').pagination({
-			    		buttons:[{
-						  	iconCls:'icon-batch',
-						   	text:'自动生成准考证号',
-						   	handler:function(){
-						   		layui.use('layer',function(){
-						   			var layer = layui.layer;
-						   			$.post("<?= yii\helpers\Url::to(['examinee/examinee-auto-ticket']); ?>",{'recID':__flow4_recID__},function(json){
-								        if(json.result){
-								        	layer.msg(json.msg);
-								            init_flow4_step4_datagrid();
-								        }else{
-								        	layer.alert(json.msg);
-								        }
-								    },'json');
-						   		});
-						   	}
-					   	},'-',{
-						  	iconCls:'icon-batch',
-						   	text:'分组',
-						   	handler:function(){
-						   		manager_showMore(this,'flow4_step4_group_info');
-						   	}
-					   	},'-',{
-						  	iconCls:'icon-pub',
-						   	text:'发布通知',
-						   	handler:function(){
-						   		
-						   	}
-					   	},'-',{
-						  	iconCls:'icon-import',
-						   	text:'考试安排编辑',
-						   	handler:function(){
-						   		layer.open({
-							  		type:2,
-							  		title:'考试分组通知编辑',
-							  		area:[$(window).width()*3/4+"px",'520px'],
-							  		content:"<?= yii\helpers\Url::to(['exam/group-edit-step4']); ?>"+"&recID="+__flow4_recID__,
-							  		btn:['保存','取消'],
-							  		yes: function(){
-							  			$("iframe[id*='layui-layer-iframe'")[0].contentWindow.flow4_step4_group_edit_save(); 
-								    },
-							  		btn2:function(){
-							  			layer.close(layer.getFrameIndex(window.name));
-							  		}
-							    });
-						   	}
-					   	},'-',{
-						  	iconCls:'icon-print',
-						   	text:'打印签到表',
-						   	handler:function(){
-						   		layui.use('layer',function(){
-						   			if(data.headInfo.tab4 == 0){
-						   				return layer.alert("暂无考生信息");
-						   			}else{
-						   				window.open("<?= yii\helpers\Url::to(['examinee/examinee-download']); ?>"+"&recID="+__flow4_recID__);
-						   			}
-					   			});
-						   	}
-					   	},'-',{
-						  	iconCls:'icon-export',
-						   	text:'Excel导出',
-						   	handler:function(){
-						   		layui.use('layer',function(){
-						   			if(data.total == "0"){
-						   				return layer.alert("当前没有任何数据，不需要导出");
-						   			}
-						   			window.open("<?= yii\helpers\Url::to(['examinee/examinee-export-step4']); ?>"+"&recID="+__flow4_recID__+"&condition="+JSON.stringify(data.exportInfo.condition));
-						   		});
-						   	}
-					   	}]
-					});
+	    			if(data.pub_flag == 0){
+	    				$("#flow4_step4_datagrid").datagrid('getPager').pagination({
+				    		buttons:[{
+							  	iconCls:'icon-batch',
+							   	text:'自动生成准考证号',
+							   	handler:function(){
+							   		layui.use('layer',function(){
+							   			var layer = layui.layer;
+							   			$.post("<?= yii\helpers\Url::to(['examinee/examinee-auto-ticket']); ?>",{'recID':__flow4_recID__},function(json){
+									        if(json.result){
+									        	layer.msg(json.msg);
+									            init_flow4_step4_datagrid();
+									        }else{
+									        	layer.alert(json.msg);
+									        }
+									    },'json');
+							   		});
+							   	}
+						   	},'-',{
+							  	iconCls:'icon-batch',
+							   	text:'分组',
+							   	handler:function(){
+							   		manager_showMore(this,'flow4_step4_group_info');
+							   	}
+						   	},'-',{
+							  	iconCls:'icon-pub',
+							   	text:'发布通知',
+							   	handler:function(){
+							   		layui.use('layer',function(){
+							   			var layer = layui.layer;
+							   			if(data.headInfo.tab4 == 0){
+							   				return layer.alert("暂无考生信息，不需要发布考生安排信息");
+							   			}else if(data.headInfo.tab1 != 0){
+							   				return layer.alert("存在未安排的考生");
+							   			}
+							   			layer.confirm('您确定要发布考生安排通知么', function(index){
+							   				$.post("<?= yii\helpers\Url::to(['examinee/examinee-notice-pub']); ?>",{'recID':__flow4_recID__},function(json){
+										        if(json.result){
+										        	layer.msg(json.msg);
+										            init_flow4_step4_datagrid();
+										            layer.close(index);
+										        }else{
+										        	layer.alert(json.msg);
+										        }
+										    },'json');
+							   			});
+							   		});
+							   	}
+						   	},'-',{
+							  	iconCls:'icon-import',
+							   	text:'考试安排编辑',
+							   	handler:function(){
+							   		layer.open({
+								  		type:2,
+								  		title:'考试分组通知编辑',
+								  		area:[$(window).width()*3/4+"px",'520px'],
+								  		content:"<?= yii\helpers\Url::to(['exam/group-edit-step4']); ?>"+"&recID="+__flow4_recID__,
+								  		btn:['保存','取消'],
+								  		yes: function(){
+								  			$("iframe[id*='layui-layer-iframe'")[0].contentWindow.flow4_step4_group_edit_save(); 
+									    },
+								  		btn2:function(){
+								  			layer.close(layer.getFrameIndex(window.name));
+								  		}
+								    });
+							   	}
+						   	},'-',{
+							  	iconCls:'icon-print',
+							   	text:'打印签到表',
+							   	handler:function(){
+							   		layui.use('layer',function(){
+							   			if(data.headInfo.tab4 == 0){
+							   				return layer.alert("暂无考生信息");
+							   			}else{
+							   				window.open("<?= yii\helpers\Url::to(['examinee/examinee-download']); ?>"+"&recID="+__flow4_recID__);
+							   			}
+						   			});
+							   	}
+						   	},'-',{
+							  	iconCls:'icon-export',
+							   	text:'Excel导出',
+							   	handler:function(){
+							   		layui.use('layer',function(){
+							   			if(data.total == "0"){
+							   				return layer.alert("当前没有任何数据，不需要导出");
+							   			}
+							   			window.open("<?= yii\helpers\Url::to(['examinee/examinee-export-step4']); ?>"+"&recID="+__flow4_recID__+"&condition="+JSON.stringify(data.exportInfo.condition));
+							   		});
+							   	}
+						   	}]
+						});
+	    			}else if(data.pub_flag == 2){
+	    				$("#flow4_step4_datagrid").datagrid('getPager').pagination({
+				    		buttons:[{
+							  	iconCls:'icon-import',
+							   	text:'考试安排编辑',
+							   	handler:function(){
+							   		layer.open({
+								  		type:2,
+								  		title:'考试分组通知编辑',
+								  		area:[$(window).width()*3/4+"px",'520px'],
+								  		content:"<?= yii\helpers\Url::to(['exam/group-edit-step4']); ?>"+"&recID="+__flow4_recID__,
+								  		btn:['保存','取消'],
+								  		yes: function(){
+								  			$("iframe[id*='layui-layer-iframe'")[0].contentWindow.flow4_step4_group_edit_save(); 
+									    },
+								  		btn2:function(){
+								  			layer.close(layer.getFrameIndex(window.name));
+								  		}
+								    });
+							   	}
+						   	},'-',{
+							  	iconCls:'icon-export',
+							   	text:'Excel导出',
+							   	handler:function(){
+							   		layui.use('layer',function(){
+							   			if(data.total == "0"){
+							   				return layer.alert("当前没有任何数据，不需要导出");
+							   			}
+							   			window.open("<?= yii\helpers\Url::to(['examinee/examinee-export-step4']); ?>"+"&recID="+__flow4_recID__+"&condition="+JSON.stringify(data.exportInfo.condition));
+							   		});
+							   	}
+						   	}]
+						});
+	    			}else{
+	    				$("#flow4_step4_datagrid").datagrid('getPager').pagination({
+				    		buttons:[]
+						});
+	    			}
+	    			
 	    		}
 	    	}else{
 	    		$("#flow4_step4_datagrid").datagrid('getPager').pagination({

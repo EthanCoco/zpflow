@@ -7,6 +7,7 @@
 	        <?php } ?>
 	 	</select>
 	</span>
+	<span id="stepIndex_four_head_pubinfo" style="color: red; display: none;"></span>
 </div>
 <div class="flow4-header-menu" id="flow4_header">
 	<a class="current" href="javascript:void(0)" index="1" onclick="changeSetWin(1)">
@@ -67,6 +68,12 @@ function changeSetWin(pos){
 	var obj = $("#flow4_header a[index='"+pos+"']");
 	obj.parent().find('a').removeClass('current');
 	obj.addClass('current');
+	
+	if(pos == 4 || pos == 5){
+		$("#stepIndex_four_head_pubinfo").css('display','');
+	}else{
+		$("#stepIndex_four_head_pubinfo").css('display','none');
+	}
 	//加载对应的div内容
 	loadFlow4Info(pos);
 }
