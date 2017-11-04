@@ -9,6 +9,8 @@ use app\models\Person;
 use app\models\Share;
 use app\models\Recruit;
 use app\models\Qumextra;
+use app\models\Setgroup;
+use app\models\Noticemb;
 
 class ZpcxController extends Controller
 {
@@ -47,7 +49,7 @@ class ZpcxController extends Controller
 		
 		$perID = $mainInfo['perID'];
 		$codes = [
-					['perGender','XB'],['perJob','XZ'],['perStatus','SCJG']
+					['perGender','XB'],['perJob','XZ'],['perStatus','SCJG'],['perGroupSet','ZBMC']
 				];
 		$mainCode = Share::codeValue($codes,$mainInfo);
 		$mainCode['perBirth'] = !empty($mainInfo['perBirth']) ? substr($mainInfo['perBirth'], 0,10) : '';
@@ -83,11 +85,43 @@ class ZpcxController extends Controller
 			];
 			$jsonData['step2'] = $step2;
 			//TODO考试安排环节
+			if($mainInfo['perPub2'] == 1){
+				$jsonData['title'] = '已经为您安排了考试信息，请关注！';
+				$step3_tempInfo = Setgroup::find()->select(['gstItvPlace','gstStartEnd'])->where(['recID'=>$recID,'gstGroup'=>$mainInfo['perGroupSet'],'gstType'=>2])->one();
+				$step3 = [
+					'perTicketNo'=>$mainInfo['perTicketNo'],
+					'perGroupSet'=>$mainJson['perGroupSet'],
+					'gstStartEnd'=>$step3_tempInfo['gstStartEnd'],
+					'gstItvPlace'=>$step3_tempInfo['gstItvPlace'],
+					'ntsContent'=>($this->load_notice_content_info($recData,$step3_tempInfo,$mainJson))
+				];
+				$jsonData['step3'] = $step3;
+			}
+			
+			
+			
 		}
 		
 		return $jsonData;
 	}
 	
+	private function load_notice_content_info($recData,$step3_tempInfo,$mainJson){
+		$notice_info = Noticemb::find()->where(['recID'=>$recData['recID'],'ntsType'=>1])->one();
+		$content = $notice_info['ntsContent'];
+		$json_string = file_get_contents('./json/stepIndex_four_step4.json');
+		$json_columns = json_decode($json_string, true);
+		$json_data = $json_columns['rows'];
+		foreach($json_data as $data){
+			if($data['name'] == 'recYear' || $data['name'] == 'recBatch'){
+				$content = str_replace($data['name'],$recData[$data['name']],$content);
+			}elseif($data['name'] == 'gstStartEnd' || $data['name'] == 'gstItvPlace'){
+				$content = str_replace($data['name'],$step3_tempInfo[$data['name']],$content);
+			}else{
+				$content = str_replace($data['name'],$mainJson[$data['name']],$content);
+			}
+		}
+		return $content;
+	}
 	
 	private function load_qumextra_info($recID,$type,$content){
 		$qumInfo = Qumextra::find()->where(['recID'=>$recID])->one();
@@ -637,6 +671,28 @@ class ZpcxController extends Controller
 								'perReResult1'=>$perReResult1,
 								'perReGiveup1'=>$perReGiveup1,
 								'perReTime1'=>date('Y-m-d H:i:s',time())
+							],['perID'=>$perID])->execute();
+		
+		if($flag){
+			return ['result'=>1,'msg'=>'操作成功'];
+		}else{
+			return ['result'=>0,'msg'=>'操作失败'];
+		}
+	}
+	
+	public function actionFlow4Reback(){
+		date_default_timezone_set('PRC');
+		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+		$recID = Yii::$app->request->post('recID');
+		$perID = Yii::$app->request->post('perID');
+		$perReResult2 = Yii::$app->request->post('perReResult2');
+		$perReGiveup2 = Yii::$app->request->post('perReGiveup2','');
+		
+		$flag = Yii::$app->db->createCommand()->update(Share::MainTableName($recID),[
+								'perReResult2'=>$perReResult2,
+								'perReGiveup2'=>$perReGiveup2,
+								'perRead2'=>2,
+								'perReTime2'=>date('Y-m-d H:i:s',time())
 							],['perID'=>$perID])->execute();
 		
 		if($flag){

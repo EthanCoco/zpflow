@@ -117,20 +117,80 @@
 			<?php }	?>
 		</fieldset>
 		
-		<!--//TODO 考试安排环节 --> 
+		<!--基于资格审查通过并公示了结果的情况下-->
+		<?php if($dealData['baseData']['perStatus'] == 2){ ?>
+			<!--//TODO 考试安排环节 --> 
+			<?php if($dealData['baseData']['perPub2'] == '0'){ ?>
+				<fieldset class="layui-elem-field site-demo-button" style="margin-top: 10px;">
+				  	<legend style="font-size: 14px;color: blue;padding: 5px;">step3&nbsp;&nbsp;&nbsp;&nbsp;考试安排信息</legend>
+					<div class="layui-row">
+						<div style="margin-left: -2px;color: #666;">
+						    <div class="layui-textarea">
+						    	<b>工作人员正在进行安排考试工作，请耐性等候...</b>
+						    </div>
+					    </div>
+					</div>
+				</fieldset>
+			<?php }elseif($dealData['baseData']['perPub2'] == '1'){ ?>	
+				<fieldset class="layui-elem-field site-demo-button" style="margin-top: 10px;">
+				  	<legend style="font-size: 14px;color: blue;padding: 5px;">step3&nbsp;&nbsp;&nbsp;&nbsp;考试安排信息</legend>
+				  	<div class="layui-row">
+						<div style="margin-left: -2px;color: #666;">
+						    <div class="layui-textarea">
+						    	<p><b>考试安排信息：</b></p>
+						    	<p><b>准考证号：</b><?= $dealData['step3']['perTicketNo']; ?></p>
+						    	<p><b>考试组别：</b><?= $dealData['step3']['perGroupSet']; ?></p>
+						    	<p><b>考试时间：</b></p><p><?= $dealData['step3']['gstStartEnd']; ?></p>
+						    	<p><b>考试地点：</b><?= $dealData['step3']['gstItvPlace']; ?></p>
+						    	<?php if($dealData['baseData']['perReResult2'] == '03'){ ?>
+							    	<p style="padding-top: 25px;">已经为您安排考试时间地点了，是否会参加考试？</p>
+							    	<div style="padding: 10px;text-align: center;">
+										<button onclick="flow4_reback('01')" class="layui-btn layui-btn-normal layui-btn-small layui-btn-radius" >确定参加</button>
+										<button onclick="flow4_reback('02')" class="layui-btn layui-btn-normal layui-btn-small layui-btn-radius" >放弃参加</button>
+							    	</div>
+						    	<?php }	?>
+						    </div>
+					    </div>
+					</div>
+					<?php if($dealData['baseData']['perReResult2'] != '03'){ ?>
+					<div class="layui-row">
+						<div style="margin-left: -2px;color: #666;">
+						    <div class="layui-textarea">
+						    	<p><b>考试安排环节反馈信息：</b></p>
+						    	<?php if($dealData['baseData']['perReResult2'] == '01'){ ?>
+						    		<p><b>反馈结果：确定参加考试</b></p>
+						    		<p><b>反馈时间：<?= $dealData['baseData']['perReTime2'] ?></b></p>
+						    		<p><br/></p>
+						    		<p><b>邀请考试通知：</b><a href="javascript:;" onclick='flow_print_pdf_ticketno()' style="color: blue;">下载准考证</a></p>
+						    		<p><?= $dealData['step3']['ntsContent']; ?></p>
+						    	<?php }elseif($dealData['baseData']['perReResult2'] == '02'){ ?>
+						    		<p><b>反馈结果：放弃参加考试</b></p>
+						    		<p><b>放弃原因：<?= $dealData['baseData']['perReGiveup2'] ?></b></p>
+						    		<p><b>反馈时间：<?= $dealData['baseData']['perReTime2'] ?></b></p>
+						    	<?php }	?>
+						    </div>
+					    </div>
+					</div>
+					<?php }	?>
+				</fieldset>
+			<?php } ?>
+				
+			<!--//TODO 考试结果公示环节 --> 
+			
+			
 		
 		
-		
+		<?php } ?>
 	<?php } ?>
 </div>
 
 <script>
-var __flow2_recID__ = "<?= $dealData['recData']['recID'] ?>";
+var __flow_recID__ = "<?= $dealData['recData']['recID'] ?>";
 var __flow_perID__ = "<?= $dealData['baseData']['perID']; ?>";
 function flow2_reback(type){
 	if(type == '01'){
 		layer.open({content:'是否确认参加考试？',btn: ['确定','取消'],yes: function(index){
-				$.post("<?= yii\helpers\Url::to(['zpcx/flow2-reback']); ?>",{'perReResult1':type,'perReGiveup1':'','recID':__flow2_recID__,'perID':__flow_perID__},function(json){
+				$.post("<?= yii\helpers\Url::to(['zpcx/flow2-reback']); ?>",{'perReResult1':type,'perReGiveup1':'','recID':__flow_recID__,'perID':__flow_perID__},function(json){
 					if(json.result){
 						location.href = "<?= yii\helpers\Url::to(['default/index','index'=>2]); ?>";
 					}else{
@@ -153,7 +213,7 @@ function flow2_reback(type){
 		    	}
 		    	
 		    	layer.open({content:'是否确认放弃参加考试？',btn: ['确定','取消'],yes: function(index){
-						$.post("<?= yii\helpers\Url::to(['zpcx/flow2-reback']); ?>",{'perReResult1':type,'perReGiveup1':perReGiveup1,'recID':__flow2_recID__,'perID':__flow_perID__},function(json){
+						$.post("<?= yii\helpers\Url::to(['zpcx/flow2-reback']); ?>",{'perReResult1':type,'perReGiveup1':perReGiveup1,'recID':__flow_recID__,'perID':__flow_perID__},function(json){
 							if(json.result){
 								location.href = "<?= yii\helpers\Url::to(['default/index','index'=>2]); ?>";
 							}else{
@@ -165,5 +225,51 @@ function flow2_reback(type){
 		    }
 		});
 	}
-}	
+}
+
+
+function flow4_reback(type){
+	if(type == '01'){
+		layer.open({content:'是否确认参加考试？',btn: ['确定','取消'],yes: function(index){
+				$.post("<?= yii\helpers\Url::to(['zpcx/flow4-reback']); ?>",{'perReResult2':type,'perReGiveup2':'','recID':__flow_recID__,'perID':__flow_perID__},function(json){
+					if(json.result){
+						location.href = "<?= yii\helpers\Url::to(['default/index','index'=>2]); ?>";
+					}else{
+						layer.open({content: json.msg,btn: '我知道了'});
+					}
+				},'json');
+		    }
+		});
+	}else{
+		layer.open({
+		    type: 1,
+		    content: '<textarea id="perReGiveup2" style="font-size: 12px;" class="layui-textarea" placeholder="请输入放弃原因"></textarea>',
+		    anim: 'up',
+		    style: 'position:fixed; bottom:0; left:0; width: 100%; height: 150px; padding:10px 0; border:none;',
+		    btn:['确定','取消'],
+		    yes: function(index){
+		    	var perReGiveup2 = $("#perReGiveup2").val();
+		    	if(perReGiveup2 == ""){
+		    		return layer.open({content: '请填写放弃原因',skin: 'msg',time: 2 });
+		    	}
+		    	
+		    	layer.open({content:'是否确认放弃参加考试？',btn: ['确定','取消'],yes: function(index){
+						$.post("<?= yii\helpers\Url::to(['zpcx/flow4-reback']); ?>",{'perReResult2':type,'perReGiveup2':perReGiveup2,'recID':__flow_recID__,'perID':__flow_perID__},function(json){
+							if(json.result){
+								location.href = "<?= yii\helpers\Url::to(['default/index','index'=>2]); ?>";
+							}else{
+								layer.open({content: json.msg,btn: '我知道了'});
+							}
+						},'json');
+				    }
+				});
+		    }
+		});
+	}
+}
+
+function flow_print_pdf_ticketno(){
+	
+}
+
 </script>
