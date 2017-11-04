@@ -51,6 +51,18 @@ class ExamineeController extends BaseController{
 		$count_tab3 = (new yii\db\Query())->from($tableName)->where(['AND',['perStatus'=>2,'perPub'=>1],['or', ['perReResult1' =>'02'], ['perReResult2' => '02']]])->count();
 		$count_tab4 = (new yii\db\Query())->from($tableName)->where(['AND',['perStatus'=>2,'perPub'=>1]])->count();
 		
+		$count_pub = (new yii\db\Query())->from($tableName)->where(['AND',['perStatus'=>2,'perPub'=>1,'perPub2'=>0]])->count();
+		
+		if($count_tab4 !=0 && $count_pub > 0){
+			$pub_flag = 0;//wei
+		}elseif($count_tab4 == 0){
+			$pub_flag = 1;//wu
+		}elseif($count_tab4 !=0 && $count_pub == 0){
+			$pub_flag = 2;//yi
+		}
+		
+		$result['pub_flag'] = $pub_flag;
+		
 		$result['headInfo'] = ['tab1'=>$count_tab1,'tab2'=>$count_tab2,'tab3'=>$count_tab3,'tab4'=>$count_tab4];
 		
 		if($perName != ""){
@@ -313,6 +325,7 @@ class ExamineeController extends BaseController{
 			$noticemb = new Noticemb();
 			$noticemb->recID = $recID;
 			$noticemb->ntsTitle = $ntsTitle;
+			$noticemb->ntsType = 1;
 			$noticemb->ntsContent = $ntsContent;
 			if($noticemb->save()){
 				$result = ['result'=>1,'msg'=>'保存成功'];
@@ -338,5 +351,28 @@ class ExamineeController extends BaseController{
 		return $this->jsonReturn($result);
 	}
 	
+	public function actionExamineeNoticePub(){
+		$request = Yii::$app->request;
+		$recID = $request->post('recID');
+		$flag_noticemb = Noticemb::find()->where(['recID'=>$recID,'ntsType'=>1])->count();
+		if(intval($flag_noticemb) > 0){
+			$flag = Yii::$app->db->createCommand()->update(Share::MainTableName($recID),[
+							'perPub2'=>1,
+							],['perStatus'=>2,'perPub'=>1])
+						->execute();
+			if($flag !== false){
+				if(!$flag){
+					$result = ['result'=>0,'msg'=>'已经全部发布过了'];
+				}else{
+					$result = ['result'=>1,'msg'=>'发布成功'];
+				}
+			}else{
+				$result = ['result'=>0,'msg'=>'发布失败'];
+			}
+		}else{
+			$result = ['result'=>0,'msg'=>'您还未编辑考试安排通知，请先编辑考试安排'];
+		}
+		return $this->jsonReturn($result);
+	}
 	
 }
