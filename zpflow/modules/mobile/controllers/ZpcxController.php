@@ -35,6 +35,7 @@ class ZpcxController extends Controller
     }
 	
 	private function load_entrying_step_info(){
+		date_default_timezone_set('PRC');
 		$idcard = Yii::$app->user->identity->name;	
 		$recInfo = Recruit::find()->where(['recDefault'=>1])->asArray()->one();
 		$keys = [['recBatch','PC']];
@@ -87,12 +88,13 @@ class ZpcxController extends Controller
 			//TODO考试安排环节
 			if($mainInfo['perPub2'] == 1){
 				$jsonData['title'] = '已经为您安排了考试信息，请关注！';
-				$step3_tempInfo = Setgroup::find()->select(['gstItvPlace','gstStartEnd'])->where(['recID'=>$recID,'gstGroup'=>$mainInfo['perGroupSet'],'gstType'=>2])->one();
+				$step3_tempInfo = Setgroup::find()->select(['gstItvPlace','gstStartEnd','gstItvStartTime'])->where(['recID'=>$recID,'gstGroup'=>$mainInfo['perGroupSet'],'gstType'=>2])->one();
 				$step3 = [
 					'perTicketNo'=>$mainInfo['perTicketNo'],
 					'perGroupSet'=>$mainJson['perGroupSet'],
 					'gstStartEnd'=>$step3_tempInfo['gstStartEnd'],
 					'gstItvPlace'=>$step3_tempInfo['gstItvPlace'],
+					'examoverpass'=>($step3_tempInfo['gstItvStartTime'] < date('Y-m-d H:i:s',time()) ? 1 : 0 ),
 					'ntsContent'=>($this->load_notice_content_info($recData,$step3_tempInfo,$mainJson))
 				];
 				$jsonData['step3'] = $step3;

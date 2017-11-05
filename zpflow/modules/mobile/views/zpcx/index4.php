@@ -143,12 +143,19 @@
 						    	<p><b>考试时间：</b></p><p><?= $dealData['step3']['gstStartEnd']; ?></p>
 						    	<p><b>考试地点：</b><?= $dealData['step3']['gstItvPlace']; ?></p>
 						    	<?php if($dealData['baseData']['perReResult2'] == '03'){ ?>
-							    	<p style="padding-top: 25px;">已经为您安排考试时间地点了，是否会参加考试？</p>
-							    	<div style="padding: 10px;text-align: center;">
-										<button onclick="flow4_reback('01')" class="layui-btn layui-btn-normal layui-btn-small layui-btn-radius" >确定参加</button>
-										<button onclick="flow4_reback('02')" class="layui-btn layui-btn-normal layui-btn-small layui-btn-radius" >放弃参加</button>
-							    	</div>
+						    		
+						    		<?php if($dealData['step3']['examoverpass'] == 1){ ?>
+						    			<p style="padding-top: 25px;">抱歉您已经错过考试时间，敬请期待下次招聘，谢谢！</p>
+						    		<?php }else{ ?>
+								    	<p style="padding-top: 25px;">已经为您安排考试时间地点了，是否会参加考试？</p>
+								    	<div style="padding: 10px;text-align: center;">
+											<button onclick="flow4_reback('01')" class="layui-btn layui-btn-normal layui-btn-small layui-btn-radius" >确定参加</button>
+											<button onclick="flow4_reback('02')" class="layui-btn layui-btn-normal layui-btn-small layui-btn-radius" >放弃参加</button>
+								    	</div>
+							    	<?php } ?>
 						    	<?php }	?>
+						    	
+						    		
 						    </div>
 					    </div>
 					</div>
