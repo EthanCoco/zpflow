@@ -33,7 +33,7 @@ $this->title = '';
 	      	<td>选择文件</td>
 	      	<td>
 	      		<input type="text" id="fileName"  style="display: none;"/>
-	      		<button type="button" class="layui-btn" id="step2_file_btn"><i class="layui-icon"></i>选择文件</button>
+	      		<button type="button" class="layui-btn" id="step5_file_btn"><i class="layui-icon"></i>选择文件</button>
 	      	</td>
 	    </tr>
 	    <tr id="import_tr_sh" style="display: none;"><td colspan="2"><span id="showhtml"></span></td></tr>
@@ -55,7 +55,7 @@ $(function(){
 	layui.use(['upload','layer'], function(){
 	 	var upload = layui.upload,layer = layui.layer;
 	 	upload.render({
-		    elem: '#step2_file_btn',
+		    elem: '#step5_file_btn',
 		    url: "<?= Url::to(['examiner/examiner-upexcel']) ?>",
 		    accept: 'file',
 		    exts: 'xls',
@@ -75,7 +75,10 @@ $(function(){
 
 function step5_import_data_sure(){
 	layui.use(['upload','layer'], function(){
-	    $.post("<?= Url::to(['examiner/examiner-upexcel-sure']) ?>",{'recID':__step5_import_recID__,'filePath':$("#fileName").val()},function(json){
+		if($("#fileName").val() == ""){
+			return parent.layer.msg('请选择上传的文件');
+		}
+	    $.post("<?= Url::to(['examinee/exam-result-upexcel-sure']) ?>",{'recID':__step5_import_recID__,'filePath':$("#fileName").val()},function(json){
 			if(json.result){
 				parent.init_flow4_step5_datagrid();
 				parent.layer.msg(json.msg);

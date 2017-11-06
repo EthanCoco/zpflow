@@ -75,6 +75,11 @@ $(function(){
 
 function step2_import_data_sure(){
 	layui.use(['upload','layer'], function(){
+		
+		if($("#fileName").val() == ""){
+			return parent.layer.msg('请选择上传的文件');
+		}
+		
 	    $.post("<?= Url::to(['examiner/examiner-upexcel-sure']) ?>",{'recID':__step2_import_recID__,'filePath':$("#fileName").val()},function(json){
 			if(json.result){
 				parent.init_flow4_step2_datagrid();
