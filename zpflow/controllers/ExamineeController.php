@@ -750,12 +750,13 @@ class ExamineeController extends BaseController{
 			$stt->sttPen = $sttPen;
 			$stt->sttFinalScore = $sttFinalScore;
 			if($stt->save()){
+				$this->update_save_perpub2($recID,$sttView,$sttPen,$sttFinalScore);
 				$result = ['result'=>1,'msg'=>'保存成功'];
 			}else{
 				$result = ['result'=>0,'msg'=>'保存失败'];
 			}
 		}else{
-			$stt = findOne($sttID);
+			$stt = Standartline::findOne($sttID);
 			$stt->sttView = $sttView;
 			$stt->sttPen = $sttPen;
 			$stt->sttFinalScore = $sttFinalScore;
@@ -764,6 +765,7 @@ class ExamineeController extends BaseController{
 				if(!$flag){
 					$result = ['result'=>0,'msg'=>'数据没有改动，不需要保存'];
 				}else{
+					$this->update_save_perpub2($recID,$sttView,$sttPen,$sttFinalScore);
 					$result = ['result'=>1,'msg'=>'保存成功'];
 				}
 				
@@ -774,5 +776,34 @@ class ExamineeController extends BaseController{
 		
 		return $this->jsonReturn($result);
 	}
-
+	
+	private function update_save_perpub2($recID,$sttView,$sttPen,$sttFinalScore){
+		$db = Yii::$app->db->createCommand();
+		$tableName = Share::MainTableName($recID);
+		$infos = (new yii\db\Query())	
+					->select(['perID','perViewScore','perPenScore'])
+					->from($tableName)
+					->where(['perReResult2'=>'01'])
+					->all();
+					
+		$stt_view = bcdiv($sttView,'100',2);
+		$stt_pen = bcdiv($sttPen,'100',2);
+					
+		foreach($infos as $per){
+			if($per['perViewScore'] != '' || $per['perPenScore'] != ''){
+				$view_score = $per['perViewScore'] == '' ? 0 : intval($per['perViewScore']);
+				$pen_score = $per['perPenScore'] == '' ? 0 : intval($per['perPenScore']);
+				$perExamResult = bcadd(bcmul($stt_view,$view_score,2),bcmul($stt_pen,$pen_score,2),2) < $sttFinalScore ? 2 : 1;
+			}else if($per['perViewScore'] == '' && $per['perPenScore'] == ''){
+				$perExamResult = 3;
+			}
+			
+			$db	->	update($tableName,[
+							'perExamResult'=>$perExamResult
+						], [
+							'perID'=>$per['perID']
+						])->execute();
+		}
+	}
+	
 }
