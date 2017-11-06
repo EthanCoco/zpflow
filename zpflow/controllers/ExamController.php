@@ -9,6 +9,7 @@ use app\models\Setgroup;
 use app\models\Share;
 use app\models\Comnotice;
 use app\models\Noticemb;
+use app\models\Standartline;
 
 class ExamController extends BaseController{
 	public function actionStep(){
@@ -106,5 +107,12 @@ class ExamController extends BaseController{
 		$recID = $request->get('recID');
 		$type = $request->get('type');
 		return $this->renderPartial('step5/sendmsg',['recID'=>$recID,'type'=>$type]);
+	}
+	
+	public function actionStantLineStep5(){
+		$request = Yii::$app->request;
+		$recID = $request->get('recID');
+		$stt_infos = Standartline::find()->where(['recID'=>$recID])->asArray()->one();
+		return $this->renderPartial('step5/repair',['recID'=>$recID,'stt_infos'=>$stt_infos]);
 	}
 }

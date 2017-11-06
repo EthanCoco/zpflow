@@ -735,6 +735,44 @@ class ExamineeController extends BaseController{
 		Share::exportCommonExcel(['sheet0'=>['data'=>$jsonData],'key'=>'flow4_step5_export','fileInfo'=>['fileName'=>'考试结果信息']]);
 	}
 
-
+	public function actionExamResultStantSave(){
+		$request = Yii::$app->request;
+		$recID = $request->post('recID');
+		$sttView = $request->post('sttView');
+		$sttPen = $request->post('sttPen');
+		$sttFinalScore = $request->post('sttFinalScore');
+		$sttID = $request->post('sttID','');
+		
+		if($sttID == ''){
+			$stt = new Standartline();
+			$stt->recID = $recID;
+			$stt->sttView = $sttView;
+			$stt->sttPen = $sttPen;
+			$stt->sttFinalScore = $sttFinalScore;
+			if($stt->save()){
+				$result = ['result'=>1,'msg'=>'保存成功'];
+			}else{
+				$result = ['result'=>0,'msg'=>'保存失败'];
+			}
+		}else{
+			$stt = findOne($sttID);
+			$stt->sttView = $sttView;
+			$stt->sttPen = $sttPen;
+			$stt->sttFinalScore = $sttFinalScore;
+			$flag = $stt->save();
+			if($flag !== false){
+				if(!$flag){
+					$result = ['result'=>0,'msg'=>'数据没有改动，不需要保存'];
+				}else{
+					$result = ['result'=>1,'msg'=>'保存成功'];
+				}
+				
+			}else{
+				$result = ['result'=>0,'msg'=>'保存失败'];
+			}
+		}
+		
+		return $this->jsonReturn($result);
+	}
 
 }
