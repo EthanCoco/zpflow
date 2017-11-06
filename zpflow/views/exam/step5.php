@@ -55,6 +55,7 @@
 			          	<option value="0">待处理</option>
 			          	<option value="1">通过</option>
 			          	<option value="2">不通过</option>
+			          	<option value="3">无成绩</option>
 			        </select>
 		      	</div>
 		    </div>
@@ -69,14 +70,13 @@
 </div>
 <script>
 var __flow4_step5_datagrid_flag__ = "1";
-//var __flow4_step5_perIDs__ = [];
 var __flow3_to__ = "<?= $flow3_to; ?>";
 $(function(){
 	layui.use(['element','form','layer'], function(){
 		var element = layui.element,
 			layer = layui.layer,
 			form = layui.form;
-		  	element.on('tab(flow4_step4_tab)', function(){
+		  	element.on('tab(flow4_step5_tab)', function(){
 	    	__flow4_step5_datagrid_flag__ = this.getAttribute('lay-id');
 	    	init_flow4_step5_datagrid();
 	  	});
@@ -92,18 +92,16 @@ $(function(){
 
 function init_flow4_step5_datagrid(){
 	var perName = $("#perName").val().trim();
-	var perGender = $("#perGender").val();
 	var perIDCard = $("#perIDCard").val().trim();
-	var perGroupSet = $("#perGroupSet").val();
 	var perTicketNo = $("#perTicketNo").val().trim();
 	var perExamResult = $("#perExamResult").val();
 	
 	$('#flow4_step5_datagrid').datagrid({
         width:'auto',
         height:'auto',
-	    url:"<?= yii\helpers\Url::to(['examinee/examinee-deal-list']); ?>",
+	    url:"<?= yii\helpers\Url::to(['examinee/exam-result-list']); ?>",
 	    method: "post",
-	    queryParams: {'recID':__flow4_recID__,'flag':__flow4_step5_datagrid_flag__,'perName':perName,'perGender':perGender,'perIDCard':perIDCard,'perTicketNo':perTicketNo,'perExamResult':perExamResult},
+	    queryParams: {'recID':__flow4_recID__,'flag':__flow4_step5_datagrid_flag__,'perName':perName,'perIDCard':perIDCard,'perTicketNo':perTicketNo,'perExamResult':perExamResult},
 	    striped: true,
 	    fixed: true,
 	    fitColumns: false,
@@ -132,7 +130,20 @@ function init_flow4_step5_datagrid(){
 	        {field:'perViewScore',title:'面试成绩',width:'100',align:'center',rowspan:2},
 	        {field:'perPenScore',title:'笔试成绩',width:'100',align:'center',rowspan:2,sortable:true},
 	        {field:'perViewPenScore',title:'综合成绩',width:'100',align:'center',rowspan:2},
-	        {field:'perExamResult',title:'考试结果',width:'100',align:'center',rowspan:2},
+	        {field:'perGradePub',title:'成绩公示',width:'100',align:'center',rowspan:2},
+	        {field:'perExamResult',title:'考试结果',width:'100',align:'center',rowspan:2,
+	        	formatter:function(value,row,index){
+	        		if(value == "0"){
+	        			return "待处理";
+	        		}else if(value == "1"){
+	        			return "通过";
+	        		}else if(value == "2"){
+	        			return "不通过";
+	        		}else{
+	        			return "无成绩";
+	        		}
+	        	}
+	        },
 	        {field:'perRead3',title:'通知阅读情况',width:'100',align:'center',rowspan:2,sortable:true},
 	        
 	        {field:'perTJ',title:'体检反馈情况',width:'300',colspan:3,align:'center'}
@@ -146,8 +157,8 @@ function init_flow4_step5_datagrid(){
 			    }
 	    ]],
         onLoadSuccess: function(data){
-//    		$("#stepIndex_four_head_pubinfo").html('');
-//			$("#stepIndex_four_head_pubinfo").html('发布状态：'+ (data.pub_flag == 0 ? '未发布' : (data.pub_flag == 1 ? '暂无数据' : '已发布')));
+      		$("#stepIndex_four_head_pubinfo").html('');
+			$("#stepIndex_four_head_pubinfo").html('公示状态：'+ (data.pub_flag == 0 ? '未公示' : (data.pub_flag == 1 ? '暂无数据' : '已公示')));
         	
         	$("#flow4_step5_tabli1").html("");
         	$("#flow4_step5_tabli2").html("");
@@ -168,19 +179,99 @@ function init_flow4_step5_datagrid(){
 	    	});
 	    	
 	    	if(__flow4_show_flag__ == "1"){
-	    		if(__flow3_to__ != "0"){}else{}
+	    		if(data.pub_flag == 1){
+	    			$("#flow4_step5_datagrid").datagrid('getPager').pagination({});
+	    		}else if(data.pub_flag == 2){
+	    			$("#flow4_step5_datagrid").datagrid('getPager').pagination({
+			    		buttons:[{
+				   			iconCls:'icon-tip',text:'短信提醒',
+						   	handler:function(){
+						   		pubCJGB();
+							}
+				   		},'-',{
+						  	iconCls:'icon-export',
+						   	text:'Excel导出',
+						   	handler:function(){
+						   	}
+					   	}]
+					});
+	    		}else{
+	    			$("#flow4_step5_datagrid").datagrid('getPager').pagination({
+			    		buttons:[{
+						  	iconCls:'icon-import',
+						   	text:'Excel导入',
+						   	handler:function(){
+						   		layui.use('layer',function(){
+						   			var layer = layui.layer;
+						   			layer.open({
+							    		type:2,
+							    		title:'导入考试成绩',
+							    		area:["500px",'350px'],
+							    		content:"<?= yii\helpers\Url::to(['exam/import-step5']); ?>"+"&recID="+__flow4_recID__,
+							    		btn:['上传','取消'],
+							    		yes: function(){
+							    			$("iframe[id*='layui-layer-iframe'")[0].contentWindow.step5_import_data_sure(); 
+								        },
+							    		btn2:function(){
+							    			layer.closeAll();
+							    		}
+								    });
+						   		});
+						   	}
+					   	},'-',{
+					   		iconCls:'icon-save',text:'保存',
+						   	handler:function(){
+						   		saveBCFive();
+							}
+				   		},'-',{
+					   		iconCls:'icon-undo',text:'取消',
+						   	handler:function(){
+						   		loadFlowFiveDiv(flowtwoURLFive);
+							}
+				   		},'-',{
+						  	iconCls:'icon-edit',
+						   	text:'微调',
+						   	handler:function(){
+						   	}
+					   	},'-',{
+						  	iconCls:'icon-import',
+						   	text:'设置合格线',
+						   	handler:function(){
+						   	}
+					   	},'-','-','-',{
+				   			iconCls:'icon-pub',text:'成绩公布',
+						   	handler:function(){
+						   		pubCJGB();
+							}
+				   		},'-',{
+				   			iconCls:'icon-pub',text:'结果公示',
+						   	handler:function(){
+						   		pubCJGB();
+							}
+				   		},'-',{
+				   			iconCls:'icon-tip',text:'短信提醒',
+						   	handler:function(){
+						   		pubCJGB();
+							}
+				   		},'-',{
+						  	iconCls:'icon-export',
+						   	text:'Excel导出',
+						   	handler:function(){
+						   	}
+					   	}]
+					});
+	    		}
 	    	}else{
 	    		$("#flow4_step5_datagrid").datagrid('getPager').pagination({
 		    		buttons:[{
+			   			iconCls:'icon-tip',text:'短信提醒',
+					   	handler:function(){
+					   		pubCJGB();
+						}
+			   		},'-',{
 					  	iconCls:'icon-export',
 					   	text:'Excel导出',
 					   	handler:function(){
-					   		layui.use('layer',function(){
-					   			if(data.total == "0"){
-					   				return layer.alert("当前没有任何数据，不需要导出");
-					   			}
-					   			window.open("<?= yii\helpers\Url::to(['examinee/examinee-export-step4']); ?>"+"&recID="+__flow4_recID__+"&condition="+JSON.stringify(data.exportInfo.condition));
-					   		});
 					   	}
 				   	}]
 				});
@@ -193,7 +284,6 @@ function init_flow4_step5_cancle(){
 	layui.use('form', function(){
 		var form = layui.form;
 		$("#perName").val("");
-	 	$("#perGender").val("");
 		$("#perIDCard").val("");
 		$("#perTicketNo").val("");
 		$("#perExamResult").val("");
