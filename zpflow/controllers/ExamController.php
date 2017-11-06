@@ -101,4 +101,10 @@ class ExamController extends BaseController{
 		return $this->renderPartial('step5/import',['recID'=>$recID]);
 	}
 	
+	public function actionSendMsgStep5(){
+		$request = Yii::$app->request;
+		$recID = $request->get('recID');
+		$type = $request->get('type');
+		return $this->renderPartial('step5/sendmsg',['recID'=>$recID,'type'=>$type]);
+	}
 }

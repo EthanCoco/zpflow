@@ -454,9 +454,11 @@ class ExamineeController extends BaseController{
 						->limit($rows)
 						->all();
 		$jsonData = [];
+		$stt_info = Standartline::find()->where(['recID'=>$recID])->asArray()->one();
+		$result['stt_info'] = $stt_info;
+		
 		if(!empty($infos)){
 			$codes = [['perGender','XB'],['perJob','XZ'],['perGroupSet','ZBMC'],['perReResult3','FKJG'],['perRead3','YDZK'],['perGradePub','GS']];
-			$stt_info = Standartline::find()->where(['recID'=>$recID])->asArray()->one();
 			if(!empty($stt_info)){
 				$stt_view = bcdiv($stt_info['sttView'],'100',2);
 				$stt_pen = bcdiv($stt_info['sttPen'],'100',2);
@@ -692,4 +694,47 @@ class ExamineeController extends BaseController{
 			}
 		}
 	}
+	
+	public function actionExamResultExport(){
+		$request = Yii::$app->request;
+		$recID = $request->get('recID');
+		$conditionEN = $request->get('condition');
+		$condition = Share::object_to_array(json_decode($conditionEN));
+		
+		$infos = (new yii\db\Query())	
+						->select(['perIndex','perID', 'perName','perIDCard','perGender','perBirth','perJob','perPhone','perTicketNo','perGroupSet','perViewScore','perPenScore','perGradePub','perExamResult','perRead3','perReResult3','perReGiveup3','perReTime3'])
+						->from(Share::MainTableName($recID))
+						->where($condition)
+						->all();
+		$jsonData = [];
+		if(!empty($infos)){
+			$codes = [['perGender','XB'],['perJob','XZ'],['perGroupSet','ZBMC'],['perReResult3','FKJG'],['perRead3','YDZK'],['perGradePub','GS'],['perExamResult','KSJG']];
+			$stt_info = Standartline::find()->where(['recID'=>$recID])->asArray()->one();
+			if(!empty($stt_info)){
+				$stt_view = bcdiv($stt_info['sttView'],'100',2);
+				$stt_pen = bcdiv($stt_info['sttPen'],'100',2);
+				foreach($infos as $info){
+					$mainCode = Share::codeValue($codes,$info);
+					if($info['perViewScore'] != '' || $info['perPenScore'] != ''){
+						$view_score = $info['perViewScore'] == '' ? 0 : intval($info['perViewScore']);
+						$pen_score = $info['perPenScore'] == '' ? 0 : intval($info['perPenScore']);
+						$mainCode['perViewPenScore'] = bcadd(bcmul($stt_view,$view_score,2),bcmul($stt_pen,$pen_score,2),2);
+					}else{
+						$mainCode['perViewPenScore'] = null;
+					}
+					$jsonData[] = array_merge($info,$mainCode);
+				}
+			}else{
+				foreach($infos as $info){
+					$mainCode = Share::codeValue($codes,$info);
+					$mainCode['perViewPenScore'] = null;
+					$jsonData[] = array_merge($info,$mainCode);
+				}
+			}
+		}
+		Share::exportCommonExcel(['sheet0'=>['data'=>$jsonData],'key'=>'flow4_step5_export','fileInfo'=>['fileName'=>'考试结果信息']]);
+	}
+
+
+
 }
