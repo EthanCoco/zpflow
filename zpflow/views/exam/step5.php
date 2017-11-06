@@ -72,6 +72,7 @@ var __flow3_to__ = "<?= $flow3_to; ?>";
 var __flow4_step5_total_flag__ = 0;
 var __flow4_step5_export_condition_info__ = [];
 var __flow4_step5_all_data__ = {};
+var __flow4_step5_stt_info__ = {};
 $(function(){
 	layui.use(['element','form','layer'], function(){
 		var element = layui.element,
@@ -159,6 +160,7 @@ function init_flow4_step5_datagrid(){
 	    ]],
         onLoadSuccess: function(data){
         	var stt_info = data.stt_info;
+        	__flow4_step5_stt_info__ = data.stt_info;
         	$("#flow4_step5_stant1").html("");
         	$("#flow4_step5_stant2").html("");
         	$("#flow4_step5_stant3").html("");
