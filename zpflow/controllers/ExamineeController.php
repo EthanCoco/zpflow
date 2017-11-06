@@ -9,6 +9,7 @@ use app\models\Setgroup;
 use app\models\Share;
 use app\models\Recruit;
 use app\models\Noticemb;
+use app\models\Standartline;
 
 class ExamineeController extends BaseController{
 	public function actionExamineeDealList(){
@@ -374,5 +375,180 @@ class ExamineeController extends BaseController{
 		}
 		return $this->jsonReturn($result);
 	}
+	
+	public function actionExamResultList(){
+		$request = Yii::$app->request;
+		$recID = $request->post('recID');
+		$flag =  intval($request->post('flag'));
+		$perName = $request->post('perName');
+		$perIDCard = $request->post('perIDCard');
+		$perTicketNo = $request->post('perTicketNo');
+		$perExamResult =$request->post('perExamResult');
+		
+		$page = $request->post('page');
+		$rows = $request->post('rows');
+		$offset =($page-1)*$rows;
+		
+		$sort = $request->post("sort"); 
+        $order = $request->post("order","asc");
+        
+		$tableName = Share::MainTableName($recID);
+		
+        if($sort){
+	        $orderInfo = $sort.' '.$order;
+        }else{
+        	$orderInfo = 'perIndex asc';
+        }
+		
+		$condition = ['AND',['perReResult2'=>'01']];
+		
+		if($flag == 1){
+			$condition[] = ['and', ['perExamResult' =>0]];
+		}elseif($flag == 2){
+			$condition[] = ['and', ['perExamResult' =>1]];
+		}elseif($flag == 3){
+			$condition[] = ['and', ['perExamResult' =>2]];
+		}
+		
+		$count_tab1 = (new yii\db\Query())->from($tableName)->where(['AND',['perReResult2'=>'01'],['perExamResult' =>0]])->count();
+		$count_tab2 = (new yii\db\Query())->from($tableName)->where(['AND',['perReResult2'=>'01'],['perExamResult' =>1]])->count();
+		$count_tab3 = (new yii\db\Query())->from($tableName)->where(['AND',['perReResult2'=>'01'],['perExamResult' =>2]])->count();
+		$count_tab4 = (new yii\db\Query())->from($tableName)->where(['AND',['perReResult2'=>'01']])->count();
+		
+		$count_pub = (new yii\db\Query())->from($tableName)->where(['AND',['perReResult2'=>'01','perPub3'=>0]])->count();
+		
+		if($count_tab4 !=0 && $count_pub > 0){
+			$pub_flag = 0;//wei
+		}elseif($count_tab4 == 0){
+			$pub_flag = 1;//wu
+		}elseif($count_tab4 !=0 && $count_pub == 0){
+			$pub_flag = 2;//yi
+		}
+		
+		$result['pub_flag'] = $pub_flag;
+		
+		$result['headInfo'] = ['tab1'=>$count_tab1,'tab2'=>$count_tab2,'tab3'=>$count_tab3,'tab4'=>$count_tab4];
+		
+		if($perName != ""){
+			$condition[] = ['AND',['like','perName',$perName]];
+		}
+		
+		if($perTicketNo != ""){
+			$condition[] = ['AND',['like','perTicketNo',$perTicketNo]];
+		}
+		
+		if($perIDCard != ""){
+			$condition[] = ['AND',['like','perIDCard',$perIDCard]];
+		}
+		
+		if($perExamResult != ""){
+			$condition[] = ['AND',['perExamResult' => $perExamResult]];
+		}
+		
+		$infos = (new yii\db\Query())	
+						->select(['perIndex','perID', 'perName','perIDCard','perGender','perBirth','perJob','perPhone','perTicketNo','perGroupSet','perViewScore','perPenScore','perGradePub','perExamResult','perRead3','perReResult3','perReGiveup3','perReTime3'])
+						->from($tableName)
+						->where($condition)
+						->orderby($orderInfo)
+						->offset($offset)
+						->limit($rows)
+						->all();
+		$jsonData = [];
+		if(!empty($infos)){
+			$codes = [['perGender','XB'],['perJob','XZ'],['perGroupSet','ZBMC'],['perReResult3','FKJG'],['perRead3','YDZK'],['perGradePub','GS']];
+			$stt_info = Standartline::find()->where(['recID'=>$recID])->asArray()->one();
+			if(!empty($stt_info)){
+				$stt_view = bcdiv($stt_info['sttView'],'100',2);
+				$stt_pen = bcdiv($stt_info['sttPen'],'100',2);
+				foreach($infos as $info){
+					$mainCode = Share::codeValue($codes,$info);
+					if($info['perViewScore'] != '' || $info['perPenScore'] != ''){
+						$view_score = $info['perViewScore'] == '' ? 0 : intval($info['perViewScore']);
+						$pen_score = $info['perPenScore'] == '' ? 0 : intval($info['perPenScore']);
+						$mainCode['perViewPenScore'] = bcadd(bcmul($stt_view,$view_score,2),bcmul($stt_pen,$pen_score,2),2);
+					}
+					$jsonData[] = array_merge($info,$mainCode);
+				}
+			}else{
+				foreach($infos as $info){
+					$mainCode = Share::codeValue($codes,$info);
+					$jsonData[] = array_merge($info,$mainCode);
+				}
+			}
+		}
+		
+		$count = (new yii\db\Query())	->from($tableName)->where($condition)->count();
+		
+		$result['rows'] = $jsonData;
+		$result['total'] = $count;
+		
+		$result['exportInfo'] = ['condition'=>$condition];
+		
+		return $this->jsonReturn($result);
+	}
+	
+	public function actionExamResultImportmb(){
+		$recID = Yii::$app->request->get('recID');
+		
+		$infos = (new yii\db\Query())	
+						->select(['perIndex', 'perName','perGender','perIDCard','perJob','perPhone','perTicketNo','perGroupSet','perViewScore','perPenScore'])
+						->from(Share::MainTableName($recID))
+						->where(['perReResult2'=>'01'])
+						->all();
+		$jsonData = [];
+		if(!empty($infos)){
+			$codes = [['perGender','XB'],['perJob','XZ'],['perGroupSet','ZBMC']];
+			foreach($infos as $info){
+				$mainCode = Share::codeValue($codes,$info);
+				$jsonData[] = array_merge($info,$mainCode);
+			}
+		}
+		
+		@ini_set('memory_limit', '2048M');
+		set_time_limit(0);
+		error_reporting(E_ALL);
+		date_default_timezone_set('PRC');
+		$fileName = '考生考试导入模板信息'.date('Y-m-d',time()).time();
+		$excelInfo = Share::getKeyInfo('flow4_step5_mb');
+		
+		$objPHPExcel = \PHPExcel_IOFactory::createReader("Excel5")->load($excelInfo['tempExcel']);
+		$objPHPExcel->setActiveSheetIndex(0);
+		$index = 0;
+		foreach($excelInfo['keys'] as $v){
+			$objPHPExcel -> getSheet($v['index']) -> setTitle($v['sheetName']);
+			$dataInfos = $jsonData;
+			$num = $v['num'];
+			$keys = $v['key'];
+			foreach($dataInfos as $info){
+				$column = count($keys);
+				$temp = 0;
+				for($n = 0; $n < $column; $n++){
+					if($temp == $column){
+						break;
+					}else{
+						$pcoordinate = \PHPExcel_Cell::stringFromColumnIndex($n).''.$num;
+						if($keys[$temp] == 'id'){
+							$objPHPExcel->setActiveSheetIndex($v['index'])->setCellValue($pcoordinate,  ($num-1) );
+						}else{
+							$objPHPExcel->setActiveSheetIndex($v['index'])->setCellValue($pcoordinate,  $info[$keys[$temp]]);
+						}
+			            $temp++;
+					}
+				}
+				$num++;
+			}
+			$index++;
+		}
+
+		ob_end_clean();
+		$fileName = iconv("utf-8","gb2312",$fileName);
+		header ( 'Content-Type: application/vnd.ms-excel' );
+		header ( 'Content-Disposition: attachment;filename="'.$fileName.'.xls"'); 
+		header ( 'Cache-Control: max-age=0' );
+		$objWriter = \PHPExcel_IOFactory::createWriter ($objPHPExcel,'Excel5'); 
+		$objWriter->save ( 'php://output' );
+		exit;
+	}
+	
 	
 }

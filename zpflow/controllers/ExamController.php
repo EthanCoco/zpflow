@@ -95,5 +95,10 @@ class ExamController extends BaseController{
 		return $this->renderPartial('step4/group-edit',['recID'=>$recID,'nstnotice_info'=>$jsonInfo]);
 	}
 	
+	public function actionImportStep5(){
+		$request = Yii::$app->request;
+		$recID = $request->get('recID');
+		return $this->renderPartial('step5/import',['recID'=>$recID]);
+	}
 	
 }
