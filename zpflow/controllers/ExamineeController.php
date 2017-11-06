@@ -407,12 +407,12 @@ class ExamineeController extends BaseController{
 		}elseif($flag == 2){
 			$condition[] = ['and', ['perExamResult' =>1]];
 		}elseif($flag == 3){
-			$condition[] = ['and', ['perExamResult' =>2]];
+			$condition[] = ['and', ['perExamResult' =>[2,3]]];
 		}
 		
 		$count_tab1 = (new yii\db\Query())->from($tableName)->where(['AND',['perReResult2'=>'01'],['perExamResult' =>0]])->count();
 		$count_tab2 = (new yii\db\Query())->from($tableName)->where(['AND',['perReResult2'=>'01'],['perExamResult' =>1]])->count();
-		$count_tab3 = (new yii\db\Query())->from($tableName)->where(['AND',['perReResult2'=>'01'],['perExamResult' =>2]])->count();
+		$count_tab3 = (new yii\db\Query())->from($tableName)->where(['AND',['perReResult2'=>'01'],['perExamResult' =>[2,3]]])->count();
 		$count_tab4 = (new yii\db\Query())->from($tableName)->where(['AND',['perReResult2'=>'01']])->count();
 		
 		$count_pub = (new yii\db\Query())->from($tableName)->where(['AND',['perReResult2'=>'01','perPub3'=>0]])->count();
@@ -550,5 +550,146 @@ class ExamineeController extends BaseController{
 		exit;
 	}
 	
-	
+	public function actionExamResultUpexcelSure(){
+		$db = Yii::$app->db->createCommand();
+		$filePath = Yii::$app->request->post('filePath');
+		$recID = Yii::$app->request->post('recID');
+        $reader = \PHPExcel_IOFactory::createReader('Excel5');
+        $PHPExcel = $reader->load($filePath); 
+        $sheet = $PHPExcel->getSheet(0);
+        $highestRow = $sheet->getHighestRow(); 
+        $highestColumm = $sheet->getHighestColumn();
+        $highestColumm= \PHPExcel_Cell::columnIndexFromString($highestColumm);
+        if($highestColumm != 11){
+            return $this->jsonReturn(['result'=>0,'msg'=>'模版不正确']);
+        }
+        $keys = ['perIndex', 'perName','perGender','perIDCard','perJob','perPhone','perTicketNo','perGroupSet','perViewScore','perPenScore'];
+        $datas = [];
+        $temp = 0;
+        for ($row = 2; $row <= $highestRow; $row++){
+            $temp = 0;
+            $datatemp =[];
+            for ($column = 1; $column < $highestColumm; $column++) {
+            	$datatemp[$keys[$temp]] = $sheet->getCellByColumnAndRow($column, $row)->getValue();
+				
+                if($temp == 11){
+                    break;
+                }
+                $temp++;
+            }
+            $datas[] = $datatemp;
+        }
+        //检测数据完整性
+        if(empty($datas)){
+            return $this->jsonReturn(['result'=>0,'msg'=>'导入数据为空']);
+        }
+        $index = 2;
+        $errorInfo = '';
+        $personIDdata = [];
+		$postTemp = [];
+		$numTemp = [];
+		$tableName = Share::MainTableName($recID);
+		
+        foreach($datas as $per){
+        	
+			if($per['perIndex'] == ''){
+				$errorInfo .= '第'.$index.'行报名序号不能为空！<br/>';
+			}
+			if($per['perIDCard'] == ''){
+				$errorInfo .= '第'.$index.'行身份证号不能为空！<br/>';
+			}
+			if($per['perTicketNo'] == ''){
+				$errorInfo .= '第'.$index.'行准考证号不能为空！<br/>';
+			}
+			
+			if($per['perViewScore'] != '' &&  !is_numeric(trim($per['perViewScore']))){
+				$errorInfo .= '第'.$index.'行面试成绩格式错误！<br/>';
+			}
+			if($per['perViewScore'] != '' && is_numeric(trim($per['perViewScore'])) ){
+				if(intval($per['perViewScore']) > 200){
+					$errorInfo .= '第'.$index.'行面试成绩不允许大于200！<br/>';
+				}
+			}
+			if($per['perPenScore'] != '' &&  !is_numeric(trim($per['perPenScore']))){
+				$errorInfo .= '第'.$index.'行笔试成绩格式错误！<br/>';
+			}
+			if($per['perPenScore'] != '' && is_numeric(trim($per['perPenScore'])) ){
+				if(intval($per['perPenScore']) > 200){
+					$errorInfo .= '第'.$index.'行笔试成绩不允许大于200！<br/>';
+				}
+			}
+			if($per['perIndex'] != "" && $per['perIDCard'] != "" && $per['perTicketNo'] != ""){
+				$per_count = (new yii\db\Query())	
+							->from($tableName)
+							->where(['perReResult2'=>'01','perIndex'=>$per['perIndex'],'perIDCard'=>$per['perIDCard'],'perTicketNo'=>$per['perTicketNo']])
+							->count();
+					
+				if($per_count == 0){
+					$errorInfo .= '第'.$index.'行报名序号，身份证和准考证号不匹配！<br/>';
+				}
+					
+			}
+            $index++;
+        }
+		
+		$update_flag_msg = "";
+		if($errorInfo != ''){
+			return $this->jsonReturn(['result'=>0,'msg'=>$errorInfo]);
+		}else{
+			$stt_info = Standartline::find()->where(['recID'=>$recID])->asArray()->one();
+			if(!empty($stt_info)){
+				$stt_view = bcdiv($stt_info['sttView'],'100',2);
+				$stt_pen = bcdiv($stt_info['sttPen'],'100',2);
+				$stt_final_score = $stt_info['sttFinalScore'];
+				
+				foreach($datas as $per){
+					if($per['perViewScore'] != '' || $per['perPenScore'] != ''){
+						$view_score = $per['perViewScore'] == '' ? 0 : intval($per['perViewScore']);
+						$pen_score = $per['perPenScore'] == '' ? 0 : intval($per['perPenScore']);
+						$perExamResult = bcadd(bcmul($stt_view,$view_score,2),bcmul($stt_pen,$pen_score,2),2) < $stt_final_score ? 2 : 1;
+					}else if($per['perViewScore'] == '' && $per['perPenScore'] == ''){
+						$perExamResult = 3;
+					}
+					
+					$flag = $db	->	update($tableName,[
+										'perViewScore'=>$per['perViewScore'],
+										'perPenScore'=>$per['perPenScore'],
+										'perExamResult'=>$perExamResult
+									], [
+										'perReResult2'=>'01',
+										'perIndex'=>$per['perIndex'],
+										'perIDCard'=>$per['perIDCard'],
+										'perTicketNo'=>$per['perTicketNo']
+									])->execute();
+					if($flag !== false){
+						
+					}else{
+						$update_flag_msg .= '姓名：'.$per['perName'].'数据插入失败<br/>';
+					}
+				}
+			}else{
+				foreach($datas as $per){
+					$flag = $db	->	update($tableName,[
+										'perViewScore'=>$per['perViewScore'],
+										'perPenScore'=>$per['perPenScore']
+									], [
+										'perReResult2'=>'01',
+										'perIndex'=>$per['perIndex'],
+										'perIDCard'=>$per['perIDCard'],
+										'perTicketNo'=>$per['perTicketNo']
+									])->execute();
+					if($flag !== false){
+						
+					}else{
+						$update_flag_msg .= '姓名：'.$per['perName'].'数据插入失败<br/>';
+					}
+				}
+			}
+			if($update_flag_msg == ''){
+				return $this->jsonReturn(['result'=>1,'msg'=>'导入成功！']);	
+			}else{
+				return $this->jsonReturn(['result'=>0,'msg'=>$update_flag_msg]);	
+			}
+		}
+	}
 }

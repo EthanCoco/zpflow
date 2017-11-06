@@ -200,7 +200,7 @@ class ExaminerController extends BaseController{
         $highestColumm= \PHPExcel_Cell::columnIndexFromString($highestColumm);
 		
         if($highestColumm != 9){
-            return ['result'=>0,'msg'=>'模版不正确！'];
+            return $this->jsonReturn(['result'=>0,'msg'=>'模版不正确！']);
         }
 		
         $keys = ['exmName','exmAttr','exmCom','exmType','exmPost','exmPhone','exmCertNo','exmTime'];
@@ -229,7 +229,7 @@ class ExaminerController extends BaseController{
         }
         //检测数据完整性
         if(empty($datas)){
-            return ['result'=>0,'msg'=>'导入数据为空！'];
+            return $this->jsonReturn(['result'=>0,'msg'=>'导入数据为空！']);
         }
 		
         $index = 2;
@@ -278,7 +278,7 @@ class ExaminerController extends BaseController{
         }
 		
 		if($errorInfo != ''){
-			return ['result'=>0,'msg'=>$errorInfo];
+			return $this->jsonReturn(['result'=>0,'msg'=>$errorInfo]);
 		}else{
 			foreach($datas as $per){
 				$examiner = new Examiner();
