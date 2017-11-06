@@ -309,6 +309,21 @@ class Share extends Model
 					],
 				];
 			break;
+			case 'flow4_step5_export' :
+				 $result = [
+					'tempExcel'	=>	'../web/mbfile/flow4_step5_export.xls',
+					'keys' =>[
+						[
+							'key'=>[
+									'perIndex', 'perName','perIDCard','perGender','perBirth','perJob','perPhone','perTicketNo','perGroupSet','perViewScore','perPenScore','perViewPenScore','perGradePub','perExamResult','perRead3','perReResult3','perReGiveup3','perReTime3'
+								],
+							'num'=>3,
+							'index'=>0,
+							'sheetName'=>'考试结果信息',
+						]
+					],
+				];
+			break;
 			default:break;
 		}
 
