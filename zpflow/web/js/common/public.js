@@ -218,3 +218,52 @@ function transCodeInfo(jsonInfo,codeIndex,codeVal){
 	}
 	return result;
 }
+
+/**
+ * 检验是否为数字
+ * @param {Object} val
+ * @param {Object} len
+ */
+function xy_filedcheckcode_js_checkSelfFloat2(val,len,msg)
+{
+	if(val == ""){
+		layer.msg(msg+'值不能为空',{icon: 5,anim:6});
+		return false;
+	}
+	if(isNaN(val)||val.indexOf("e")!=-1||val.indexOf("E")!=-1)
+	{
+		layer.msg(msg+'只能输入数字',{icon: 5,anim:6});
+		return false;
+	}
+	val=val.replace(/^\s*/, "").replace(/\s*$/, "");
+	if(val==""){
+		layer.msg(msg+'只能输入数字',{icon: 5,anim:6});
+		return false;
+	}
+	var ss=val.substr(0,1);
+	if(ss=="+")
+	{
+		layer.msg(msg+'不能出现+字符',{icon: 5,anim:6});
+		return false;
+	}
+//	if(val.length>len)
+//	{
+//		layer.msg(msg+"输入的数字不能超过 "+len+" 位",{icon: 5,anim:6});
+//		return false;
+//	}
+	if(parseFloat(val)<0){
+		layer.msg(msg+"输入的数字不能小于0",{icon: 5,anim:6});
+		return false;
+	}
+	var j=val.indexOf(".");
+	if(j!=-1)
+	{
+		var m=val.substr(j+1,val.length);
+		if(m.length>2)
+		{
+			layer.msg(msg+"小数点后超过了2个数字",{icon: 5,anim:6});
+			return false;
+		}
+	}	
+	return true;
+}
