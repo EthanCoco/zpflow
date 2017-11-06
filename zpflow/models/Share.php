@@ -294,6 +294,21 @@ class Share extends Model
 					],
 				];
 			break;
+			case 'flow4_step5_mb' :
+				 $result = [
+					'tempExcel'	=>	'../web/mbfile/flow4_step5_downloadmb.xls',
+					'keys' =>[
+						[
+							'key'=>[
+									'id','perIndex', 'perName','perGender','perIDCard','perJob','perPhone','perTicketNo','perGroupSet','perViewScore','perPenScore'
+								],
+							'num'=>2,
+							'index'=>0,
+							'sheetName'=>'考生考试导入模板信息',
+						]
+					],
+				];
+			break;
 			default:break;
 		}
 
