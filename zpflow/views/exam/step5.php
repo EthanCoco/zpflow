@@ -258,6 +258,19 @@ function init_flow4_step5_datagrid(){
 						  	iconCls:'icon-filter',
 						   	text:'设置合格线',
 						   	handler:function(){
+						   		layer.open({
+							  		type:2,
+							  		title:'设置合格线',
+							  		area:["360px",'300px'],
+							  		content:"<?= yii\helpers\Url::to(['exam/stant-line-step5']); ?>"+"&recID="+__flow4_recID__,
+							  		btn:['保存','取消'],
+							  		yes: function(){
+							  			$("iframe[id*='layui-layer-iframe'")[0].contentWindow.flow4_step5_stant_line_save(); 
+								    },
+							  		btn2:function(){
+							  			layer.close(layer.getFrameIndex(window.name));
+							  		}
+							    });
 						   	}
 					   	},'-','-','-',{
 				   			iconCls:'icon-pub',text:'成绩公示',
