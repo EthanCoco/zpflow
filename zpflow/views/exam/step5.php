@@ -5,6 +5,7 @@
 	    <li lay-id="3">考试不通过<span id="flow4_step5_tabli3" style="display: none;"></span></li>
 	    <li lay-id="4">所有<span id="flow4_step5_tabli4" style="display: none;"></span></li>
   	</ul>
+  	<span style="float: right;display: inline-block;margin-top: -30px;margin-right: 10px;">合格线设置：<span style="color: red;" id="flow4_step5_stant1">未设置</span>【面试成绩占比（%）：<span style="color: red;" id="flow4_step5_stant2">--</span>；笔试成绩占比（%）：<span style="color: red;" id="flow4_step5_stant3"></span>；合格线：<span style="color: red;" id="flow4_step5_stant4">--</span>】</span>
   	<div class="layui-tab-content" style="padding: 0;">
 	    <div class="layui-tab-item layui-show">
 	     	<div id="flow4_step5_datagrid">
@@ -22,16 +23,6 @@
 		        	<input id="perName" name="perName" class="layui-input">
 		      	</div>
 		    </div>
-		    <!--<div class="layui-inline" style="margin-bottom: 0;">
-		      	<label class="layui-form-label" style="width: auto;font-size: 12px;">性别</label>
-		      	<div class="layui-input-inline" style="margin-right: 0;width: auto;">
-			        <select id="perGender" name="perGender"  lay-search="">
-			          	<option value=""></option>
-			          	<option value="1">男</option>
-			          	<option value="2">女</option>
-			        </select>
-		      	</div>
-		    </div>-->
 		    
 		    <div class="layui-inline" style="margin-bottom: 0;">
 		      	<label class="layui-form-label" style="width: auto;font-size: 12px;">身份证号</label>
@@ -68,9 +59,19 @@
 	  	</div>
 	</div>
 </div>
+
+
+<ul class="tabsMoreList" id="flow4_step5_msgsend_tips" style="margin-left:0px;right:0px;bottom:53px;top:auto">
+	<li rel="flow4_step5_msgsend_tips"><a href="javascript:;" onclick="flow4_step5_msgsend_tips(0)" title="通知通过人员">通知通过人员</a></li>
+	<li rel="flow4_step5_msgsend_tips"><a href="javascript:;" onclick="flow4_step5_msgsend_tips(1)" title="通知未通过人员（包含无成绩人员）">通知未通过人员</a></li>
+</ul>
+
 <script>
 var __flow4_step5_datagrid_flag__ = "1";
 var __flow3_to__ = "<?= $flow3_to; ?>";
+var __flow4_step5_total_flag__ = 0;
+var __flow4_step5_export_condition_info__ = [];
+var __flow4_step5_all_data__ = {};
 $(function(){
 	layui.use(['element','form','layer'], function(){
 		var element = layui.element,
@@ -157,6 +158,23 @@ function init_flow4_step5_datagrid(){
 			    }
 	    ]],
         onLoadSuccess: function(data){
+        	var stt_info = data.stt_info;
+        	$("#flow4_step5_stant1").html("");
+        	$("#flow4_step5_stant2").html("");
+        	$("#flow4_step5_stant3").html("");
+        	$("#flow4_step5_stant4").html("");
+        	if(stt_info == "" || stt_info == null){
+        		$("#flow4_step5_stant1").html("未设置");
+	        	$("#flow4_step5_stant2").html("--");
+	        	$("#flow4_step5_stant3").html("--");
+	        	$("#flow4_step5_stant4").html("--");
+        	}else{
+        		$("#flow4_step5_stant1").html('已设置');
+	        	$("#flow4_step5_stant2").html(stt_info.sttView);
+	        	$("#flow4_step5_stant3").html(stt_info.sttPen);
+	        	$("#flow4_step5_stant4").html(stt_info.sttFinalScore);
+        	}
+        	
       		$("#stepIndex_four_head_pubinfo").html('');
 			$("#stepIndex_four_head_pubinfo").html('公示状态：'+ (data.pub_flag == 0 ? '未公示' : (data.pub_flag == 1 ? '暂无数据' : '已公示')));
         	
@@ -174,6 +192,10 @@ function init_flow4_step5_datagrid(){
         	$("#flow4_step5_tabli3").css("display","");
         	$("#flow4_step5_tabli4").css("display","");
         	
+        	__flow4_step5_total_flag__ = data.total;
+        	__flow4_step5_export_condition_info__ = data.exportInfo.condition;
+        	__flow4_step5_all_data__ = headInfo;
+        	
 			$('#flow4_step5_datagrid').datagrid('resize',{
 	    		height: $(window).height()-124-25-100
 	    	});
@@ -186,12 +208,13 @@ function init_flow4_step5_datagrid(){
 			    		buttons:[{
 				   			iconCls:'icon-tip',text:'短信提醒',
 						   	handler:function(){
-						   		pubCJGB();
+						   		manager_showMore(this,'flow4_step5_msgsend_tips');
 							}
 				   		},'-',{
 						  	iconCls:'icon-export',
 						   	text:'Excel导出',
 						   	handler:function(){
+						   		flow4_step5_exam_export();
 						   	}
 					   	}]
 					});
@@ -221,12 +244,10 @@ function init_flow4_step5_datagrid(){
 					   	},'-',{
 					   		iconCls:'icon-save',text:'保存',
 						   	handler:function(){
-						   		saveBCFive();
 							}
 				   		},'-',{
 					   		iconCls:'icon-undo',text:'取消',
 						   	handler:function(){
-						   		loadFlowFiveDiv(flowtwoURLFive);
 							}
 				   		},'-',{
 						  	iconCls:'icon-edit',
@@ -234,29 +255,28 @@ function init_flow4_step5_datagrid(){
 						   	handler:function(){
 						   	}
 					   	},'-',{
-						  	iconCls:'icon-import',
+						  	iconCls:'icon-filter',
 						   	text:'设置合格线',
 						   	handler:function(){
 						   	}
 					   	},'-','-','-',{
-				   			iconCls:'icon-pub',text:'成绩公布',
+				   			iconCls:'icon-pub',text:'成绩公示',
 						   	handler:function(){
-						   		pubCJGB();
 							}
 				   		},'-',{
 				   			iconCls:'icon-pub',text:'结果公示',
 						   	handler:function(){
-						   		pubCJGB();
 							}
 				   		},'-',{
 				   			iconCls:'icon-tip',text:'短信提醒',
 						   	handler:function(){
-						   		pubCJGB();
+						   		manager_showMore(this,'flow4_step5_msgsend_tips');
 							}
 				   		},'-',{
 						  	iconCls:'icon-export',
 						   	text:'Excel导出',
 						   	handler:function(){
+						   		flow4_step5_exam_export();
 						   	}
 					   	}]
 					});
@@ -266,18 +286,71 @@ function init_flow4_step5_datagrid(){
 		    		buttons:[{
 			   			iconCls:'icon-tip',text:'短信提醒',
 					   	handler:function(){
-					   		pubCJGB();
+					   		manager_showMore(this,'flow4_step5_msgsend_tips');
 						}
 			   		},'-',{
 					  	iconCls:'icon-export',
 					   	text:'Excel导出',
 					   	handler:function(){
+					   		flow4_step5_exam_export();
 					   	}
 				   	}]
 				});
 	    	}
         }
     });
+}
+
+function flow4_step5_msgsend_tips(type){
+	layui.use('layer',function(){
+		var layer = layui.layer;
+		if(__flow4_step5_all_data__.tab4 == 0){
+			return layer.alert("没有考生，不需要短信通知");
+		}
+		
+		if(type == 0){
+			if(__flow4_step5_all_data__.tab2 == 0){
+				return layer.alert("没有考试通过的考生，不需要短信通知");
+			}
+		}else{
+			if(__flow4_step5_all_data__.tab3 == 0){
+				return layer.alert("没有考试不通过（包含无成绩）的考生，不需要短信通知");
+			}
+		}
+		
+		layer.prompt({
+		  	formType: 2,
+		  	value: '',
+		  	title: '编辑短信通知内容',
+		  	area: ['300px', '150px']
+		}, function(value, index, elem){
+			  	__flow4_step3_msg_content__ = value;
+	    	 	layer.open({
+			  		type:2,
+			  		title:'确认短信发送',
+			  		area:[$(window).width()*3/4+"px",'520px'],
+			  		content:"<?= yii\helpers\Url::to(['exam/send-msg-step5']); ?>"+"&recID="+__flow4_recID__+"&type="+type,
+			  		btn:['发送','关闭'],
+			  		yes: function(){
+			  			$("iframe[id*='layui-layer-iframe'")[0].contentWindow.flow4_step5_send_msg_sure(); 
+				    },
+			  		btn2:function(){
+			  			layer.close(layer.getFrameIndex(window.name));
+			  		}
+			    });
+		});
+	});
+}
+
+
+function flow4_step5_exam_export(){
+	layui.use('layer',function(){
+		var layer = layui.layer;
+		if(__flow4_step5_total_flag__ == 0){
+			return layer.alert('当前没有数据，不需要导出');
+		}
+		window.open("<?= yii\helpers\Url::to(['examinee/exam-result-export']); ?>"+"&recID="+__flow4_recID__+"&condition="+JSON.stringify(__flow4_step5_export_condition_info__));
+	});
 }
 
 function init_flow4_step5_cancle(){
