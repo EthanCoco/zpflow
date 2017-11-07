@@ -922,4 +922,54 @@ class ExamineeController extends BaseController{
 		return $this->jsonReturn($result);
 	}
 	
+	public function actionExamResultModSave(){
+		$request = Yii::$app->request;
+		$db = Yii::$app->db->createCommand();
+		$recID = $request->post('recID');
+		$data_infos = $request->post('data_infos');
+		$tableName = Share::MainTableName($recID);
+		
+		$stt_info = Standartline::find()->where(['recID'=>$recID])->asArray()->one();
+		
+		if(!empty($stt_info)){
+			$stt_view = bcdiv($stt_info['sttView'],'100',2);
+			$stt_pen = bcdiv($stt_info['sttPen'],'100',2);
+			$stt_final_score = $stt_info['sttFinalScore'];
+			$flag = 1;
+		}else{
+			$flag = 0;
+		}
+		
+		if(!empty($data_infos)){
+			foreach($data_infos as $info){
+				$perID = $info['perID'];
+				$perViewScore = $info['perViewScore'];
+				$perPenScore = $info['perPenScore'];
+				$temp_data = [];
+				if($flag==1){
+					$perExamResult = bcadd(bcmul($stt_view,$perViewScore,2),bcmul($stt_pen,$perPenScore,2),2) < $stt_final_score ? 2 : 1;
+					$temp_data = [
+						'perViewScore'=>$perViewScore,
+						'perPenScore'=>$perPenScore,
+						'perExamResult'=>$perExamResult
+					];
+				}else{
+					$temp_data = [
+						'perViewScore'=>$perViewScore,
+						'perPenScore'=>$perPenScore
+					];
+				}
+				
+				$db	->	update($tableName,$temp_data, [
+									'perID'=>$perID
+								])->execute();
+				
+			}
+			$result = ['result'=>1,'msg'=>'保存成功'];
+		}else{
+			$result = ['result'=>0,'msg'=>'没有需要保存的数据'];
+		}
+		return $this->jsonReturn($result);
+	}
+	
 }
