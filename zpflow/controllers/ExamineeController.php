@@ -904,4 +904,22 @@ class ExamineeController extends BaseController{
 		return $this->jsonReturn($result);
 	}
 	
+	public function actionExamResultSlite(){
+		$request = Yii::$app->request;
+		$db = Yii::$app->db->createCommand();
+		$recID = $request->post('recID');
+		$perIDs = $request->post('perIDs');
+		$perExamResult = $request->post('perExamResult');
+		$tableName = Share::MainTableName($recID);
+		
+		$flag = $db->update($tableName,['perExamResult'=>$perExamResult],['perID'=>$perIDs])->execute();
+		
+		if($flag !== false){
+			$result = ['result'=>1,'msg'=>'微调成功'];
+		}else{
+			$result = ['result'=>0,'msg'=>'微调失败'];
+		}
+		return $this->jsonReturn($result);
+	}
+	
 }

@@ -115,4 +115,9 @@ class ExamController extends BaseController{
 		$stt_infos = Standartline::find()->where(['recID'=>$recID])->asArray()->one();
 		return $this->renderPartial('step5/repair',['recID'=>$recID,'stt_infos'=>$stt_infos]);
 	}
+	
+	public function actionSliteResultStep5(){
+		$recID = Yii::$app->request->get('recID');
+		return $this->renderPartial('step5/slite',['recID'=>$recID]);
+	}
 }
