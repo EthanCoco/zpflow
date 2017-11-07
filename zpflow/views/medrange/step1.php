@@ -58,6 +58,7 @@ var __flow5_step1_condition__ ;
 var __flow5_step1_total__ = "0";
 var __flow3_to__ = "<?= $flow3_to; ?>";
 var __flow4_to__ = "<?= $flow4_to; ?>";
+var __flow5_step1_msg_content__ = "";
 $(function(){
 	layui.use(['element','form','layer', 'laydate'], function(){
 		var element = layui.element;
@@ -181,7 +182,7 @@ function init_flow5_step1_datagrid(){
 					   		},'-',{
 					   			iconCls:'icon-tip',text:'短信提醒',
 							   	handler:function(){
-							   		manager_showMore(this,'flow4_step5_msgsend_tips');
+							   		flow5_step1_sendmsg();
 								}
 					   		},'-',{
 							  	iconCls:'icon-export',
@@ -207,7 +208,7 @@ function init_flow5_step1_datagrid(){
 					   		},'-',{
 					   			iconCls:'icon-tip',text:'短信提醒',
 							   	handler:function(){
-							   		
+							   		flow5_step1_sendmsg();
 								}
 					   		},'-',{
 							  	iconCls:'icon-export',
@@ -234,7 +235,7 @@ function init_flow5_step1_datagrid(){
 					   	},'-',{
 				   			iconCls:'icon-tip',text:'短信提醒',
 						   	handler:function(){
-						   		
+						   		flow5_step1_sendmsg();
 							}
 				   		},'-',{
 						  	iconCls:'icon-export',
@@ -256,7 +257,7 @@ function init_flow5_step1_datagrid(){
 		    		buttons:[{
 			   			iconCls:'icon-tip',text:'短信提醒',
 					   	handler:function(){
-					   		
+					   		flow5_step1_sendmsg();
 						}
 			   		},'-',{
 					  	iconCls:'icon-export',
@@ -275,6 +276,32 @@ function init_flow5_step1_datagrid(){
 	    	}
 	    }
     });
+}
+
+function flow5_step1_sendmsg(){
+	layui.use('layer',function(){
+		layer.prompt({
+		  	formType: 2,
+		  	value: '',
+		  	title: '编辑短信通知内容',
+		  	area: ['300px', '150px']
+		}, function(value, index, elem){
+			  	__flow5_step1_msg_content__ = value;
+	    	 	layer.open({
+			  		type:2,
+			  		title:'确认短信发送',
+			  		area:[$(window).width()*3/4+"px",'520px'],
+			  		content:"<?= yii\helpers\Url::to(['medrange/send-msg-fs1']); ?>"+"&recID="+__flow4_recID__,
+			  		btn:['发送','关闭'],
+			  		yes: function(){
+			  			$("iframe[id*='layui-layer-iframe'")[0].contentWindow.flow5_step1_send_msg_sure(); 
+				    },
+			  		btn2:function(){
+			  			layer.close(layer.getFrameIndex(window.name));
+			  		}
+			    });
+		});
+	});
 }
 
 function init_flow5_step1_cancle(){
