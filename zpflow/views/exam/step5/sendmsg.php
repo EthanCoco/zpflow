@@ -69,7 +69,7 @@ $(function(){
 	$('#stepIndex_flow4_step5_sendmsg').datagrid({
 		width:'auto',
         height:'520',
-	    url:"<?= Url::to(['examiner/examiner-sendmsg-list']) ?>",
+	    url:"<?= Url::to(['examinee/exam-result-sendmsg-list']) ?>",
 	    method: "get",
 	    queryParams: {'recID':__stepIndex_flow4_step5_sendmsg_recID,'type':__stepIndex_flow4_step5_sendmsg_type},
 	    fixed: true,
@@ -77,18 +77,15 @@ $(function(){
 	    singleSelect:true,
 	    rownumbers: true, 
         columns:[[
-            {field:'exmName',title:'姓名',width:'10%',align:'center',},
-            {field:'exmPhone',title:'手机号码',width:'20%',align:'center',},
-            {field:'exmType',title:'考官类型',width:'10%',align:'center',},
-            {field:'exmAttr',title:'考官属性',width:'10%',align:'center',},
-            {field:'exmContent',title:'监考内容',width:'50%',align:'center',},
-        ]],
-        onDblClickRow: function(index,row){
-        	layui.use('layer', function(){
-			 	var layer = layui.layer;
-			 	parent.layer.alert(row.exmContent);
-			});
-	    }
+        	{field:'perIndex',title:'报名序号',width:'10%',align:'center',},
+            {field:'perName',title:'姓名',width:'10%',align:'center',},
+            {field:'perTicketNo',title:'准考证号',width:'20%',align:'center',},
+            {field:'perPhone',title:'手机号码',width:'20%',align:'center',},
+            {field:'perViewScore',title:'面试成绩',width:'10%',align:'center',},
+            {field:'perPenScore',title:'笔试成绩',width:'10%',align:'center',},
+            {field:'perViewPenScore',title:'综合成绩',width:'10%',align:'center',},
+            {field:'perExamResult',title:'考试结果',width:'10%',align:'center',},
+        ]]
  	});
 });
 
@@ -98,19 +95,17 @@ function flow4_step5_send_msg_sure(){
 		var data = $("#stepIndex_flow4_step5_sendmsg").datagrid('getData');
 		var rows = data.rows;
 		var len = rows.length;
-		var exmPhones = [];
-		var exmContents = [];
+		var perPhones = [];
 		for(var i = 0; i < len; i++){
-	   		exmPhones.push(rows[i]['exmPhone']);
-	   		exmContents.push(rows[i]['exmContent']);
+	   		perPhones.push(rows[i]['perPhone']);
 	   	}
 		
 		$.ajax({
 			type:"post",
-			url:"<?= Url::to(['examiner/examiner-sendmsg-do']) ?>",
+			url:"<?= Url::to(['examinee/exam-result-sendmsg-do']) ?>",
 			async:true,
 			dataType:'json',
-			data:{'exmPhones':exmPhones,'exmContents':exmContents,'content':parent.__flow4_step5_msg_content__},
+			data:{'perPhones':perPhones,'content':parent.__flow4_step5_msg_content__},
 			success:function(json){
 				if(json.result){
 					parent.layer.closeAll();
