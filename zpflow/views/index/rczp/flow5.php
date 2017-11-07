@@ -7,7 +7,7 @@
 	        <?php } ?>
 	 	</select>
 	</span>
-	<span id="stepIndex_five_head_pubinfo" style="color: red; display: none;"></span>
+	<span id="stepIndex_five_head_pubinfo" style="color: red; "></span>
 </div>
 <div class="flow4-header-menu" id="flow5_header">
 	<a class="current" href="javascript:void(0)" index="1" onclick="changeSetWin_five(1)">

@@ -1,9 +1,7 @@
 <div class="layui-tab layui-tab-brief" lay-filter="flow5_step1_tab">
   	<ul class="layui-tab-title">
-	    <li class="layui-this" lay-id="1">待安排<span id="flow5_step1_tabli1" style="display: none;"></span></li>
-	    <li lay-id="2">已安排<span id="flow5_step1_tabli2" style="display: none;"></span></li>
-	    <li lay-id="3">放弃体检<span id="flow5_step1_tabli3" style="display: none;"></span></li>
-	    <li lay-id="4">所有<span id="flow5_step1_tabli4" style="display: none;"></span></li>
+	    <li class="layui-this" lay-id="1">待体检人员<span id="flow5_step1_tabli1" style="display: none;"></span></li>
+	    <li lay-id="2">放弃体检<span id="flow5_step1_tabli2" style="display: none;"></span></li>
   	</ul>
   	<div class="layui-tab-content" style="padding: 0;">
 	    <div class="layui-tab-item layui-show">
@@ -78,209 +76,206 @@ $(function(){
 	  	<?php } ?>
 	  	
 	});
-//	init_flow5_step1_datagrid();
+	init_flow5_step1_datagrid();
 });
 
-//function init_flow4_step2_datagrid(){
-//	var exmName = $("#exmName").val().trim();
-//	var exmType = $("#exmType").val();
-//	
-//	$('#flow4_step2_datagrid').datagrid({
-//      width:'auto',
-//      height:'auto',
-//	    fitColumns: false,
-//	    singleSelect: false,
-//	    rownumbers: true,
-//	    method: "post",
-//	    queryParams: {'exmName':exmName,'exmType':exmType,'recID':__flow4_recID__,'type':__flow4_step2_datagrid_flag__},
-//    	url:"<= yii\helpers\Url::to(['examiner/list-info']); ?>",
-//    	rownumbers: true, 
-//    	sortName:'',
-//	    sortOrder:'',
-//	    pagination: true, 
-//	    toolbar:'#flow4_step2_toolbar',
-//      columns:[[
-//      	{field:'ck',checkbox:true,width:'10%'},
-//      	{width:'12%',field:'exmName',title:'姓名',align:'center',sortable:true},
-//      	{width:'12%',field:'exmAttr',title:'考官属性',align:'center',sortable:true,
-//      		formatter:function(value,row,index){
-//	        		return value == "1" ? "公务员局考官" : "其他考官";
-//	        	}
-//      	},
-//      	{width:'10%',field:'exmType',title:'考官类别',align:'center',sortable:true,
-//      		formatter:function(value,row,index){
-//	        		return value == "1" ? "主考官" : (value == "2" ? "固定考官" : "监督员");
-//	        	}
-//      	},
-//      	{width:'15%',field:'exmCom',title:'考官所在单位',align:'center'},
-//      	{width:'14%',field:'exmPost',title:'考官职务',align:'center'},
-//      	{width:'10%',field:'exmPhone',title:'手机号码',align:'center',sortable:true},
-//      	{width:'15%',field:'exmCertNo',title:'证书编号',align:'center',sortable:true},
-//      	{width:'10%',field:'exmTime',title:'到岗时间',align:'center'},
-//      ]],
-//  	onDblClickRow:function(index,row){
-//	    	if(__flow4_show_flag__ == "0"){
-//	    		return;
-//	    	}
-//	    	layui.use('layer',function(){
-//	   			var layer = layui.layer;
-//	   			layer.open({
-//		    		type:2,
-//		    		title:'修改考官',
-//		    		area:["400px",'550px'],
-//		    		content:"<= yii\helpers\Url::to(['exam/repair-step2']); ?>"+"&exmID="+row.exmID+"&recID="+__flow4_recID__,
-//		    		btn:['保存','取消'],
-//		    		yes: function(){
-//		    			$("iframe[id*='layui-layer-iframe'")[0].contentWindow.step2_repair_save(); 
-//			        },
-//		    		btn2:function(){
-//		    			layer.closeAll();
-//		    		}
-//			    });
-//	   		});
-//	    },
-//      onLoadSuccess: function(data){
-//			__flow4_step2_condition__ = data.exportInfo.condition;
-//			__flow4_step2_total__ = data.total;
-//			
-//			$("#flow4_step2_tabli1").html("");
-//      	$("#flow4_step2_tabli2").html("");
-//      	$("#flow4_step2_tabli3").html("");
-//      	var headInfo = data.headInfo;
-//      	$("#flow4_step2_tabli1").html("("+headInfo.tab1+")");
-//      	$("#flow4_step2_tabli2").html("("+headInfo.tab2+")");
-//      	$("#flow4_step2_tabli3").html("("+headInfo.tab3+")");
-//      	
-//      	$("#flow4_step2_tabli1").css("display","");
-//      	$("#flow4_step2_tabli2").css("display","");
-//      	$("#flow4_step2_tabli3").css("display","");
-//			
-//      	$('#flow4_step2_datagrid').datagrid('resize',{
-//	    		height: $(window).height()-124-25-90-10
-//	    	});
-//	    	
-//	    	if(__flow4_show_flag__ == "1"){
-//		    	$("#flow4_step2_datagrid").datagrid('getPager').pagination({
-//		    		showPageList:false,
-//		    		displayMsg:'',
-//		    		layout:['sep','refresh'],
-//		    		buttons:[{
-//					  	iconCls:'icon-add',
-//					   	text:'添加',
-//					   	handler:function(){
-//					   		layui.use('layer',function(){
-//					   			var layer = layui.layer;
-//					   			layer.open({
-//						    		type:2,
-//						    		title:'添加考官',
-//						    		area:["400px",'550px'],
-//						    		content:"<= yii\helpers\Url::to(['exam/repair-step2']); ?>"+"&exmID=&recID="+__flow4_recID__,
-//						    		btn:['保存','取消'],
-//						    		yes: function(){
-//						    			$("iframe[id*='layui-layer-iframe'")[0].contentWindow.step2_repair_save(); 
-//							        },
-//						    		btn2:function(){
-//						    			layer.closeAll();
-//						    		}
-//							    });
-//					   		});
-//					   	}
-//				   	},'-',{
-//					  	iconCls:'icon-remove',
-//					   	text:'删除',
-//					   	handler:function(){
-//					   		layui.use('layer',function(){
-//					   			var layer = layui.layer;
-//						   		var rows = $("#flow4_step2_datagrid").datagrid('getSelections');
-//								var len = rows.length;
-//								if(len == 0){
-//							       return layer.alert('请选择要删除的数据！');
-//							    }
-//							    
-//							    var exmIDs = [];
-//							    for( var i =0 ; i < len ; i++ ){
-//							        exmIDs.push(rows[i]['exmID']);
-//							    }
-//							    
-//							    layer.confirm('您确定要删除勾选的【'+len+'】条数据么', function(index){
-//								  	$.post("<= yii\helpers\Url::to(['examiner/examiner-del']); ?>",{'exmIDs':exmIDs,'recID':__flow4_recID__},function(json){
-//										if(json.result){
-//											layer.msg(json.msg);
-//											init_flow4_step2_datagrid();
-//											layer.close(index);
-//										}else{
-//											layer.alert(json.msg);
-//										}
-//									},'json');
-//								}); 
-//						    });
-//					   	}
-//				   	},'-',{
-//					  	iconCls:'icon-import',
-//					   	text:'Excel导入',
-//					   	handler:function(){
-//					   		layui.use('layer',function(){
-//					   			var layer = layui.layer;
-//					   			layer.open({
-//						    		type:2,
-//						    		title:'导入考官信息',
-//						    		area:["500px",'350px'],
-//						    		content:"<= yii\helpers\Url::to(['exam/import-step2']); ?>"+"&recID="+__flow4_recID__,
-//						    		btn:['上传','取消'],
-//						    		yes: function(){
-//						    			$("iframe[id*='layui-layer-iframe'")[0].contentWindow.step2_import_data_sure(); 
-//							        },
-//						    		btn2:function(){
-//						    			layer.closeAll();
-//						    		}
-//							    });
-//					   		});
-//					   	}
-//				   	},'-',{
-//					  	iconCls:'icon-export',
-//					   	text:'Excel导出',
-//					   	handler:function(){
-//					   		layui.use('layer',function(){
-//					   			var layer = layui.layer;
-//					   			if(__flow4_step2_total__ == "0"){
-//					   				return layer.alert("当前没有任何数据，不需要导出");
-//					   			}
-//					   			
-//					   			$("#flow4_step2_exportForm").find("input[name='condition']").val(JSON.stringify(__flow4_step2_condition__));
-//							 	$("#flow4_step2_exportForm").find("input[name='flag']").val(__flow4_step2_datagrid_flag__);
-//							 	$("#flow4_step2_exportForm").find("input[name='recID']").val(__flow4_recID__);
-//								$("#flow4_step2_exportForm").submit();
-//					   		});
-//					   	}
-//				   	}]
-//				});
-//	    	}else{
-//	    		$("#flow4_step2_datagrid").datagrid('getPager').pagination({
-//		    		showPageList:false,
-//		    		displayMsg:'',
-//		    		layout:['sep','refresh'],
-//		    		buttons:[{
-//					  	iconCls:'icon-export',
-//					   	text:'Excel导出',
-//					   	handler:function(){
-//					   		layui.use('layer',function(){
-//					   			var layer = layui.layer;
-//					   			if(__flow4_step2_total__ == "0"){
-//					   				return layer.alert("当前没有任何数据，不需要导出");
-//					   			}
-//					   			
-//					   			$("#flow4_step2_exportForm").find("input[name='condition']").val(JSON.stringify(__flow4_step2_condition__));
-//							 	$("#flow4_step2_exportForm").find("input[name='flag']").val(__flow4_step2_datagrid_flag__);
-//							 	$("#flow4_step2_exportForm").find("input[name='recID']").val(__flow4_recID__);
-//								$("#flow4_step2_exportForm").submit();
-//					   		});
-//					   	}
-//				   	}]
-//				});
-//	    	}
-//	    }
-//  });
-//}
+function init_flow5_step1_datagrid(){
+	var perName = $("#perName").val().trim();
+	var perGender = $("#perGender").val();
+	var perIDCard = $("#perIDCard").val().trim();
+	
+	$('#flow5_step1_datagrid').datagrid({
+        width:'auto',
+        height:'auto',
+	    fitColumns: false,
+	    singleSelect: false,
+	    rownumbers: true,
+	    method: "post",
+	    queryParams: {'perName':perName,'perGender':perGender,'perIDCard':perIDCard,'recID':__flow5_recID__,'flag':__flow5_step1_datagrid_flag__},
+      	url:"<?= yii\helpers\Url::to(['medrange/list-info-step1']); ?>",
+      	rownumbers: true, 
+      	sortName:'',
+	    sortOrder:'',
+	    pagination: true, 
+	    toolbar:'#flow5_step1_toolbar',
+        frozenColumns:[[
+    		{field:'ck',checkbox:true},
+	        {field:'perIndex',title:'报名序号',width:'80',align:'center',sortable:true},
+	        {field:'perName',title:'姓名',width:'70',align:'center',sortable:true},
+        ]], 
+        columns:[[
+	        {field:'perIDCard',title:'身份证号',width:'180',align:'center',rowspan:2,sortable:true},
+	        {field:'perGender',title:'性别',width:'5%',align:'center',rowspan:2,sortable:true},
+	        {field:'perBirth',title:'出生年月',width:'100',align:'center',rowspan:2,sortable:true},
+	        {field:'perJob',title:'应聘岗位性质',width:'8%',align:'center',rowspan:2,sortable:true},
+	        {field:'perPhone',title:'手机号码',width:'100',align:'center',rowspan:2},
+	        {field:'medPlace',title:'体检地点',width:'100',align:'center',rowspan:2,sortable:true},
+	        {field:'medStartEnd',title:'体检时间',width:'100',align:'center',rowspan:2,sortable:true},
+	        {field:'perRead4',title:'通知阅读情况',width:'100',align:'center',rowspan:2,sortable:true},
+	        {field:'perKSLRHJTJ',title:'考试录入环节体检反馈情况',width:'300',colspan:3,align:'center'},
+	        {field:'perTJAPTJ',title:'体检安排环节体检反馈情况',width:'300',colspan:3,align:'center'}
+	        ],[
+		    	{field:'perReResult3',title:'反馈结果',width:'10%',align:'center',sortable:true},
+		    	{field:'perReGiveup3',title:'放弃原因',width:'10%',align:'center'},
+		    	{field:'perReTime3',title:'反馈时间',width:'130',align:'center',sortable:true,
+		    		formatter:function(value,row,index){
+		        		return value == "0000-00-00 00:00:00" ? "" : value;
+		        	}
+			   	},
+			   	{field:'perReResult4',title:'反馈结果',width:'10%',align:'center',sortable:true},
+		    	{field:'perReGiveup4',title:'放弃原因',width:'10%',align:'center'},
+		    	{field:'perReTime4',title:'反馈时间',width:'130',align:'center',sortable:true,
+		    		formatter:function(value,row,index){
+		        		return value == "0000-00-00 00:00:00" ? "" : value;
+		        	}
+			    }
+	    ]],
+    	onDblClickRow:function(index,row){
+	    	if(__flow5_show_flag__ == "0"){
+	    		return;
+	    	}
+	    },
+        onLoadSuccess: function(data){
+        	$("#stepIndex_five_head_pubinfo").html('');
+			$("#stepIndex_five_head_pubinfo").html('发布状态：'+ (data.pub_flag == 0 ? '未发布' : (data.pub_flag == 1 ? '暂无数据' : '已发布')));
+        	
+			__flow5_step1_condition__ = data.exportInfo.condition;
+			__flow5_step1_total__ = data.total;
+			
+			$("#flow5_step1_tabli1").html("");
+        	$("#flow5_step1_tabli2").html("");
+        	
+        	var headInfo = data.headInfo;
+        	$("#flow5_step1_tabli1").html("("+headInfo.tab1+")");
+        	$("#flow5_step1_tabli2").html("("+headInfo.tab2+")");
+        	
+        	$("#flow5_step1_tabli1").css("display","");
+        	$("#flow5_step1_tabli2").css("display","");
+			
+        	$('#flow5_step1_datagrid').datagrid('resize',{
+	    		height: $(window).height()-124-25-90-10
+	    	});
+	    	
+	    	if(__flow5_show_flag__ == "1"){
+	    		if(data.pub_flag == 1){
+	    			$("#flow5_step1_datagrid").datagrid('getPager').pagination({});
+	    		}else if(data.pub_flag == 0){
+	    			if(__flow3_to__ == "0" && __flow4_to__ == "0"){
+	    				//显示全部
+	    				$("#flow5_step1_datagrid").datagrid('getPager').pagination({
+				    		buttons:[{
+					   			iconCls:'icon-edit',text:'体检安排',
+							   	handler:function(){
+							   		
+								}
+					   		},'-',{
+					   			iconCls:'icon-pub',text:'结果公示',
+							   	handler:function(){
+							   		
+								}
+					   		},'-',{
+					   			iconCls:'icon-tip',text:'体检安排编辑',
+							   	handler:function(){
+							   		
+								}
+					   		},'-',{
+					   			iconCls:'icon-tip',text:'短信提醒',
+							   	handler:function(){
+							   		manager_showMore(this,'flow4_step5_msgsend_tips');
+								}
+					   		},'-',{
+							  	iconCls:'icon-export',
+							   	text:'Excel导出',
+							   	handler:function(){
+							   		flow4_step5_exam_export();
+							   	}
+						   	}]
+						});
+	    			}else{
+	    				//隐藏结果公示按钮
+	    				$("#flow5_step1_datagrid").datagrid('getPager').pagination({
+				    		buttons:[{
+					   			iconCls:'icon-edit',text:'体检安排',
+							   	handler:function(){
+							   		
+								}
+					   		},'-',{
+					   			iconCls:'icon-tip',text:'体检安排编辑',
+							   	handler:function(){
+							   		
+								}
+					   		},'-',{
+					   			iconCls:'icon-tip',text:'短信提醒',
+							   	handler:function(){
+							   		
+								}
+					   		},'-',{
+							  	iconCls:'icon-export',
+							   	text:'Excel导出',
+							   	handler:function(){
+							   		
+							   	}
+						   	},'-',{
+							  	iconCls:'icon-print',
+							   	text:'打印签到表',
+							   	handler:function(){
+							   		
+							   	}
+						   	}]
+						});
+	    			}
+	    		}else{
+	    			$("#flow5_step1_datagrid").datagrid('getPager').pagination({
+			    		buttons:[{
+					   			iconCls:'icon-tip',text:'体检安排编辑',
+							   	handler:function(){
+							   		
+								}
+					   	},'-',{
+				   			iconCls:'icon-tip',text:'短信提醒',
+						   	handler:function(){
+						   		
+							}
+				   		},'-',{
+						  	iconCls:'icon-export',
+						   	text:'Excel导出',
+						   	handler:function(){
+						   		
+						   	}
+					   	},'-',{
+						  	iconCls:'icon-print',
+						   	text:'打印签到表',
+						   	handler:function(){
+						   		
+						   	}
+					   	}]
+					});
+	    		}
+	    	}else{
+	    		$("#flow5_step1_datagrid").datagrid('getPager').pagination({
+		    		buttons:[{
+			   			iconCls:'icon-tip',text:'短信提醒',
+					   	handler:function(){
+					   		
+						}
+			   		},'-',{
+					  	iconCls:'icon-export',
+					   	text:'Excel导出',
+					   	handler:function(){
+					   		
+					   	}
+				   	},'-',{
+					  	iconCls:'icon-print',
+					   	text:'打印签到表',
+					   	handler:function(){
+					   		
+					   	}
+				   	}]
+				});
+	    	}
+	    }
+    });
+}
 
 function init_flow5_step1_cancle(){
 	layui.use('form', function(){
