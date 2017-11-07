@@ -446,7 +446,7 @@ class ExamineeController extends BaseController{
 		}
 		
 		$infos = (new yii\db\Query())	
-						->select(['perIndex','perID', 'perName','perIDCard','perGender','perBirth','perJob','perPhone','perTicketNo','perGroupSet','perViewScore','perPenScore','perGradePub','perExamResult','perRead3','perReResult3','perReGiveup3','perReTime3'])
+						->select(['perIndex','perID', 'perName','perIDCard','perGender','perBirth','perJob','perPhone','perTicketNo','perGroupSet','perViewScore','perPenScore','perGradePub','perExamResult','perPub3','perRead3','perReResult3','perReGiveup3','perReTime3'])
 						->from($tableName)
 						->where($condition)
 						->orderby($orderInfo)
