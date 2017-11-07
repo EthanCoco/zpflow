@@ -185,6 +185,10 @@ function init_flow4_step5_datagrid(){
 	    		return;
 	    	}
         	
+        	if(rowData.perPub3 == 1){
+        		return;
+        	}
+        	
         	layui.use('layer',function(){
         		if(rowData.perViewPenScore == '' || rowData.perViewPenScore == null){
         			return layer.msg('未参加考试人员，不允许修改');
