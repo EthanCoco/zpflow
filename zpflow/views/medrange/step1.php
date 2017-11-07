@@ -59,6 +59,8 @@ var __flow5_step1_total__ = "0";
 var __flow3_to__ = "<?= $flow3_to; ?>";
 var __flow4_to__ = "<?= $flow4_to; ?>";
 var __flow5_step1_msg_content__ = "";
+var __flow_step1_medical_flag__ = 0;
+var __flow_step1_headInfo__ = [];
 $(function(){
 	layui.use(['element','form','layer', 'laydate'], function(){
 		var element = layui.element;
@@ -142,7 +144,8 @@ function init_flow5_step1_datagrid(){
         	
 			__flow5_step1_condition__ = data.exportInfo.condition;
 			__flow5_step1_total__ = data.total;
-			
+			__flow_step1_medical_flag__ = data.medical_flag;
+			__flow_step1_headInfo__ = data.headInfo;
 			$("#flow5_step1_tabli1").html("");
         	$("#flow5_step1_tabli2").html("");
         	
@@ -188,7 +191,13 @@ function init_flow5_step1_datagrid(){
 							  	iconCls:'icon-export',
 							   	text:'Excel导出',
 							   	handler:function(){
-							   		flow4_step5_exam_export();
+							   		flow5_step1_export_info();
+							   	}
+						   	},'-',{
+							  	iconCls:'icon-print',
+							   	text:'打印签到表',
+							   	handler:function(){
+							   		flow5_step1_print_sign();
 							   	}
 						   	}]
 						});
@@ -214,13 +223,13 @@ function init_flow5_step1_datagrid(){
 							  	iconCls:'icon-export',
 							   	text:'Excel导出',
 							   	handler:function(){
-							   		
+							   		flow5_step1_export_info();
 							   	}
 						   	},'-',{
 							  	iconCls:'icon-print',
 							   	text:'打印签到表',
 							   	handler:function(){
-							   		
+							   		flow5_step1_print_sign();
 							   	}
 						   	}]
 						});
@@ -241,13 +250,13 @@ function init_flow5_step1_datagrid(){
 						  	iconCls:'icon-export',
 						   	text:'Excel导出',
 						   	handler:function(){
-						   		
+						   		flow5_step1_export_info();
 						   	}
 					   	},'-',{
 						  	iconCls:'icon-print',
 						   	text:'打印签到表',
 						   	handler:function(){
-						   		
+						   		flow5_step1_print_sign();
 						   	}
 					   	}]
 					});
@@ -263,19 +272,41 @@ function init_flow5_step1_datagrid(){
 					  	iconCls:'icon-export',
 					   	text:'Excel导出',
 					   	handler:function(){
-					   		
+					   		flow5_step1_export_info();
 					   	}
 				   	},'-',{
 					  	iconCls:'icon-print',
 					   	text:'打印签到表',
 					   	handler:function(){
-					   		
+					   		flow5_step1_print_sign();
 					   	}
 				   	}]
 				});
 	    	}
 	    }
     });
+}
+
+function flow5_step1_export_info(){
+	layui.use('layer',function(){
+		if(__flow5_step1_total__ == 0){
+			return layer.alert("当前没有任何数据，不需要导出");
+		}else{
+			window.open("<?= yii\helpers\Url::to(['medrange/export-info-fs1']); ?>"+"&recID="+__flow5_recID__+"&condition="+JSON.stringify(__flow5_step1_condition__));
+		}
+	});
+}
+
+function flow5_step1_print_sign(){
+	layui.use('layer',function(){
+		if(__flow_step1_headInfo__.tab1 == 0){
+			return layer.alert("暂无考生信息");
+		}else if(__flow_step1_medical_flag__ == 0){
+			return layer.alert('请先设置体检时间和地点');
+		}else{
+			window.open("<?= yii\helpers\Url::to(['medrange/print-sign-fs1']); ?>"+"&recID="+__flow5_recID__);
+		}
+	});
 }
 
 function flow5_step1_sendmsg(){
@@ -291,7 +322,7 @@ function flow5_step1_sendmsg(){
 			  		type:2,
 			  		title:'确认短信发送',
 			  		area:[$(window).width()*3/4+"px",'520px'],
-			  		content:"<?= yii\helpers\Url::to(['medrange/send-msg-fs1']); ?>"+"&recID="+__flow4_recID__,
+			  		content:"<?= yii\helpers\Url::to(['medrange/send-msg-fs1']); ?>"+"&recID="+__flow5_recID__,
 			  		btn:['发送','关闭'],
 			  		yes: function(){
 			  			$("iframe[id*='layui-layer-iframe'")[0].contentWindow.flow5_step1_send_msg_sure(); 

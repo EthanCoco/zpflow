@@ -359,6 +359,18 @@ function init_flow4_step4_datagrid(){
 								    });
 							   	}
 						   	},'-',{
+							  	iconCls:'icon-print',
+							   	text:'打印签到表',
+							   	handler:function(){
+							   		layui.use('layer',function(){
+							   			if(data.headInfo.tab4 == 0){
+							   				return layer.alert("暂无考生信息");
+							   			}else{
+							   				window.open("<?= yii\helpers\Url::to(['examinee/examinee-download']); ?>"+"&recID="+__flow4_recID__);
+							   			}
+						   			});
+							   	}
+						   	},'-',{
 							  	iconCls:'icon-export',
 							   	text:'Excel导出',
 							   	handler:function(){
@@ -381,6 +393,18 @@ function init_flow4_step4_datagrid(){
 	    	}else{
 	    		$("#flow4_step4_datagrid").datagrid('getPager').pagination({
 		    		buttons:[{
+						  	iconCls:'icon-print',
+						   	text:'打印签到表',
+						   	handler:function(){
+						   		layui.use('layer',function(){
+						   			if(data.headInfo.tab4 == 0){
+						   				return layer.alert("暂无考生信息");
+						   			}else{
+						   				window.open("<?= yii\helpers\Url::to(['examinee/examinee-download']); ?>"+"&recID="+__flow4_recID__);
+						   			}
+					   			});
+						   	}
+					   	},'-',{
 					  	iconCls:'icon-export',
 					   	text:'Excel导出',
 					   	handler:function(){
