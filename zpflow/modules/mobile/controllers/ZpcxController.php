@@ -11,6 +11,7 @@ use app\models\Recruit;
 use app\models\Qumextra;
 use app\models\Setgroup;
 use app\models\Noticemb;
+use app\models\Standartline;
 
 class ZpcxController extends Controller
 {
@@ -50,7 +51,7 @@ class ZpcxController extends Controller
 		
 		$perID = $mainInfo['perID'];
 		$codes = [
-					['perGender','XB'],['perJob','XZ'],['perStatus','SCJG'],['perGroupSet','ZBMC']
+					['perGender','XB'],['perJob','XZ'],['perStatus','SCJG'],['perGroupSet','ZBMC'],['perExamResult','KSJG']
 				];
 		$mainCode = Share::codeValue($codes,$mainInfo);
 		$mainCode['perBirth'] = !empty($mainInfo['perBirth']) ? substr($mainInfo['perBirth'], 0,10) : '';
@@ -99,6 +100,42 @@ class ZpcxController extends Controller
 				];
 				$jsonData['step3'] = $step3;
 			}
+			
+			if($mainInfo['perReResult2'] == '01'){
+				if($mainInfo['perGradePub'] == 1  && $mainInfo['perPub3'] == 0){
+					$jsonData['title'] = '考试成绩已经公布，请注意查看！';
+					$step4 = [
+						'perViewScore'=>$mainInfo['perViewScore'],
+						'perPenScore'=>$mainInfo['perPenScore'],
+					];
+					
+					$jsonData['step4'] = $step4;
+				}elseif($mainInfo['perGradePub'] == 0  && $mainInfo['perPub3'] == 1){
+					$jsonData['title'] = '考试结果已经公布，请注意查看！';
+					$step4 = [
+						'perViewScore'=>$mainInfo['perViewScore'],
+						'perPenScore'=>$mainInfo['perPenScore'],
+						'perExamResult'=>$mainJson['perExamResult']
+					];
+					$jsonData['step4'] = $step4;
+				}elseif($mainInfo['perGradePub'] == 1  && $mainInfo['perPub3'] == 1){
+					$jsonData['title'] = '考试结果已经公布，请注意查看！';
+					$stt_info = Standartline::find()->where(['recID'=>$recID])->asArray()->one();
+					$stt_view = bcdiv($stt_info['sttView'],'100',2);
+					$stt_pen = bcdiv($stt_info['sttPen'],'100',2);
+					$perPenViewScore = bcadd(bcmul($stt_view,$mainInfo['perViewScore'],2),bcmul($stt_pen,$mainInfo['perPenScore'],2),2);
+					$step4 = [
+						'perViewScore'=>$mainInfo['perViewScore'],
+						'perPenScore'=>$mainInfo['perPenScore'],
+						'perPenViewScore'=>$perPenViewScore,
+						'perExamResult'=>$mainJson['perExamResult']
+						
+					];
+					$jsonData['step4'] = $step4;
+				}
+//				$jsonData['step4'] = $step4;
+			}
+			
 			
 			
 			
@@ -695,6 +732,28 @@ class ZpcxController extends Controller
 								'perReGiveup2'=>$perReGiveup2,
 								'perRead2'=>2,
 								'perReTime2'=>date('Y-m-d H:i:s',time())
+							],['perID'=>$perID])->execute();
+		
+		if($flag){
+			return ['result'=>1,'msg'=>'操作成功'];
+		}else{
+			return ['result'=>0,'msg'=>'操作失败'];
+		}
+	}
+	
+	public function actionFlow5Reback(){
+		date_default_timezone_set('PRC');
+		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+		$recID = Yii::$app->request->post('recID');
+		$perID = Yii::$app->request->post('perID');
+		$perReResult3 = Yii::$app->request->post('perReResult3');
+		$perReGiveup3 = Yii::$app->request->post('perReGiveup3','');
+		
+		$flag = Yii::$app->db->createCommand()->update(Share::MainTableName($recID),[
+								'perReResult3'=>$perReResult3,
+								'perReGiveup3'=>$perReGiveup3,
+								'perRead3'=>2,
+								'perReTime3'=>date('Y-m-d H:i:s',time())
 							],['perID'=>$perID])->execute();
 		
 		if($flag){

@@ -181,12 +181,90 @@
 					<?php }	?>
 				</fieldset>
 			<?php } ?>
-				
 			<!--//TODO 考试结果公示环节 --> 
-			
-			
-		
-		
+			<?php if($dealData['baseData']['perReResult2'] == '01'){  ?>
+				<?php if($dealData['baseData']['perGradePub'] == 1 && $dealData['baseData']['perPub3'] == 0 ){  ?>
+					<fieldset class="layui-elem-field site-demo-button" style="margin-top: 10px;">
+					  	<legend style="font-size: 14px;color: blue;padding: 5px;">step4&nbsp;&nbsp;&nbsp;&nbsp;考试结果信息</legend>
+					  	<div class="layui-row">
+							<div style="margin-left: -2px;color: #666;">
+							    <div class="layui-textarea">
+							    	<p><b>考试信息：</b></p>
+							    	<p><b>面试成绩：</b><?php echo  $dealData['step4']['perViewScore']=="" ? '没成绩' : $dealData['step4']['perViewScore']; ?></p>
+							    	<p><b>笔试成绩：</b><?php echo  $dealData['step4']['perPenScore']=="" ? '没成绩' : $dealData['step4']['perPenScore'] ?></p>
+							    </div>
+						    </div>
+						</div>
+					</fieldset>
+				
+				<?php }elseif($dealData['baseData']['perPub3'] == 1){ ?>
+					<fieldset class="layui-elem-field site-demo-button" style="margin-top: 10px;">
+					  	<legend style="font-size: 14px;color: blue;padding: 5px;">step4&nbsp;&nbsp;&nbsp;&nbsp;考试结果信息</legend>
+					  	<div class="layui-row">
+							<div style="margin-left: -2px;color: #666;">
+							    <div class="layui-textarea">
+							    	<?php if($dealData['baseData']['perGradePub'] == 0 && $dealData['baseData']['perExamResult'] == 1){ ?>
+								    	<p><b>考试信息：</b></p>
+								    	<p>恭喜您考试通过！相关信息如下：</p>
+								    	<p><b>考试结果：</b><?= $dealData['step4']['perExamResult']; ?></p>
+							    	<?php }elseif($dealData['baseData']['perGradePub'] == 1 && $dealData['baseData']['perExamResult'] == 1){ ?>
+							    		<p><b>考试信息：</b></p>
+								    	<p>恭喜您考试通过！相关信息如下：</p>
+								    	<p><b>考试结果：</b><?= $dealData['step4']['perExamResult']; ?></p>
+								    	<p><b>面试成绩：</b><?php echo  $dealData['step4']['perViewScore']=="" ? '没成绩' : $dealData['step4']['perViewScore']; ?></p>
+							    		<p><b>笔试成绩：</b><?php echo  $dealData['step4']['perPenScore']=="" ? '没成绩' : $dealData['step4']['perPenScore'] ?></p>
+								    	<p><b>综合成绩：</b><?= $dealData['step4']['perPenViewScore']; ?></p>
+							    	<?php }elseif($dealData['baseData']['perGradePub'] == 0 && $dealData['baseData']['perExamResult'] != 1){ ?>
+							    		<p><b>考试信息：</b></p>
+								    	<p><b>考试结果：</b><?= $dealData['step4']['perExamResult']; ?></p>
+								    	<p>抱歉，您的考试未通过！</p>
+								    	<p>敬请期待下次招聘，谢谢！</p>
+							    	<?php }elseif($dealData['baseData']['perGradePub'] == 1 && $dealData['baseData']['perExamResult'] != 1){ ?>
+							    		<p><b>考试信息：</b></p>
+								    	<p>抱歉，您的考试未通过！</p>
+								    	<p>敬请期待下次招聘，谢谢！</p>
+								    	<p>相关成绩如下：</p>
+								    	<p><b>考试结果：</b><?= $dealData['step4']['perExamResult']; ?></p>
+								    	<p><b>面试成绩：</b><?php echo  $dealData['step4']['perViewScore']=="" ? '没成绩' : $dealData['step4']['perViewScore']; ?></p>
+							    		<p><b>笔试成绩：</b><?php echo  $dealData['step4']['perPenScore']=="" ? '没成绩' : $dealData['step4']['perPenScore'] ?></p>
+								    	<p><b>综合成绩：</b><?= $dealData['step4']['perPenViewScore']; ?></p>
+							    	<?php } ?>
+							    	
+							    	<?php if($dealData['baseData']['perExamResult'] == 1 && $dealData['baseData']['perReResult3'] == '03'){ ?>
+							    		<p style="padding-top: 25px;">接下来将为您安排体检时间地点了，是否会参加体检？</p>
+								    	<div style="padding: 10px;text-align: center;">
+											<button onclick="flow5_reback('01')" class="layui-btn layui-btn-normal layui-btn-small layui-btn-radius" >确定参加</button>
+											<button onclick="flow5_reback('02')" class="layui-btn layui-btn-normal layui-btn-small layui-btn-radius" >放弃参加</button>
+								    	</div>
+							    	<?php } ?>	
+							    		
+							    </div>
+						    </div>
+						</div>
+						<?php if($dealData['baseData']['perExamResult'] == 1 && $dealData['baseData']['perReResult3'] != '03'){ ?>
+						<div class="layui-row">
+							<div style="margin-left: -2px;color: #666;">
+							    <div class="layui-textarea">
+							    	<p><b>体检安排环节反馈信息：</b></p>
+							    	<?php if($dealData['baseData']['perReResult3'] == '01'){ ?>
+							    		<p><b>反馈结果：确定参加体检</b></p>
+							    		<p><b>反馈时间：<?= $dealData['baseData']['perReTime3'] ?></b></p>
+							    		
+							    	<?php }elseif($dealData['baseData']['perReResult3'] == '02'){ ?>
+							    		<p><b>反馈结果：放弃参加体检</b></p>
+							    		<p><b>放弃原因：<?= $dealData['baseData']['perReGiveup3'] ?></b></p>
+							    		<p><b>反馈时间：<?= $dealData['baseData']['perReTime3'] ?></b></p>
+							    	<?php }	?>
+							    </div>
+						    </div>
+						</div>
+					<?php }	?>
+					</fieldset>
+				<?php } ?>
+			<?php } ?>
+				
+				
+				
 		<?php } ?>
 	<?php } ?>
 </div>
@@ -274,6 +352,48 @@ function flow4_reback(type){
 		});
 	}
 }
+
+function flow5_reback(type){
+	if(type == '01'){
+		layer.open({content:'是否确认参加体检？',btn: ['确定','取消'],yes: function(index){
+				$.post("<?= yii\helpers\Url::to(['zpcx/flow5-reback']); ?>",{'perReResult3':type,'perReGiveup3':'','recID':__flow_recID__,'perID':__flow_perID__},function(json){
+					if(json.result){
+						location.href = "<?= yii\helpers\Url::to(['default/index','index'=>2]); ?>";
+					}else{
+						layer.open({content: json.msg,btn: '我知道了'});
+					}
+				},'json');
+		    }
+		});
+	}else{
+		layer.open({
+		    type: 1,
+		    content: '<textarea id="perReGiveup3" style="font-size: 12px;" class="layui-textarea" placeholder="请输入放弃原因"></textarea>',
+		    anim: 'up',
+		    style: 'position:fixed; bottom:0; left:0; width: 100%; height: 150px; padding:10px 0; border:none;',
+		    btn:['确定','取消'],
+		    yes: function(index){
+		    	var perReGiveup3 = $("#perReGiveup3").val();
+		    	if(perReGiveup3 == ""){
+		    		return layer.open({content: '请填写放弃原因',skin: 'msg',time: 2 });
+		    	}
+		    	
+		    	layer.open({content:'是否确认放弃参加体检？',btn: ['确定','取消'],yes: function(index){
+						$.post("<?= yii\helpers\Url::to(['zpcx/flow5-reback']); ?>",{'perReResult3':type,'perReGiveup3':perReGiveup3,'recID':__flow_recID__,'perID':__flow_perID__},function(json){
+							if(json.result){
+								location.href = "<?= yii\helpers\Url::to(['default/index','index'=>2]); ?>";
+							}else{
+								layer.open({content: json.msg,btn: '我知道了'});
+							}
+						},'json');
+				    }
+				});
+		    }
+		});
+	}
+}
+
+
 
 function flow_print_pdf_ticketno(){
 	
