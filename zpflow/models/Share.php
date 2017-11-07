@@ -324,6 +324,37 @@ class Share extends Model
 					],
 				];
 			break;
+			case 'flow5_step1_mb' :
+				 $result = [
+					'tempExcel'	=>	'../web/mbfile/flow5_step1_downloadmb.xls',
+					'keys' =>[
+						[
+							'key'=>[
+									'id','perName','perGender','perIDCard','perPhone','medPlace','medStartEnd'
+								],
+							'num'=>3,
+							'index'=>0,
+							'sheetName'=>'考生体检签到表信息',
+						]
+					],
+				];
+			break;
+			case 'flow5_step1_export' :
+				 $result = [
+					'tempExcel'	=>	'../web/mbfile/flow5_step1_export.xls',
+					'keys' =>[
+						[
+							'key'=>[
+									'perIndex','perName','perIDCard','perGender','perBirth','perJob','perPhone','medPlace','medStartEnd',
+									'perRead4','perReResult3','perReGiveup3','perReTime3','perReResult4','perReGiveup4','perReTime4'
+								],
+							'num'=>3,
+							'index'=>0,
+							'sheetName'=>'考生体检安排信息',
+						]
+					],
+				];
+			break;
 			default:break;
 		}
 
