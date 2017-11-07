@@ -204,7 +204,7 @@ function init_flow4_step4_datagrid(){
 						   		manager_showMore(this,'flow4_step4_group_info');
 						   	}
 					   	},'-',{
-						  	iconCls:'icon-edit',
+						  	iconCls:'icon-edittz',
 						   	text:'考试安排编辑',
 						   	handler:function(){
 						   		layer.open({
@@ -296,7 +296,7 @@ function init_flow4_step4_datagrid(){
 							   		});
 							   	}
 						   	},'-',{
-							  	iconCls:'icon-import',
+							  	iconCls:'icon-edittz',
 							   	text:'考试安排编辑',
 							   	handler:function(){
 							   		layer.open({
@@ -341,7 +341,7 @@ function init_flow4_step4_datagrid(){
 	    			}else if(data.pub_flag == 2){
 	    				$("#flow4_step4_datagrid").datagrid('getPager').pagination({
 				    		buttons:[{
-							  	iconCls:'icon-import',
+							  	iconCls:'icon-edittz',
 							   	text:'考试安排编辑',
 							   	handler:function(){
 							   		layer.open({

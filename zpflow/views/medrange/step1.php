@@ -178,7 +178,7 @@ function init_flow5_step1_datagrid(){
 							   		
 								}
 					   		},'-',{
-					   			iconCls:'icon-tip',text:'体检安排编辑',
+					   			iconCls:'icon-edittz',text:'体检安排编辑',
 							   	handler:function(){
 							   		
 								}
@@ -210,7 +210,7 @@ function init_flow5_step1_datagrid(){
 							   		
 								}
 					   		},'-',{
-					   			iconCls:'icon-tip',text:'体检安排编辑',
+					   			iconCls:'icon-edittz',text:'体检安排编辑',
 							   	handler:function(){
 							   		
 								}
@@ -237,7 +237,7 @@ function init_flow5_step1_datagrid(){
 	    		}else{
 	    			$("#flow5_step1_datagrid").datagrid('getPager').pagination({
 			    		buttons:[{
-					   			iconCls:'icon-tip',text:'体检安排编辑',
+					   			iconCls:'icon-edittz',text:'体检安排编辑',
 							   	handler:function(){
 							   		
 								}
