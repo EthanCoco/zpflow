@@ -73,6 +73,7 @@ var __flow4_step5_total_flag__ = 0;
 var __flow4_step5_export_condition_info__ = [];
 var __flow4_step5_all_data__ = {};
 var __flow4_step5_stt_info__ = {};
+var __flow4_step5_msg_content__ = "";
 $(function(){
 	layui.use(['element','form','layer'], function(){
 		var element = layui.element,
@@ -339,7 +340,7 @@ function flow4_step5_msgsend_tips(type){
 		  	title: '编辑短信通知内容',
 		  	area: ['300px', '150px']
 		}, function(value, index, elem){
-			  	__flow4_step3_msg_content__ = value;
+			  	__flow4_step5_msg_content__ = value;
 	    	 	layer.open({
 			  		type:2,
 			  		title:'确认短信发送',
