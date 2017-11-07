@@ -60,7 +60,6 @@
 	</div>
 </div>
 
-
 <ul class="tabsMoreList" id="flow4_step5_msgsend_tips" style="margin-left:0px;right:0px;bottom:53px;top:auto">
 	<li rel="flow4_step5_msgsend_tips"><a href="javascript:;" onclick="flow4_step5_msgsend_tips(0)" title="通知通过人员">通知通过人员</a></li>
 	<li rel="flow4_step5_msgsend_tips"><a href="javascript:;" onclick="flow4_step5_msgsend_tips(1)" title="通知未通过人员（包含无成绩人员）">通知未通过人员</a></li>
@@ -182,10 +181,16 @@ function init_flow4_step5_datagrid(){
             return true;
         },
         onDblClickRow: function (rowIndex, rowData) {
+        	if(__flow4_show_flag__ == "0"){
+	    		return;
+	    	}
+        	
         	layui.use('layer',function(){
         		if(rowData.perViewPenScore == '' || rowData.perViewPenScore == null){
         			return layer.msg('未参加考试人员，不允许修改');
-        		}else{
+        		}else if(rowData.perGradePub1 == 1)
+        			return layer.msg('成绩已经公示了，不允许修改');
+        		else{
         			$('#flow4_step5_datagrid').datagrid("beginEdit", rowIndex);
         		}
         	});
@@ -347,12 +352,48 @@ function init_flow4_step5_datagrid(){
 					   	},'-','-','-',{
 				   			iconCls:'icon-pub',text:'成绩公示',
 						   	handler:function(){
-						   		
+						   		layui.use('layer',function(){
+						   			if(data.headInfo.tab1 > 0){
+						   				return layer.alert('存在未录入成绩的人员，请全部录入后再公示成绩');
+						   			}
+						   			
+						   			layer.confirm('确定要公示成绩么？',function(){
+						   				$.post("<?= yii\helpers\Url::to(['examinee/exam-result-pub-grade']); ?>",{'recID':__flow4_recID__},function(json){
+						   					if(json.result){
+						   						layer.msg(json.msg);
+						   						init_flow4_step5_datagrid();
+						   					}else{
+						   						layer.alert(json.msg);
+						   					}
+						   				},'json');
+						   			});
+						   			
+						   		});
 							}
 				   		},'-',{
 				   			iconCls:'icon-pub',text:'结果公示',
 						   	handler:function(){
-						   		
+						   		layui.use('layer',function(){
+						   			if(data.headInfo.tab1 > 0){
+						   				return layer.alert('存在未录入成绩的人员，请全部录入后再公示成绩');
+						   			}
+						   			
+						   			if(data.stt_info == "" || data.stt_info == null){
+						   				return layer.alert('合格线还未设置，请先设置');
+						   			}
+						   			
+						   			layer.confirm('确定要公示考试结果么？',function(){
+						   				$.post("<?= yii\helpers\Url::to(['examinee/exam-result-pub-result']); ?>",{'recID':__flow4_recID__},function(json){
+						   					if(json.result){
+						   						layer.msg(json.msg);
+						   						init_flow4_step5_datagrid();
+						   					}else{
+						   						layer.alert(json.msg);
+						   					}
+						   				},'json');
+						   			});
+						   			
+						   		});
 							}
 				   		},'-',{
 				   			iconCls:'icon-tip',text:'短信提醒',
