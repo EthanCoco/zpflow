@@ -7,7 +7,7 @@
   	</ul>
   	<span style="float: right;display: inline-block;margin-top: -30px;margin-right: 10px;">合格线设置：<span style="color: red;" id="flow4_step5_stant1">未设置</span>【面试成绩占比（%）：<span style="color: red;" id="flow4_step5_stant2">--</span>；笔试成绩占比（%）：<span style="color: red;" id="flow4_step5_stant3"></span>；合格线：<span style="color: red;" id="flow4_step5_stant4">--</span>】</span>
   	<div class="layui-tab-content" style="padding: 0;">
-	    <div class="layui-tab-item layui-show">
+	    <div class="layui-tab-item layui-show" id="flow4_step5_datagrid_parentdiv">
 	     	<div id="flow4_step5_datagrid">
 	
 			</div>
@@ -131,8 +131,26 @@ function init_flow4_step5_datagrid(){
 	        {field:'perPhone',title:'手机号码',width:'100',align:'center',rowspan:2},
 	        {field:'perTicketNo',title:'准考证号',width:'100',align:'center',rowspan:2,sortable:true},
 	        {field:'perGroupSet',title:'组别名称',width:'100',align:'center',rowspan:2,sortable:true},
-	        {field:'perViewScore',title:'面试成绩',width:'100',align:'center',rowspan:2},
-	        {field:'perPenScore',title:'笔试成绩',width:'100',align:'center',rowspan:2,sortable:true},
+	        {field:'perViewScore',title:'面试成绩',width:'100',align:'center',rowspan:2,
+	        	editor:{
+						type:'numberbox',
+						options:{
+							min:0,
+							max:200,
+							precision:2
+						}
+					}
+	        },
+	        {field:'perPenScore',title:'笔试成绩',width:'100',align:'center',rowspan:2,sortable:true,
+	        	editor:{
+					type:'numberbox',
+					options:{
+						min:0,
+						max:200,
+						precision:2
+					}
+				}
+	        },
 	        {field:'perViewPenScore',title:'综合成绩',width:'100',align:'center',rowspan:2},
 	        {field:'perGradePub',title:'成绩公示',width:'100',align:'center',rowspan:2},
 	        {field:'perExamResult',title:'考试结果',width:'100',align:'center',rowspan:2,
@@ -160,6 +178,18 @@ function init_flow4_step5_datagrid(){
 		        	}
 			    }
 	    ]],
+	    onBeforeEdit: function (rowIndex, rowData, changes) {
+            return true;
+        },
+        onDblClickRow: function (rowIndex, rowData) {
+        	layui.use('layer',function(){
+        		if(rowData.perViewPenScore == '' || rowData.perViewPenScore == null){
+        			return layer.msg('未参加考试人员，不允许修改');
+        		}else{
+        			$('#flow4_step5_datagrid').datagrid("beginEdit", rowIndex);
+        		}
+        	});
+        },
         onLoadSuccess: function(data){
         	var stt_info = data.stt_info;
         	__flow4_step5_stt_info__ = data.stt_info;
@@ -248,10 +278,12 @@ function init_flow4_step5_datagrid(){
 					   	},'-',{
 					   		iconCls:'icon-save',text:'保存',
 						   	handler:function(){
+						   		flow4_step5_datagrid_edit_to_save();
 							}
 				   		},'-',{
 					   		iconCls:'icon-undo',text:'取消',
 						   	handler:function(){
+						   		init_flow4_step5_datagrid();
 							}
 				   		},'-',{
 						  	iconCls:'icon-edit',
@@ -315,10 +347,12 @@ function init_flow4_step5_datagrid(){
 					   	},'-','-','-',{
 				   			iconCls:'icon-pub',text:'成绩公示',
 						   	handler:function(){
+						   		
 							}
 				   		},'-',{
 				   			iconCls:'icon-pub',text:'结果公示',
 						   	handler:function(){
+						   		
 							}
 				   		},'-',{
 				   			iconCls:'icon-tip',text:'短信提醒',
@@ -352,6 +386,96 @@ function init_flow4_step5_datagrid(){
 	    	}
         }
     });
+}
+
+function flow4_step5_datagrid_edit_to_save(){
+	layui.use('layer',function(){
+		var layer = layui.layer;
+		var check = before_save_checked('flow4_step5_datagrid', 'flow4_step5_datagrid_parentdiv');
+	  	if(check != 0) {
+	    	return;
+	  	}
+	  	
+	  	var rows = $("#flow4_step5_datagrid").datagrid("getRows");
+		for(var i = 0; i < rows.length; i++){
+			$('#flow4_step5_datagrid').datagrid("endEdit", i);
+		}
+	  	
+	  	layer.confirm('确定要保存么', function(index){
+	  		var data_infos = get_datagrid_save_info();
+	  		$.post("<?= yii\helpers\Url::to(['examinee/exam-result-mod-save']); ?>", {"data_infos": data_infos,"recID":__flow4_recID__}, function (json) {
+	            if(json.result){
+	            	layer.msg(json.msg);
+	            	init_flow4_step5_datagrid();
+	            }else{
+	            	layer.alert(json.msg);
+	            }
+	        });
+	  	},function(){
+	  		init_flow4_step5_datagrid();
+	  	});
+  	});
+}
+
+function get_datagrid_save_info() {
+    var grid_infos = [];
+    var grid_obj = {};
+    var rows = $("#flow4_step5_datagrid").datagrid("getRows");
+    var grid_edit_columns = ["perID","perViewScore", "perPenScore"];
+    
+    for (var i = 0; i < rows.length; i++) {
+        grid_obj = {};
+        grid_obj['perID'] = rows[i]['perID'];
+        grid_obj['perViewScore'] = rows[i]['perViewScore'];
+        grid_obj['perPenScore'] = rows[i]['perPenScore'];
+        for (var j = 0; j < grid_edit_columns.length; j++) {
+            grid_obj[grid_edit_columns[j]] = rows[i][grid_edit_columns[j]] == "" ? "" : rows[i][grid_edit_columns[j]];
+        }
+        grid_infos.push(grid_obj);
+    }
+    return grid_infos;
+}
+
+function before_save_checked(gridId,parentDivId){
+	var rows = $("#"+gridId).datagrid("getRows");
+	if(rows.length == 0){
+		layer.alert("当前表格数据为空，无需保存！");
+		return 1;
+	}
+	$editNodes = $(".datagrid-editable-input");
+	if($editNodes == null || $editNodes == undefined || $editNodes.length == 0){
+		layer.alert("表格数据没有编辑，无需保存！");
+		return 1;
+	}
+	var check = 0;
+	var field = "";
+	var perentObj = null;
+	var _curRow = null;
+	var tdobj = null;
+	var _val = '';
+	var _index = '';
+	var alertcontent = '';
+	var checkMsg = '';
+	$("#"+parentDivId).find(".datagrid-btable").find("tr").each(function (n){
+		_curRow = $(this);
+		tdobj = $(this).find("td[field]");
+		$(tdobj).find(".datagrid-editable-input").each(function(){
+			perentObj = $(this).parent().parent().parent().parent().parent().parent();
+			field = perentObj.attr("field");
+	 		_val=$(this).val();
+			fieldyh=$(".datagrid-view2").find(".datagrid-header").find("tbody td[field='"+field+"']").find("span").html();
+			_index=_curRow.attr("datagrid-row-index");
+		    if(_val==''){
+		    	checkMsg = "不允许为空！";
+        		check = 1;
+				alertcontent +="第"+(parseInt(_index)+1)+"行记录中“"+fieldyh+"”，"+checkMsg+"<br>";
+			}
+		});
+	});
+	if(check == 1){
+		layer.alert(alertcontent);
+	}
+	return check;
 }
 
 function flow4_step5_msgsend_tips(type){
