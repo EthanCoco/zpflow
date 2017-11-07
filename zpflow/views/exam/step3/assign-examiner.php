@@ -198,7 +198,7 @@ function flow4_step3_delete_examiner(){
 		var rows = $("#stepIndex_flow4_step3_assign_examiner").datagrid('getSelections');
 		var len = rows.length;
 		if(len == 0){
-	     	return parent.alert('请选择要删除的数据！');
+	     	return parent.layer.alert('请选择要删除的数据！');
 	    }
 	    var gstexmIDs = [];
 	    for(var i = 0 ; i < len ; i++){
