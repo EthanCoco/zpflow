@@ -719,6 +719,126 @@ class ZpcxController extends Controller
 		}
 	}
 	
+	public function actionPrintTicketno(){
+		$perID = Yii::$app->request->get('perID');
+		$recID = Yii::$app->request->get('recID');
+		@ini_set('memory_limit', '1024M'); 
+		ini_set('max_execution_time', '0');
+		
+		$pdf = new \TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+		$pdf->SetCreator(PDF_CREATOR);
+//		$pdf->SetAuthor('Nicola Asuni');
+//		$pdf->SetTitle('TCPDF Example 001');
+//		$pdf->SetSubject('TCPDF Tutorial');
+//		$pdf->SetKeywords('TCPDF, PDF, example, test, guide');
+		$pdf->SetFont('stsongstdlight', '', 10, '', true);
+		$pdf->SetHeaderData("", '', '准考证', "", array(255,255,255), array(255,255,255));
+		
+		$pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+		
+		$pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+		
+		$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+		
+		$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+		
+		if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
+			require_once(dirname(__FILE__).'/lang/eng.php');
+			$pdf->setLanguageArray($l);
+		}	
+		
+		$personInfo = (new \yii\db\Query())->from(Share::MainTableName($recID))->where(['perID'=>$perID])->one(); 
+		$codes = [
+					['perGender','XB'],['perJob','XZ'],['perStatus','SCJG'],['perGroupSet','ZBMC']
+				];
+		$mainCode = Share::codeValue($codes,$personInfo);
+		$mainCode['perBirth'] = !empty($mainInfo['perBirth']) ? substr($mainInfo['perBirth'], 0,10) : '';
+		
+		$mainJson = array_merge($personInfo,$mainCode);
+		
+		$perTicketNo = $mainJson['perTicketNo'];//准考证号
+		$perGender = $mainJson['perGender'];//性别
+		$perName = $mainJson['perName'];//姓名
+		$perIDCard = $mainJson['perIDCard'];//身份证号
+		$perGroupSet = $mainJson['perGroupSet'];//组别
+		$groupInfo = Setgroup::find()->select(['gstItvPlace','gstStartEnd','gstItvStartTime'])->where(['recID'=>$recID,'gstGroup'=>$personInfo['perGroupSet'],'gstType'=>2])->one();
+		$gstItvPlace = $groupInfo['gstItvPlace'];
+		$gstStartEnd = $groupInfo['gstStartEnd'];
+		$gstItvStartTime = substr($groupInfo['gstItvStartTime'],0,10);
+		$time_array = explode('-', $gstItvStartTime);
+		$year = $time_array[0];
+		$month = $time_array[1];
+		$day = $time_array[2];
+		$perJob = $mainJson['perJob'];
+		$perPhoto = $mainJson['perPhoto'];//照片
+        $str = substr($perPhoto, 2);
+		if(!file_exists(Yii::$app->basePath.$str)){
+			$perPhoto = '';
+		}
+		
+			$pdf->AddPage();
+			$html = <<<EOD
+				<style  type="text/css">
+					.star{
+						font-weight:bold;
+					}
+					.star1{
+						font-weight:bold;
+						font-family: '仿宋';
+					}
+				</style>
+			<div id='second1' class="jobinfo" style="border:1px solid #000;">
+				<p style="text-align: center;font-size: 18px;margin-top:10px;height:30px;font-weight:bold;">XXXX人才应聘考试</p>
+				<p style="text-align: center;font-size: 20px;margin-top:10px;height:25px;font-weight:bold;">准&nbsp;考&nbsp;证</p>
+				<table style="width:100%; font-size: 15px;text-align: left;">
+					<tr>
+						<td class="star" width="23%" style="text-align: right; height: 30px;">准考证号码：</td>
+						<td class="star" width="48%" colspan="3" id="zhunkaozheng">{$perTicketNo}</td>
+						<td class="star" rowspan="6" valign="top" style="text-align:center;"><img style="width:100px;"  src="{$perPhoto}" id="photo"/></td>
+					</tr>
+					<tr>
+						<td class="star" style="text-align: right;height: 30px;">姓名：</td>
+						<td class="star" style='width:50px;'>{$perName}</td>
+						<td class="star" style="text-align: right;height: 30px;width:20%;">性别：</td>
+						<td class="star" >{$perGender}</td>
+					</tr>
+					<tr>
+						<td class="star" style="text-align: right;height: 30px;">身份证：</td>
+						<td class="star" colspan="3">{$perIDCard}</td>
+					</tr>
+					<tr>
+						<td class="star" style="text-align: right;height: 30px;">考场组：</td>
+						<td class="star" >{$perGroupSet}</td>
+						<td class="star" style="text-align: right;height: 30px;width:20%;">应聘岗位性质：</td>
+						<td class="star" >{$perJob}</td>
+					</tr>
+					<tr>
+						<td class="star" style="text-align: right;height: 30px;">考试时间：</td>
+						<td class="star" colspan="3" >{$gstStartEnd}</td>
+					</tr>
+					<tr>
+						<td class="star" style="text-align: right;height: 30px;">考试地点：</td>
+						<td class="star" colspan="4" >{$gstItvPlace}</td>
+					</tr>
+					
+				</table>
+				<p class="star" style="text-align: center;font-size: 15px;margin-top:10px;height:30px;font-weight:bold;font-family: '仿宋';">考试须知</p>
+				<p class="star" style="text-align: left;font-size: 15px;margin-top:10px;height:30px;font-weight:bold;font-family: '仿宋';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请提前30分钟到达考场候考，考生需随身携带下列材料：</p>
+				<p class="star" style="text-align: left;font-size: 15px;margin-top:10px;height:30px;font-weight:bold;font-family: '仿宋';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1.准考证。   2.身份证原件及复印件（正反面）。</p>
+				<p class="star" style="text-align: left;font-size: 15px;margin-top:10px;height:30px;font-weight:bold;font-family: '仿宋';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3.学生证原件（应届毕业生）。</p>
+				<p class="star" style="text-align: left;font-size: 15px;margin-top:10px;height:30px;font-weight:bold;font-family: '仿宋';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4.学历和学位证书原件（非应届毕业生）。</p>
+				<p class="star" style="text-align: left;font-size: 15px;margin-top:10px;height:30px;font-weight:bold;font-family: '仿宋';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;5.留学回国人员需出具教育部留学服务中心颁发的学历认证。</p>
+				<p class="star" style="text-align: left;font-size: 15px;margin-top:10px;height:30px;font-weight:bold;font-family: '仿宋';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;6.北京地区的考生，需携带来沪车票及本人银行借记卡以便</p>
+				<p class="star" style="text-align: left;font-size: 15px;margin-top:10px;height:30px;font-weight:bold;font-family: '仿宋';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;给予补贴。</p>
+				<p class="star" style="text-align: left;font-size: 15px;margin-top:10px;height:30px;font-weight:bold;font-family: '仿宋';">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;考试开始后到达考场的，视为自动放弃。</p>
+				<p class="star" style="text-align: right;font-size: 15px;margin-top:10px;height:30px;font-weight:bold;">XXXXXXXXXXXXX&nbsp;&nbsp;&nbsp;&nbsp;</p>
+				<p class="star" style="text-align: right;font-size: 15px;margin-top:10px;height:30px;font-weight:bold;">{$year}年{$month}月{$day}日&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+			</div>
+EOD;
+			$pdf->writeHTMLCell(0, 0, '', '', $html, 0, 1, 0, true, '', true);
+			$pdf->Output("zhunkaozheng.pdf", 'D');
+	}
+	
 	public function actionFlow4Reback(){
 		date_default_timezone_set('PRC');
 		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;

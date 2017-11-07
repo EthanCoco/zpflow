@@ -168,7 +168,7 @@
 						    		<p><b>反馈结果：确定参加考试</b></p>
 						    		<p><b>反馈时间：<?= $dealData['baseData']['perReTime2'] ?></b></p>
 						    		<p><br/></p>
-						    		<p><b>邀请考试通知：</b><a href="javascript:;" onclick='flow_print_pdf_ticketno()' style="color: blue;">下载准考证</a></p>
+						    		<p><b>邀请考试通知：</b><a href="<?= yii\helpers\Url::to(['zpcx/print-ticketno']); ?>&perID=<?= $dealData['baseData']['perID']; ?>&recID=<?= $dealData['recData']['recID'] ?>" style="color: blue;">下载《准考证.pdf》</a></p>
 						    		<p><?= $dealData['step3']['ntsContent']; ?></p>
 						    	<?php }elseif($dealData['baseData']['perReResult2'] == '02'){ ?>
 						    		<p><b>反馈结果：放弃参加考试</b></p>
@@ -391,12 +391,6 @@ function flow5_reback(type){
 		    }
 		});
 	}
-}
-
-
-
-function flow_print_pdf_ticketno(){
-	
 }
 
 </script>
