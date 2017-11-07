@@ -806,4 +806,102 @@ class ExamineeController extends BaseController{
 		}
 	}
 	
+	public function actionExamResultSendmsgList(){
+		$request = Yii::$app->request;
+		$recID = $request->get('recID');
+		$type = intval($request->get('type'));
+		$tableName = Share::MainTableName($recID);
+		if($type){
+			$condition = ['perExamResult' =>[2,3]];
+		}else{
+			$condition = ['perExamResult' =>1];
+		}
+		
+		$infos = (new yii\db\Query())	
+						->select(['perIndex', 'perName','perPhone','perTicketNo','perViewScore','perPenScore','perExamResult'])
+						->from($tableName)
+						->where($condition)
+						->all();
+		$jsonData = [];
+		$stt_info = Standartline::find()->where(['recID'=>$recID])->asArray()->one();
+		$result['stt_info'] = $stt_info;
+		
+		if(!empty($infos)){
+			$codes = [['perExamResult','KSJG']];
+			if(!empty($stt_info)){
+				$stt_view = bcdiv($stt_info['sttView'],'100',2);
+				$stt_pen = bcdiv($stt_info['sttPen'],'100',2);
+				foreach($infos as $info){
+					$mainCode = Share::codeValue($codes,$info);
+					if($info['perViewScore'] != '' || $info['perPenScore'] != ''){
+						$view_score = $info['perViewScore'] == '' ? 0 : intval($info['perViewScore']);
+						$pen_score = $info['perPenScore'] == '' ? 0 : intval($info['perPenScore']);
+						$mainCode['perViewPenScore'] = bcadd(bcmul($stt_view,$view_score,2),bcmul($stt_pen,$pen_score,2),2);
+					}
+					$jsonData[] = array_merge($info,$mainCode);
+				}
+			}else{
+				foreach($infos as $info){
+					$mainCode = Share::codeValue($codes,$info);
+					$jsonData[] = array_merge($info,$mainCode);
+				}
+			}
+		}
+		
+		$count = (new yii\db\Query())	->from($tableName)->where($condition)->count();
+		
+		$result['rows'] = $jsonData;
+		$result['total'] = $count;
+		
+		return $this->jsonReturn($result);
+	}
+	
+	public function actionExamResultSendmsgDo(){
+		$perPhones = Yii::$app->request->post('perPhones');
+		$content = Yii::$app->request->post('content');
+		$juheKey = Yii::$app->params['juhe_key'];//您申请的APPKEY
+		$tpl_id = Yii::$app->params['juhe_tpl_id'];//您申请的短信模板ID，根据实际情况修改
+		$tpl_value = '#content#='.$content;//您设置的模板变量，根据实际情况修改
+		
+		$len = count($perPhones);
+		$flag = 0;
+		$msg_error = '失败发送：<br/>';
+		$msg_success = '发送成功：<br/>';
+		$_msg_success_temp = '发送成功：<br/>';
+		for($i = 0; $i < $len ; $i++){
+			$smsConf = [
+			    'key'   => $juheKey, 
+			    'mobile'    => $perPhones[$i], 
+			    'tpl_id'    => $tpl_id, 
+			    'tpl_value' =>$tpl_value 
+			];
+			$responseContent = Share::juhecurl($smsConf,1); //请求发送短信
+			if($responseContent){
+				$result = json_decode($responseContent,true);
+    			$error_code = $result['error_code'];
+				if($error_code != 0){
+					$flag++;
+					$msg_error .= "手机号码=".$perPhones[$i]."；失败原因：". $result['reason']."<br/>";
+				}else{
+					$msg_success .= "手机号码=".$perPhones[$i]."<br/>";
+				}
+			}else{
+				$msg_error .= "手机号码=".$perPhones[$i]."；失败原因：请求失败<br/>";
+				$flag++;
+			}
+		}
+		if($flag){
+			$msg = "";
+			if($_msg_success_temp == $msg_success){
+				$msg = $msg_error;
+			}else{
+				$msg = $msg_error.'<br/>'.$msg_success;
+			}
+			$result = ['result'=>0,'msg'=>$msg];
+		}else{
+			$result = ['result'=>1,'msg'=>'发送成功'];
+		}
+		return $this->jsonReturn($result);
+	}
+	
 }
