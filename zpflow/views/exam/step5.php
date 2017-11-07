@@ -74,6 +74,7 @@ var __flow4_step5_export_condition_info__ = [];
 var __flow4_step5_all_data__ = {};
 var __flow4_step5_stt_info__ = {};
 var __flow4_step5_msg_content__ = "";
+var __flow4_step5_slite_result_perIDs__ = [];
 $(function(){
 	layui.use(['element','form','layer'], function(){
 		var element = layui.element,
@@ -256,6 +257,42 @@ function init_flow4_step5_datagrid(){
 						  	iconCls:'icon-edit',
 						   	text:'微调',
 						   	handler:function(){
+						   		layui.use('layer',function(){
+						   			var layer = layui.layer;
+									var rows = $("#flow4_step5_datagrid").datagrid('getSelections');
+									var len = rows.length;
+									if(len == 0){
+										return layer.alert("请勾选要微调的人员");
+									}
+									var flag = 0;
+									for(var i = 0 ; i < len ; i++){
+										if(rows[i]['perViewScore'] == "" || rows[i]['perViewScore'] == null){
+											flag = 1;
+											break;
+										}
+										if(rows[i]['perPenScore'] == "" || rows[i]['perPenScore'] == null){
+											flag = 1;
+											break;
+										}
+								        __flow4_step5_slite_result_perIDs__.push(rows[i]['perID']);
+									}
+									if(flag == 1){
+										return layer.alert("不可微调！所选人员中存在面试或笔试成绩为空的人员");
+									}
+									layer.open({
+								  		type:2,
+								  		title:'微调',
+								  		area: ['400px', '250px'],
+								  		content:"<?= yii\helpers\Url::to(['exam/slite-result-step5']); ?>"+"&recID="+__flow4_recID__,
+								  		btn:['确定','关闭'],
+								  		yes: function(){
+								  			$("iframe[id*='layui-layer-iframe'")[0].contentWindow.flow4_step5_slite_result_sure(); 
+									    },
+								  		btn2:function(){
+								  			layer.close(layer.getFrameIndex(window.name));
+								  		}
+								    });
+						   		});
 						   	}
 					   	},'-',{
 						  	iconCls:'icon-filter',
