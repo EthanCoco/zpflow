@@ -464,6 +464,7 @@ class ExamineeController extends BaseController{
 				$stt_pen = bcdiv($stt_info['sttPen'],'100',2);
 				foreach($infos as $info){
 					$mainCode = Share::codeValue($codes,$info);
+					$mainCode['perGradePub1'] = $info['perGradePub'];
 					if($info['perViewScore'] != '' || $info['perPenScore'] != ''){
 						$view_score = $info['perViewScore'] == '' ? 0 : intval($info['perViewScore']);
 						$pen_score = $info['perPenScore'] == '' ? 0 : intval($info['perPenScore']);
@@ -474,6 +475,7 @@ class ExamineeController extends BaseController{
 			}else{
 				foreach($infos as $info){
 					$mainCode = Share::codeValue($codes,$info);
+					$mainCode['perGradePub1'] = $info['perGradePub'];
 					$jsonData[] = array_merge($info,$mainCode);
 				}
 			}
@@ -968,6 +970,44 @@ class ExamineeController extends BaseController{
 			$result = ['result'=>1,'msg'=>'保存成功'];
 		}else{
 			$result = ['result'=>0,'msg'=>'没有需要保存的数据'];
+		}
+		return $this->jsonReturn($result);
+	}
+	
+	public function actionExamResultPubGrade(){
+		$request = Yii::$app->request;
+		$recID = $request->post('recID');
+		
+		$tableName = Share::MainTableName($recID);
+		$flag = Yii::$app->db->createCommand()->update($tableName,['perGradePub'=>1],['perReResult2'=>'01'])->execute();
+		
+		if($flag !== false){
+			if(!$flag){
+				$result = ['result'=>0,'msg'=>'已经全部公示过了'];
+			}else{
+				$result = ['result'=>1,'msg'=>'公布成绩成功'];
+			}
+		}else{
+			$result = ['result'=>0,'msg'=>'公布成绩失败'];
+		}
+		return $this->jsonReturn($result);
+	}
+	
+	public function actionExamResultPubResult(){
+		$request = Yii::$app->request;
+		$recID = $request->post('recID');
+		
+		$tableName = Share::MainTableName($recID);
+		$flag = Yii::$app->db->createCommand()->update($tableName,['perPub3'=>1],['perReResult2'=>'01'])->execute();
+		
+		if($flag !== false){
+			if(!$flag){
+				$result = ['result'=>0,'msg'=>'已经全部公示过了'];
+			}else{
+				$result = ['result'=>1,'msg'=>'公布结果成功'];
+			}
+		}else{
+			$result = ['result'=>0,'msg'=>'公布结果失败'];
 		}
 		return $this->jsonReturn($result);
 	}
