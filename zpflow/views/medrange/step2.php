@@ -6,7 +6,7 @@
 	    <li lay-id="4">所有<span id="flow5_step2_tabli4" style="display: none;"></span></li>
   	</ul>
   	<div class="layui-tab-content" style="padding: 0;">
-	    <div class="layui-tab-item layui-show">
+	    <div class="layui-tab-item layui-show" id="flow5_step2_datagrid_parentdiv">
 	     	<div id="flow5_step2_datagrid">
 	
 			</div>
@@ -147,16 +147,7 @@ function init_flow5_step2_datagrid(){
         	if(rowData.perPub5 == 1){
         		return;
         	}
-        	
-//      	layui.use('layer',function(){
-//      		if(rowData.perViewPenScore == '' || rowData.perViewPenScore == null){
-//      			return layer.msg('未参加考试人员，不允许修改');
-//      		}else if(rowData.perGradePub1 == 1)
-//      			return layer.msg('成绩已经公示了，不允许修改');
-//      		else{
-        			$('#flow5_step2_datagrid').datagrid("beginEdit", rowIndex);
-//      		}
-//      	});
+        	$('#flow5_step2_datagrid').datagrid("beginEdit", rowIndex);
         },
 	    onLoadSuccess: function(data){
         	$("#stepIndex_five_head_pubinfo").html('');
@@ -194,12 +185,12 @@ function init_flow5_step2_datagrid(){
 				    		buttons:[{
 					   			iconCls:'icon-save',text:'保存',
 							   	handler:function(){
-							   		
+							   		flow5_step2_medresult_save();
 								}
 					   		},'-',{
 					   			iconCls:'icon-redo',text:'重置',
 							   	handler:function(){
-							   		
+							   		init_flow5_step2_datagrid();
 								}
 					   		},'-','-','-',{
 					   			iconCls:'icon-import',text:'Excel导入',
@@ -231,12 +222,12 @@ function init_flow5_step2_datagrid(){
 				    		buttons:[{
 					   			iconCls:'icon-save',text:'保存',
 							   	handler:function(){
-							   		
+							   		flow5_step2_medresult_save();
 								}
 					   		},'-',{
 					   			iconCls:'icon-redo',text:'重置',
 							   	handler:function(){
-							   		
+							   		init_flow5_step2_datagrid();
 								}
 					   		},'-','-','-',{
 					   			iconCls:'icon-import',text:'Excel导入',
@@ -292,6 +283,96 @@ function init_flow5_step2_datagrid(){
 	    	}
 	    }
     });
+}
+
+function flow5_step2_medresult_save(){
+	layui.use('layer',function(){
+		var layer = layui.layer;
+		var check = before_save_checked_fs2('flow5_step2_datagrid', 'flow5_step2_datagrid_parentdiv');
+	  	if(check != 0) {
+	    	return;
+	  	}
+	  	
+	  	var rows = $("#flow5_step2_datagrid").datagrid("getRows");
+		for(var i = 0; i < rows.length; i++){
+			$('#flow5_step2_datagrid').datagrid("endEdit", i);
+		}
+	  	
+	  	layer.confirm('确定要保存么', function(index){
+	  		var data_infos = get_datagrid_save_info();
+	  		$.post("<?= yii\helpers\Url::to(['medrange/medical-save-fs2']); ?>", {"data_infos": data_infos,"recID":__flow5_recID__}, function (json) {
+	            if(json.result){
+	            	layer.msg(json.msg);
+	            	init_flow5_step2_datagrid();
+	            }else{
+	            	layer.alert(json.msg);
+	            }
+	        });
+	  	},function(){
+	  		init_flow5_step2_datagrid();
+	  	});
+  	});
+}
+
+function get_datagrid_save_info() {
+    var grid_infos = [];
+    var grid_obj = {};
+    var rows = $("#flow5_step2_datagrid").datagrid("getRows");
+    var grid_edit_columns = ["perID","perMedCheck1", "perMedCheck2"];
+    
+    for (var i = 0; i < rows.length; i++) {
+        grid_obj = {};
+        grid_obj['perID'] = rows[i]['perID'];
+        grid_obj['perMedCheck1'] = rows[i]['perMedCheck1'];
+        grid_obj['perMedCheck2'] = rows[i]['perMedCheck2'];
+        for (var j = 0; j < grid_edit_columns.length; j++) {
+            grid_obj[grid_edit_columns[j]] = rows[i][grid_edit_columns[j]] == "" ? "" : rows[i][grid_edit_columns[j]];
+        }
+        grid_infos.push(grid_obj);
+    }
+    return grid_infos;
+}
+
+function before_save_checked_fs2(gridId,parentDivId){
+	var rows = $("#"+gridId).datagrid("getRows");
+	if(rows.length == 0){
+		layer.alert("当前表格数据为空，无需保存！");
+		return 1;
+	}
+	$editNodes = $(".datagrid-editable-input");
+	if($editNodes == null || $editNodes == undefined || $editNodes.length == 0){
+		layer.alert("表格数据没有编辑，无需保存！");
+		return 1;
+	}
+	var check = 0;
+	var field = "";
+	var perentObj = null;
+	var _curRow = null;
+	var tdobj = null;
+	var _val = '';
+	var _index = '';
+	var alertcontent = '';
+	var checkMsg = '';
+	$("#"+parentDivId).find(".datagrid-btable").find("tr").each(function (n){
+		_curRow = $(this);
+		tdobj = $(this).find("td[field]");
+		$(tdobj).find(".datagrid-editable-input").each(function(){
+			perentObj = $(this).parent().parent().parent().parent().parent().parent();
+			field = perentObj.attr("field");
+	 		_val=$(this).val();
+			fieldyh=$(".datagrid-view2").find(".datagrid-header").find("tbody td[field='"+field+"']").find("span").html();
+			_index=_curRow.attr("datagrid-row-index");
+		    if(_val==''){
+		    	checkMsg = "不允许为空！";
+        		check = 1;
+				alertcontent +="第"+(parseInt(_index)+1)+"行记录中“"+fieldyh+"”，"+checkMsg+"<br>";
+			}
+		});
+	});
+	if(check == 1){
+		layer.alert(alertcontent);
+	}
+	return check;
 }
 
 function flow5_step2_medresult_import(){
