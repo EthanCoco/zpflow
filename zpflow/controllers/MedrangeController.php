@@ -95,6 +95,10 @@ class MedrangeController extends BaseController{
 		$jsonData = [];
 		$medical_info = Medical::find()->where(['recID'=>$recID])->asArray()->one();
 		$result['medical_flag'] = !empty($medical_info)? 1 : 0;
+		
+		$medical_edit_num = Noticemb::find()->where(['recID'=>$recID,'ntsType'=>2])->count();
+		$result['medical_edit_num'] = $medical_edit_num;
+		
 		if(!empty($infos)){
 			$codes = [['perGender','XB'],['perJob','XZ'],['perReResult3','FKJG'],['perReResult4','FKJG'],['perRead4','YDZK']];
 			if(!empty($medical_info)){
@@ -415,6 +419,20 @@ class MedrangeController extends BaseController{
 		}
 		
 		return $this->jsonReturn($result);
+	}
+	
+	public function actionRangePubFs1(){
+		$recID = Yii::$app->request->post('recID');
+		$tableName = Share::MainTableName($recID);
+		
+		$flag = Yii::$app->db->createCommand()->update(Share::MainTableName($recID), ['perPub4' => 1], ['perExamResult'=>1,'perPub3'=>1])->execute();
+		
+		if($flag){
+			$result = ['result'=>1,'公布成功'];
+		}else{
+			$result = ['result'=>0,'公布失败'];
+		}
+		return $this->jsonReturn($result);		
 	}
 	
 }
