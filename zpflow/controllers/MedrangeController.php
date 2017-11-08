@@ -435,4 +435,202 @@ class MedrangeController extends BaseController{
 		return $this->jsonReturn($result);		
 	}
 	
+	public function actionListInfoStep2(){
+		$request = Yii::$app->request;
+		$recID = $request->post('recID');
+		$flag = intval($request->post('flag'));
+		$perName = $request->post('perName');
+		$perGender = $request->post('perGender');
+		$perIDCard = $request->post('perIDCard');
+		
+		$page = $request->post('page');
+		$rows = $request->post('rows');
+		$offset =($page-1)*$rows;
+		
+		$sort = $request->post("sort"); 
+        $order = $request->post("order","asc");
+        
+		$tableName = Share::MainTableName($recID);
+		
+        if($sort){
+	        $orderInfo = $sort.' '.$order;
+        }else{
+        	$orderInfo = 'perIndex asc';
+        }
+		
+		$condition = ['AND',['perExamResult'=>1,'perPub3'=>1,'perPub4'=>1]];
+		if($flag == 1){
+			$condition[] = ['AND',['or',['perMedCheck3'=>null],['perMedCheck3'=>'']]];
+		}elseif($flag == 2){
+			$condition = ['AND',['perMedCheck3'=>1]];
+		}elseif($flag == 3){
+			$condition[] = ['AND',['perMedCheck3'=>2]];
+		}
+		
+		$count_tab1 = (new yii\db\Query())->from($tableName)->where(['AND',['perExamResult'=>1,'perPub3'=>1,'perPub4'=>1],['AND',['or',['perMedCheck3'=>null],['perMedCheck3'=>'']]]])->count();
+		$count_tab2 = (new yii\db\Query())->from($tableName)->where(['AND',['perExamResult'=>1,'perPub3'=>1,'perPub4'=>1],['AND',['perMedCheck3'=>1]]])->count();
+		$count_tab3 = (new yii\db\Query())->from($tableName)->where(['AND',['perExamResult'=>1,'perPub3'=>1,'perPub4'=>1],['AND',['perMedCheck3'=>2]]])->count();
+		$count_tab4 = (new yii\db\Query())->from($tableName)->where(['AND',['perExamResult'=>1,'perPub3'=>1,'perPub4'=>1]])->count();
+		
+		$count_pub = (new yii\db\Query())->from($tableName)->where(['AND',['perExamResult'=>1,'perPub3'=>1,'perPub4'=>1,'perPub5'=>0]])->count();
+		
+		if($count_tab4 !=0 && $count_pub > 0){
+			$pub_flag = 0;//wei
+		}elseif($count_tab4 == 0){
+			$pub_flag = 1;//wu
+		}elseif($count_tab4 !=0 && $count_pub == 0){
+			$pub_flag = 2;//yi
+		}
+		
+		$result['pub_flag'] = $pub_flag;
+		
+		$result['headInfo'] = ['tab1'=>$count_tab1,'tab2'=>$count_tab2,'tab3'=>$count_tab3,'tab4'=>$count_tab4];
+		
+		if($perName != ""){
+			$condition[] = ['AND',['like','perName',$perName]];
+		}
+		
+		if($perGender != ""){
+			$condition[] = ['AND',['perGender' => $perGender]];
+		}
+		
+		if($perIDCard != ""){
+			$condition[] = ['AND',['like','perIDCard',$perIDCard]];
+		}
+		
+		$infos = (new yii\db\Query())	
+						->select(['perIndex','perID', 'perName','perIDCard','perGender','perBirth','perJob','perPhone','perMedCheck1','perMedCheck2','perRead5','perReResult5','perReGiveup5','perReTime5'])
+						->from($tableName)
+						->where($condition)
+						->orderby($orderInfo)
+						->offset($offset)
+						->limit($rows)
+						->all();
+		$jsonData = [];
+		$medical_info = Medical::find()->where(['recID'=>$recID])->asArray()->one();
+		$result['medical_flag'] = !empty($medical_info)? 1 : 0;
+		
+		if(!empty($infos)){
+			$codes = [['perGender','XB'],['perJob','XZ'],['perReResult5','FKJG'],['perRead5','YDZK'],['perMedCheck1','SFHG'],['perMedCheck2','SFHG']];
+			foreach($infos as $info){
+				$mainCode = Share::codeValue($codes,$info);
+				$jsonData[] = array_merge($info,$mainCode);
+			}
+		}
+		
+		$count = (new yii\db\Query())	->from($tableName)->where($condition)->count();
+		
+		$result['rows'] = $jsonData;
+		$result['total'] = $count;
+		
+		$result['exportInfo'] = ['condition'=>$condition];
+		
+		return $this->jsonReturn($result);		
+	}
+	
+	public function actionExportInfoFs2(){
+		$request = Yii::$app->request;
+		$recID = $request->get('recID');
+		$conditionEN = $request->get('condition');
+		$condition = Share::object_to_array(json_decode($conditionEN));
+		$tableName = Share::MainTableName($recID);
+		
+		$infos = (new yii\db\Query())	
+						->select(['perIndex','perID', 'perName','perIDCard','perGender','perBirth','perJob','perPhone','perMedCheck1','perMedCheck2','perRead5','perReResult5','perReGiveup5','perReTime5'])
+						->from($tableName)
+						->where($condition)
+						->all();
+		$jsonData = [];
+		if(!empty($infos)){
+			$codes = [['perGender','XB'],['perJob','XZ'],['perReResult5','FKJG'],['perRead5','YDZK'],['perMedCheck1','SFHG'],['perMedCheck2','SFHG']];
+			foreach($infos as $info){
+				$mainCode = Share::codeValue($codes,$info);
+				$jsonData[] = array_merge($info,$mainCode);
+			}
+		}
+		Share::exportCommonExcel(['sheet0'=>['data'=>$jsonData],'key'=>'flow5_step2_export','fileInfo'=>['fileName'=>'考生体检信息']]);
+	}
+	
+	public function actionSendMsgFs2(){
+		$recID = Yii::$app->request->get('recID');
+		return $this->renderPartial('step2/sendmsg',['recID'=>$recID]);
+	}
+	
+	public function actionSendmsgFs2List(){
+		$recID = Yii::$app->request->get('recID');
+		$tableName = Share::MainTableName($recID);
+		
+		$infos = (new yii\db\Query())	
+						->select(['perIndex','perName','perJob','perPhone','perMedCheck1','perMedCheck2'])
+						->from($tableName)
+						->where(['AND',['perExamResult'=>1,'perPub3'=>1,'perPub4'=>1]])
+						->all();
+		$jsonData = [];
+		if(!empty($infos)){
+			$codes = [['perJob','XZ'],['perMedCheck1','SFHG'],['perMedCheck2','SFHG']];
+			foreach($infos as $info){
+				$mainCode = Share::codeValue($codes,$info);
+				$jsonData[] = array_merge($info,$mainCode);
+			}
+		}
+		
+		$count = (new yii\db\Query())	->from($tableName)->where(['AND',['perExamResult'=>1,'perPub3'=>1,'perPub4'=>1]])->count();
+		
+		$result['rows'] = $jsonData;
+		$result['total'] = $count;
+		return $this->jsonReturn($result);
+	}
+	
+	public function actionSendmsgFs2Do(){
+		$perPhones = Yii::$app->request->post('perPhones');
+		$content = Yii::$app->request->post('content');
+		$juheKey = Yii::$app->params['juhe_key'];
+		$tpl_id = Yii::$app->params['juhe_tpl_id'];
+		$tpl_value = '#content#='.$content;
+		
+		$len = count($perPhones);
+		$flag = 0;
+		$msg_error = '失败发送：<br/>';
+		$msg_success = '发送成功：<br/>';
+		$_msg_success_temp = '发送成功：<br/>';
+		for($i = 0; $i < $len ; $i++){
+			$smsConf = [
+			    'key'   => $juheKey, 
+			    'mobile'    => $perPhones[$i], 
+			    'tpl_id'    => $tpl_id, 
+			    'tpl_value' =>$tpl_value 
+			];
+			$responseContent = Share::juhecurl($smsConf,1); 
+			if($responseContent){
+				$result = json_decode($responseContent,true);
+    			$error_code = $result['error_code'];
+				if($error_code != 0){
+					$flag++;
+					$msg_error .= "手机号码=".$perPhones[$i]."；失败原因：". $result['reason']."<br/>";
+				}else{
+					$msg_success .= "手机号码=".$perPhones[$i]."<br/>";
+				}
+			}else{
+				$msg_error .= "手机号码=".$perPhones[$i]."；失败原因：请求失败<br/>";
+				$flag++;
+			}
+		}
+		if($flag){
+			$msg = "";
+			if($_msg_success_temp == $msg_success){
+				$msg = $msg_error;
+			}else{
+				$msg = $msg_error.'<br/>'.$msg_success;
+			}
+			$result = ['result'=>0,'msg'=>$msg];
+		}else{
+			$result = ['result'=>1,'msg'=>'发送成功'];
+		}
+		return $this->jsonReturn($result);
+	}
+	
+	
+	
+	
+	
 }
