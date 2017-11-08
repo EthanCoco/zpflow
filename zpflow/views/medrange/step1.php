@@ -180,7 +180,7 @@ function init_flow5_step1_datagrid(){
 					   		},'-',{
 					   			iconCls:'icon-edittz',text:'体检安排编辑',
 							   	handler:function(){
-							   		
+							   		flow5_step1_medrange_info();
 								}
 					   		},'-',{
 					   			iconCls:'icon-tip',text:'短信提醒',
@@ -212,7 +212,7 @@ function init_flow5_step1_datagrid(){
 					   		},'-',{
 					   			iconCls:'icon-edittz',text:'体检安排编辑',
 							   	handler:function(){
-							   		
+							   		flow5_step1_medrange_info();
 								}
 					   		},'-',{
 					   			iconCls:'icon-tip',text:'短信提醒',
@@ -239,7 +239,7 @@ function init_flow5_step1_datagrid(){
 			    		buttons:[{
 					   			iconCls:'icon-edittz',text:'体检安排编辑',
 							   	handler:function(){
-							   		
+							   		flow5_step1_medrange_info();
 								}
 					   	},'-',{
 				   			iconCls:'icon-tip',text:'短信提醒',
@@ -287,8 +287,28 @@ function init_flow5_step1_datagrid(){
     });
 }
 
+function flow5_step1_medrange_info(){
+	layui.use('layer',function(){
+		var layer = layui.layer;
+		layer.open({
+	  		type:2,
+	  		title:'体检安排通知编辑',
+	  		area:[$(window).width()*3/4+"px",'520px'],
+	  		content:"<?= yii\helpers\Url::to(['medrange/medrange-edit-fs1']); ?>"+"&recID="+__flow5_recID__,
+	  		btn:['保存','取消'],
+	  		yes: function(){
+	  			$("iframe[id*='layui-layer-iframe'")[0].contentWindow.flow5_step1_medrange_edit_save(); 
+		    },
+	  		btn2:function(){
+	  			layer.close(layer.getFrameIndex(window.name));
+	  		}
+	    });
+	});
+}
+
 function flow5_step1_export_info(){
 	layui.use('layer',function(){
+		var layer = layui.layer;
 		if(__flow5_step1_total__ == 0){
 			return layer.alert("当前没有任何数据，不需要导出");
 		}else{
@@ -299,6 +319,7 @@ function flow5_step1_export_info(){
 
 function flow5_step1_print_sign(){
 	layui.use('layer',function(){
+		var layer = layui.layer;
 		if(__flow_step1_headInfo__.tab1 == 0){
 			return layer.alert("暂无考生信息");
 		}else if(__flow_step1_medical_flag__ == 0){
@@ -311,6 +332,7 @@ function flow5_step1_print_sign(){
 
 function flow5_step1_sendmsg(){
 	layui.use('layer',function(){
+		var layer = layui.layer;
 		layer.prompt({
 		  	formType: 2,
 		  	value: '',
