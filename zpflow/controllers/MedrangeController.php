@@ -629,7 +629,75 @@ class MedrangeController extends BaseController{
 		return $this->jsonReturn($result);
 	}
 	
+	public function actionImportFs2(){
+		$request = Yii::$app->request;
+		$recID = $request->get('recID');
+		return $this->renderPartial('step2/import',['recID'=>$recID]);
+	}
 	
+	public function actionImportmbFs2(){
+		$recID = Yii::$app->request->get('recID');
+		$tableName = Share::MainTableName($recID);
+		
+		$infos = (new yii\db\Query())	
+						->select(['perIndex', 'perName','perIDCard','perGender','perJob','perPhone','perMedCheck1','perMedCheck2'])
+						->from($tableName)
+						->where(['AND',['perExamResult'=>1,'perPub3'=>1,'perPub4'=>1]])
+						->all();
+		$jsonData = [];
+		if(!empty($infos)){
+			$codes = [['perJob','XZ'],['perGender','XB'],['perMedCheck1','SFHG'],['perMedCheck2','SFHG']];
+			foreach($infos as $info){
+				$mainCode = Share::codeValue($codes,$info);
+				$jsonData[] = array_merge($info,$mainCode);
+			}
+		}
+		
+		@ini_set('memory_limit', '2048M');
+		set_time_limit(0);
+		error_reporting(E_ALL);
+		date_default_timezone_set('PRC');
+		$fileName = '考生体检结果导入模板信息'.date('Y-m-d',time()).time();
+		$excelInfo = Share::getKeyInfo('flow5_step2_mb');
+		
+		$objPHPExcel = \PHPExcel_IOFactory::createReader("Excel5")->load($excelInfo['tempExcel']);
+		$objPHPExcel->setActiveSheetIndex(0);
+		$index = 0;
+		foreach($excelInfo['keys'] as $v){
+			$objPHPExcel -> getSheet($v['index']) -> setTitle($v['sheetName']);
+			$dataInfos = $jsonData;
+			$num = $v['num'];
+			$keys = $v['key'];
+			foreach($dataInfos as $info){
+				$column = count($keys);
+				$temp = 0;
+				for($n = 0; $n < $column; $n++){
+					if($temp == $column){
+						break;
+					}else{
+						$pcoordinate = \PHPExcel_Cell::stringFromColumnIndex($n).''.$num;
+						if($keys[$temp] == 'id'){
+							$objPHPExcel->setActiveSheetIndex($v['index'])->setCellValue($pcoordinate,  ($num-1) );
+						}else{
+							$objPHPExcel->setActiveSheetIndex($v['index'])->setCellValue($pcoordinate,  $info[$keys[$temp]]);
+						}
+			            $temp++;
+					}
+				}
+				$num++;
+			}
+			$index++;
+		}
+
+		ob_end_clean();
+		$fileName = iconv("utf-8","gb2312",$fileName);
+		header ( 'Content-Type: application/vnd.ms-excel' );
+		header ( 'Content-Disposition: attachment;filename="'.$fileName.'.xls"'); 
+		header ( 'Cache-Control: max-age=0' );
+		$objWriter = \PHPExcel_IOFactory::createWriter ($objPHPExcel,'Excel5'); 
+		$objWriter->save ( 'php://output' );
+		exit;
+	}
 	
 	
 	
