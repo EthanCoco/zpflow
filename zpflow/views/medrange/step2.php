@@ -158,7 +158,7 @@ function init_flow5_step2_datagrid(){
 					   		},'-','-','-',{
 					   			iconCls:'icon-import',text:'Excel导入',
 							   	handler:function(){
-							   		
+							   		flow5_step2_medresult_import();
 								}
 					   		},'-',{
 					   			iconCls:'icon-pub',text:'结果公示',
@@ -195,7 +195,7 @@ function init_flow5_step2_datagrid(){
 					   		},'-','-','-',{
 					   			iconCls:'icon-import',text:'Excel导入',
 							   	handler:function(){
-							   		
+							   		flow5_step2_medresult_import();
 								}
 					   		},'-',{
 							  	iconCls:'icon-export',
@@ -246,6 +246,25 @@ function init_flow5_step2_datagrid(){
 	    	}
 	    }
     });
+}
+
+function flow5_step2_medresult_import(){
+	layui.use('layer',function(){
+		var layer = layui.layer;
+		layer.open({
+    		type:2,
+    		title:'导入体检结果',
+    		area:["500px",'350px'],
+    		content:"<?= yii\helpers\Url::to(['medrange/import-fs2']); ?>"+"&recID="+__flow5_recID__,
+    		btn:['上传','取消'],
+    		yes: function(){
+    			$("iframe[id*='layui-layer-iframe'")[0].contentWindow.flow5_step1_import_data_sure(); 
+	        },
+    		btn2:function(){
+    			layer.closeAll();
+    		}
+	    });
+	});
 }
 
 function flow5_step2_sendmsg(){
