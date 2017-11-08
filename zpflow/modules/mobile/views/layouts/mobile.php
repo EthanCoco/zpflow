@@ -64,11 +64,7 @@ $this -> title = 'XXXXX招聘';
 	<?php echo $content ?>
 
 	<div class="mobile-footer">
-		xxxxxxxxxxxxxxxxx&nbsp;&nbsp;
-		<?php if (!Yii::$app->user->isGuest){ ?>	
-		  <a href="<?php echo Yii::$app->urlManager->createUrl('mobile/zhuxiao'); ?>" style="float: right;margin-right: 20px;color: #FFFFFF;">注销</a>
-		  <a href="<?php echo Yii::$app->urlManager->createUrl('mobile/modpass'); ?>" style="float: right;margin-right: 10px;color: #FFFFFF;">修改密码</a>
-		<?php } ?>
+		xxxxxxxxxxxxxxxxx
 	</div>
 </div>
 <?php $this->endBody() ?>

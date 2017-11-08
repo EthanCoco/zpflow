@@ -305,6 +305,73 @@
 				</fieldset>
 			<?php } ?>
 			<!--体检结果公示环节TODO-->
+			<?php if($dealData['baseData']['perExamResult'] == 1 && $dealData['baseData']['perPub3'] == 1 && $dealData['baseData']['perPub4'] == 1 && $dealData['baseData']['perPub5'] == 1 ){  ?>
+				<fieldset class="layui-elem-field site-demo-button" style="margin-top: 10px;">
+				  	<legend style="font-size: 14px;color: blue;padding: 5px;">step6&nbsp;&nbsp;&nbsp;&nbsp;体检结果信息</legend>
+				  	<div class="layui-row">
+						<div style="margin-left: -2px;color: #666;">
+						    <div class="layui-textarea">
+						    	
+						    	<?php if($dealData['baseData']['perMedCheck3'] == 1){ ?>
+						    		<p><b>恭喜您，您的体检已经通过！</b></p>
+						    	<?php }else{ ?>
+						    		<p><b>抱歉，您的体检没有通过！敬请期待下次招聘！谢谢！</b></p>
+						    	<?php } ?>
+						    	<p><b>您的体检结果如下：</b></p>
+						    	<p><b>体检结果：</b><?= $dealData['step6']['perMedCheck1']; ?></p>
+					    		<p><b>复查结果：</b><?= $dealData['step6']['perMedCheck2']; ?></p>
+					    		<p><b>是否通过：</b><?= $dealData['step6']['perMedCheck3']; ?></p>
+					    		<p><br/></p>
+					    		
+					    		<?php if($dealData['baseData']['perReResult5'] == '03' && $dealData['baseData']['perMedCheck3'] == 1){ ?>
+							    	<p style="padding-top: 25px;">接下来将会是政审环节，是否会参加政审？</p>
+							    	<div style="padding: 10px;text-align: center;">
+										<button onclick="flow7_reback('01')" class="layui-btn layui-btn-normal layui-btn-small layui-btn-radius" >确定参加</button>
+										<button onclick="flow7_reback('02')" class="layui-btn layui-btn-normal layui-btn-small layui-btn-radius" >放弃参加</button>
+							    	</div>
+						    	<?php }	?>
+						    		
+						    </div>
+					    </div>
+					</div>
+					<?php if($dealData['baseData']['perReResult5'] != '03' && $dealData['baseData']['perMedCheck3'] == 1){ ?>
+					<div class="layui-row">
+						<div style="margin-left: -2px;color: #666;">
+						    <div class="layui-textarea">
+						    	<p><b>参加政审反馈信息：</b></p>
+						    	<?php if($dealData['baseData']['perReResult5'] == '01'){ ?>
+						    		<p><b>反馈结果：确定参加政审</b></p>
+						    		<p><b>反馈时间：<?= $dealData['baseData']['perReTime5'] ?></b></p>
+						    	<?php }elseif($dealData['baseData']['perReResult5'] == '02'){ ?>
+						    		<p><b>反馈结果：放弃参加政审</b></p>
+						    		<p><b>放弃原因：<?= $dealData['baseData']['perReGiveup5'] ?></b></p>
+						    		<p><b>反馈时间：<?= $dealData['baseData']['perReTime5'] ?></b></p>
+						    	<?php }	?>
+						    </div>
+					    </div>
+					</div>
+					<?php }	?>
+				</fieldset>
+			<?php } ?>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
 			
 				
 				
@@ -463,6 +530,46 @@ function flow6_reback(type){
 		    	
 		    	layer.open({content:'是否确认放弃参加体检？',btn: ['确定','取消'],yes: function(index){
 						$.post("<?= yii\helpers\Url::to(['zpcx/flow6-reback']); ?>",{'perReResult4':type,'perReGiveup4':perReGiveup4,'recID':__flow_recID__,'perID':__flow_perID__},function(json){
+							if(json.result){
+								location.href = "<?= yii\helpers\Url::to(['default/index','index'=>2]); ?>";
+							}else{
+								layer.open({content: json.msg,btn: '我知道了'});
+							}
+						},'json');
+				    }
+				});
+		    }
+		});
+	}
+}
+
+function flow7_reback(type){
+	if(type == '01'){
+		layer.open({content:'是否确认参加政审？',btn: ['确定','取消'],yes: function(index){
+				$.post("<?= yii\helpers\Url::to(['zpcx/flow7-reback']); ?>",{'perReResult5':type,'perReGiveup5':'','recID':__flow_recID__,'perID':__flow_perID__},function(json){
+					if(json.result){
+						location.href = "<?= yii\helpers\Url::to(['default/index','index'=>2]); ?>";
+					}else{
+						layer.open({content: json.msg,btn: '我知道了'});
+					}
+				},'json');
+		    }
+		});
+	}else{
+		layer.open({
+		    type: 1,
+		    content: '<textarea id="perReGiveup5" style="font-size: 12px;" class="layui-textarea" placeholder="请输入放弃原因"></textarea>',
+		    anim: 'up',
+		    style: 'position:fixed; bottom:0; left:0; width: 100%; height: 150px; padding:10px 0; border:none;',
+		    btn:['确定','取消'],
+		    yes: function(index){
+		    	var perReGiveup5 = $("#perReGiveup5").val();
+		    	if(perReGiveup5 == ""){
+		    		return layer.open({content: '请填写放弃原因',skin: 'msg',time: 2 });
+		    	}
+		    	
+		    	layer.open({content:'是否确认放弃参加政审？',btn: ['确定','取消'],yes: function(index){
+						$.post("<?= yii\helpers\Url::to(['zpcx/flow7-reback']); ?>",{'perReResult5':type,'perReGiveup5':perReGiveup5,'recID':__flow_recID__,'perID':__flow_perID__},function(json){
 							if(json.result){
 								location.href = "<?= yii\helpers\Url::to(['default/index','index'=>2]); ?>";
 							}else{

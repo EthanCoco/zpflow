@@ -52,7 +52,8 @@ class ZpcxController extends Controller
 		
 		$perID = $mainInfo['perID'];
 		$codes = [
-					['perGender','XB'],['perJob','XZ'],['perStatus','SCJG'],['perGroupSet','ZBMC'],['perExamResult','KSJG']
+					['perGender','XB'],['perJob','XZ'],['perStatus','SCJG'],['perGroupSet','ZBMC'],['perExamResult','KSJG'],
+					['perMedCheck1','SFHG'],['perMedCheck2','SFHG'],['perMedCheck3','SFTG']
 				];
 		$mainCode = Share::codeValue($codes,$mainInfo);
 		$mainCode['perBirth'] = !empty($mainInfo['perBirth']) ? substr($mainInfo['perBirth'], 0,10) : '';
@@ -150,9 +151,17 @@ class ZpcxController extends Controller
 				
 			}
 			
-			
-			
-			
+			/*体检结果*/
+			if($mainInfo['perExamResult'] == 1 && $mainInfo['perPub3'] == 1 && $mainInfo['perPub4'] == 1 && $mainInfo['perPub5'] == 1){
+				$jsonData['title'] = '体检结果已经公布，请注意查看！';
+				
+				$step6 = [
+					'perMedCheck1'=>$mainJson['perMedCheck1'],
+					'perMedCheck2'=>$mainJson['perMedCheck2'],
+					'perMedCheck3'=>$mainJson['perMedCheck3']
+				];
+				$jsonData['step6'] = $step6;
+			}
 			
 			
 		}
@@ -948,4 +957,27 @@ EOD;
 			return ['result'=>0,'msg'=>'操作失败'];
 		}
 	}
+	
+	public function actionFlow7Reback(){
+		date_default_timezone_set('PRC');
+		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+		$recID = Yii::$app->request->post('recID');
+		$perID = Yii::$app->request->post('perID');
+		$perReResult5 = Yii::$app->request->post('perReResult5');
+		$perReGiveup5 = Yii::$app->request->post('perReGiveup5','');
+		
+		$flag = Yii::$app->db->createCommand()->update(Share::MainTableName($recID),[
+								'perReResult5'=>$perReResult5,
+								'perReGiveup5'=>$perReGiveup5,
+								'perRead5'=>2,
+								'perReTime5'=>date('Y-m-d H:i:s',time())
+							],['perID'=>$perID])->execute();
+		
+		if($flag){
+			return ['result'=>1,'msg'=>'操作成功'];
+		}else{
+			return ['result'=>0,'msg'=>'操作失败'];
+		}
+	}
+	
 }
