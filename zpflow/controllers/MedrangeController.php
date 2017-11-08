@@ -824,4 +824,64 @@ class MedrangeController extends BaseController{
 		}
 	}
 	
+	public function actionMedicalSaveFs2(){
+		$request = Yii::$app->request;
+		$db = Yii::$app->db->createCommand();
+		$recID = $request->post('recID');
+		$data_infos = $request->post('data_infos');
+		$tableName = Share::MainTableName($recID);
+		$check = [''=>0,'合格'=>1,'不合格'=>2,'无数据'=>0];
+		
+		if(!empty($data_infos)){
+			foreach($data_infos as $info){
+				$perID = $info['perID'];
+				
+				if(!is_numeric($info['perMedCheck1'])){
+					$perMedCheck1 = $check[trim($info['perMedCheck1'])];
+				}else{
+					$perMedCheck1 = $info['perMedCheck1'];
+				}
+				
+				if(!is_numeric($info['perMedCheck2'])){
+					$perMedCheck2 = $check[trim($info['perMedCheck2'])];
+				}else{
+					$perMedCheck2 = $info['perMedCheck2'];
+				}
+				if($perMedCheck1 == 0 && $perMedCheck2 == 0){
+					$perMedCheck3 = 2;
+				}elseif($perMedCheck1 == 0 && $perMedCheck2 == 1){
+					$perMedCheck3 = 1;
+				}elseif($perMedCheck1 == 0 && $perMedCheck2 == 2){
+					$perMedCheck3 = 2;
+				}elseif($perMedCheck1 == 1){
+					$perMedCheck3 = 1;
+				}elseif($perMedCheck1 == 2 && $perMedCheck2 == 0){
+					$perMedCheck3 = 2;
+				}elseif($perMedCheck1 == 2 && $perMedCheck2 == 1){
+					$perMedCheck3 = 1;
+				}elseif($perMedCheck1 == 2 && $perMedCheck2 == 2){
+					$perMedCheck3 = 2;
+				}else{
+					$perMedCheck3 = 2;
+				}
+				
+				$temp_data = [];
+				$temp_data = [
+					'perMedCheck1'=>$perMedCheck1,
+					'perMedCheck2'=>$perMedCheck2,
+					'perMedCheck3'=>$perMedCheck3
+				];
+				
+				$db	->	update($tableName,$temp_data, [
+									'perID'=>$perID
+								])->execute();
+				
+			}
+			$result = ['result'=>1,'msg'=>'保存成功'];
+		}else{
+			$result = ['result'=>0,'msg'=>'没有需要保存的数据'];
+		}
+		return $this->jsonReturn($result);
+	}
+	
 }
