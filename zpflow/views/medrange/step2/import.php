@@ -78,7 +78,7 @@ function flow5_step1_import_data_sure(){
 		if($("#fileName").val() == ""){
 			return parent.layer.msg('请选择上传的文件');
 		}
-	    $.post("<?= Url::to(['examinee/exam-result-upexcel-sure']) ?>",{'recID':__flow5_step1_import_recID__,'filePath':$("#fileName").val()},function(json){
+	    $.post("<?= Url::to(['medrange/upexcel-sure-fs2']) ?>",{'recID':__flow5_step1_import_recID__,'filePath':$("#fileName").val()},function(json){
 			if(json.result){
 				parent.init_flow5_step2_datagrid();
 				parent.layer.msg(json.msg);

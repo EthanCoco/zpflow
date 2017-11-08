@@ -54,6 +54,8 @@ var __flow5_step2_condition__ ;
 var __flow5_step2_total__ = "0";
 var __flow_step2_headInfo__ ;
 var __flow5_step2_msg_content__ = "";
+var __flow5_step2_medresult_json__ = [{'id':0,'name':'无数据'},{'id':1,'name':'合格'},{'id':2,'name':'不合格'}];
+
 $(function(){
 	layui.use(['element','form','layer', 'laydate'], function(){
 		var element = layui.element;
@@ -99,8 +101,30 @@ function init_flow5_step2_datagrid(){
 	        {field:'perBirth',title:'出生年月',width:'150',align:'center',rowspan:2,sortable:true},
 	        {field:'perJob',title:'应聘岗位性质',width:'120',align:'center',rowspan:2,sortable:true},
 	        {field:'perPhone',title:'手机号码',width:'150',align:'center',rowspan:2},
-	        {field:'perMedCheck1',title:'体检结果',width:'150',align:'center',rowspan:2,sortable:true},
-	        {field:'perMedCheck2',title:'复查结果',width:'150',align:'center',rowspan:2,sortable:true},
+	        {field:'perMedCheck1',title:'体检结果',width:'150',align:'center',rowspan:2,sortable:true,
+	        	editor : {  
+	                type : 'combobox',  
+	                options : {  
+		                data: __flow5_step2_medresult_json__,  
+		                valueField: 'id',    
+		                textField: 'name',    
+		                panelHeight: 'auto',  
+		                editable:false 
+		            } 
+                }  
+	        },
+	        {field:'perMedCheck2',title:'复查结果',width:'150',align:'center',rowspan:2,sortable:true,
+	        	editor : {  
+	                type : 'combobox',  
+	                options : {  
+		                data: __flow5_step2_medresult_json__,  
+		                valueField: 'id',    
+		                textField: 'name',    
+		                panelHeight: 'auto',  
+		                editable:false 
+		            } 
+                }  
+	        },
 	        {field:'perRead5',title:'通知阅读情况',width:'150',align:'center',rowspan:2,sortable:true},
 	        {field:'perSFCJZS',title:'是否参加政审反馈情况',width:'300',colspan:3,align:'center'}
 	        ],[
@@ -112,6 +136,28 @@ function init_flow5_step2_datagrid(){
 		        	}
 			    }
 	    ]],
+	    onBeforeEdit: function (rowIndex, rowData, changes) {
+            return true;
+        },
+        onDblClickRow: function (rowIndex, rowData) {
+        	if(__flow5_show_flag__ == "0"){
+	    		return;
+	    	}
+        	
+        	if(rowData.perPub5 == 1){
+        		return;
+        	}
+        	
+//      	layui.use('layer',function(){
+//      		if(rowData.perViewPenScore == '' || rowData.perViewPenScore == null){
+//      			return layer.msg('未参加考试人员，不允许修改');
+//      		}else if(rowData.perGradePub1 == 1)
+//      			return layer.msg('成绩已经公示了，不允许修改');
+//      		else{
+        			$('#flow5_step2_datagrid').datagrid("beginEdit", rowIndex);
+//      		}
+//      	});
+        },
 	    onLoadSuccess: function(data){
         	$("#stepIndex_five_head_pubinfo").html('');
 			$("#stepIndex_five_head_pubinfo").html('发布状态：'+ (data.pub_flag == 0 ? '未发布' : (data.pub_flag == 1 ? '暂无数据' : '已发布')));
