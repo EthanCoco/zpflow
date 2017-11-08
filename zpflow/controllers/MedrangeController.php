@@ -343,7 +343,7 @@ class MedrangeController extends BaseController{
 		return $this->renderPartial('step1/medrange-edit',['recID'=>$recID,'nstnotice_info'=>$jsonInfo]);
 	}
 	
-	public function actionMedrangeNoticembSave(){
+	public function actionMedrangeNoticembFs1Save(){
 		$request = Yii::$app->request;
 		$recID = $request->post('recID');
 		$ntsID = $request->post('ntsID');
@@ -379,5 +379,42 @@ class MedrangeController extends BaseController{
 		}
 		return $this->jsonReturn($result);
 	}
-
+	
+	public function actionRangeMedicalFs1(){
+		$recID = Yii::$app->request->get('recID');
+		$infos = Medical::find()->where(['recID'=>$recID])->asArray()->one();
+		
+		return $this->renderPartial('step1/medrange-repair',['recID'=>$recID,'medinfo'=>$infos]);
+	}
+	
+	public function actionRangeMedicalFs1Save(){
+		$request = Yii::$app->request;
+		$recID = $request->post('recID');
+		$medID = $request->post('medID','');
+		$medStartTime = $request->post('medStartTime');
+		$medEndTime = $request->post('medEndTime');
+		$medPlace = $request->post('medPlace');
+		$medStartEnd = $medStartTime.' 至 '.$medEndTime;
+		
+		if($medID == ''){
+			$med = new Medical();
+			$med->recID = $recID;
+		}else{
+			$med = Medical::findOne($medID);
+		}
+		
+		$med->medStartTime = $medStartTime;
+		$med->medEndTime = $medEndTime;
+		$med->medPlace = $medPlace;
+		$med->medStartEnd = $medStartEnd;
+		
+		if($med->save()){
+			$result = ['result'=>1,'msg'=>'安排成功'];
+		}else{
+			$result = ['result'=>0,'msg'=>'安排失败'];
+		}
+		
+		return $this->jsonReturn($result);
+	}
+	
 }
