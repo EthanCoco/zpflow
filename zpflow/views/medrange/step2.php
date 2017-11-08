@@ -55,7 +55,8 @@ var __flow5_step2_total__ = "0";
 var __flow_step2_headInfo__ ;
 var __flow5_step2_msg_content__ = "";
 var __flow5_step2_medresult_json__ = [{'id':0,'name':'无数据'},{'id':1,'name':'合格'},{'id':2,'name':'不合格'}];
-
+var __flow3_to__ = "<?= $flow3_to; ?>";
+var __flow4_to__ = "<?= $flow4_to; ?>";
 $(function(){
 	layui.use(['element','form','layer', 'laydate'], function(){
 		var element = layui.element;
@@ -66,7 +67,11 @@ $(function(){
 	  	});
 	  	
 	  	form.render('select');
-	  	
+	  	<?php if($flow3_to > 0){ ?>
+	  		return layer.alert('资格审查环节存在未公示的结果');
+	  	<?php }elseif($flow4_to > 0){ ?>
+	  		return layer.alert('考试录入环节存在未公示的人员');
+	  	<?php } ?>
 	});
 	init_flow5_step2_datagrid();
 });
@@ -200,7 +205,26 @@ function init_flow5_step2_datagrid(){
 					   		},'-',{
 					   			iconCls:'icon-pub',text:'结果公示',
 							   	handler:function(){
-							   		
+							   		layui.use('layer',function(){
+										var layer = layui.layer;
+										if(__flow_step2_headInfo__.tab4 == 0){
+											return layer.alert("暂无考生信息，不需要公布");
+										}
+										
+										parent.layer.confirm('您确定公示体检结果么？', function(index){
+											$.post("<?= yii\helpers\Url::to(['medrange/range-pub-fs2']) ?>",{
+													'recID':__flow5_recID__
+												},function(json){
+												if(json.result){
+													init_flow5_step2_datagrid();
+													parent.layer.msg(json.msg);
+													parent.layer.closeAll();
+												}else{
+													parent.layer.alert(json.msg);
+												}
+											},'json');
+										});
+									});
 								}
 					   		},'-',{
 							  	iconCls:'icon-export',
