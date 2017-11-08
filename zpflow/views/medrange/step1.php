@@ -46,12 +46,6 @@
 	  	
 	</div>
 </div>
-<form id="flow5_step1_exportForm" action="<?= yii\helpers\Url::to(['examiner/examiner-export']); ?>" method="post" style="display:none;">
-    <input type="text" name="flag" />
-    <input type="text" name="recID" />
-    <input type="text" name="condition" />
-</form>
-
 <script>
 var __flow5_step1_datagrid_flag__ = "1";
 var __flow5_step1_condition__ ;
@@ -133,11 +127,6 @@ function init_flow5_step1_datagrid(){
 		        	}
 			    }
 	    ]],
-    	onDblClickRow:function(index,row){
-	    	if(__flow5_show_flag__ == "0"){
-	    		return;
-	    	}
-	    },
         onLoadSuccess: function(data){
         	$("#stepIndex_five_head_pubinfo").html('');
 			$("#stepIndex_five_head_pubinfo").html('发布状态：'+ (data.pub_flag == 0 ? '未发布' : (data.pub_flag == 1 ? '暂无数据' : '已发布')));
@@ -412,6 +401,7 @@ function init_flow5_step1_cancle(){
 		var form = layui.form;
 		$("#perName").val("");
 		$("#perGender").val("");
+		$("#perIDCard").val("");
 	  	form.render('select');
 	  	init_flow5_step1_datagrid();
 	});
