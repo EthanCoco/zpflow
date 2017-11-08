@@ -175,7 +175,33 @@ function init_flow5_step1_datagrid(){
 					   		},'-',{
 					   			iconCls:'icon-pub',text:'结果公示',
 							   	handler:function(){
-							   		
+							   		layui.use('layer',function(){
+										var layer = layui.layer;
+										if(__flow_step1_headInfo__.tab1 == 0){
+											return layer.alert("暂无考生信息，不需要公布");
+										}
+										if(__flow_step1_medical_flag__ == 0){
+											return layer.alert("您还没有安排体检设置体检时间和地点，请先设置");
+										}
+										
+										if(data.medical_edit_num == 0){
+											return layer.alert("您还没有编辑体检安排，请先编辑");
+										}
+										
+										parent.layer.confirm('您确定公示体检安排么？', function(index){
+											$.post("<?= yii\helpers\Url::to(['medrange/range-pub-fs1']) ?>",{
+													'recID':__flow5_recID__
+												},function(json){
+												if(json.result){
+													init_flow5_step1_datagrid();
+													parent.layer.msg(json.msg);
+													parent.layer.closeAll();
+												}else{
+													parent.layer.alert(json.msg);
+												}
+											},'json');
+										});
+									});
 								}
 					   		},'-',{
 					   			iconCls:'icon-edittz',text:'体检安排编辑',
@@ -237,10 +263,15 @@ function init_flow5_step1_datagrid(){
 	    		}else{
 	    			$("#flow5_step1_datagrid").datagrid('getPager').pagination({
 			    		buttons:[{
-					   			iconCls:'icon-edittz',text:'体检安排编辑',
-							   	handler:function(){
-							   		flow5_step1_medrange_info();
-								}
+				   			iconCls:'icon-edit',text:'体检安排',
+						   	handler:function(){
+						   		flow5_step1_medrange_range();
+							}
+				   		},'-',{
+				   			iconCls:'icon-edittz',text:'体检安排编辑',
+						   	handler:function(){
+						   		flow5_step1_medrange_info();
+							}
 					   	},'-',{
 				   			iconCls:'icon-tip',text:'短信提醒',
 						   	handler:function(){

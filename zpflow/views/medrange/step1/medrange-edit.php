@@ -115,6 +115,7 @@ function flow5_step1_medrange_edit_save(){
 			},
 			function(json){
 				if(json.result){
+					parent.init_flow5_step1_datagrid();
 					parent.layer.msg(json.msg);
 					parent.layer.closeAll();
 				}else{
