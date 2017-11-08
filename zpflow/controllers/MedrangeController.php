@@ -499,7 +499,7 @@ class MedrangeController extends BaseController{
 		}
 		
 		$infos = (new yii\db\Query())	
-						->select(['perIndex','perID', 'perName','perIDCard','perGender','perBirth','perJob','perPhone','perMedCheck1','perMedCheck2','perRead5','perReResult5','perReGiveup5','perReTime5'])
+						->select(['perIndex','perID', 'perName','perIDCard','perGender','perBirth','perJob','perPhone','perMedCheck1','perMedCheck2','perPub5','perRead5','perReResult5','perReGiveup5','perReTime5'])
 						->from($tableName)
 						->where($condition)
 						->orderby($orderInfo)
@@ -699,6 +699,129 @@ class MedrangeController extends BaseController{
 		exit;
 	}
 	
-	
+	public function actionUpexcelSureFs2(){
+		$db = Yii::$app->db->createCommand();
+		$filePath = Yii::$app->request->post('filePath');
+		$recID = Yii::$app->request->post('recID');
+        $reader = \PHPExcel_IOFactory::createReader('Excel5');
+        $PHPExcel = $reader->load($filePath); 
+        $sheet = $PHPExcel->getSheet(0);
+        $highestRow = $sheet->getHighestRow(); 
+        $highestColumm = $sheet->getHighestColumn();
+        $highestColumm= \PHPExcel_Cell::columnIndexFromString($highestColumm);
+        if($highestColumm != 9){
+            return $this->jsonReturn(['result'=>0,'msg'=>'模版不正确']);
+        }
+        $keys = ['perIndex', 'perName','perGender','perIDCard','perJob','perPhone','perMedCheck1','perMedCheck2'];
+        $datas = [];
+        $temp = 0;
+        for ($row = 2; $row <= $highestRow; $row++){
+            $temp = 0;
+            $datatemp =[];
+            for ($column = 1; $column < $highestColumm; $column++) {
+            	$datatemp[$keys[$temp]] = $sheet->getCellByColumnAndRow($column, $row)->getValue();
+				
+                if($temp == 11){
+                    break;
+                }
+                $temp++;
+            }
+            $datas[] = $datatemp;
+        }
+        //检测数据完整性
+        if(empty($datas)){
+            return $this->jsonReturn(['result'=>0,'msg'=>'导入数据为空']);
+        }
+        $index = 2;
+        $errorInfo = '';
+        $personIDdata = [];
+		$postTemp = [];
+		$numTemp = [];
+		$tableName = Share::MainTableName($recID);
+		
+		$check = [''=>0,'合格'=>1,'不合格'=>2,'无数据'=>0];
+		
+        foreach($datas as $per){
+        	
+			if($per['perIndex'] == ''){
+				$errorInfo .= '第'.$index.'行报名序号不能为空！<br/>';
+			}
+			if($per['perName'] == ''){
+				$errorInfo .= '第'.$index.'行姓名不能为空！<br/>';
+			}
+			if($per['perIDCard'] == ''){
+				$errorInfo .= '第'.$index.'行身份证号不能为空！<br/>';
+			}
+			if(!array_key_exists(trim($per['perMedCheck1']), $check)){
+				$errorInfo .= '第'.$index.'行体检结果应填【无数据（不填默认为无数据）、合格、不合格】！<br/>';
+			}
+			if(!array_key_exists(trim($per['perMedCheck2']), $check)){
+				$errorInfo .= '第'.$index.'行体检结果应填【无数据（不填默认为无数据）、合格、不合格】！<br/>';
+			}
+			
+			if($per['perIndex'] != "" && $per['perIDCard'] != "" && $per['perName'] != ""){
+				$per_count = (new yii\db\Query())	
+							->from($tableName)
+							->where(['perExamResult'=>1,'perPub3'=>1,'perPub4'=>1,'perIndex'=>$per['perIndex'],'perIDCard'=>$per['perIDCard'],'perName'=>$per['perName']])
+							->count();
+					
+				if($per_count == 0){
+					$errorInfo .= '第'.$index.'行报名序号，身份证和姓名不匹配！<br/>';
+				}
+					
+			}
+            $index++;
+        }
+		
+		$update_flag_msg = "";
+		if($errorInfo != ''){
+			return $this->jsonReturn(['result'=>0,'msg'=>$errorInfo]);
+		}else{
+			foreach($datas as $per){
+				$perMedCheck1 = $check[trim($per['perMedCheck1'])];
+				$perMedCheck2 = $check[trim($per['perMedCheck2'])];
+				
+				if($perMedCheck1 == 0 && $perMedCheck2 == 0){
+					$perMedCheck3 = 2;
+				}elseif($perMedCheck1 == 0 && $perMedCheck2 == 1){
+					$perMedCheck3 = 1;
+				}elseif($perMedCheck1 == 0 && $perMedCheck2 == 2){
+					$perMedCheck3 = 2;
+				}elseif($perMedCheck1 == 1){
+					$perMedCheck3 = 1;
+				}elseif($perMedCheck1 == 2 && $perMedCheck2 == 0){
+					$perMedCheck3 = 2;
+				}elseif($perMedCheck1 == 2 && $perMedCheck2 == 1){
+					$perMedCheck3 = 1;
+				}elseif($perMedCheck1 == 2 && $perMedCheck2 == 2){
+					$perMedCheck3 = 2;
+				}else{
+					$perMedCheck3 = 2;
+				}
+				
+				$flag = $db	->	update($tableName,[
+									'perMedCheck1'=>$perMedCheck1,
+									'perMedCheck2'=>$perMedCheck2,
+									'perMedCheck3'=>$perMedCheck3
+								], [
+									'perExamResult'=>1,
+									'perPub3'=>1,
+									'perPub4'=>1,
+									'perIndex'=>$per['perIndex'],
+									'perIDCard'=>$per['perIDCard'],
+								])->execute();
+				if($flag !== false){
+					
+				}else{
+					$update_flag_msg .= '姓名：'.$per['perName'].'数据插入失败<br/>';
+				}
+			}
+			if($update_flag_msg == ''){
+				return $this->jsonReturn(['result'=>1,'msg'=>'导入成功！']);	
+			}else{
+				return $this->jsonReturn(['result'=>0,'msg'=>$update_flag_msg]);	
+			}
+		}
+	}
 	
 }
