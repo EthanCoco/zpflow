@@ -12,6 +12,7 @@ use app\models\Qumextra;
 use app\models\Setgroup;
 use app\models\Noticemb;
 use app\models\Standartline;
+use app\models\Medical;
 
 class ZpcxController extends Controller
 {
@@ -88,7 +89,7 @@ class ZpcxController extends Controller
 			$jsonData['step2'] = $step2;
 			//TODO考试安排环节
 			if($mainInfo['perPub2'] == 1){
-				$jsonData['title'] = '已经为您安排了考试信息，请关注！';
+				$jsonData['title'] = '考试时间地点已经安排，请关注！';
 				$step3_tempInfo = Setgroup::find()->select(['gstItvPlace','gstStartEnd','gstItvStartTime'])->where(['recID'=>$recID,'gstGroup'=>$mainInfo['perGroupSet'],'gstType'=>2])->one();
 				$step3 = [
 					'perTicketNo'=>$mainInfo['perTicketNo'],
@@ -133,8 +134,23 @@ class ZpcxController extends Controller
 					];
 					$jsonData['step4'] = $step4;
 				}
-//				$jsonData['step4'] = $step4;
 			}
+			
+			/*体检安排*/
+			if($mainInfo['perExamResult'] == 1 && $mainInfo['perPub3'] == 1 && $mainInfo['perPub4'] == 1){
+				$jsonData['title'] = '体检时间地点已经安排，请关注！';
+				$step5_tempInfo = Medical::find()->select(['medStartEnd','medPlace','medStartTime'])->where(['recID'=>$recID])->one();
+				
+				$step5 = [
+					'medStartEnd'=>$step5_tempInfo['medStartEnd'],
+					'medPlace'=>$step5_tempInfo['medPlace'],
+					'ntsContent'=>($this->load_notice_content_info_medical($recData,$step5_tempInfo,$mainJson))
+				];
+				$jsonData['step5'] = $step5;
+				
+			}
+			
+			
 			
 			
 			
@@ -142,6 +158,29 @@ class ZpcxController extends Controller
 		}
 		
 		return $jsonData;
+	}
+	
+	private function load_notice_content_info_medical($recData,$step5_tempInfo,$mainJson){
+		$notice_info = Noticemb::find()->where(['recID'=>$recData['recID'],'ntsType'=>2])->one();
+		$content = $notice_info['ntsContent'];
+		$json_string = file_get_contents('./json/stepIndex_five_step1.json');
+		$json_columns = json_decode($json_string, true);
+		$json_data = $json_columns['rows'];
+		foreach($json_data as $data){
+			if($data['name'] == 'recYear' || $data['name'] == 'recBatch'){
+				$content = str_replace($data['name'],$recData[$data['name']],$content);
+			}elseif($data['name'] == 'medStartEnd' || $data['name'] == 'medPlace'){
+				$content = str_replace($data['name'],$step5_tempInfo[$data['name']],$content);
+			}elseif($data['name'] == 'medStartTime'){
+				$temp_date = substr($step5_tempInfo[$data['name']], 0,10);
+				$temp_array = explode('-', $temp_date);
+				$date_final = $temp_array[0].'年'.$temp_array[1].'月'.$temp_array[2].'日';
+				$content = str_replace($data['name'],$date_final,$content);
+			}else{
+				$content = str_replace($data['name'],$mainJson[$data['name']],$content);
+			}
+		}
+		return $content;
 	}
 	
 	private function load_notice_content_info($recData,$step3_tempInfo,$mainJson){
@@ -879,6 +918,28 @@ EOD;
 								'perReGiveup3'=>$perReGiveup3,
 								'perRead3'=>2,
 								'perReTime3'=>date('Y-m-d H:i:s',time())
+							],['perID'=>$perID])->execute();
+		
+		if($flag){
+			return ['result'=>1,'msg'=>'操作成功'];
+		}else{
+			return ['result'=>0,'msg'=>'操作失败'];
+		}
+	}
+	
+	public function actionFlow6Reback(){
+		date_default_timezone_set('PRC');
+		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+		$recID = Yii::$app->request->post('recID');
+		$perID = Yii::$app->request->post('perID');
+		$perReResult4 = Yii::$app->request->post('perReResult4');
+		$perReGiveup4 = Yii::$app->request->post('perReGiveup4','');
+		
+		$flag = Yii::$app->db->createCommand()->update(Share::MainTableName($recID),[
+								'perReResult4'=>$perReResult4,
+								'perReGiveup4'=>$perReGiveup4,
+								'perRead4'=>2,
+								'perReTime4'=>date('Y-m-d H:i:s',time())
 							],['perID'=>$perID])->execute();
 		
 		if($flag){

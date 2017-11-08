@@ -262,7 +262,50 @@
 					</fieldset>
 				<?php } ?>
 			<?php } ?>
-				
+			<!--体检安排环节TODO-->	
+			<?php if($dealData['baseData']['perExamResult'] == 1 && $dealData['baseData']['perPub3'] == 1 && $dealData['baseData']['perPub4'] == 1 ){  ?>
+				<fieldset class="layui-elem-field site-demo-button" style="margin-top: 10px;">
+				  	<legend style="font-size: 14px;color: blue;padding: 5px;">step5&nbsp;&nbsp;&nbsp;&nbsp;体检安排信息</legend>
+				  	<div class="layui-row">
+						<div style="margin-left: -2px;color: #666;">
+						    <div class="layui-textarea">
+						    	<p><b>体检安排：</b></p>
+						    	<p><b>体检时间：</b></p><p><?= $dealData['step5']['medStartEnd']; ?></p>
+					    		<p><b>体检地点：</b><?= $dealData['step5']['medPlace']; ?></p>
+					    		<p><br/></p>
+					    		<p><b>邀请体检通知：</b></p>
+					    		<p><?= $dealData['step5']['ntsContent']; ?></p>
+					    		<?php if($dealData['baseData']['perReResult4'] == '03'){ ?>
+							    	<p style="padding-top: 25px;">已经为您安排了体检时间地点了，是否会参加体检？</p>
+							    	<div style="padding: 10px;text-align: center;">
+										<button onclick="flow6_reback('01')" class="layui-btn layui-btn-normal layui-btn-small layui-btn-radius" >确定参加</button>
+										<button onclick="flow6_reback('02')" class="layui-btn layui-btn-normal layui-btn-small layui-btn-radius" >放弃参加</button>
+							    	</div>
+						    	<?php }	?>
+						    </div>
+					    </div>
+					</div>
+					<?php if($dealData['baseData']['perReResult4'] != '03'){ ?>
+					<div class="layui-row">
+						<div style="margin-left: -2px;color: #666;">
+						    <div class="layui-textarea">
+						    	<p><b>体检安排环节反馈信息：</b></p>
+						    	<?php if($dealData['baseData']['perReResult4'] == '01'){ ?>
+						    		<p><b>反馈结果：确定参加体检</b></p>
+						    		<p><b>反馈时间：<?= $dealData['baseData']['perReTime4'] ?></b></p>
+						    	<?php }elseif($dealData['baseData']['perReResult4'] == '02'){ ?>
+						    		<p><b>反馈结果：放弃参加体检</b></p>
+						    		<p><b>放弃原因：<?= $dealData['baseData']['perReGiveup4'] ?></b></p>
+						    		<p><b>反馈时间：<?= $dealData['baseData']['perReTime4'] ?></b></p>
+						    	<?php }	?>
+						    </div>
+					    </div>
+					</div>
+					<?php }	?>
+				</fieldset>
+			<?php } ?>
+			<!--体检结果公示环节TODO-->
+			
 				
 				
 		<?php } ?>
@@ -380,6 +423,46 @@ function flow5_reback(type){
 		    	
 		    	layer.open({content:'是否确认放弃参加体检？',btn: ['确定','取消'],yes: function(index){
 						$.post("<?= yii\helpers\Url::to(['zpcx/flow5-reback']); ?>",{'perReResult3':type,'perReGiveup3':perReGiveup3,'recID':__flow_recID__,'perID':__flow_perID__},function(json){
+							if(json.result){
+								location.href = "<?= yii\helpers\Url::to(['default/index','index'=>2]); ?>";
+							}else{
+								layer.open({content: json.msg,btn: '我知道了'});
+							}
+						},'json');
+				    }
+				});
+		    }
+		});
+	}
+}
+
+function flow6_reback(type){
+	if(type == '01'){
+		layer.open({content:'是否确认参加体检？',btn: ['确定','取消'],yes: function(index){
+				$.post("<?= yii\helpers\Url::to(['zpcx/flow6-reback']); ?>",{'perReResult4':type,'perReGiveup4':'','recID':__flow_recID__,'perID':__flow_perID__},function(json){
+					if(json.result){
+						location.href = "<?= yii\helpers\Url::to(['default/index','index'=>2]); ?>";
+					}else{
+						layer.open({content: json.msg,btn: '我知道了'});
+					}
+				},'json');
+		    }
+		});
+	}else{
+		layer.open({
+		    type: 1,
+		    content: '<textarea id="perReGiveup4" style="font-size: 12px;" class="layui-textarea" placeholder="请输入放弃原因"></textarea>',
+		    anim: 'up',
+		    style: 'position:fixed; bottom:0; left:0; width: 100%; height: 150px; padding:10px 0; border:none;',
+		    btn:['确定','取消'],
+		    yes: function(index){
+		    	var perReGiveup4 = $("#perReGiveup4").val();
+		    	if(perReGiveup4 == ""){
+		    		return layer.open({content: '请填写放弃原因',skin: 'msg',time: 2 });
+		    	}
+		    	
+		    	layer.open({content:'是否确认放弃参加体检？',btn: ['确定','取消'],yes: function(index){
+						$.post("<?= yii\helpers\Url::to(['zpcx/flow6-reback']); ?>",{'perReResult4':type,'perReGiveup4':perReGiveup4,'recID':__flow_recID__,'perID':__flow_perID__},function(json){
 							if(json.result){
 								location.href = "<?= yii\helpers\Url::to(['default/index','index'=>2]); ?>";
 							}else{
