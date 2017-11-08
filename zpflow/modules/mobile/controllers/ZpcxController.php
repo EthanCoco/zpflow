@@ -155,6 +155,11 @@ class ZpcxController extends Controller
 				$content = str_replace($data['name'],$recData[$data['name']],$content);
 			}elseif($data['name'] == 'gstStartEnd' || $data['name'] == 'gstItvPlace'){
 				$content = str_replace($data['name'],$step3_tempInfo[$data['name']],$content);
+			}elseif($data['name'] == 'gstItvStartTime'){
+				$temp_date = substr($step3_tempInfo[$data['name']], 0,10);
+				$temp_array = explode('-', $temp_date);
+				$date_final = $temp_array[0].'年'.$temp_array[1].'月'.$temp_array[2].'日';
+				$content = str_replace($data['name'],$date_final,$content);
 			}else{
 				$content = str_replace($data['name'],$mainJson[$data['name']],$content);
 			}
