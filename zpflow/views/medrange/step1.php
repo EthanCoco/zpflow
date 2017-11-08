@@ -170,7 +170,7 @@ function init_flow5_step1_datagrid(){
 				    		buttons:[{
 					   			iconCls:'icon-edit',text:'体检安排',
 							   	handler:function(){
-							   		
+							   		flow5_step1_medrange_range();
 								}
 					   		},'-',{
 					   			iconCls:'icon-pub',text:'结果公示',
@@ -207,7 +207,7 @@ function init_flow5_step1_datagrid(){
 				    		buttons:[{
 					   			iconCls:'icon-edit',text:'体检安排',
 							   	handler:function(){
-							   		
+							   		flow5_step1_medrange_range();
 								}
 					   		},'-',{
 					   			iconCls:'icon-edittz',text:'体检安排编辑',
@@ -287,6 +287,25 @@ function init_flow5_step1_datagrid(){
     });
 }
 
+function flow5_step1_medrange_range(){
+	layui.use('layer',function(){
+		var layer = layui.layer;
+		layer.open({
+    		type:2,
+    		title:'安排体检',
+    		area:["400px",'420px'],
+    		content:"<?= yii\helpers\Url::to(['medrange/range-medical-fs1']); ?>"+"&recID="+__flow5_recID__,
+    		btn:['保存','取消'],
+    		yes: function(){
+    			$("iframe[id*='layui-layer-iframe'")[0].contentWindow.flow5_step1_range_medical_save(); 
+	        },
+    		btn2:function(){
+    			layer.closeAll();
+    		}
+	    });
+	});
+}
+
 function flow5_step1_medrange_info(){
 	layui.use('layer',function(){
 		var layer = layui.layer;
@@ -295,7 +314,7 @@ function flow5_step1_medrange_info(){
 	  		title:'体检安排通知编辑',
 	  		area:[$(window).width()*3/4+"px",'520px'],
 	  		content:"<?= yii\helpers\Url::to(['medrange/medrange-edit-fs1']); ?>"+"&recID="+__flow5_recID__,
-	  		btn:['保存','取消'],
+	  		btn:['安排','取消'],
 	  		yes: function(){
 	  			$("iframe[id*='layui-layer-iframe'")[0].contentWindow.flow5_step1_medrange_edit_save(); 
 		    },

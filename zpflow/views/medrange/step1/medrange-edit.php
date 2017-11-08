@@ -106,7 +106,7 @@ function flow5_step1_medrange_edit_save(){
 	 		return parent.layer.alert("标题不能为空");
 	 	}
 	 	$.post(
-			"<?= Url::to(['medrange/medrange-noticemb-save']) ?>",
+			"<?= Url::to(['medrange/medrange-noticemb-fs1-save']) ?>",
 			{
 				'recID':__flow5_step1_medrange_edit_recID__,
 				'ntsID':ntsID,
