@@ -83,7 +83,7 @@ class ExamController extends BaseController{
 	public function actionGroupEditStep4(){
 		$recID = Yii::$app->request->get('recID');
 		
-		$jsonInfo = Noticemb::find()->where(['recID'=>$recID])->one();
+		$jsonInfo = Noticemb::find()->where(['recID'=>$recID,'ntsType'=>1])->one();
 		if(empty($jsonInfo)){
 			$comnotice_info = Comnotice::find()->where(['cmFlag'=>'flow4_step4'])->one();
 			$jsonInfo = [

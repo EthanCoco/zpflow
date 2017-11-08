@@ -7,6 +7,8 @@ use Yii;
 use app\models\Medical;
 use app\models\Share;
 use app\models\Recruit;
+use app\models\Noticemb;
+use app\models\Comnotice;
 
 class MedrangeController extends BaseController{
 	public function actionStep(){
@@ -325,7 +327,57 @@ class MedrangeController extends BaseController{
 		Share::exportCommonExcel(['sheet0'=>['data'=>$jsonData],'key'=>'flow5_step1_export','fileInfo'=>['fileName'=>'考生体检安排信息']]);
 	}
 	
+	public function actionMedrangeEditFs1(){
+		$recID = Yii::$app->request->get('recID');
+		
+		$jsonInfo = Noticemb::find()->where(['recID'=>$recID,'ntsType'=>2])->one();
+		if(empty($jsonInfo)){
+			$comnotice_info = Comnotice::find()->where(['cmFlag'=>'flow5_step1'])->one();
+			$jsonInfo = [
+				'ntsID'=>'',
+				'ntsTitle' => $comnotice_info['cmTitle'],
+				'ntsContent' => $comnotice_info['cmContent']
+			];
+		}
+		
+		return $this->renderPartial('step1/medrange-edit',['recID'=>$recID,'nstnotice_info'=>$jsonInfo]);
+	}
 	
-	
+	public function actionMedrangeNoticembSave(){
+		$request = Yii::$app->request;
+		$recID = $request->post('recID');
+		$ntsID = $request->post('ntsID');
+		$ntsTitle = $request->post('ntsTitle');
+		$ntsContent = $request->post('ntsContent');
+		
+		if($ntsID == ""){
+			$noticemb = new Noticemb();
+			$noticemb->recID = $recID;
+			$noticemb->ntsTitle = $ntsTitle;
+			$noticemb->ntsType = 2;
+			$noticemb->ntsContent = $ntsContent;
+			if($noticemb->save()){
+				$result = ['result'=>1,'msg'=>'保存成功'];
+			}else{
+				$result = ['result'=>0,'msg'=>'保存失败'];
+			}
+		}else{
+			$noticemb = Noticemb::findOne($ntsID);
+			$noticemb->ntsTitle = $ntsTitle;
+			$noticemb->ntsContent = $ntsContent;
+			$flag = $noticemb->save();
+			if($flag !== false){
+				if(!$flag){
+					$result = ['result'=>0,'msg'=>'数据没有改动，不需要保存'];
+				}else{
+					$result = ['result'=>1,'msg'=>'保存成功'];
+				}
+			}else{
+				$result = ['result'=>0,'msg'=>'保存失败'];
+			}
+			
+		}
+		return $this->jsonReturn($result);
+	}
 
 }
