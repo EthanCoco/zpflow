@@ -188,7 +188,7 @@ function init_stepIndex_six_grid(){
 					   		},'-',{
 					   			iconCls:'icon-import',text:'Excel导入',
 							   	handler:function(){
-							   		
+							   		stepIndex_six_import();
 								}
 					   		},'-',{
 					   			iconCls:'icon-pub',text:'结果公示',
@@ -223,7 +223,7 @@ function init_stepIndex_six_grid(){
 					   		},'-',{
 					   			iconCls:'icon-import',text:'Excel导入',
 							   	handler:function(){
-							   		
+							   		stepIndex_six_import();
 								}
 					   		},'-',{
 					   			iconCls:'icon-tip',text:'短信提醒',
@@ -273,6 +273,25 @@ function init_stepIndex_six_grid(){
 	    	}
 	    }
     });
+}
+
+function stepIndex_six_import(){
+	layui.use('layer',function(){
+		var layer = layui.layer;
+		layer.open({
+    		type:2,
+    		title:'导入政审结果',
+    		area:["500px",'350px'],
+    		content:"<?= yii\helpers\Url::to(['careful/import']); ?>"+"&recID="+__flow6_recID__,
+    		btn:['上传','取消'],
+    		yes: function(){
+    			$("iframe[id*='layui-layer-iframe'")[0].contentWindow.flow6_import_data_sure(); 
+	        },
+    		btn2:function(){
+    			layer.closeAll();
+    		}
+	    });
+	});
 }
 
 function stepIndex_six_sendmsg_info(){
