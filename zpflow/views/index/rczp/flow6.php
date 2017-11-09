@@ -193,7 +193,30 @@ function init_stepIndex_six_grid(){
 					   		},'-',{
 					   			iconCls:'icon-pub',text:'结果公示',
 							   	handler:function(){
-							   		
+							   		layui.use('layer',function(){
+										var layer = layui.layer;
+										if(__flow6_headInfo__.tab5 == 0){
+											return layer.alert("暂无考生信息，不需要公布");
+										}
+										
+										if(__flow6_headInfo__.tab1 != 0){
+											return layer.alert("存在未审核的人员，请全部审核后再公示");
+										}
+										
+										parent.layer.confirm('您确定公示政审结果么？', function(index){
+											$.post("<?= yii\helpers\Url::to(['careful/pub-info']) ?>",{
+													'recID':__flow6_recID__
+												},function(json){
+												if(json.result){
+													init_stepIndex_six_grid();
+													parent.layer.msg(json.msg);
+													parent.layer.closeAll();
+												}else{
+													parent.layer.alert(json.msg);
+												}
+											},'json');
+										});
+									});
 								}
 					   		},'-',{
 					   			iconCls:'icon-tip',text:'短信提醒',
