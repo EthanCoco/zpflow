@@ -14,13 +14,13 @@
 			<a index="6" onclick="changeMenu(6)" href="javascript:;">政审<br>公示</a>
 		</div>
     </div>
-  </div>
+</div>
   
-  <div class="layui-body">
-    <div id="stepIndex">
-    	
-    </div>
-  </div>
+<div class="layui-body">
+	<div id="stepIndex">
+		
+	</div>
+</div>
   
 <script type="text/javascript">
 $(function(){
