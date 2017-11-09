@@ -1,14 +1,23 @@
 <div class="headinfo">
-	<span><b>招聘批次</b></span>
-	<span>
-	  	<select id="recID_id" name="recID_name" lay-verify="required" class="input1" onchange="selRecruitID(this)">
-		    <?php foreach($pcInfo as $pc){ ?>
-	        	<option defaultplace="<?php echo $pc['recViewPlace']; ?>" recend="<?php echo $pc['recend']; ?>" code="<?php echo $pc['code']; ?>" value="<?php echo $pc['id']; ?>"><?php echo $pc['value']; ?></option>
-	        <?php } ?>
-	 	</select>
-	</span>
-	<span id="stepIndex_five_head_pubinfo" style="color: red; "></span>
+	<div class="layui-form head-select">
+		<div class="layui-inline" style="margin-bottom: 0;">
+	      	<label class="layui-form-label" style="width: auto;font-size: 12px;padding: 5px 10px 5px 2px;"><b>招聘批次</b></label>
+	      	<div class="layui-input-inline" style="margin-right: 0;width: auto;height: 30px;">
+		        <select id="recID_id" name="recID_name" lay-verify="required" class="input1" onchange="selRecruitID(this)">
+		          	<?php foreach($pcInfo as $pc){ ?>
+			        	<option defaultplace="<?php echo $pc['recViewPlace']; ?>" recend="<?php echo $pc['recend']; ?>" code="<?php echo $pc['code']; ?>" value="<?php echo $pc['id']; ?>"><?php echo $pc['value']; ?></option>
+			        <?php } ?>
+		        </select>
+	      	</div>
+	    </div>
+	    <div class="layui-inline" style="margin-bottom: 0;">
+	    	<label class="layui-form-label" style="width: auto;font-size: 12px;padding: 5px 10px 5px 2px;">
+	      		<span id="stepIndex_five_head_pubinfo" style="color: red;"></span>
+	      	</label>
+	    </div>
+	</div>
 </div>
+
 <div class="flow4-header-menu" id="flow5_header">
 	<a class="current" href="javascript:void(0)" index="1" onclick="changeSetWin_five(1)">
         <font></font>
@@ -31,6 +40,10 @@
 var __flow5_recID__ = "";
 var __flow5_show_flag__ = "";
 $(function(){
+	layui.use('form', function(){
+		var form = layui.form;
+		form.render('select');
+	});
 	__flow5_recID__ = $("#recID_id").val();
 	__flow5_show_flag__ = $("#recID_id option:selected").attr("code");
 	loadFlow5Info(1);

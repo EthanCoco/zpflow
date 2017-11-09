@@ -1,5 +1,9 @@
 <div class="headinfo">
-	<span><b>招聘年度设置</b></span>
+	<div class="layui-form head-select">
+		<div class="layui-inline" style="margin-bottom: 0;">
+	      	<label class="layui-form-label" style="width: auto;font-size: 12px;padding: 5px 10px 5px 2px;"><b>招聘年度设置</b></label>
+	    </div>
+	</div>
 </div>
 <div id="stepIndex_one">
 	

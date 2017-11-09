@@ -1,12 +1,16 @@
 <div class="headinfo">
-	<span><b>招聘批次</b></span>
-	<span>
-	  	<select id="recID_id" name="recID_name" lay-verify="required" class="input1" onchange="selRecruitID(this)">
-		    <?php foreach($pcInfo as $pc){ ?>
-	        	<option code="<?php echo $pc['code']; ?>" value="<?php echo $pc['id']; ?>"><?php echo $pc['value']; ?></option>
-	        <?php } ?>
-	 	</select>
-	</span>
+	<div class="layui-form head-select">
+		<div class="layui-inline" style="margin-bottom: 0;">
+	      	<label class="layui-form-label" style="width: auto;font-size: 12px;padding: 5px 10px 5px 2px;"><b>招聘批次</b></label>
+	      	<div class="layui-input-inline" style="margin-right: 0;width: auto;height: 30px;">
+		        <select id="recID_id" name="recID_name" lay-verify="required" class="input1" onchange="selRecruitID(this)">
+		          	<?php foreach($pcInfo as $pc){ ?>
+			        	<option code="<?php echo $pc['code']; ?>" value="<?php echo $pc['id']; ?>"><?php echo $pc['value']; ?></option>
+			        <?php } ?>
+		        </select>
+	      	</div>
+	    </div>
+	</div>
 </div>
 <div class="layui-tab layui-tab-brief" lay-filter="stepIndex_two_tab">
   	<ul class="layui-tab-title">
@@ -43,8 +47,10 @@ $(function(){
 	__stepIndex_two_recID__ = $("#recID_id").val();
 	__stepIndex_two_show_flag = $("#recID_id option:selected").attr("code");
 	init_stepIndex_two_grid_AB(__stepIndex_two_urls__,__stepIndex_two_recID__,__stepIndex_two_datagrid_flag,__stepIndex_two_show_flag);
-	layui.use(['element','layer', 'laydate'], function(){
-		var element = layui.element;
+	layui.use(['element','layer', 'laydate','form'], function(){
+		var element = layui.element,
+			form = layui.form;
+			form.render('select');
 		  	element.on('tab(stepIndex_two_tab)', function(){
 	    	__stepIndex_two_datagrid_flag = this.getAttribute('lay-id');
 	    	init_stepIndex_two_grid_AB(__stepIndex_two_urls__,__stepIndex_two_recID__,__stepIndex_two_datagrid_flag,__stepIndex_two_show_flag);

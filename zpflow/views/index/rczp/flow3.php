@@ -1,15 +1,22 @@
 <div class="headinfo">
-	<span><b>招聘批次</b></span>
-	<span>
-	  	<select id="recID_id" name="recID_name" lay-verify="required" class="input1" onchange="selRecruitID(this)">
-		    <?php foreach($pcInfo as $pc){ ?>
-	        	<option recend="<?php echo $pc['recend']; ?>" code="<?php echo $pc['code']; ?>" value="<?php echo $pc['id']; ?>"><?php echo $pc['value']; ?></option>
-	        <?php } ?>
-	 	</select>
-	</span>
-	<span id="stepIndex_three_head_pubinfo" style="color: red;"></span>
+	<div class="layui-form head-select">
+		<div class="layui-inline" style="margin-bottom: 0;">
+	      	<label class="layui-form-label" style="width: auto;font-size: 12px;padding: 5px 10px 5px 2px;"><b>招聘批次</b></label>
+	      	<div class="layui-input-inline" style="margin-right: 0;width: auto;height: 30px;">
+		        <select id="recID_id" name="recID_name" lay-verify="required" class="input1" onchange="selRecruitID(this)">
+		          	<?php foreach($pcInfo as $pc){ ?>
+			        	<option recend="<?php echo $pc['recend']; ?>" code="<?php echo $pc['code']; ?>" value="<?php echo $pc['id']; ?>"><?php echo $pc['value']; ?></option>
+			        <?php } ?>
+		        </select>
+	      	</div>
+	    </div>
+	    <div class="layui-inline" style="margin-bottom: 0;">
+	    	<label class="layui-form-label" style="width: auto;font-size: 12px;padding: 5px 10px 5px 2px;">
+	      		<span id="stepIndex_three_head_pubinfo" style="color: red;"></span>
+	      	</label>
+	    </div>
+	</div>
 </div>
-
 <div id="stepIndex_three_search" style="padding:5px">
 	<div class="layui-form">
 		<div class="layui-form-item" style="margin-bottom: 0;">
