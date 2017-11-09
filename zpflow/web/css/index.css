@@ -63,7 +63,7 @@ img {
     margin-bottom: 0 !important;
 }
 
-.layui-body {
+.layui-body1 {
     position: absolute;
     left: 60px;
     right: 0;
@@ -78,7 +78,7 @@ img {
     min-width: 1000px;
 }
 
-.layui-layout-admin .layui-body {
+.layui-layout-admin .layui-body1 {
     top: 94px;
     bottom: 0;
 }
@@ -125,20 +125,20 @@ img {
     background-color: #eee;
 }
 
-.layui-layout-admin .layui-side {
+.layui-layout-admin .layui-side1 {
     top: 94px;
     width: 60px;
     overflow-x: hidden;
 }
 
-.layui-side-scroll {
+.layui-side-scroll1 {
     width: 60px;
     height: 100%;
     overflow-x: hidden;
 }
 
 
-.layui-side-scroll .main_left {
+.layui-side-scroll1 .main_left {
     position: absolute;
     width: 59px;
     left: 0px;
@@ -149,12 +149,12 @@ img {
     background: #fff;
 }
 
-.layui-side-scroll .main_left a:hover, .layui-side-scroll .main_left a.current {
+.layui-side-scroll1 .main_left a:hover, .layui-side-scroll1 .main_left a.current {
     background: #ff9c00;
     border-top: solid 1px #c65000;
     border-bottom: solid 1px #c65000;
 }
-.layui-side-scroll .main_left a {
+.layui-side-scroll1 .main_left a {
     display: inline-block;
     background: #1f80c5;
     font-weight: bold;
@@ -169,7 +169,7 @@ img {
     margin-left: 5px;
 }
 
-.layui-side-scroll .main_left .layui-icon {
+.layui-side-scroll1 .main_left .layui-icon {
     font-family: layui-icon !important;
     font-size: 26px;
     font-style: normal;
@@ -307,40 +307,9 @@ img {
 }
 
 /*统计查询*/
-.layui-body-statis {
-    position: absolute;
-    left: 200px;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    z-index: 998;
-    width: auto;
-    overflow: hidden;
-    overflow-y: auto;
-    overflow-y: auto;
-    box-sizing: border-box;
-    min-width: 1000px;
-}
-
-.layui-body-statis {
-    top: 94px;
-    bottom: 0;
-}
-
-.layui-side-statis {
-    top: 94px;
-    width: 200px;
-    overflow-x: hidden;
-}
-
-.layui-side-scroll-statis {
-    width: 200px;
-    height: 100%;
-    overflow-x: hidden;
-}
 
 .hg-div{
-	height: 98%;text-align: center;
+	height: 99%;text-align: center;
 }
 .hg-div > .hg-left{
 	width: 49%;height: 48%; margin: 0.8% 0.4% 0.4% 0.4%; border:1px #ACE9F9 solid; float: left;
