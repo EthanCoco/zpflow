@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2017-11-09 14:23:30
+Date: 2017-11-09 15:41:52
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -34,48 +34,48 @@ CREATE TABLE `announce` (
 -- ----------------------------
 -- Records of announce
 -- ----------------------------
-INSERT INTO `announce` VALUES ('4', '1', '上海市杨浦区2017年青年储备人才招聘', '<p><span style=\"text-align: start;\">如果，注定要一个人度过情人节，你的</span><a href=\"http://www.jj59.com/xinqingsuibi/\" class=\"keywordlink\" style=\"text-align: start;\">心情</a><span style=\"text-align: start;\">怎么样呢。你大概会独自伤悲，看着路边牵手走过的情侣，背过脸，偷偷抹一把眼泪。我要奉劝你：即便如此，你一定不要随便找一个人牵手，你甚至要勇敢地说，“我单身，我骄傲”。相比那些找到爱情的人，你有更多选择爱谁的权利，不是吗？</span><br style=\"text-align: start;\"><span style=\"text-align: start;\">　　</span><br style=\"text-align: start;\"><span style=\"text-align: start;\">　　</span><a href=\"http://www.jj59.com/zti/shangxin/\" class=\"keywordlink\" style=\"text-align: start;\">伤心</a><span style=\"text-align: start;\">之后，你还是要面对现实，如果有那么一个人值得你喜欢，恰好对方也不怎么讨厌你，那就试着聊几句吧。在情人节这个特殊的日子，问候一声，哪怕得到的结果是——那个人已经有了爱情，至少，也能给自己一个交代。毕竟，曾经有那么一点心动，曾经遇见了。</span><br style=\"text-align: start;\"><span style=\"text-align: start;\">　　</span><br style=\"text-align: start;\"><span style=\"text-align: start;\">　　一个人的情人节，你要好好吃一顿，你要照顾好自己，不要因为没有爱情的滋润，虐待身体。你不要和父母在一起，因为你不能听到父母催促你早点成家的声音，那样会影响你的情绪，也会影响父母的情绪。负面的情绪，会让人</span><a href=\"http://www.jj59.com/liuxingfeizhuliu/\" class=\"keywordlink\" style=\"text-align: start;\">颓废</a><span style=\"text-align: start;\">。</span><br style=\"text-align: start;\"><span style=\"text-align: start;\">　　</span><br style=\"text-align: start;\"><span style=\"text-align: start;\">　　如果身边有和你一样单身的朋友，可以一起聚一聚，找一个热闹一点的地方，海阔天空地聊天，大声地唱歌，释放心情，放飞爱情的梦想。一个人，不能压抑太久，会憋出毛病来的。与其形影相随，不如走进热闹的世界，把自己变成人海中的一朵浪花，一滴水，听听海浪的声音。</span><br style=\"text-align: start;\"><span style=\"text-align: start;\">　　</span><br style=\"text-align: start;\"><span style=\"text-align: start;\">　　如果有人在情人节打探你拥有爱情的情况，你不要觉得难为情。一个人单着，当然会底气不足，然而，你不要打肿脸充胖子，不要谎称自己有爱情。说不定，有人想要为你牵红线。如果你不实话实说，那将是一场错过爱情的悲剧。你也会落下不够诚实的坏印象。</span><br style=\"text-align: start;\"><span style=\"text-align: start;\">　　</span><br style=\"text-align: start;\"><span style=\"text-align: start;\">　　你一定不要想不开，不就是兜兜转转找不到爱情么？然不成，还要自杀？你不够伟大，你的自杀不会引起社会轰动，也不会有人同情你，顶多，来几个消防战士，履行工作职责，挽救你的生命。最后，你还得到派出所待一会，接受批评教育，尴尬的气氛，一定让你想再次自杀。</span><br style=\"text-align: start;\"><span style=\"text-align: start;\">　　</span><br style=\"text-align: start;\"><span style=\"text-align: start;\">　　有没有爱情，你都要好好活下去，生命只有一次，谁都不是九条命的狐狸。留得青山在，不愁没柴烧。生命好端端的，健</span><a href=\"http://www.jj59.com/zti/jiankang/\" class=\"keywordlink\" style=\"text-align: start;\">健康</a><span style=\"text-align: start;\">康的，你再努力一点，把</span><a href=\"http://www.jj59.com/zti/shenghuo/\" class=\"keywordlink\" style=\"text-align: start;\">生活</a><span style=\"text-align: start;\">过好一点点，指不定，爱情就光顾你了，下一个情人节，就有人愿意和你牵手同行，还卿卿我我地拥抱。</span><br style=\"text-align: start;\"><span style=\"text-align: start;\">　　</span><br style=\"text-align: start;\"><span style=\"text-align: start;\">　　当然，最好的结果，就在这个情人节，你便遇见了有一点点喜欢的人，虽然，只是爱情的破土，就已经足够幸运了。要知道，有多少人在情人节的夜晚，手捧着玫瑰花，却没有等到爱的人出现。天亮了，花都凋谢了，只有泪水还没有干透。</span><br style=\"text-align: start;\"><span style=\"text-align: start;\">　　</span><br style=\"text-align: start;\"><span style=\"text-align: start;\">　　</span><a href=\"http://www.jj59.com/zheliwenzhang/\" class=\"keywordlink\" style=\"text-align: start;\">人生</a><span style=\"text-align: start;\">本是一场旅行，沿途会遇到很多很多的人，但只有那么一两个人会和你擦出爱情的火花。所有的酸甜苦辣，都会因为爱情变得更加美好，因此，你要敞开心扉，面对单身的事实，执念爱情的美好，走好每一步，走出精彩。</span><br style=\"text-align: start;\"><span style=\"text-align: start;\">　　</span><br style=\"text-align: start;\"><span style=\"text-align: start;\">　　作者：朱钟洋；笔名：布衣粗食。</span></p>', '1', '2017-10-23 14:12:03', 'A', '1');
-INSERT INTO `announce` VALUES ('5', '1', '复古风格', '辅导班VB地点GV你', '1', '2017-10-24 12:23:03', 'B', '1');
-INSERT INTO `announce` VALUES ('6', '1', '十月秋意忧伤', '<p style=\"text-align: start;\">十月的空间，无论是天宇的胸襟，还是大地的经纬都是一尘不染，那些纤尘不染的宝石蓝天空，显得秋高气爽，白云宛如飘逸舒卷成洁净的湖水，在阳光折射千丝万缕的波光，翱翔的大雁在天空中一会儿排出人字形，一会儿又为之字状，刹那间变幻成v形状，已到深秋，大雁不得不急急忙忙飞向北国某个地方，无暇顾及秋风秋<a href=\"http://www.sanwen.net/sanwen/yu/\" target=\"_blank\">雨</a>的萧瑟，一如既往地飞翔到冰天<a href=\"http://www.sanwen.net/shige/xue/\" target=\"_blank\">雪</a>地的北国领地，漫漫征途，无畏无惧千辛万苦，在这漫长的迁途中充满<a href=\"http://youshang.sanwen8.cn/\" target=\"_blank\">忧伤</a>，同时充满一种期望与向往，度过一季寒<a href=\"http://dongtian.sanwen8.cn/\" target=\"_blank\">冬</a>腊月，当大地回暖苏醒，又将成为南飞的大雁，怀一股坚韧不拔的毅力，迎接<a href=\"http://chuntian.sanwen8.cn/\" target=\"_blank\">春</a>光明媚春意盎然气息的拥抱，<a href=\"http://www.sanwen.net/suibi/suiyue/\" target=\"_blank\">岁月</a>与大雁都在周而复始中完成季节变幻的流转，十月承上启下，在冬隔壁的秋姑娘，恍如枕着一水清盈，凝望叶落归根的情怀，落英缤纷的情殇，眺望枫情醉红山岚叠嶂的激情，仰望<a href=\"http://yueliang.sanwen8.cn/\" target=\"_blank\">秋月</a>相思情长，满天星斗的无比苍凉，当丹桂飘香熏过眉月之后，当漫山遍野菊氤之际，又当清风雨露吹拂岸边芦苇之时，仿佛聆听到<a href=\"http://ye.sanwen8.cn/\" target=\"_blank\">夜</a>莺<a href=\"http://youshang.sanwen8.cn/\" target=\"_blank\">忧愁</a>的吟唱，倾听到窸窣若隐若现中的几分惆怅，在深秋的原野那一曲铜萧的婉约沉闷的声响，在<a href=\"http://ye.sanwen8.cn/\" target=\"_blank\">秋夜</a>里平添几分<a href=\"http://www.sanwen.net/sanwen/shanggan/\" target=\"_blank\">悲伤</a>，十月我聆听那秋韵里的一笺忧伤，</p><p style=\"text-align: start;\">十月渐渐离我们而去，清秋渐远，凉凉的风吹不散这哀怨的<a href=\"http://tongku.sanwen8.cn/\" target=\"_blank\">悲痛</a>，沾满潮湿的酸楚，固执地徘徊在心头久久不肯离去；而<a href=\"http://jimo.sanwen8.cn/\" target=\"_blank\">孤独</a>的忧伤像漫天雪花密密麻麻地往心深处落下，积起冰寒的<a href=\"http://www.sanwen.net/sanwen/shanggan/\" target=\"_blank\">伤感</a>渐近麻木，就想让失去<a href=\"http://linghun.sanwen8.cn/\" target=\"_blank\">灵魂</a>的知觉在无人的角落里，随处飘荡，随处游离，一缕魂，任风吹。这个秋，带给我无穷无尽的心愁，尘落在<a href=\"http://www.sanwen.net/sanwen/xinqing/\" target=\"_blank\">情感</a>的渡头，悲苦地遥望，最终换来是满目的苍凉。</p><p style=\"text-align: start;\">秋的意境中悄然聆听到冬姑娘拨动心弦，晶莹剔透的雪花已经在北国飘舞，雪域高原处已经白雪皑皑冰凌悬挂山崖，天山上的雪莲花含苞欲放，我的思绪伴着淡墨清茗，相伴秋中的<a href=\"http://www.sanwen.net/\" target=\"_blank\">文字</a>，跟随冬的韵律去听一曲清歌，扣心自问：是谁的<a href=\"http://zhijian.sanwen.net/\" target=\"_blank\">指尖</a>流过了千年的时光，纤弱成一株<a href=\"http://qiutian.sanwen8.cn/\" target=\"_blank\">秋天</a>的柳荷。锦瑟的心事中，散着淡淡哀怨，延续念念不忘的笙歌幽<a href=\"http://meng.sanwen8.cn/\" target=\"_blank\">梦</a>。</p><p style=\"text-align: start;\">夜，总是布满了孤独的影子，忧伤也变得张牙舞爪，放肆在我身体各个部位撕咬 ；疲惫的我，连最后的挣扎都不想把握，一双眼，两行泪，望穿幽夜，凉等，痴情心，无处归。天明天又黑，春去春又回，我的<a href=\"http://chuntian.sanwen8.cn/\" target=\"_blank\">春天</a>，最终迷失在刺骨的<a href=\"http://dongtian.sanwen8.cn/\" target=\"_blank\">寒冬</a>里，再也走不回。爬满难过的心，踱步都不能从容，惆怅的步伐比铅还沉重。时过境迁的风景已看不到走过的繁华，零碎的残屑让人想像不出这里也曾旖旎过，这里也曾辉煌过。可是，所有的变故都会被尘风吹落，被一个叫“无情”的东西刮走，一点不留。</p><p style=\"text-align: start;\">悲戚戚的心，夜风都不敢从我身边划过，都怕被这心冷着。我想告知风儿，能否过来吹吹我，帮我吹醒这些忧伤的茧，红尘的梦，让我变得快<a href=\"http://zuowen.sanwen.net/z/219426-kuaile\" target=\"_blank\">快乐</a>乐，远离这些尘世之琐。风儿听不见我裂心的呼唤，风儿听不见我散落的酸楚。谁也不会了解我，谁也不知我，缘不见，情丢失，都在这个秋天里，一转眼，化成烟。</p>', '1', '2017-10-23 14:13:06', 'A', '1');
-INSERT INTO `announce` VALUES ('7', '1', '十月秋意忧伤', '<p style=\"text-align: start;\">十月的空间，无论是天宇的胸襟，还是大地的经纬都是一尘不染，那些纤尘不染的宝石蓝天空，显得秋高气爽，白云宛如飘逸舒卷成洁净的湖水，在阳光折射千丝万缕的波光，翱翔的大雁在天空中一会儿排出人字形，一会儿又为之字状，刹那间变幻成v形状，已到深秋，大雁不得不急急忙忙飞向北国某个地方，无暇顾及秋风秋<a href=\"http://www.sanwen.net/sanwen/yu/\" target=\"_blank\">雨</a>的萧瑟，一如既往地飞翔到冰天<a href=\"http://www.sanwen.net/shige/xue/\" target=\"_blank\">雪</a>地的北国领地，漫漫征途，无畏无惧千辛万苦，在这漫长的迁途中充满<a href=\"http://youshang.sanwen8.cn/\" target=\"_blank\">忧伤</a>，同时充满一种期望与向往，度过一季寒<a href=\"http://dongtian.sanwen8.cn/\" target=\"_blank\">冬</a>腊月，当大地回暖苏醒，又将成为南飞的大雁，怀一股坚韧不拔的毅力，迎接<a href=\"http://chuntian.sanwen8.cn/\" target=\"_blank\">春</a>光明媚春意盎然气息的拥抱，<a href=\"http://www.sanwen.net/suibi/suiyue/\" target=\"_blank\">岁月</a>与大雁都在周而复始中完成季节变幻的流转，十月承上启下，在冬隔壁的秋姑娘，恍如枕着一水清盈，凝望叶落归根的情怀，落英缤纷的情殇，眺望枫情醉红山岚叠嶂的激情，仰望<a href=\"http://yueliang.sanwen8.cn/\" target=\"_blank\">秋月</a>相思情长，满天星斗的无比苍凉，当丹桂飘香熏过眉月之后，当漫山遍野菊氤之际，又当清风雨露吹拂岸边芦苇之时，仿佛聆听到<a href=\"http://ye.sanwen8.cn/\" target=\"_blank\">夜</a>莺<a href=\"http://youshang.sanwen8.cn/\" target=\"_blank\">忧愁</a>的吟唱，倾听到窸窣若隐若现中的几分惆怅，在深秋的原野那一曲铜萧的婉约沉闷的声响，在<a href=\"http://ye.sanwen8.cn/\" target=\"_blank\">秋夜</a>里平添几分<a href=\"http://www.sanwen.net/sanwen/shanggan/\" target=\"_blank\">悲伤</a>，十月我聆听那秋韵里的一笺忧伤，</p><p style=\"text-align: start;\">十月渐渐离我们而去，清秋渐远，凉凉的风吹不散这哀怨的<a href=\"http://tongku.sanwen8.cn/\" target=\"_blank\">悲痛</a>，沾满潮湿的酸楚，固执地徘徊在心头久久不肯离去；而<a href=\"http://jimo.sanwen8.cn/\" target=\"_blank\">孤独</a>的忧伤像漫天雪花密密麻麻地往心深处落下，积起冰寒的<a href=\"http://www.sanwen.net/sanwen/shanggan/\" target=\"_blank\">伤感</a>渐近麻木，就想让失去<a href=\"http://linghun.sanwen8.cn/\" target=\"_blank\">灵魂</a>的知觉在无人的角落里，随处飘荡，随处游离，一缕魂，任风吹。这个秋，带给我无穷无尽的心愁，尘落在<a href=\"http://www.sanwen.net/sanwen/xinqing/\" target=\"_blank\">情感</a>的渡头，悲苦地遥望，最终换来是满目的苍凉。</p><p style=\"text-align: start;\">秋的意境中悄然聆听到冬姑娘拨动心弦，晶莹剔透的雪花已经在北国飘舞，雪域高原处已经白雪皑皑冰凌悬挂山崖，天山上的雪莲花含苞欲放，我的思绪伴着淡墨清茗，相伴秋中的<a href=\"http://www.sanwen.net/\" target=\"_blank\">文字</a>，跟随冬的韵律去听一曲清歌，扣心自问：是谁的<a href=\"http://zhijian.sanwen.net/\" target=\"_blank\">指尖</a>流过了千年的时光，纤弱成一株<a href=\"http://qiutian.sanwen8.cn/\" target=\"_blank\">秋天</a>的柳荷。锦瑟的心事中，散着淡淡哀怨，延续念念不忘的笙歌幽<a href=\"http://meng.sanwen8.cn/\" target=\"_blank\">梦</a>。</p><p style=\"text-align: start;\">夜，总是布满了孤独的影子，忧伤也变得张牙舞爪，放肆在我身体各个部位撕咬 ；疲惫的我，连最后的挣扎都不想把握，一双眼，两行泪，望穿幽夜，凉等，痴情心，无处归。天明天又黑，春去春又回，我的<a href=\"http://chuntian.sanwen8.cn/\" target=\"_blank\">春天</a>，最终迷失在刺骨的<a href=\"http://dongtian.sanwen8.cn/\" target=\"_blank\">寒冬</a>里，再也走不回。爬满难过的心，踱步都不能从容，惆怅的步伐比铅还沉重。时过境迁的风景已看不到走过的繁华，零碎的残屑让人想像不出这里也曾旖旎过，这里也曾辉煌过。可是，所有的变故都会被尘风吹落，被一个叫“无情”的东西刮走，一点不留。</p><p style=\"text-align: start;\">悲戚戚的心，夜风都不敢从我身边划过，都怕被这心冷着。我想告知风儿，能否过来吹吹我，帮我吹醒这些忧伤的茧，红尘的梦，让我变得快<a href=\"http://zuowen.sanwen.net/z/219426-kuaile\" target=\"_blank\">快乐</a>乐，远离这些尘世之琐。风儿听不见我裂心的呼唤，风儿听不见我散落的酸楚。谁也不会了解我，谁也不知我，缘不见，情丢失，都在这个秋天里，一转眼，化成烟。</p>', '1', '2017-10-23 14:13:06', 'A', '1');
-INSERT INTO `announce` VALUES ('8', '1', '十月秋意忧伤', '<p style=\"text-align: start;\">十月的空间，无论是天宇的胸襟，还是大地的经纬都是一尘不染，那些纤尘不染的宝石蓝天空，显得秋高气爽，白云宛如飘逸舒卷成洁净的湖水，在阳光折射千丝万缕的波光，翱翔的大雁在天空中一会儿排出人字形，一会儿又为之字状，刹那间变幻成v形状，已到深秋，大雁不得不急急忙忙飞向北国某个地方，无暇顾及秋风秋<a href=\"http://www.sanwen.net/sanwen/yu/\" target=\"_blank\">雨</a>的萧瑟，一如既往地飞翔到冰天<a href=\"http://www.sanwen.net/shige/xue/\" target=\"_blank\">雪</a>地的北国领地，漫漫征途，无畏无惧千辛万苦，在这漫长的迁途中充满<a href=\"http://youshang.sanwen8.cn/\" target=\"_blank\">忧伤</a>，同时充满一种期望与向往，度过一季寒<a href=\"http://dongtian.sanwen8.cn/\" target=\"_blank\">冬</a>腊月，当大地回暖苏醒，又将成为南飞的大雁，怀一股坚韧不拔的毅力，迎接<a href=\"http://chuntian.sanwen8.cn/\" target=\"_blank\">春</a>光明媚春意盎然气息的拥抱，<a href=\"http://www.sanwen.net/suibi/suiyue/\" target=\"_blank\">岁月</a>与大雁都在周而复始中完成季节变幻的流转，十月承上启下，在冬隔壁的秋姑娘，恍如枕着一水清盈，凝望叶落归根的情怀，落英缤纷的情殇，眺望枫情醉红山岚叠嶂的激情，仰望<a href=\"http://yueliang.sanwen8.cn/\" target=\"_blank\">秋月</a>相思情长，满天星斗的无比苍凉，当丹桂飘香熏过眉月之后，当漫山遍野菊氤之际，又当清风雨露吹拂岸边芦苇之时，仿佛聆听到<a href=\"http://ye.sanwen8.cn/\" target=\"_blank\">夜</a>莺<a href=\"http://youshang.sanwen8.cn/\" target=\"_blank\">忧愁</a>的吟唱，倾听到窸窣若隐若现中的几分惆怅，在深秋的原野那一曲铜萧的婉约沉闷的声响，在<a href=\"http://ye.sanwen8.cn/\" target=\"_blank\">秋夜</a>里平添几分<a href=\"http://www.sanwen.net/sanwen/shanggan/\" target=\"_blank\">悲伤</a>，十月我聆听那秋韵里的一笺忧伤，</p><p style=\"text-align: start;\">十月渐渐离我们而去，清秋渐远，凉凉的风吹不散这哀怨的<a href=\"http://tongku.sanwen8.cn/\" target=\"_blank\">悲痛</a>，沾满潮湿的酸楚，固执地徘徊在心头久久不肯离去；而<a href=\"http://jimo.sanwen8.cn/\" target=\"_blank\">孤独</a>的忧伤像漫天雪花密密麻麻地往心深处落下，积起冰寒的<a href=\"http://www.sanwen.net/sanwen/shanggan/\" target=\"_blank\">伤感</a>渐近麻木，就想让失去<a href=\"http://linghun.sanwen8.cn/\" target=\"_blank\">灵魂</a>的知觉在无人的角落里，随处飘荡，随处游离，一缕魂，任风吹。这个秋，带给我无穷无尽的心愁，尘落在<a href=\"http://www.sanwen.net/sanwen/xinqing/\" target=\"_blank\">情感</a>的渡头，悲苦地遥望，最终换来是满目的苍凉。</p><p style=\"text-align: start;\">秋的意境中悄然聆听到冬姑娘拨动心弦，晶莹剔透的雪花已经在北国飘舞，雪域高原处已经白雪皑皑冰凌悬挂山崖，天山上的雪莲花含苞欲放，我的思绪伴着淡墨清茗，相伴秋中的<a href=\"http://www.sanwen.net/\" target=\"_blank\">文字</a>，跟随冬的韵律去听一曲清歌，扣心自问：是谁的<a href=\"http://zhijian.sanwen.net/\" target=\"_blank\">指尖</a>流过了千年的时光，纤弱成一株<a href=\"http://qiutian.sanwen8.cn/\" target=\"_blank\">秋天</a>的柳荷。锦瑟的心事中，散着淡淡哀怨，延续念念不忘的笙歌幽<a href=\"http://meng.sanwen8.cn/\" target=\"_blank\">梦</a>。</p><p style=\"text-align: start;\">夜，总是布满了孤独的影子，忧伤也变得张牙舞爪，放肆在我身体各个部位撕咬 ；疲惫的我，连最后的挣扎都不想把握，一双眼，两行泪，望穿幽夜，凉等，痴情心，无处归。天明天又黑，春去春又回，我的<a href=\"http://chuntian.sanwen8.cn/\" target=\"_blank\">春天</a>，最终迷失在刺骨的<a href=\"http://dongtian.sanwen8.cn/\" target=\"_blank\">寒冬</a>里，再也走不回。爬满难过的心，踱步都不能从容，惆怅的步伐比铅还沉重。时过境迁的风景已看不到走过的繁华，零碎的残屑让人想像不出这里也曾旖旎过，这里也曾辉煌过。可是，所有的变故都会被尘风吹落，被一个叫“无情”的东西刮走，一点不留。</p><p style=\"text-align: start;\">悲戚戚的心，夜风都不敢从我身边划过，都怕被这心冷着。我想告知风儿，能否过来吹吹我，帮我吹醒这些忧伤的茧，红尘的梦，让我变得快<a href=\"http://zuowen.sanwen.net/z/219426-kuaile\" target=\"_blank\">快乐</a>乐，远离这些尘世之琐。风儿听不见我裂心的呼唤，风儿听不见我散落的酸楚。谁也不会了解我，谁也不知我，缘不见，情丢失，都在这个秋天里，一转眼，化成烟。</p>', '1', '2017-10-18 14:13:06', 'A', '1');
-INSERT INTO `announce` VALUES ('9', '1', '十月秋意忧伤', '<p style=\"text-align: start;\">十月的空间，无论是天宇的胸襟，还是大地的经纬都是一尘不染，那些纤尘不染的宝石蓝天空，显得秋高气爽，白云宛如飘逸舒卷成洁净的湖水，在阳光折射千丝万缕的波光，翱翔的大雁在天空中一会儿排出人字形，一会儿又为之字状，刹那间变幻成v形状，已到深秋，大雁不得不急急忙忙飞向北国某个地方，无暇顾及秋风秋<a href=\"http://www.sanwen.net/sanwen/yu/\" target=\"_blank\">雨</a>的萧瑟，一如既往地飞翔到冰天<a href=\"http://www.sanwen.net/shige/xue/\" target=\"_blank\">雪</a>地的北国领地，漫漫征途，无畏无惧千辛万苦，在这漫长的迁途中充满<a href=\"http://youshang.sanwen8.cn/\" target=\"_blank\">忧伤</a>，同时充满一种期望与向往，度过一季寒<a href=\"http://dongtian.sanwen8.cn/\" target=\"_blank\">冬</a>腊月，当大地回暖苏醒，又将成为南飞的大雁，怀一股坚韧不拔的毅力，迎接<a href=\"http://chuntian.sanwen8.cn/\" target=\"_blank\">春</a>光明媚春意盎然气息的拥抱，<a href=\"http://www.sanwen.net/suibi/suiyue/\" target=\"_blank\">岁月</a>与大雁都在周而复始中完成季节变幻的流转，十月承上启下，在冬隔壁的秋姑娘，恍如枕着一水清盈，凝望叶落归根的情怀，落英缤纷的情殇，眺望枫情醉红山岚叠嶂的激情，仰望<a href=\"http://yueliang.sanwen8.cn/\" target=\"_blank\">秋月</a>相思情长，满天星斗的无比苍凉，当丹桂飘香熏过眉月之后，当漫山遍野菊氤之际，又当清风雨露吹拂岸边芦苇之时，仿佛聆听到<a href=\"http://ye.sanwen8.cn/\" target=\"_blank\">夜</a>莺<a href=\"http://youshang.sanwen8.cn/\" target=\"_blank\">忧愁</a>的吟唱，倾听到窸窣若隐若现中的几分惆怅，在深秋的原野那一曲铜萧的婉约沉闷的声响，在<a href=\"http://ye.sanwen8.cn/\" target=\"_blank\">秋夜</a>里平添几分<a href=\"http://www.sanwen.net/sanwen/shanggan/\" target=\"_blank\">悲伤</a>，十月我聆听那秋韵里的一笺忧伤，</p><p style=\"text-align: start;\">十月渐渐离我们而去，清秋渐远，凉凉的风吹不散这哀怨的<a href=\"http://tongku.sanwen8.cn/\" target=\"_blank\">悲痛</a>，沾满潮湿的酸楚，固执地徘徊在心头久久不肯离去；而<a href=\"http://jimo.sanwen8.cn/\" target=\"_blank\">孤独</a>的忧伤像漫天雪花密密麻麻地往心深处落下，积起冰寒的<a href=\"http://www.sanwen.net/sanwen/shanggan/\" target=\"_blank\">伤感</a>渐近麻木，就想让失去<a href=\"http://linghun.sanwen8.cn/\" target=\"_blank\">灵魂</a>的知觉在无人的角落里，随处飘荡，随处游离，一缕魂，任风吹。这个秋，带给我无穷无尽的心愁，尘落在<a href=\"http://www.sanwen.net/sanwen/xinqing/\" target=\"_blank\">情感</a>的渡头，悲苦地遥望，最终换来是满目的苍凉。</p><p style=\"text-align: start;\">秋的意境中悄然聆听到冬姑娘拨动心弦，晶莹剔透的雪花已经在北国飘舞，雪域高原处已经白雪皑皑冰凌悬挂山崖，天山上的雪莲花含苞欲放，我的思绪伴着淡墨清茗，相伴秋中的<a href=\"http://www.sanwen.net/\" target=\"_blank\">文字</a>，跟随冬的韵律去听一曲清歌，扣心自问：是谁的<a href=\"http://zhijian.sanwen.net/\" target=\"_blank\">指尖</a>流过了千年的时光，纤弱成一株<a href=\"http://qiutian.sanwen8.cn/\" target=\"_blank\">秋天</a>的柳荷。锦瑟的心事中，散着淡淡哀怨，延续念念不忘的笙歌幽<a href=\"http://meng.sanwen8.cn/\" target=\"_blank\">梦</a>。</p><p style=\"text-align: start;\">夜，总是布满了孤独的影子，忧伤也变得张牙舞爪，放肆在我身体各个部位撕咬 ；疲惫的我，连最后的挣扎都不想把握，一双眼，两行泪，望穿幽夜，凉等，痴情心，无处归。天明天又黑，春去春又回，我的<a href=\"http://chuntian.sanwen8.cn/\" target=\"_blank\">春天</a>，最终迷失在刺骨的<a href=\"http://dongtian.sanwen8.cn/\" target=\"_blank\">寒冬</a>里，再也走不回。爬满难过的心，踱步都不能从容，惆怅的步伐比铅还沉重。时过境迁的风景已看不到走过的繁华，零碎的残屑让人想像不出这里也曾旖旎过，这里也曾辉煌过。可是，所有的变故都会被尘风吹落，被一个叫“无情”的东西刮走，一点不留。</p><p style=\"text-align: start;\">悲戚戚的心，夜风都不敢从我身边划过，都怕被这心冷着。我想告知风儿，能否过来吹吹我，帮我吹醒这些忧伤的茧，红尘的梦，让我变得快<a href=\"http://zuowen.sanwen.net/z/219426-kuaile\" target=\"_blank\">快乐</a>乐，远离这些尘世之琐。风儿听不见我裂心的呼唤，风儿听不见我散落的酸楚。谁也不会了解我，谁也不知我，缘不见，情丢失，都在这个秋天里，一转眼，化成烟。</p>', '1', '2017-10-14 14:13:06', 'A', '1');
-INSERT INTO `announce` VALUES ('13', '1', 'fgfeg', '<p>ertretrtertr</p><p>edffgvdffgfdgdfgfdgdf刚刚梵蒂冈地方<br></p>', '1', '2017-10-23 16:02:40', 'A', '1');
-INSERT INTO `announce` VALUES ('14', '1', '法规的规定非', '<p>梵蒂冈地方个</p><p>个地方gdfgfgdg郭德纲爸爸</p><p>保存VB从VBv</p><p>不橙V不橙V吧<br></p>', '1', '2017-10-23 16:02:56', 'A', '1');
-INSERT INTO `announce` VALUES ('15', '1', '东风股份', '<p>仍然通过人体tyrtyrtyytryrtyrtyt</p><p>gdfgfdggfdgdf法规的法规</p><p>发个地方官方</p><p>梵蒂冈地方个</p><p>股份的股份<br></p>', '1', '2017-10-23 16:03:18', 'A', '1');
-INSERT INTO `announce` VALUES ('16', '1', '古典风格', '<p>光伏发电个梵蒂冈</p><p>法规的法规<br></p>', '1', '2017-10-23 16:03:27', 'A', '1');
-INSERT INTO `announce` VALUES ('17', '1', '苟富贵', '丰东股份个', '1', '2017-10-23 16:03:37', 'A', '1');
-INSERT INTO `announce` VALUES ('18', '1', '给发个梵蒂冈', '梵蒂冈地方个电饭锅', '1', '2017-10-23 16:03:45', 'A', '1');
-INSERT INTO `announce` VALUES ('19', '1', 'fdfs', '导出佛挡杀佛的个发个非官方发个梵蒂冈分割否', '1', '2017-10-24 12:22:59', 'B', '1');
-INSERT INTO `announce` VALUES ('20', '1', '三个风格', '古典风格的法规的法规', '1', '2017-10-24 12:23:11', 'B', '1');
-INSERT INTO `announce` VALUES ('21', '1', '郭德纲法规', '梵蒂冈地方个电饭锅发郭德纲法规法规的发官方', '1', '2017-10-24 12:23:22', 'B', '1');
-INSERT INTO `announce` VALUES ('22', '1', '固定法规的法规', '古典风格的法规的法规', '1', '2017-10-24 12:23:28', 'B', '1');
-INSERT INTO `announce` VALUES ('23', '1', '官方固定法规的法规', '官方大哥大哥发个非官方', '1', '2017-10-24 12:23:36', 'B', '1');
-INSERT INTO `announce` VALUES ('24', '1', '固定法规的法规梵蒂冈地方个', '大飞哥太热同仁堂如果对方是个发固定法规的法规', '1', '2017-10-24 12:23:46', 'B', '1');
-INSERT INTO `announce` VALUES ('25', '1', '第三方的', '是非得失电动蝶阀的法师打发打发斯蒂芬东方时尚的方法', '1', '2017-10-24 12:23:56', 'B', '1');
-INSERT INTO `announce` VALUES ('26', '1', '顺丰到付东方闪电否', '&nbsp;第三方地方斯蒂芬似懂非懂辅导费', '1', '2017-10-24 12:24:06', 'B', '1');
-INSERT INTO `announce` VALUES ('27', '1', '发多个发给对方', '的发个梵蒂冈梵蒂冈地方个地方', '1', '2017-10-24 12:24:18', 'B', '1');
-INSERT INTO `announce` VALUES ('28', '1', '的方式固定发给对方', '古典风格大法规的法规分隔符古典风格地方法规', '1', '2017-10-24 12:24:27', 'B', '1');
-INSERT INTO `announce` VALUES ('29', '1', '发光飞碟干', '发的噶发个梵蒂冈梵蒂冈法规的法规发光飞碟干大飞哥地方规定个', '1', '2017-10-24 12:25:15', 'B', '1');
-INSERT INTO `announce` VALUES ('30', '1', '给多少法规的法规大发发给', '丰东股份噶梵蒂冈地方发噶', '1', '2017-10-24 12:25:23', 'B', '1');
-INSERT INTO `announce` VALUES ('31', '1', '教育局', '几个号激光焊接好结核杆菌涵盖经济后果', '1', '2017-10-24 12:26:13', 'B', '1');
-INSERT INTO `announce` VALUES ('32', '1', '几个好久好久', '&nbsp;结核杆菌刚回家后几个号激光焊接', '1', '2017-10-24 12:26:20', 'B', '1');
-INSERT INTO `announce` VALUES ('33', '1', '结果进环境', '济公活佛几个号激光焊接', '1', '2017-10-24 12:26:26', 'B', '1');
-INSERT INTO `announce` VALUES ('34', '1', '价格很高', '京东方换届大会几点回家', '1', '2017-10-24 12:30:56', 'B', '1');
-INSERT INTO `announce` VALUES ('35', '1', '房间号感觉', '好几个环境刚回家', '1', '2017-10-24 12:31:03', 'B', '1');
-INSERT INTO `announce` VALUES ('36', '1', '脚后跟结过婚', '黑寡妇脚后跟结过婚就', '1', '2017-10-24 12:31:09', 'B', '1');
-INSERT INTO `announce` VALUES ('37', '1', '结果环境规划就', '脚后跟结过婚就', '1', '2017-10-24 12:31:15', 'B', '1');
-INSERT INTO `announce` VALUES ('38', '1', '激光焊接', '和赶紧回家', '1', '2017-10-24 12:31:21', 'B', '1');
-INSERT INTO `announce` VALUES ('39', '1', '好久好感觉', '涵盖激光焊接', '1', '2017-10-24 12:31:27', 'B', '1');
-INSERT INTO `announce` VALUES ('40', '1', '几个号激光焊接', '涵盖激光焊接', '1', '2017-10-24 12:31:33', 'B', '1');
-INSERT INTO `announce` VALUES ('41', '1', '结果环境规划', '涵盖激光焊接和', '1', '2017-10-24 12:31:48', 'B', '1');
-INSERT INTO `announce` VALUES ('42', '1', '结果环境规划', '结果环境规划结婚', '1', '2017-10-24 12:31:54', 'B', '1');
-INSERT INTO `announce` VALUES ('43', '1', '好久好久', '还关节电话交换机的话', '1', '2017-10-24 12:32:01', 'B', '1');
-INSERT INTO `announce` VALUES ('44', '1', '激光焊接', '黑寡妇建华大街换届大会建华大街', '1', '2017-10-24 12:32:08', 'B', '1');
-INSERT INTO `announce` VALUES ('45', '1', '几个号激光焊接干活', '&nbsp;脚后跟结过婚几个号激光焊接干活就', '1', '2017-10-24 12:32:16', 'B', '1');
-INSERT INTO `announce` VALUES ('46', '1', '几个号激光焊接', '涵盖激光焊接和感觉', '1', '2017-10-24 12:32:23', 'B', '1');
-INSERT INTO `announce` VALUES ('47', '1', '结果集回复感觉', '官方几号放假官方', '1', '2017-10-24 12:32:33', 'B', '1');
-INSERT INTO `announce` VALUES ('48', '1', '减肥减肥刚回家', '房间号附加费环境规划', '1', '2017-10-24 12:32:39', 'B', '1');
+INSERT INTO `announce` VALUES ('4', '1', '上海市杨浦区2017年青年储备人才招聘', '<p><span style=\"text-align: start;\">如果，注定要一个人度过情人节，你的</span><a href=\"http://www.jj59.com/xinqingsuibi/\" class=\"keywordlink\" style=\"text-align: start;\">心情</a><span style=\"text-align: start;\">怎么样呢。你大概会独自伤悲，看着路边牵手走过的情侣，背过脸，偷偷抹一把眼泪。我要奉劝你：即便如此，你一定不要随便找一个人牵手，你甚至要勇敢地说，“我单身，我骄傲”。相比那些找到爱情的人，你有更多选择爱谁的权利，不是吗？</span><br style=\"text-align: start;\"><span style=\"text-align: start;\">　　</span><br style=\"text-align: start;\"><span style=\"text-align: start;\">　　</span><a href=\"http://www.jj59.com/zti/shangxin/\" class=\"keywordlink\" style=\"text-align: start;\">伤心</a><span style=\"text-align: start;\">之后，你还是要面对现实，如果有那么一个人值得你喜欢，恰好对方也不怎么讨厌你，那就试着聊几句吧。在情人节这个特殊的日子，问候一声，哪怕得到的结果是——那个人已经有了爱情，至少，也能给自己一个交代。毕竟，曾经有那么一点心动，曾经遇见了。</span><br style=\"text-align: start;\"><span style=\"text-align: start;\">　　</span><br style=\"text-align: start;\"><span style=\"text-align: start;\">　　一个人的情人节，你要好好吃一顿，你要照顾好自己，不要因为没有爱情的滋润，虐待身体。你不要和父母在一起，因为你不能听到父母催促你早点成家的声音，那样会影响你的情绪，也会影响父母的情绪。负面的情绪，会让人</span><a href=\"http://www.jj59.com/liuxingfeizhuliu/\" class=\"keywordlink\" style=\"text-align: start;\">颓废</a><span style=\"text-align: start;\">。</span><br style=\"text-align: start;\"><span style=\"text-align: start;\">　　</span><br style=\"text-align: start;\"><span style=\"text-align: start;\">　　如果身边有和你一样单身的朋友，可以一起聚一聚，找一个热闹一点的地方，海阔天空地聊天，大声地唱歌，释放心情，放飞爱情的梦想。一个人，不能压抑太久，会憋出毛病来的。与其形影相随，不如走进热闹的世界，把自己变成人海中的一朵浪花，一滴水，听听海浪的声音。</span><br style=\"text-align: start;\"><span style=\"text-align: start;\">　　</span><br style=\"text-align: start;\"><span style=\"text-align: start;\">　　如果有人在情人节打探你拥有爱情的情况，你不要觉得难为情。一个人单着，当然会底气不足，然而，你不要打肿脸充胖子，不要谎称自己有爱情。说不定，有人想要为你牵红线。如果你不实话实说，那将是一场错过爱情的悲剧。你也会落下不够诚实的坏印象。</span><br style=\"text-align: start;\"><span style=\"text-align: start;\">　　</span><br style=\"text-align: start;\"><span style=\"text-align: start;\">　　你一定不要想不开，不就是兜兜转转找不到爱情么？然不成，还要自杀？你不够伟大，你的自杀不会引起社会轰动，也不会有人同情你，顶多，来几个消防战士，履行工作职责，挽救你的生命。最后，你还得到派出所待一会，接受批评教育，尴尬的气氛，一定让你想再次自杀。</span><br style=\"text-align: start;\"><span style=\"text-align: start;\">　　</span><br style=\"text-align: start;\"><span style=\"text-align: start;\">　　有没有爱情，你都要好好活下去，生命只有一次，谁都不是九条命的狐狸。留得青山在，不愁没柴烧。生命好端端的，健</span><a href=\"http://www.jj59.com/zti/jiankang/\" class=\"keywordlink\" style=\"text-align: start;\">健康</a><span style=\"text-align: start;\">康的，你再努力一点，把</span><a href=\"http://www.jj59.com/zti/shenghuo/\" class=\"keywordlink\" style=\"text-align: start;\">生活</a><span style=\"text-align: start;\">过好一点点，指不定，爱情就光顾你了，下一个情人节，就有人愿意和你牵手同行，还卿卿我我地拥抱。</span><br style=\"text-align: start;\"><span style=\"text-align: start;\">　　</span><br style=\"text-align: start;\"><span style=\"text-align: start;\">　　当然，最好的结果，就在这个情人节，你便遇见了有一点点喜欢的人，虽然，只是爱情的破土，就已经足够幸运了。要知道，有多少人在情人节的夜晚，手捧着玫瑰花，却没有等到爱的人出现。天亮了，花都凋谢了，只有泪水还没有干透。</span><br style=\"text-align: start;\"><span style=\"text-align: start;\">　　</span><br style=\"text-align: start;\"><span style=\"text-align: start;\">　　</span><a href=\"http://www.jj59.com/zheliwenzhang/\" class=\"keywordlink\" style=\"text-align: start;\">人生</a><span style=\"text-align: start;\">本是一场旅行，沿途会遇到很多很多的人，但只有那么一两个人会和你擦出爱情的火花。所有的酸甜苦辣，都会因为爱情变得更加美好，因此，你要敞开心扉，面对单身的事实，执念爱情的美好，走好每一步，走出精彩。</span><br style=\"text-align: start;\"><span style=\"text-align: start;\">　　</span><br style=\"text-align: start;\"><span style=\"text-align: start;\">　　作者：朱钟洋；笔名：布衣粗食。</span></p>', '1', '2017-10-23 14:12:03', 'A', '2');
+INSERT INTO `announce` VALUES ('5', '1', '复古风格', '辅导班VB地点GV你', '1', '2017-10-24 12:23:03', 'B', '2');
+INSERT INTO `announce` VALUES ('6', '1', '十月秋意忧伤', '<p style=\"text-align: start;\">十月的空间，无论是天宇的胸襟，还是大地的经纬都是一尘不染，那些纤尘不染的宝石蓝天空，显得秋高气爽，白云宛如飘逸舒卷成洁净的湖水，在阳光折射千丝万缕的波光，翱翔的大雁在天空中一会儿排出人字形，一会儿又为之字状，刹那间变幻成v形状，已到深秋，大雁不得不急急忙忙飞向北国某个地方，无暇顾及秋风秋<a href=\"http://www.sanwen.net/sanwen/yu/\" target=\"_blank\">雨</a>的萧瑟，一如既往地飞翔到冰天<a href=\"http://www.sanwen.net/shige/xue/\" target=\"_blank\">雪</a>地的北国领地，漫漫征途，无畏无惧千辛万苦，在这漫长的迁途中充满<a href=\"http://youshang.sanwen8.cn/\" target=\"_blank\">忧伤</a>，同时充满一种期望与向往，度过一季寒<a href=\"http://dongtian.sanwen8.cn/\" target=\"_blank\">冬</a>腊月，当大地回暖苏醒，又将成为南飞的大雁，怀一股坚韧不拔的毅力，迎接<a href=\"http://chuntian.sanwen8.cn/\" target=\"_blank\">春</a>光明媚春意盎然气息的拥抱，<a href=\"http://www.sanwen.net/suibi/suiyue/\" target=\"_blank\">岁月</a>与大雁都在周而复始中完成季节变幻的流转，十月承上启下，在冬隔壁的秋姑娘，恍如枕着一水清盈，凝望叶落归根的情怀，落英缤纷的情殇，眺望枫情醉红山岚叠嶂的激情，仰望<a href=\"http://yueliang.sanwen8.cn/\" target=\"_blank\">秋月</a>相思情长，满天星斗的无比苍凉，当丹桂飘香熏过眉月之后，当漫山遍野菊氤之际，又当清风雨露吹拂岸边芦苇之时，仿佛聆听到<a href=\"http://ye.sanwen8.cn/\" target=\"_blank\">夜</a>莺<a href=\"http://youshang.sanwen8.cn/\" target=\"_blank\">忧愁</a>的吟唱，倾听到窸窣若隐若现中的几分惆怅，在深秋的原野那一曲铜萧的婉约沉闷的声响，在<a href=\"http://ye.sanwen8.cn/\" target=\"_blank\">秋夜</a>里平添几分<a href=\"http://www.sanwen.net/sanwen/shanggan/\" target=\"_blank\">悲伤</a>，十月我聆听那秋韵里的一笺忧伤，</p><p style=\"text-align: start;\">十月渐渐离我们而去，清秋渐远，凉凉的风吹不散这哀怨的<a href=\"http://tongku.sanwen8.cn/\" target=\"_blank\">悲痛</a>，沾满潮湿的酸楚，固执地徘徊在心头久久不肯离去；而<a href=\"http://jimo.sanwen8.cn/\" target=\"_blank\">孤独</a>的忧伤像漫天雪花密密麻麻地往心深处落下，积起冰寒的<a href=\"http://www.sanwen.net/sanwen/shanggan/\" target=\"_blank\">伤感</a>渐近麻木，就想让失去<a href=\"http://linghun.sanwen8.cn/\" target=\"_blank\">灵魂</a>的知觉在无人的角落里，随处飘荡，随处游离，一缕魂，任风吹。这个秋，带给我无穷无尽的心愁，尘落在<a href=\"http://www.sanwen.net/sanwen/xinqing/\" target=\"_blank\">情感</a>的渡头，悲苦地遥望，最终换来是满目的苍凉。</p><p style=\"text-align: start;\">秋的意境中悄然聆听到冬姑娘拨动心弦，晶莹剔透的雪花已经在北国飘舞，雪域高原处已经白雪皑皑冰凌悬挂山崖，天山上的雪莲花含苞欲放，我的思绪伴着淡墨清茗，相伴秋中的<a href=\"http://www.sanwen.net/\" target=\"_blank\">文字</a>，跟随冬的韵律去听一曲清歌，扣心自问：是谁的<a href=\"http://zhijian.sanwen.net/\" target=\"_blank\">指尖</a>流过了千年的时光，纤弱成一株<a href=\"http://qiutian.sanwen8.cn/\" target=\"_blank\">秋天</a>的柳荷。锦瑟的心事中，散着淡淡哀怨，延续念念不忘的笙歌幽<a href=\"http://meng.sanwen8.cn/\" target=\"_blank\">梦</a>。</p><p style=\"text-align: start;\">夜，总是布满了孤独的影子，忧伤也变得张牙舞爪，放肆在我身体各个部位撕咬 ；疲惫的我，连最后的挣扎都不想把握，一双眼，两行泪，望穿幽夜，凉等，痴情心，无处归。天明天又黑，春去春又回，我的<a href=\"http://chuntian.sanwen8.cn/\" target=\"_blank\">春天</a>，最终迷失在刺骨的<a href=\"http://dongtian.sanwen8.cn/\" target=\"_blank\">寒冬</a>里，再也走不回。爬满难过的心，踱步都不能从容，惆怅的步伐比铅还沉重。时过境迁的风景已看不到走过的繁华，零碎的残屑让人想像不出这里也曾旖旎过，这里也曾辉煌过。可是，所有的变故都会被尘风吹落，被一个叫“无情”的东西刮走，一点不留。</p><p style=\"text-align: start;\">悲戚戚的心，夜风都不敢从我身边划过，都怕被这心冷着。我想告知风儿，能否过来吹吹我，帮我吹醒这些忧伤的茧，红尘的梦，让我变得快<a href=\"http://zuowen.sanwen.net/z/219426-kuaile\" target=\"_blank\">快乐</a>乐，远离这些尘世之琐。风儿听不见我裂心的呼唤，风儿听不见我散落的酸楚。谁也不会了解我，谁也不知我，缘不见，情丢失，都在这个秋天里，一转眼，化成烟。</p>', '1', '2017-10-23 14:13:06', 'A', '2');
+INSERT INTO `announce` VALUES ('7', '1', '十月秋意忧伤', '<p style=\"text-align: start;\">十月的空间，无论是天宇的胸襟，还是大地的经纬都是一尘不染，那些纤尘不染的宝石蓝天空，显得秋高气爽，白云宛如飘逸舒卷成洁净的湖水，在阳光折射千丝万缕的波光，翱翔的大雁在天空中一会儿排出人字形，一会儿又为之字状，刹那间变幻成v形状，已到深秋，大雁不得不急急忙忙飞向北国某个地方，无暇顾及秋风秋<a href=\"http://www.sanwen.net/sanwen/yu/\" target=\"_blank\">雨</a>的萧瑟，一如既往地飞翔到冰天<a href=\"http://www.sanwen.net/shige/xue/\" target=\"_blank\">雪</a>地的北国领地，漫漫征途，无畏无惧千辛万苦，在这漫长的迁途中充满<a href=\"http://youshang.sanwen8.cn/\" target=\"_blank\">忧伤</a>，同时充满一种期望与向往，度过一季寒<a href=\"http://dongtian.sanwen8.cn/\" target=\"_blank\">冬</a>腊月，当大地回暖苏醒，又将成为南飞的大雁，怀一股坚韧不拔的毅力，迎接<a href=\"http://chuntian.sanwen8.cn/\" target=\"_blank\">春</a>光明媚春意盎然气息的拥抱，<a href=\"http://www.sanwen.net/suibi/suiyue/\" target=\"_blank\">岁月</a>与大雁都在周而复始中完成季节变幻的流转，十月承上启下，在冬隔壁的秋姑娘，恍如枕着一水清盈，凝望叶落归根的情怀，落英缤纷的情殇，眺望枫情醉红山岚叠嶂的激情，仰望<a href=\"http://yueliang.sanwen8.cn/\" target=\"_blank\">秋月</a>相思情长，满天星斗的无比苍凉，当丹桂飘香熏过眉月之后，当漫山遍野菊氤之际，又当清风雨露吹拂岸边芦苇之时，仿佛聆听到<a href=\"http://ye.sanwen8.cn/\" target=\"_blank\">夜</a>莺<a href=\"http://youshang.sanwen8.cn/\" target=\"_blank\">忧愁</a>的吟唱，倾听到窸窣若隐若现中的几分惆怅，在深秋的原野那一曲铜萧的婉约沉闷的声响，在<a href=\"http://ye.sanwen8.cn/\" target=\"_blank\">秋夜</a>里平添几分<a href=\"http://www.sanwen.net/sanwen/shanggan/\" target=\"_blank\">悲伤</a>，十月我聆听那秋韵里的一笺忧伤，</p><p style=\"text-align: start;\">十月渐渐离我们而去，清秋渐远，凉凉的风吹不散这哀怨的<a href=\"http://tongku.sanwen8.cn/\" target=\"_blank\">悲痛</a>，沾满潮湿的酸楚，固执地徘徊在心头久久不肯离去；而<a href=\"http://jimo.sanwen8.cn/\" target=\"_blank\">孤独</a>的忧伤像漫天雪花密密麻麻地往心深处落下，积起冰寒的<a href=\"http://www.sanwen.net/sanwen/shanggan/\" target=\"_blank\">伤感</a>渐近麻木，就想让失去<a href=\"http://linghun.sanwen8.cn/\" target=\"_blank\">灵魂</a>的知觉在无人的角落里，随处飘荡，随处游离，一缕魂，任风吹。这个秋，带给我无穷无尽的心愁，尘落在<a href=\"http://www.sanwen.net/sanwen/xinqing/\" target=\"_blank\">情感</a>的渡头，悲苦地遥望，最终换来是满目的苍凉。</p><p style=\"text-align: start;\">秋的意境中悄然聆听到冬姑娘拨动心弦，晶莹剔透的雪花已经在北国飘舞，雪域高原处已经白雪皑皑冰凌悬挂山崖，天山上的雪莲花含苞欲放，我的思绪伴着淡墨清茗，相伴秋中的<a href=\"http://www.sanwen.net/\" target=\"_blank\">文字</a>，跟随冬的韵律去听一曲清歌，扣心自问：是谁的<a href=\"http://zhijian.sanwen.net/\" target=\"_blank\">指尖</a>流过了千年的时光，纤弱成一株<a href=\"http://qiutian.sanwen8.cn/\" target=\"_blank\">秋天</a>的柳荷。锦瑟的心事中，散着淡淡哀怨，延续念念不忘的笙歌幽<a href=\"http://meng.sanwen8.cn/\" target=\"_blank\">梦</a>。</p><p style=\"text-align: start;\">夜，总是布满了孤独的影子，忧伤也变得张牙舞爪，放肆在我身体各个部位撕咬 ；疲惫的我，连最后的挣扎都不想把握，一双眼，两行泪，望穿幽夜，凉等，痴情心，无处归。天明天又黑，春去春又回，我的<a href=\"http://chuntian.sanwen8.cn/\" target=\"_blank\">春天</a>，最终迷失在刺骨的<a href=\"http://dongtian.sanwen8.cn/\" target=\"_blank\">寒冬</a>里，再也走不回。爬满难过的心，踱步都不能从容，惆怅的步伐比铅还沉重。时过境迁的风景已看不到走过的繁华，零碎的残屑让人想像不出这里也曾旖旎过，这里也曾辉煌过。可是，所有的变故都会被尘风吹落，被一个叫“无情”的东西刮走，一点不留。</p><p style=\"text-align: start;\">悲戚戚的心，夜风都不敢从我身边划过，都怕被这心冷着。我想告知风儿，能否过来吹吹我，帮我吹醒这些忧伤的茧，红尘的梦，让我变得快<a href=\"http://zuowen.sanwen.net/z/219426-kuaile\" target=\"_blank\">快乐</a>乐，远离这些尘世之琐。风儿听不见我裂心的呼唤，风儿听不见我散落的酸楚。谁也不会了解我，谁也不知我，缘不见，情丢失，都在这个秋天里，一转眼，化成烟。</p>', '1', '2017-10-23 14:13:06', 'A', '2');
+INSERT INTO `announce` VALUES ('8', '1', '十月秋意忧伤', '<p style=\"text-align: start;\">十月的空间，无论是天宇的胸襟，还是大地的经纬都是一尘不染，那些纤尘不染的宝石蓝天空，显得秋高气爽，白云宛如飘逸舒卷成洁净的湖水，在阳光折射千丝万缕的波光，翱翔的大雁在天空中一会儿排出人字形，一会儿又为之字状，刹那间变幻成v形状，已到深秋，大雁不得不急急忙忙飞向北国某个地方，无暇顾及秋风秋<a href=\"http://www.sanwen.net/sanwen/yu/\" target=\"_blank\">雨</a>的萧瑟，一如既往地飞翔到冰天<a href=\"http://www.sanwen.net/shige/xue/\" target=\"_blank\">雪</a>地的北国领地，漫漫征途，无畏无惧千辛万苦，在这漫长的迁途中充满<a href=\"http://youshang.sanwen8.cn/\" target=\"_blank\">忧伤</a>，同时充满一种期望与向往，度过一季寒<a href=\"http://dongtian.sanwen8.cn/\" target=\"_blank\">冬</a>腊月，当大地回暖苏醒，又将成为南飞的大雁，怀一股坚韧不拔的毅力，迎接<a href=\"http://chuntian.sanwen8.cn/\" target=\"_blank\">春</a>光明媚春意盎然气息的拥抱，<a href=\"http://www.sanwen.net/suibi/suiyue/\" target=\"_blank\">岁月</a>与大雁都在周而复始中完成季节变幻的流转，十月承上启下，在冬隔壁的秋姑娘，恍如枕着一水清盈，凝望叶落归根的情怀，落英缤纷的情殇，眺望枫情醉红山岚叠嶂的激情，仰望<a href=\"http://yueliang.sanwen8.cn/\" target=\"_blank\">秋月</a>相思情长，满天星斗的无比苍凉，当丹桂飘香熏过眉月之后，当漫山遍野菊氤之际，又当清风雨露吹拂岸边芦苇之时，仿佛聆听到<a href=\"http://ye.sanwen8.cn/\" target=\"_blank\">夜</a>莺<a href=\"http://youshang.sanwen8.cn/\" target=\"_blank\">忧愁</a>的吟唱，倾听到窸窣若隐若现中的几分惆怅，在深秋的原野那一曲铜萧的婉约沉闷的声响，在<a href=\"http://ye.sanwen8.cn/\" target=\"_blank\">秋夜</a>里平添几分<a href=\"http://www.sanwen.net/sanwen/shanggan/\" target=\"_blank\">悲伤</a>，十月我聆听那秋韵里的一笺忧伤，</p><p style=\"text-align: start;\">十月渐渐离我们而去，清秋渐远，凉凉的风吹不散这哀怨的<a href=\"http://tongku.sanwen8.cn/\" target=\"_blank\">悲痛</a>，沾满潮湿的酸楚，固执地徘徊在心头久久不肯离去；而<a href=\"http://jimo.sanwen8.cn/\" target=\"_blank\">孤独</a>的忧伤像漫天雪花密密麻麻地往心深处落下，积起冰寒的<a href=\"http://www.sanwen.net/sanwen/shanggan/\" target=\"_blank\">伤感</a>渐近麻木，就想让失去<a href=\"http://linghun.sanwen8.cn/\" target=\"_blank\">灵魂</a>的知觉在无人的角落里，随处飘荡，随处游离，一缕魂，任风吹。这个秋，带给我无穷无尽的心愁，尘落在<a href=\"http://www.sanwen.net/sanwen/xinqing/\" target=\"_blank\">情感</a>的渡头，悲苦地遥望，最终换来是满目的苍凉。</p><p style=\"text-align: start;\">秋的意境中悄然聆听到冬姑娘拨动心弦，晶莹剔透的雪花已经在北国飘舞，雪域高原处已经白雪皑皑冰凌悬挂山崖，天山上的雪莲花含苞欲放，我的思绪伴着淡墨清茗，相伴秋中的<a href=\"http://www.sanwen.net/\" target=\"_blank\">文字</a>，跟随冬的韵律去听一曲清歌，扣心自问：是谁的<a href=\"http://zhijian.sanwen.net/\" target=\"_blank\">指尖</a>流过了千年的时光，纤弱成一株<a href=\"http://qiutian.sanwen8.cn/\" target=\"_blank\">秋天</a>的柳荷。锦瑟的心事中，散着淡淡哀怨，延续念念不忘的笙歌幽<a href=\"http://meng.sanwen8.cn/\" target=\"_blank\">梦</a>。</p><p style=\"text-align: start;\">夜，总是布满了孤独的影子，忧伤也变得张牙舞爪，放肆在我身体各个部位撕咬 ；疲惫的我，连最后的挣扎都不想把握，一双眼，两行泪，望穿幽夜，凉等，痴情心，无处归。天明天又黑，春去春又回，我的<a href=\"http://chuntian.sanwen8.cn/\" target=\"_blank\">春天</a>，最终迷失在刺骨的<a href=\"http://dongtian.sanwen8.cn/\" target=\"_blank\">寒冬</a>里，再也走不回。爬满难过的心，踱步都不能从容，惆怅的步伐比铅还沉重。时过境迁的风景已看不到走过的繁华，零碎的残屑让人想像不出这里也曾旖旎过，这里也曾辉煌过。可是，所有的变故都会被尘风吹落，被一个叫“无情”的东西刮走，一点不留。</p><p style=\"text-align: start;\">悲戚戚的心，夜风都不敢从我身边划过，都怕被这心冷着。我想告知风儿，能否过来吹吹我，帮我吹醒这些忧伤的茧，红尘的梦，让我变得快<a href=\"http://zuowen.sanwen.net/z/219426-kuaile\" target=\"_blank\">快乐</a>乐，远离这些尘世之琐。风儿听不见我裂心的呼唤，风儿听不见我散落的酸楚。谁也不会了解我，谁也不知我，缘不见，情丢失，都在这个秋天里，一转眼，化成烟。</p>', '1', '2017-10-18 14:13:06', 'A', '2');
+INSERT INTO `announce` VALUES ('9', '1', '十月秋意忧伤', '<p style=\"text-align: start;\">十月的空间，无论是天宇的胸襟，还是大地的经纬都是一尘不染，那些纤尘不染的宝石蓝天空，显得秋高气爽，白云宛如飘逸舒卷成洁净的湖水，在阳光折射千丝万缕的波光，翱翔的大雁在天空中一会儿排出人字形，一会儿又为之字状，刹那间变幻成v形状，已到深秋，大雁不得不急急忙忙飞向北国某个地方，无暇顾及秋风秋<a href=\"http://www.sanwen.net/sanwen/yu/\" target=\"_blank\">雨</a>的萧瑟，一如既往地飞翔到冰天<a href=\"http://www.sanwen.net/shige/xue/\" target=\"_blank\">雪</a>地的北国领地，漫漫征途，无畏无惧千辛万苦，在这漫长的迁途中充满<a href=\"http://youshang.sanwen8.cn/\" target=\"_blank\">忧伤</a>，同时充满一种期望与向往，度过一季寒<a href=\"http://dongtian.sanwen8.cn/\" target=\"_blank\">冬</a>腊月，当大地回暖苏醒，又将成为南飞的大雁，怀一股坚韧不拔的毅力，迎接<a href=\"http://chuntian.sanwen8.cn/\" target=\"_blank\">春</a>光明媚春意盎然气息的拥抱，<a href=\"http://www.sanwen.net/suibi/suiyue/\" target=\"_blank\">岁月</a>与大雁都在周而复始中完成季节变幻的流转，十月承上启下，在冬隔壁的秋姑娘，恍如枕着一水清盈，凝望叶落归根的情怀，落英缤纷的情殇，眺望枫情醉红山岚叠嶂的激情，仰望<a href=\"http://yueliang.sanwen8.cn/\" target=\"_blank\">秋月</a>相思情长，满天星斗的无比苍凉，当丹桂飘香熏过眉月之后，当漫山遍野菊氤之际，又当清风雨露吹拂岸边芦苇之时，仿佛聆听到<a href=\"http://ye.sanwen8.cn/\" target=\"_blank\">夜</a>莺<a href=\"http://youshang.sanwen8.cn/\" target=\"_blank\">忧愁</a>的吟唱，倾听到窸窣若隐若现中的几分惆怅，在深秋的原野那一曲铜萧的婉约沉闷的声响，在<a href=\"http://ye.sanwen8.cn/\" target=\"_blank\">秋夜</a>里平添几分<a href=\"http://www.sanwen.net/sanwen/shanggan/\" target=\"_blank\">悲伤</a>，十月我聆听那秋韵里的一笺忧伤，</p><p style=\"text-align: start;\">十月渐渐离我们而去，清秋渐远，凉凉的风吹不散这哀怨的<a href=\"http://tongku.sanwen8.cn/\" target=\"_blank\">悲痛</a>，沾满潮湿的酸楚，固执地徘徊在心头久久不肯离去；而<a href=\"http://jimo.sanwen8.cn/\" target=\"_blank\">孤独</a>的忧伤像漫天雪花密密麻麻地往心深处落下，积起冰寒的<a href=\"http://www.sanwen.net/sanwen/shanggan/\" target=\"_blank\">伤感</a>渐近麻木，就想让失去<a href=\"http://linghun.sanwen8.cn/\" target=\"_blank\">灵魂</a>的知觉在无人的角落里，随处飘荡，随处游离，一缕魂，任风吹。这个秋，带给我无穷无尽的心愁，尘落在<a href=\"http://www.sanwen.net/sanwen/xinqing/\" target=\"_blank\">情感</a>的渡头，悲苦地遥望，最终换来是满目的苍凉。</p><p style=\"text-align: start;\">秋的意境中悄然聆听到冬姑娘拨动心弦，晶莹剔透的雪花已经在北国飘舞，雪域高原处已经白雪皑皑冰凌悬挂山崖，天山上的雪莲花含苞欲放，我的思绪伴着淡墨清茗，相伴秋中的<a href=\"http://www.sanwen.net/\" target=\"_blank\">文字</a>，跟随冬的韵律去听一曲清歌，扣心自问：是谁的<a href=\"http://zhijian.sanwen.net/\" target=\"_blank\">指尖</a>流过了千年的时光，纤弱成一株<a href=\"http://qiutian.sanwen8.cn/\" target=\"_blank\">秋天</a>的柳荷。锦瑟的心事中，散着淡淡哀怨，延续念念不忘的笙歌幽<a href=\"http://meng.sanwen8.cn/\" target=\"_blank\">梦</a>。</p><p style=\"text-align: start;\">夜，总是布满了孤独的影子，忧伤也变得张牙舞爪，放肆在我身体各个部位撕咬 ；疲惫的我，连最后的挣扎都不想把握，一双眼，两行泪，望穿幽夜，凉等，痴情心，无处归。天明天又黑，春去春又回，我的<a href=\"http://chuntian.sanwen8.cn/\" target=\"_blank\">春天</a>，最终迷失在刺骨的<a href=\"http://dongtian.sanwen8.cn/\" target=\"_blank\">寒冬</a>里，再也走不回。爬满难过的心，踱步都不能从容，惆怅的步伐比铅还沉重。时过境迁的风景已看不到走过的繁华，零碎的残屑让人想像不出这里也曾旖旎过，这里也曾辉煌过。可是，所有的变故都会被尘风吹落，被一个叫“无情”的东西刮走，一点不留。</p><p style=\"text-align: start;\">悲戚戚的心，夜风都不敢从我身边划过，都怕被这心冷着。我想告知风儿，能否过来吹吹我，帮我吹醒这些忧伤的茧，红尘的梦，让我变得快<a href=\"http://zuowen.sanwen.net/z/219426-kuaile\" target=\"_blank\">快乐</a>乐，远离这些尘世之琐。风儿听不见我裂心的呼唤，风儿听不见我散落的酸楚。谁也不会了解我，谁也不知我，缘不见，情丢失，都在这个秋天里，一转眼，化成烟。</p>', '1', '2017-10-14 14:13:06', 'A', '2');
+INSERT INTO `announce` VALUES ('13', '1', 'fgfeg', '<p>ertretrtertr</p><p>edffgvdffgfdgdfgfdgdf刚刚梵蒂冈地方<br></p>', '1', '2017-10-23 16:02:40', 'A', '2');
+INSERT INTO `announce` VALUES ('14', '1', '法规的规定非', '<p>梵蒂冈地方个</p><p>个地方gdfgfgdg郭德纲爸爸</p><p>保存VB从VBv</p><p>不橙V不橙V吧<br></p>', '1', '2017-10-23 16:02:56', 'A', '2');
+INSERT INTO `announce` VALUES ('15', '1', '东风股份', '<p>仍然通过人体tyrtyrtyytryrtyrtyt</p><p>gdfgfdggfdgdf法规的法规</p><p>发个地方官方</p><p>梵蒂冈地方个</p><p>股份的股份<br></p>', '1', '2017-10-23 16:03:18', 'A', '2');
+INSERT INTO `announce` VALUES ('16', '1', '古典风格', '<p>光伏发电个梵蒂冈</p><p>法规的法规<br></p>', '1', '2017-10-23 16:03:27', 'A', '2');
+INSERT INTO `announce` VALUES ('17', '1', '苟富贵', '丰东股份个', '1', '2017-10-23 16:03:37', 'A', '2');
+INSERT INTO `announce` VALUES ('18', '1', '给发个梵蒂冈', '梵蒂冈地方个电饭锅', '1', '2017-10-23 16:03:45', 'A', '2');
+INSERT INTO `announce` VALUES ('19', '1', 'fdfs', '导出佛挡杀佛的个发个非官方发个梵蒂冈分割否', '1', '2017-10-24 12:22:59', 'B', '2');
+INSERT INTO `announce` VALUES ('20', '1', '三个风格', '古典风格的法规的法规', '1', '2017-10-24 12:23:11', 'B', '2');
+INSERT INTO `announce` VALUES ('21', '1', '郭德纲法规', '梵蒂冈地方个电饭锅发郭德纲法规法规的发官方', '1', '2017-10-24 12:23:22', 'B', '2');
+INSERT INTO `announce` VALUES ('22', '1', '固定法规的法规', '古典风格的法规的法规', '1', '2017-10-24 12:23:28', 'B', '2');
+INSERT INTO `announce` VALUES ('23', '1', '官方固定法规的法规', '官方大哥大哥发个非官方', '1', '2017-10-24 12:23:36', 'B', '2');
+INSERT INTO `announce` VALUES ('24', '1', '固定法规的法规梵蒂冈地方个', '大飞哥太热同仁堂如果对方是个发固定法规的法规', '1', '2017-10-24 12:23:46', 'B', '2');
+INSERT INTO `announce` VALUES ('25', '1', '第三方的', '是非得失电动蝶阀的法师打发打发斯蒂芬东方时尚的方法', '1', '2017-10-24 12:23:56', 'B', '2');
+INSERT INTO `announce` VALUES ('26', '1', '顺丰到付东方闪电否', '&nbsp;第三方地方斯蒂芬似懂非懂辅导费', '1', '2017-10-24 12:24:06', 'B', '2');
+INSERT INTO `announce` VALUES ('27', '1', '发多个发给对方', '的发个梵蒂冈梵蒂冈地方个地方', '1', '2017-10-24 12:24:18', 'B', '2');
+INSERT INTO `announce` VALUES ('28', '1', '的方式固定发给对方', '古典风格大法规的法规分隔符古典风格地方法规', '1', '2017-10-24 12:24:27', 'B', '2');
+INSERT INTO `announce` VALUES ('29', '1', '发光飞碟干', '发的噶发个梵蒂冈梵蒂冈法规的法规发光飞碟干大飞哥地方规定个', '1', '2017-10-24 12:25:15', 'B', '2');
+INSERT INTO `announce` VALUES ('30', '1', '给多少法规的法规大发发给', '丰东股份噶梵蒂冈地方发噶', '1', '2017-10-24 12:25:23', 'B', '2');
+INSERT INTO `announce` VALUES ('31', '1', '教育局', '几个号激光焊接好结核杆菌涵盖经济后果', '1', '2017-10-24 12:26:13', 'B', '2');
+INSERT INTO `announce` VALUES ('32', '1', '几个好久好久', '&nbsp;结核杆菌刚回家后几个号激光焊接', '1', '2017-10-24 12:26:20', 'B', '2');
+INSERT INTO `announce` VALUES ('33', '1', '结果进环境', '济公活佛几个号激光焊接', '1', '2017-10-24 12:26:26', 'B', '2');
+INSERT INTO `announce` VALUES ('34', '1', '价格很高', '京东方换届大会几点回家', '1', '2017-10-24 12:30:56', 'B', '2');
+INSERT INTO `announce` VALUES ('35', '1', '房间号感觉', '好几个环境刚回家', '1', '2017-10-24 12:31:03', 'B', '2');
+INSERT INTO `announce` VALUES ('36', '1', '脚后跟结过婚', '黑寡妇脚后跟结过婚就', '1', '2017-10-24 12:31:09', 'B', '2');
+INSERT INTO `announce` VALUES ('37', '1', '结果环境规划就', '脚后跟结过婚就', '1', '2017-10-24 12:31:15', 'B', '2');
+INSERT INTO `announce` VALUES ('38', '1', '激光焊接', '和赶紧回家', '1', '2017-10-24 12:31:21', 'B', '2');
+INSERT INTO `announce` VALUES ('39', '1', '好久好感觉', '涵盖激光焊接', '1', '2017-10-24 12:31:27', 'B', '2');
+INSERT INTO `announce` VALUES ('40', '1', '几个号激光焊接', '涵盖激光焊接', '1', '2017-10-24 12:31:33', 'B', '2');
+INSERT INTO `announce` VALUES ('41', '1', '结果环境规划', '涵盖激光焊接和', '1', '2017-10-24 12:31:48', 'B', '2');
+INSERT INTO `announce` VALUES ('42', '1', '结果环境规划', '结果环境规划结婚', '1', '2017-10-24 12:31:54', 'B', '2');
+INSERT INTO `announce` VALUES ('43', '1', '好久好久', '还关节电话交换机的话', '1', '2017-10-24 12:32:01', 'B', '2');
+INSERT INTO `announce` VALUES ('44', '1', '激光焊接', '黑寡妇建华大街换届大会建华大街', '1', '2017-10-24 12:32:08', 'B', '2');
+INSERT INTO `announce` VALUES ('45', '1', '几个号激光焊接干活', '&nbsp;脚后跟结过婚几个号激光焊接干活就', '1', '2017-10-24 12:32:16', 'B', '2');
+INSERT INTO `announce` VALUES ('46', '1', '几个号激光焊接', '涵盖激光焊接和感觉', '1', '2017-10-24 12:32:23', 'B', '2');
+INSERT INTO `announce` VALUES ('47', '1', '结果集回复感觉', '官方几号放假官方', '1', '2017-10-24 12:32:33', 'B', '2');
+INSERT INTO `announce` VALUES ('48', '1', '减肥减肥刚回家', '房间号附加费环境规划', '1', '2017-10-24 12:32:39', 'B', '2');
 
 -- ----------------------------
 -- Table structure for code
@@ -1955,6 +1955,90 @@ INSERT INTO `flow_job_1` VALUES ('13', '刘思思', '310101198704040029', '18017
 INSERT INTO `flow_job_1` VALUES ('14', '邱祎琛', '310110199505195619', '15221652505', './uploadfile/image/201701/1509107830.jpeg', '2', '01', '23_230100', '12', '', '10', '1992-10-27', null, null, '范德萨范德萨', '1_101', '402_4020100', '2', '3_301', '3_301', '62_620100', '15221652505', '15221652505@qq.com', '333110', '防守打法的是', '的师傅的师傅', '0014', '02', '201701020014', '4', '2', '2017-10-27 20:40:48', null, '1', '01', '', '2017-11-07 14:05:50', '1', '2', '01', '', '2017-11-06 09:45:42', '88', '86', '1', '1', '1', '2', '01', '', '2017-11-07 14:23:49', '1', '2', '02', '个人原因', '2017-11-08 14:25:01', '1', '0', '1', '', '1', '2', '02', '家中有事', '2017-11-08 22:02:43', '', '2', '1', '2', '0', '放弃参加', '2017-11-09 14:16:09');
 
 -- ----------------------------
+-- Table structure for flow_job_2
+-- ----------------------------
+DROP TABLE IF EXISTS `flow_job_2`;
+CREATE TABLE `flow_job_2` (
+  `perID` int(11) NOT NULL AUTO_INCREMENT COMMENT '人员ID',
+  `perName` varchar(255) NOT NULL COMMENT '姓名',
+  `perIDCard` varchar(32) NOT NULL COMMENT '身份证号',
+  `perPhone` varchar(11) NOT NULL COMMENT '手机号码',
+  `perPhoto` varchar(255) NOT NULL COMMENT '照片',
+  `perGender` int(1) DEFAULT NULL COMMENT '性别',
+  `perNation` varchar(64) NOT NULL COMMENT '民族',
+  `perOrigin` varchar(128) NOT NULL COMMENT '籍贯',
+  `perPolitica` varchar(64) NOT NULL COMMENT '政治面貌',
+  `perWorkPlace` varchar(255) NOT NULL COMMENT '现工作单位',
+  `perMarried` varchar(64) NOT NULL COMMENT '婚姻状况',
+  `perBirth` varchar(128) DEFAULT NULL COMMENT '出生年月',
+  `perHeight` int(11) DEFAULT NULL COMMENT '身高',
+  `perWeight` decimal(8,2) DEFAULT NULL COMMENT '体重',
+  `perUniversity` varchar(255) DEFAULT NULL COMMENT '毕业院校',
+  `perDegree` varchar(128) DEFAULT NULL COMMENT '学位',
+  `perMajor` varchar(128) DEFAULT NULL COMMENT '专业',
+  `perEducation` varchar(64) DEFAULT NULL COMMENT '学历',
+  `perForeignLang` varchar(64) DEFAULT NULL COMMENT '外语水平',
+  `perComputerLevel` varchar(64) DEFAULT NULL COMMENT '计算机水平',
+  `perEduPlace` varchar(128) DEFAULT NULL COMMENT '毕业生生源地',
+  `perEmePhone` varchar(11) DEFAULT NULL COMMENT '紧急人联系电话',
+  `perEmail` varchar(128) DEFAULT NULL COMMENT '电子邮箱',
+  `perPostCode` varchar(32) DEFAULT NULL COMMENT '邮政编码',
+  `perAddr` varchar(255) DEFAULT NULL COMMENT '联系地址',
+  `perMark` varchar(255) DEFAULT NULL COMMENT '备注信息',
+  `perIndex` varchar(255) NOT NULL COMMENT '报名序号',
+  `perJob` varchar(64) NOT NULL COMMENT '应聘岗位性质',
+  `perBack` int(1) NOT NULL DEFAULT '0' COMMENT '报名主动撤回次数（最多三次，三次后不允许撤回）',
+  `perTicketNo` varchar(128) NOT NULL COMMENT '准考证号',
+  `perGroupSet` varchar(20) NOT NULL COMMENT '所属组别',
+  `perStatus` int(1) NOT NULL DEFAULT '0' COMMENT '状态（0=待报，1=待审，2=审核通过，3=审核不通过）',
+  `perCheckTime` timestamp NULL DEFAULT NULL COMMENT '审核时间',
+  `perReason` varchar(255) DEFAULT NULL COMMENT '审核不通过原因',
+  `perPub` int(1) NOT NULL DEFAULT '0' COMMENT '资格审查公示结果（0=未公示，1=已公示）',
+  `perReResult1` varchar(64) NOT NULL DEFAULT '03' COMMENT '资格审查反馈结果(是否参加考试)【01=确定参加，02=放弃参加，03=未反馈】',
+  `perReGiveup1` varchar(255) NOT NULL COMMENT '资格审查反馈原因(是否参加考试反馈原因)',
+  `perReTime1` timestamp NULL DEFAULT NULL COMMENT '资格审查反馈时间(是否参加考试反馈时间)',
+  `perPub2` int(1) NOT NULL DEFAULT '0' COMMENT '考生分组及通知(是否通知【公示】)（0=未通知，1=已通知）',
+  `perRead2` int(1) NOT NULL DEFAULT '1' COMMENT '考生分组及通知（通知阅读情况【1=未读，2=已读】）',
+  `perReResult2` varchar(64) NOT NULL DEFAULT '03' COMMENT '考生分组及通知反馈结果【01=确定参加，02=放弃参加，03=未反馈】',
+  `perReGiveup2` varchar(255) NOT NULL COMMENT '考生分组及通知反馈原因',
+  `perReTime2` timestamp NULL DEFAULT NULL COMMENT '考生分组及通知反馈时间',
+  `perViewScore` varchar(64) DEFAULT NULL COMMENT '面试成绩',
+  `perPenScore` varchar(64) DEFAULT NULL COMMENT '笔试成绩',
+  `perExamResult` int(1) NOT NULL DEFAULT '0' COMMENT '考试结果【0=待处理，1=通过，2=不通过】',
+  `perGradePub` int(1) NOT NULL DEFAULT '0' COMMENT '考试结果录入及公示(成绩是否公布)（0=未公布，1=已公布）',
+  `perPub3` int(1) NOT NULL DEFAULT '0' COMMENT '考试结果录入及公示(考试结果是否公示)（0=未公示，1=已公示）',
+  `perRead3` int(1) NOT NULL DEFAULT '1' COMMENT '考试结果录入及公示（通知阅读情况【1=未读，2=已读】）',
+  `perReResult3` varchar(64) NOT NULL DEFAULT '03' COMMENT '考试结果录入及公示(是否参加体检)【01=确定参加，02=放弃参加，03=未反馈】',
+  `perReGiveup3` varchar(255) NOT NULL COMMENT '考生分组及通知反馈原因(是否参加体检反馈原因)',
+  `perReTime3` timestamp NULL DEFAULT NULL COMMENT '考生分组及通知反馈时间(是否参加体检反馈时间)',
+  `perPub4` int(1) NOT NULL DEFAULT '0' COMMENT '体检安排公示（0=未公示，1=已公示）',
+  `perRead4` int(1) NOT NULL DEFAULT '1' COMMENT '体检安排（通知阅读情况【1=未读，2=已读】）',
+  `perReResult4` varchar(64) NOT NULL DEFAULT '03' COMMENT '体检安排(是否参加体检)【01=确定参加，02=放弃参加，03=未反馈】',
+  `perReGiveup4` varchar(255) NOT NULL COMMENT '体检安排(是否参加体检反馈原因)',
+  `perReTime4` timestamp NULL DEFAULT NULL COMMENT '体检安排(是否参加体检反馈时间)',
+  `perMedCheck1` int(1) NOT NULL DEFAULT '0' COMMENT '体检结果（0=无数据，1=合格，2=不合格）',
+  `perMedCheck2` int(1) NOT NULL DEFAULT '0' COMMENT '复查结果（0=无数据，1=合格，2=不合格）',
+  `perMedCheck3` int(1) DEFAULT NULL COMMENT '体检最终结果（1=通过，2=不通过）',
+  `perMedMark` varchar(255) NOT NULL COMMENT '体检信息备注',
+  `perPub5` int(1) NOT NULL DEFAULT '0' COMMENT '体检结果录入公示（0=未公示，1=已公示）',
+  `perRead5` int(1) NOT NULL DEFAULT '1' COMMENT '体检结果录入（通知阅读情况【1=未读，2=已读】）',
+  `perReResult5` varchar(64) NOT NULL DEFAULT '03' COMMENT '体检结果录入(是否参加政审)【01=确定参加，02=放弃参加，03=未反馈】',
+  `perReGiveup5` varchar(255) NOT NULL COMMENT '体检结果录入(是否参加政审反馈原因)',
+  `perReTime5` timestamp NULL DEFAULT NULL COMMENT '体检结果录入(是否参加政审反馈时间)',
+  `perCarefulMark` varchar(255) NOT NULL COMMENT '政审备注信息',
+  `perCarefulStatus` int(1) NOT NULL DEFAULT '0' COMMENT '政审结果（0=待审，1=通过，2=不通过）',
+  `perCarefulReson` varchar(255) DEFAULT NULL COMMENT '政审不通过原因',
+  `perCarefulTime` timestamp NULL DEFAULT NULL COMMENT '政审审核时间',
+  `perPub6` int(1) NOT NULL DEFAULT '0' COMMENT '政审是否公示（0=未公示，1=已公示）',
+  `perRead6` int(1) NOT NULL DEFAULT '1' COMMENT '政审通知阅读情况【1=未读，2=已读】',
+  PRIMARY KEY (`perID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of flow_job_2
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for flow_job_set_edu_1
 -- ----------------------------
 DROP TABLE IF EXISTS `flow_job_set_edu_1`;
@@ -1989,6 +2073,26 @@ INSERT INTO `flow_job_set_edu_1` VALUES ('19', '11', '2005-10-27 00:00:00', '200
 INSERT INTO `flow_job_set_edu_1` VALUES ('20', '12', '2004-10-27 00:00:00', '2006-10-27 00:00:00', '傻傻', '201_2010100', '', '大大是大时代');
 INSERT INTO `flow_job_set_edu_1` VALUES ('21', '13', '2009-10-27 00:00:00', '2011-10-27 00:00:00', '撒大声地', '813_8130100', '撒大声地', '多撒大所多撒多撒多');
 INSERT INTO `flow_job_set_edu_1` VALUES ('22', '14', '2002-10-27 00:00:00', '2011-10-27 00:00:00', '地方的发生', '715_7150100', '', '');
+
+-- ----------------------------
+-- Table structure for flow_job_set_edu_2
+-- ----------------------------
+DROP TABLE IF EXISTS `flow_job_set_edu_2`;
+CREATE TABLE `flow_job_set_edu_2` (
+  `eduID` int(11) NOT NULL AUTO_INCREMENT COMMENT '教育经历ID',
+  `perID` int(11) NOT NULL COMMENT '人员ID',
+  `eduStart` timestamp NULL DEFAULT NULL COMMENT '起始时间',
+  `eduEnd` timestamp NULL DEFAULT NULL COMMENT '终止时间',
+  `eduSchool` varchar(255) NOT NULL COMMENT '在何学校',
+  `eduMajor` varchar(128) DEFAULT NULL,
+  `eduPost` varchar(255) DEFAULT NULL COMMENT '任职职务',
+  `eduBurseHonorary` text COMMENT '奖学金及荣誉称号',
+  PRIMARY KEY (`eduID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of flow_job_set_edu_2
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for flow_job_set_fam_1
@@ -2027,6 +2131,24 @@ INSERT INTO `flow_job_set_fam_1` VALUES ('19', '13', '01', '防守打法', '防�
 INSERT INTO `flow_job_set_fam_1` VALUES ('20', '14', '01', '大幅度', '发的', '打发打发');
 
 -- ----------------------------
+-- Table structure for flow_job_set_fam_2
+-- ----------------------------
+DROP TABLE IF EXISTS `flow_job_set_fam_2`;
+CREATE TABLE `flow_job_set_fam_2` (
+  `famID` int(11) NOT NULL AUTO_INCREMENT COMMENT '家庭成员ID',
+  `perID` int(11) NOT NULL COMMENT '人员ID',
+  `famRelation` varchar(64) NOT NULL COMMENT '成员关系',
+  `famName` varchar(64) NOT NULL COMMENT '成员姓名',
+  `famCom` varchar(64) DEFAULT NULL COMMENT '所在工作单位',
+  `famPost` varchar(64) DEFAULT NULL COMMENT '任职岗位',
+  PRIMARY KEY (`famID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of flow_job_set_fam_2
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for flow_job_set_work_1
 -- ----------------------------
 DROP TABLE IF EXISTS `flow_job_set_work_1`;
@@ -2058,6 +2180,25 @@ INSERT INTO `flow_job_set_work_1` VALUES ('14', '11', '2007-10-27 00:00:00', '20
 INSERT INTO `flow_job_set_work_1` VALUES ('15', '12', '2007-10-27 00:00:00', '2017-10-27 00:00:00', '大时代', '第三代', '撒大声地所');
 INSERT INTO `flow_job_set_work_1` VALUES ('16', '13', '2007-10-27 00:00:00', '2015-10-27 00:00:00', '复古风格', '傻傻', '撒大声地防守打法');
 INSERT INTO `flow_job_set_work_1` VALUES ('17', '14', '2013-10-27 00:00:00', '2017-10-27 00:00:00', '水电费', '防守打法', '发送地方递四方速递发');
+
+-- ----------------------------
+-- Table structure for flow_job_set_work_2
+-- ----------------------------
+DROP TABLE IF EXISTS `flow_job_set_work_2`;
+CREATE TABLE `flow_job_set_work_2` (
+  `wkID` int(11) NOT NULL AUTO_INCREMENT COMMENT '工作经历ID',
+  `perID` int(11) NOT NULL COMMENT '人员ID',
+  `wkStart` timestamp NULL DEFAULT NULL COMMENT '起始时间',
+  `wkEnd` timestamp NULL DEFAULT NULL COMMENT '截止时间',
+  `wkPost` varchar(255) NOT NULL COMMENT '所在岗位',
+  `wkCom` varchar(255) NOT NULL COMMENT '所在单位',
+  `wkInfo` text NOT NULL COMMENT '工作简述',
+  PRIMARY KEY (`wkID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of flow_job_set_work_2
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for gstexm
@@ -2204,8 +2345,8 @@ CREATE TABLE `recruit` (
 -- ----------------------------
 -- Records of recruit
 -- ----------------------------
-INSERT INTO `recruit` VALUES ('1', '2017', '01', '1', '2017-10-18 00:00:00', '2017-10-26 06:00:00', '浙江大学', '浙江大学附属医院', '0');
-INSERT INTO `recruit` VALUES ('2', '2017', '02', '0', '2017-10-18 00:00:00', '2017-10-27 00:00:00', '5555', '5555', '0');
+INSERT INTO `recruit` VALUES ('1', '2017', '01', '2', '2017-10-18 00:00:00', '2017-10-26 06:00:00', '浙江大学', '浙江大学附属医院', '1');
+INSERT INTO `recruit` VALUES ('2', '2017', '02', '1', '2017-10-18 00:00:00', '2017-11-10 00:00:00', '浙江大学', '武警医院', '0');
 
 -- ----------------------------
 -- Table structure for setgroup
@@ -2276,7 +2417,7 @@ CREATE TABLE `user` (
 -- Records of user
 -- ----------------------------
 INSERT INTO `user` VALUES ('1', 'admin', 'guanliyuan', 'fcea920f7412b5da7be0cf42b8c93759', '3', '20', '2017-10-16 09:41:05', '2017-10-27 14:58:54', '1022', '13285716129');
-INSERT INTO `user` VALUES ('2', '362330199208122410', '李建林', 'fcea920f7412b5da7be0cf42b8c93759', '1', '17', '2017-10-24 17:39:56', '2017-11-05 10:53:44', null, '13285716129');
+INSERT INTO `user` VALUES ('2', '362330199208122410', '李建林', 'fcea920f7412b5da7be0cf42b8c93759', '1', '18', '2017-10-24 17:39:56', '2017-11-09 15:40:56', null, '13285716129');
 INSERT INTO `user` VALUES ('3', '320621199112163729', '张清正', 'fcea920f7412b5da7be0cf42b8c93759', '1', '1', '2017-10-27 20:03:50', '2017-10-27 20:12:41', null, '13816591074');
 INSERT INTO `user` VALUES ('4', '330522198712231025', '朱蔚云', 'fcea920f7412b5da7be0cf42b8c93759', '1', '3', '2017-10-27 20:05:09', '2017-11-07 10:50:44', null, '15250998698');
 INSERT INTO `user` VALUES ('5', '511102198012290013', '肖大鹏', 'fcea920f7412b5da7be0cf42b8c93759', '1', '2', '2017-10-27 20:06:50', '2017-11-03 22:30:26', null, '18516146044');
