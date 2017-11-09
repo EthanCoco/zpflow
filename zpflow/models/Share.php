@@ -588,6 +588,7 @@ class Share extends Model
 					  `perCarefulMark`  varchar(255) NOT NULL COMMENT '政审备注信息',
 					  `perCarefulStatus`  int(1) NOT NULL DEFAULT '0' COMMENT '政审结果（0=待审，1=通过，2=不通过）',
 					  `perCarefulReson` varchar(255) DEFAULT NULL COMMENT '政审不通过原因',
+					  `perCarefulTime` timestamp NULL DEFAULT NULL COMMENT '政审审核时间',
 					  `perPub6`  int(1) NOT NULL DEFAULT '0' COMMENT '政审是否公示（0=未公示，1=已公示）',
 					  `perRead6` int(1) NOT NULL DEFAULT '1' COMMENT '政审通知阅读情况【1=未读，2=已读】',
 					  
