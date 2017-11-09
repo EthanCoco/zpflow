@@ -413,4 +413,26 @@ class CarefulController extends BaseController{
 		return $this->jsonReturn($result);
 	}
 	
+	public function actionPubInfo(){
+		$db = Yii::$app->db->createCommand();
+		$request = Yii::$app->request;
+		$recID = $request->post('recID');
+		$tableName = Share::MainTableName($recID);
+		
+		$flag = $db	->	update($tableName,[
+							'perPub6'=>1,
+						], [
+							'perMedCheck3'=>1,
+							'perPub5'=>1,
+						])->execute();
+		
+		if($flag !== false){
+			$result = ['result'=>1,'msg'=>'公示成功'];
+		}else{
+			$result = ['result'=>0,'msg'=>'公示失败'];
+		}
+		
+		return $this->jsonReturn($result);
+	}
+	
 }
