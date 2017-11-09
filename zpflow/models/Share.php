@@ -404,6 +404,21 @@ class Share extends Model
 					],
 				];
 			break;
+			case 'flow6_mb' :
+				 $result = [
+					'tempExcel'	=>	'../web/mbfile/flow6_downloadmb.xls',
+					'keys' =>[
+						[
+							'key'=>[
+									'id','perIndex', 'perName','perGender','perIDCard','perJob','perPhone'
+								],
+							'num'=>2,
+							'index'=>0,
+							'sheetName'=>'考生政审结果导入模板信息',
+						]
+					],
+				];
+			break;
 			default:break;
 		}
 
