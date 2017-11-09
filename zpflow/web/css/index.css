@@ -186,12 +186,12 @@ img {
     color: #0e2d5f;
 }
 
-.headinfo span {
+/*.headinfo span {
     float: left;
     padding-top: 6px;
     display: block;
     margin-right: 10px;
-}
+}*/
 
 .layui-elem-field legend {
     margin-left: 38px;
@@ -298,4 +298,10 @@ img {
 .layui-body-flow4 {
     top: 83px;
     bottom: 0;
+}
+
+.head-select .layui-form-select .layui-input {
+    padding-right: 30px;
+    cursor: pointer;
+    height: 30px;
 }
