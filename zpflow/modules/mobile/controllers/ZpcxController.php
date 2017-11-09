@@ -53,7 +53,7 @@ class ZpcxController extends Controller
 		$perID = $mainInfo['perID'];
 		$codes = [
 					['perGender','XB'],['perJob','XZ'],['perStatus','SCJG'],['perGroupSet','ZBMC'],['perExamResult','KSJG'],
-					['perMedCheck1','SFHG'],['perMedCheck2','SFHG'],['perMedCheck3','SFTG']
+					['perMedCheck1','SFHG'],['perMedCheck2','SFHG'],['perMedCheck3','SFTG'],['perCarefulStatus','KSJG1']
 				];
 		$mainCode = Share::codeValue($codes,$mainInfo);
 		$mainCode['perBirth'] = !empty($mainInfo['perBirth']) ? substr($mainInfo['perBirth'], 0,10) : '';
@@ -163,9 +163,24 @@ class ZpcxController extends Controller
 				$jsonData['step6'] = $step6;
 			}
 			
-			
+			/*政审*/
+			if($mainInfo['perMedCheck3'] == 1 && $mainInfo['perPub5'] == 1 && $mainInfo['perPub6'] == 1){
+				$jsonData['title'] = '政审结果已经公布，请注意查看！';
+				
+				if($mainInfo['perRead6'] == 1){
+					Yii::$app->db->createCommand()->update(Share::MainTableName($recID),[
+								'perRead6'=>2,
+							],['perID'=>$mainInfo['perID']])->execute();
+				}
+				
+				$step7 = [
+					'perCarefulStatus'=>$mainJson['perCarefulStatus'],
+					'perCarefulReson'=>$mainInfo['perCarefulReson'],
+					'perCarefulTime'=>$mainInfo['perCarefulTime']
+				];
+				$jsonData['step7'] = $step7;
+			}
 		}
-		
 		return $jsonData;
 	}
 	

@@ -353,28 +353,31 @@
 					<?php }	?>
 				</fieldset>
 			<?php } ?>
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-				
-				
+			<!--政审-->
+			<?php if($dealData['baseData']['perMedCheck3'] == 1 && $dealData['baseData']['perPub5'] == 1 && $dealData['baseData']['perPub6'] == 1){  ?>
+				<fieldset class="layui-elem-field site-demo-button" style="margin-top: 10px;">
+				  	<legend style="font-size: 14px;color: blue;padding: 5px;">step7&nbsp;&nbsp;&nbsp;&nbsp;政审结果信息</legend>
+				  	<div class="layui-row">
+						<div style="margin-left: -2px;color: #666;">
+						    <div class="layui-textarea">
+						    	
+						    	<?php if($dealData['baseData']['perCarefulStatus'] == 1){ ?>
+						    		<p><b>恭喜您，您的政审审核通过！</b></p>
+						    		<p><b>您的政审信息如下：</b></p>
+							    	<p><b>审核结果：</b><?= $dealData['step7']['perCarefulStatus']; ?></p>
+						    		<p><b>审核时间：</b><?= $dealData['step7']['perCarefulTime']; ?></p>
+						    	<?php }else{ ?>
+						    		<p><b>抱歉，您的政审审核没有通过！敬请期待下次招聘！谢谢！</b></p>
+						    		<p><b>您的政审信息如下：</b></p>
+							    	<p><b>审核结果：</b><?= $dealData['step7']['perCarefulStatus']; ?></p>
+							    	<p><b>审核不通过原因：</b><?= $dealData['step7']['perCarefulReson']; ?></p>
+						    		<p><b>审核时间：</b><?= $dealData['step7']['perCarefulTime']; ?></p>
+						    	<?php } ?>
+						    </div>
+					    </div>
+					</div>
+				</fieldset>
+			<?php } ?>
 		<?php } ?>
 	<?php } ?>
 </div>
