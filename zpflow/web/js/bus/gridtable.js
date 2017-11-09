@@ -37,7 +37,7 @@ function init_stepIndex_one_grid(stepIndex_one_urls){
             			//return "<button onclick=\"javascript: return;\" class=\"layui-btn layui-btn-primary layui-btn-small  layui-btn-radius  layui-btn-disabled \">发布</button>";
             			return "";
             		}else{
-            			return "<button onclick=\"pubRecruit("+row.recID+",'"+row.recYear+"','"+row.recBatch+"')\" class=\"layui-btn layui-btn-primary layui-btn-small  layui-btn-radius \">发布</button>";
+            			return "<button onclick=\"pubRecruit("+row.recID+",'"+row.recYear+"','"+row.recBatch+"','"+row.recEnd+"')\" class=\"layui-btn layui-btn-primary layui-btn-small  layui-btn-radius \">发布</button>";
             		}
             	}
             },
@@ -132,9 +132,15 @@ function init_stepIndex_one_grid(stepIndex_one_urls){
     });
 }
 
-function pubRecruit(recID,recYear,recBatch){
+function pubRecruit(recID,recYear,recBatch,recEnd){
+	var nowData = formatDateTime();
 	layui.use('layer', function(){
 	 	var layer = layui.layer;
+	 	
+	 	if(nowData > recEnd){
+	 		return layer.alert('该招聘批次的报名结束时间已经过去了，请重新编辑');
+	 	}
+	 	
 	 	layer.confirm('您确定要发布招聘年度【'+recYear+'】，招聘批次【'+recBatch+'】么?<br/><span style="color:red;">注意：一旦发布，招聘截止时间没有结束将不可修改操作！</span>', function(index){
 		  	$.post(__rczp_zpsz_stepIndex_one_urls__.__recpub_url,{'recID':recID},function(json){
 				if(json.result){
