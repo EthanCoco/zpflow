@@ -178,12 +178,12 @@ function init_stepIndex_six_grid(){
 				    		buttons:[{
 					   			iconCls:'icon-ok',text:'审核通过',
 							   	handler:function(){
-							   		
+							   		stepIndex_six_check(1);
 								}
 					   		},'-',{
 					   			iconCls:'icon-cancel',text:'审核不通过',
 							   	handler:function(){
-							   		
+							   		stepIndex_six_check(2);
 								}
 					   		},'-',{
 					   			iconCls:'icon-import',text:'Excel导入',
@@ -213,12 +213,12 @@ function init_stepIndex_six_grid(){
 				    		buttons:[{
 					   			iconCls:'icon-ok',text:'审核通过',
 							   	handler:function(){
-							   		
+							   		stepIndex_six_check(1);
 								}
 					   		},'-',{
 					   			iconCls:'icon-cancel',text:'审核不通过',
 							   	handler:function(){
-							   		
+							   		stepIndex_six_check(2);
 								}
 					   		},'-',{
 					   			iconCls:'icon-import',text:'Excel导入',
@@ -273,6 +273,56 @@ function init_stepIndex_six_grid(){
 	    	}
 	    }
     });
+}
+
+function stepIndex_six_check(type){
+	var msg = ['0','审核通过','审核不通过'];
+	layui.use('layer',function(){
+		var layer = layui.layer;
+		var rows = $("#stepIndex_six").datagrid('getSelections');
+		var len = rows.length;
+		if(len == 0){
+			layer.alert("请勾选要"+msg[type]+"的人员！");
+			return;
+		}
+		var perIDs = [];
+		for(var i = 0; i < len; i++){
+			perIDs.push(rows[i]['perID']);
+		}
+		
+		if(type == 1){
+			layer.confirm('确定要审核通过勾选的人员么？',function(index){
+				$.post("<?= yii\helpers\Url::to(['careful/check-careful']); ?>",{'perIDs':perIDs,'recID':__flow6_recID__,'perCarefulStatus':type,'perCarefulReson':''},function(json){
+					if(json.result){
+						layer.msg(json.msg);
+						init_stepIndex_six_grid();
+						layer.close(index);
+					}else{
+						layer.alert(json.msg);
+					}
+				},'json');
+			});
+		}else{
+			layer.confirm('您确定要审核不通过勾选的人员么？', function(index){
+				layer.prompt({
+				  	formType: 2,
+				  	value: '',
+				  	title: '审核不通过原因',
+				  	area: ['300px', '150px']
+				}, function(value, index, elem){
+				  	$.post("<?= yii\helpers\Url::to(['careful/check-careful']); ?>",{'perIDs':perIDs,'recID':__flow6_recID__,'perCarefulStatus':type,'perCarefulReson':value},function(json){
+						if(json.result){
+							layer.msg(json.msg);
+							init_stepIndex_six_grid();
+							layer.closeAll();
+						}else{
+							layer.alert(json.msg);
+						}
+					},'json');
+				});
+			}); 
+		}
+	});
 }
 
 function stepIndex_six_import(){
