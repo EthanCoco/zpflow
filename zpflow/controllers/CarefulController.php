@@ -298,10 +298,10 @@ class CarefulController extends BaseController{
         $highestRow = $sheet->getHighestRow(); 
         $highestColumm = $sheet->getHighestColumn();
         $highestColumm= \PHPExcel_Cell::columnIndexFromString($highestColumm);
-        if($highestColumm != 9){
+        if($highestColumm != 10){
             return $this->jsonReturn(['result'=>0,'msg'=>'模版不正确']);
         }
-        $keys = ['perIndex', 'perName','perGender','perIDCard','perJob','perPhone','perCarefulStatus','perCarefulReson'];
+        $keys = ['perIndex', 'perName','perGender','perIDCard','perJob','perPhone','perCarefulStatus','perCarefulReson','perCarefulMark'];
         $datas = [];
         $temp = 0;
         for ($row = 2; $row <= $highestRow; $row++){
@@ -366,7 +366,8 @@ class CarefulController extends BaseController{
 			foreach($datas as $per){
 				$flag = $db	->	update($tableName,[
 									'perCarefulStatus'=>$check[trim($per['perCarefulStatus'])],
-									'perCarefulReson'=>$per['perCarefulReson']
+									'perCarefulReson'=>$per['perCarefulReson'],
+									'perCarefulMark'=>$per['perCarefulMark']
 								], [
 									'perMedCheck3'=>1,
 									'perPub5'=>1,
@@ -387,5 +388,29 @@ class CarefulController extends BaseController{
 		}
 	}
 	
+	public function actionCheckCareful(){
+		$db = Yii::$app->db->createCommand();
+		$request = Yii::$app->request;
+		$recID = $request->post('recID');
+		$perCarefulStatus = $request->post('perCarefulStatus');
+		$perCarefulReson = $request->post('perCarefulReson');
+		$perIDs = $request->post('perIDs');
+		$tableName = Share::MainTableName($recID);
+		
+		$flag = $db	->	update($tableName,[
+							'perCarefulStatus'=>$perCarefulStatus,
+							'perCarefulReson'=>$perCarefulReson,
+						], [
+							'perID'=>$perIDs
+						])->execute();
+		
+		if($flag !== false){
+			$result = ['result'=>1,'msg'=>'审核成功'];
+		}else{
+			$result = ['result'=>0,'msg'=>'审核失败'];
+		}
+		
+		return $this->jsonReturn($result);
+	}
 	
 }
