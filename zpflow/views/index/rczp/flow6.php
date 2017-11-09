@@ -3,7 +3,7 @@
 		<div class="layui-inline" style="margin-bottom: 0;">
 	      	<label class="layui-form-label" style="width: auto;font-size: 12px;padding: 5px 10px 5px 2px;"><b>招聘批次</b></label>
 	      	<div class="layui-input-inline" style="margin-right: 0;width: auto;height: 30px;">
-		        <select id="recID_id" name="recID_name" lay-verify="required" class="input1" onchange="selRecruitID(this)">
+		        <select id="recID_id" name="recID_name" lay-filter="recID_REC" class="input1" onchange="selRecruitID(this)">
 		          	<?php foreach($pcInfo as $pc){ ?>
 			        	<option defaultplace="<?php echo $pc['recViewPlace']; ?>" recend="<?php echo $pc['recend']; ?>" code="<?php echo $pc['code']; ?>" value="<?php echo $pc['id']; ?>"><?php echo $pc['value']; ?></option>
 			        <?php } ?>
@@ -93,6 +93,11 @@ $(function(){
 	  	});
 	  	
 	  	form.render('select');
+	  	form.on('select(recID_REC)', function(data){
+	  		__flow6_recID__ = data.value;
+			__flow6_show_flag__ = $("#recID_id option:selected").attr("code");
+			init_stepIndex_six_grid();
+		});
 	});
 });
 
