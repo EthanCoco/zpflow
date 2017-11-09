@@ -1,6 +1,6 @@
-<div class="layui-side layui-bg-black">
-    <div class="layui-side-scroll">
-      	<div class="main_left">
+<div class="layui-side1 layui-bg-black">
+    <div class="layui-side-scroll1">
+      	<div class="main_left" style="top: 94px;">
 			<a index="1" onclick="changeMenu(1)" href="javascript:;" class="current">招聘<br>设置</a>
 			<i class="layui-icon">&#xe61a;</i> 
 			<a index="2" onclick="changeMenu(2)" href="javascript:;">招聘<br>公告</a>
@@ -16,7 +16,7 @@
     </div>
 </div>
   
-<div class="layui-body">
+<div class="layui-body1">
 	<div id="stepIndex">
 		
 	</div>
