@@ -305,3 +305,36 @@ img {
     cursor: pointer;
     height: 30px;
 }
+
+/*统计查询*/
+.layui-body-statis {
+    position: absolute;
+    left: 200px;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 998;
+    width: auto;
+    overflow: hidden;
+    overflow-y: auto;
+    overflow-y: auto;
+    box-sizing: border-box;
+    min-width: 1000px;
+}
+
+.layui-body-statis {
+    top: 94px;
+    bottom: 0;
+}
+
+.layui-side-statis {
+    top: 94px;
+    width: 200px;
+    overflow-x: hidden;
+}
+
+.layui-side-scroll-statis {
+    width: 200px;
+    height: 100%;
+    overflow-x: hidden;
+}
