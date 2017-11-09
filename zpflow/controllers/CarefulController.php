@@ -400,6 +400,7 @@ class CarefulController extends BaseController{
 		$flag = $db	->	update($tableName,[
 							'perCarefulStatus'=>$perCarefulStatus,
 							'perCarefulReson'=>$perCarefulReson,
+							'perCarefulTime'=>date('Y-m-d H:i:s',time())
 						], [
 							'perID'=>$perIDs
 						])->execute();
