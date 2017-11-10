@@ -883,5 +883,22 @@ class MedrangeController extends BaseController{
 		}
 		return $this->jsonReturn($result);
 	}
+	public function actionRangePubFs2(){
+		$recID = Yii::$app->request->post('recID');
+		$tableName = Share::MainTableName($recID);
+		
+		$flag = Yii::$app->db->createCommand()->update(Share::MainTableName($recID), ['perPub5' => 1], [
+													'perExamResult'=>1,
+													'perPub3'=>1,
+													'perPub4'=>1
+												])->execute();
+		
+		if($flag){
+			$result = ['result'=>1,'公布成功'];
+		}else{
+			$result = ['result'=>0,'公布失败'];
+		}
+		return $this->jsonReturn($result);		
+	}
 	
 }
