@@ -62,6 +62,7 @@ var __flow4_recID__ = "";
 var __flow4_show_flag__ = "";
 var __flow4_recend__ = "";
 var __flow4_defaultplace__ = "";
+var __flow4_pos__ = 1;
 $(function(){
 	layui.use('form', function(){
 		var form = layui.form;
@@ -71,7 +72,8 @@ $(function(){
 			__flow4_show_flag__ = $("#recID_id option:selected").attr("code");
 			__flow4_recend__ = $("#recID_id option:selected").attr("recend");
 			__flow4_defaultplace__ = $("#recID_id option:selected").attr("defaultplace");
-			loadFlow4Info(1);
+//			loadFlow4Info(1);
+			changeSetWin(__flow4_pos__);
 		});
 	});
 	__flow4_recID__ = $("#recID_id").val();
@@ -82,7 +84,8 @@ $(function(){
 });
 
 /*切换步骤事件*/
-function changeSetWin(pos){    
+function changeSetWin(pos){  
+	__flow4_pos__ = pos;  
 	$("#flow4_content div[name='flow4']").hide();
 	$("#flow4_content #flow4_content"+pos).show();
 	var obj = $("#flow4_header a[index='"+pos+"']");

@@ -39,6 +39,7 @@
 <script>
 var __flow5_recID__ = "";
 var __flow5_show_flag__ = "";
+var __flow5_pos__ = 1;
 $(function(){
 	layui.use('form', function(){
 		var form = layui.form;
@@ -46,7 +47,8 @@ $(function(){
 		form.on('select(recID_REC)', function(data){
 			__flow5_recID__ = data.value;
 			__flow5_show_flag__ = $("#recID_id option:selected").attr("code");
-			loadFlow5Info(1);
+//			loadFlow5Info(1);
+			changeSetWin_five(__flow5_pos__);
 		});
 	});
 	__flow5_recID__ = $("#recID_id").val();
@@ -56,6 +58,7 @@ $(function(){
 
 /*切换步骤事件*/
 function changeSetWin_five(pos){    
+	__flow5_pos__ = pos;
 	$("#flow5_content div[name='flow5']").hide();
 	$("#flow5_content #flow5_content"+pos).show();
 	var obj = $("#flow5_header a[index='"+pos+"']");

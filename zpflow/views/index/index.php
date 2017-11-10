@@ -37,8 +37,6 @@ function changeMenu(index){
 	var url ="<?= yii\helpers\Url::to(['index/rczp']); ?>"+"&index="+index;
 	if(url){
 		$("#stepIndex").load(url);
-	}else{
-		$("#stepIndex").load("<?php echo Yii::$app->urlManager->createUrl('site/nodevelop') ?>");
 	}
 }
 </script>
