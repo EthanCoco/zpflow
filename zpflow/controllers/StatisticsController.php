@@ -23,24 +23,40 @@ class StatisticsController extends BaseController{
 		$recID = $request->get('recID');
 		$tableName = Share::MainTableName($recID);
 		
-		$where_array = [
+		$where_array_gender1 = [
 			['and',['perGender'=>1],['not',['perStatus'=>0]]],
+			['and',['perReResult2'=>'01','perGender'=>1]],
+			['and',['perExamResult'=>1,'perPub3'=>1,'perPub4'=>1,'perGender'=>1]],
+			['and',['perMedCheck3'=>1,'perPub5'=>1,'perGender'=>1]],
+		];
+		$where_array_gender2 = [
 			['and',['perGender'=>2],['not',['perStatus'=>0]]],
+			['and',['perReResult2'=>'01','perGender'=>2]],
+			['and',['perExamResult'=>1,'perPub3'=>1,'perPub4'=>1,'perGender'=>2]],
+			['and',['perMedCheck3'=>1,'perPub5'=>1,'perGender'=>2]]
 		];
 		
-		var_dump(count($where_array));exit;
+		$where_gender1_len = count($where_array_gender1);
+		$where_gender2_len = count($where_array_gender2);
 		
-		$node1 = (new yii\db\Query())->from($tableName)->where(['and',['perGender'=>1],['not',['perStatus'=>0]]])->count();
+		$data_gender1 = [];
+		for($i = 0 ; $i < $where_gender1_len; $i++){
+			$num = (new yii\db\Query())->from($tableName)->where($where_array_gender1[$i])->count();
+			array_push($data_gender1,intval($num));
+		}
+		$jsonData1 [] = ['name'=>'男','data'=>$data_gender1];
 		
+		$data_gender2 = [];
+		for($i = 0 ; $i < $where_gender2_len; $i++){
+			$num = (new yii\db\Query())->from($tableName)->where($where_array_gender2[$i])->count();
+			array_push($data_gender2,intval($num));
+		}
 		
+		$jsonData1 [] = ['name'=>'女','data'=>$data_gender2];
 		
+		$json_data = ['c1'=> $jsonData1];
 		
-		var_dump($node1);exit;
-		
-		
-		
-		
-//		return $this->jsonReturn(['recID'=>$recID]);
+		return $this->jsonReturn($json_data);
 	}
 	
 	
