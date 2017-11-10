@@ -144,6 +144,19 @@ class Recruit extends \yii\db\ActiveRecord
 		return $jsonData;
 	}
 	
+	public static function getHistoryRecInfo(){
+		$recInfo = self::find()->where(['recDefault'=>2,'recBack'=>1])->orderby('recYear desc,recBatch asc')->asArray()->all();
+		$jsonData = [];
+		if(!empty($recInfo)){
+			$codes = [['recBatch','PC']];
+			foreach($recInfo as $info){
+				$codeName = Share::codeValue($codes,$info);
+				$jsonData[] = array_merge($info,$codeName);
+			}
+		}
+		return $jsonData;
+	}
+	
 	public static function insertData($data = []){
 		$flag = Yii::$app->db->createCommand()->insert(self::tableName(),$data)->execute();
 		if($flag){
