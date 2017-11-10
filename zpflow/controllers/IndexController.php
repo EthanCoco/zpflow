@@ -19,7 +19,8 @@ class IndexController extends BaseController{
 	}
 	
 	public function actionStatistics(){
-		return $this->render('statistics');
+		$info = Recruit::getHistoryRecInfo();
+		return $this->render('statistics',['recInfo'=>$info]);
 	}
 	
 	public function actionSystem(){
