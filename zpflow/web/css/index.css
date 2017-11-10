@@ -312,8 +312,8 @@ img {
 	height: 99%;text-align: center;
 }
 .hg-div > .hg-left{
-	width: 49%;height: 48%; margin: 0.8% 0.4% 0.4% 0.4%; border:1px #ACE9F9 solid; float: left;
+	width: 49%;height: 350px; margin: 0.8% 0.4% 0.4% 0.4%; border:1px #ACE9F9 solid; float: left;
 }
 .hg-div > .hg-right{
-	width: 49%;height: 48%; margin: 0.8% 0.4% 0.4% 0.4%;border:1px #ACE9F9 solid;float: right;
+	width: 49%;height: 350px; margin: 0.8% 0.4% 0.4% 0.4%;border:1px #ACE9F9 solid;float: right;
 }
