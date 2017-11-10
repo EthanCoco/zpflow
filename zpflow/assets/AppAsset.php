@@ -34,6 +34,7 @@ class AppAsset extends AssetBundle
     	
 		'js/bus/gridtable.js',
 		'js/common/public.js',
+		'js/plugin/Highcharts-6.0.2/code/highcharts.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',
