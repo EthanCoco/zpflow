@@ -52,11 +52,11 @@ function statistics_get_infos(th,recID){
 		}else{
 			var index = $(th).attr('index');
 			switch(index){
-				case 1 :
-				
+				case "1" :
+					$("#stepStatistics").load("<?= yii\helpers\Url::to(['statistics/recbatch']); ?>"+"&recID="+recID);
 				break;
 				default:
-				
+					
 				break;
 			}
 		}
