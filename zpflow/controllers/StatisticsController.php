@@ -5,6 +5,7 @@ use yii\helpers\Html;
 use Yii;
 
 use app\models\Share;
+use app\models\Examiner;
 
 class StatisticsController extends BaseController{
 	public function actionNodev(){
@@ -29,8 +30,20 @@ class StatisticsController extends BaseController{
 		$data_c2 = $this->getLoadContainerInfo2($tableName);
 		$json_data['c2'] = $data_c2;
 		
+		$data_c3 = $this->getLoadContainerInfo3($recID);
+		$json_data['c3'] = $data_c3;
+		
 		
 		return $this->jsonReturn($json_data);
+	}
+	
+	private function getLoadContainerInfo3($recID){
+		$num1 = Examiner::find()->where(['recID'=>$recID,'exmType'=>1])->count();
+		$num2 = Examiner::find()->where(['recID'=>$recID,'exmType'=>2])->count();
+		$num3 = Examiner::find()->where(['recID'=>$recID,'exmType'=>3])->count();
+				
+		$jsonData = [['主考官',intval($num1)],['固定考官',intval($num2)],['监督员',intval($num3)]];
+		return $jsonData;
 	}
 	
 	private function getLoadContainerInfo2($tableName){
