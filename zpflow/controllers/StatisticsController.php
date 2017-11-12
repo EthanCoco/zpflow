@@ -112,4 +112,75 @@ class StatisticsController extends BaseController{
 		$jsonData [] = ['name'=>'女','data'=>$data_gender2];
 		return $jsonData;
 	}
+
+	public function actionGetConDetail(){
+		$request = Yii::$app->request;
+		$recID = $request->get('recID');
+		$type = $request->get('type');
+		$nodeType = $request->get('nodeType');
+		$typeOneWhere = $request->get('typeOneWhere','');
+		$typeTwoWhere = $request->get('typeTwoWhere','');
+		
+		return $this->renderPartial('index1/perdetail',['recID'=>$recID,'type'=>$type,'nodeType'=>$nodeType,'typeOneWhere'=>$typeOneWhere,'typeTwoWhere'=>$typeTwoWhere]);
+	}
+	
+	public function actionGetConDetailList(){
+		$request = Yii::$app->request;
+		$recID = $request->get('recID');
+		$type = intval($request->get('type'));
+		$nodeType = intval($request->get('nodeType'));
+		$typeOneWhere = $request->get('typeOneWhere','');
+		$typeTwoWhere = $request->get('typeTwoWhere','');
+		$page = $request->get('page');
+		$rows = $request->get('rows');
+		$offset =($page-1)*$rows;
+		
+		$sort = $request->get("sort"); 
+        $order = $request->get("order","asc");
+        
+		$tableName = Share::MainTableName($recID);
+		
+        if($sort){
+	        $orderInfo = $sort.' '.$order;
+        }else{
+        	$orderInfo = 'perIndex asc';
+        }
+		
+		
+		
+		if($type == 1){
+			$where_array_info = [
+				['and',['perGender'=>$typeOneWhere],['not',['perStatus'=>0]]],
+				['and',['perReResult2'=>'01','perGender'=>$typeOneWhere]],
+				['and',['perExamResult'=>1,'perPub3'=>1,'perPub4'=>1,'perGender'=>$typeOneWhere]],
+				['and',['perMedCheck3'=>1,'perPub5'=>1,'perGender'=>$typeOneWhere]],
+			];
+		}else{
+			
+		}
+		
+		$infos = (new yii\db\Query())	
+						->from($tableName)
+						->where($where_array_info[$nodeType])
+						->orderby($orderInfo)
+						->offset($offset)
+						->limit($rows)
+						->all();
+		$jsonData = [];
+		
+		if(!empty($infos)){
+			$codes = [['perGender','XB'],['perJob','XZ'],['perReResult3','FKJG'],['perReResult4','FKJG'],['perRead4','YDZK']];
+			foreach($infos as $info){
+				$mainCode = Share::codeValue($codes,$info);
+				$jsonData[] = array_merge($info,$mainCode);
+			}
+		}
+		
+		$count = (new yii\db\Query())	->from($tableName)->where($where_array_info[$nodeType])->count();
+		
+		$result['rows'] = $jsonData;
+		$result['total'] = $count;
+		
+		return $this->jsonReturn($result);	
+	}
 }
