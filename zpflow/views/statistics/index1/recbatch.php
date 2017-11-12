@@ -28,7 +28,7 @@ function load_container4(data1,data2,data3){
             zoomType: 'xy'
         },
         title: {
-            text: '图形一览'
+            text: '<span style="font-size:14px;">图形一览</span>'
         },
         xAxis: {
             categories: [
@@ -108,7 +108,7 @@ function load_container3(data){
         },
         title: {
             floating:true,
-            text: '考官人数占比'
+            text: '<span style="font-size:14px;">考官人数占比</span>'
         },
         tooltip: {
             pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -251,9 +251,12 @@ function load_container1(data){
             series: {
                 cursor: 'pointer',
                 events: {
-                    click: function (event) {
-						alert(this.type);
-                    }
+//                  click: function (event) {
+//                  	var type_one_where = this.name == '男' ? 1 : 2;
+//                  	var node_type = event.point.x;
+//                  	var category_name = event.point.category;
+//						load_container_detail(1,node_type,type_one_where,'',category_name);
+//                  }
                 }
             }
         },
@@ -263,4 +266,17 @@ function load_container1(data){
         series: data
     });
 }
+
+function load_container_detail(type,nodeType,typeOneWhere,typeTwoWhere,category_name){
+	layui.use('layer',function(){
+		var layer = layui.layer;
+		layer.open({
+    		type:2,
+    		title:'考生信息【'+category_name+'】',
+    		area:[$(window).width()*4/5+'px',$(window).height()*4/5+'px'],
+    		content:"<?= yii\helpers\Url::to(['statistics/get-con-detail']); ?>"+"&recID="+__index1_recbatch_recID__+"&type="+type+"&nodeType="+nodeType+"&typeOneWhere="+typeOneWhere+"&typeTwoWhere="+typeTwoWhere,
+	    });
+	});
+}
+
 </script>
