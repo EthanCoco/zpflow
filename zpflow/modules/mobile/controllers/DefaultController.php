@@ -146,4 +146,9 @@ class DefaultController extends Controller
 			return ['result'=>0,'msg'=>Share::comErrors($errors)];
 		}
 	}
+	
+	public function actionLogout(){
+		Yii::$app->user->logout();
+		return $this->render('login',['index'=>2]);
+	}
 }
