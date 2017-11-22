@@ -49,7 +49,7 @@
 		<div class="layui-col-xs1">
 			<div style="float: right;">&nbsp;</div>
 		</div>
-		<div class="layui-col-xs7">招聘历史查询</div>
+		<div class="layui-col-xs7">我的信息</div>
 		<div class="layui-col-xs4">
 			<div style="float: right;margin-right: 5px;"><i class="layui-icon" style="font-size: 20px;">&#xe602;</i></div>
 		</div>
@@ -61,7 +61,7 @@
 		<div class="layui-col-xs1">
 			<div style="float: right;">&nbsp;</div>
 		</div>
-		<div class="layui-col-xs7">招聘历史查询</div>
+		<div class="layui-col-xs7">问题反馈</div>
 		<div class="layui-col-xs4">
 			<div style="float: right;margin-right: 5px;"><i class="layui-icon" style="font-size: 20px;">&#xe602;</i></div>
 		</div>
