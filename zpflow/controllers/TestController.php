@@ -33,5 +33,20 @@ class TestController extends Controller
 		return (float)sprintf('%.0f', (floatval($t1) + floatval($t2)) * 1000);
 	}
 	
+	/*测试mongodb的使用*/
+	public function actionMongodb(){
+		$m = new \MongoClient(); // 连接默认主机和端口为：mongodb://localhost:27017
+		$db = $m->yii2;
+		$colletion = $db->createCollection("test_yii2");
+		
+		$collection = $db->test_yii2;
+		$document = [
+			'name'=>	'lily3',
+			'gender'=>	'women',
+			'age'=> 24,
+			'likes'=>100
+		];
+		$collection->insert($document);
+	}
 	
 }
