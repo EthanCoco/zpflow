@@ -41,7 +41,7 @@ class TestController extends Controller
 		
 		$collection = $db->test_yii2;
 		$document = [
-			'name'=>	'lily3',
+			'name'=>	'lily',
 			'gender'=>	'women',
 			'age'=> 24,
 			'likes'=>100
