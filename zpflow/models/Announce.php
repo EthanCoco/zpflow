@@ -57,6 +57,7 @@ class Announce extends \yii\db\ActiveRecord
         ];
     }
 	
+	/*获取公告信息列表*/
 	public static function getListInfo($offset,$rows,$where,$orderInfo){
 		$rows = self::find()->select(['ancID','recID','ancName','ancTime','ancType','ancStatus'])
 							->where($where)
@@ -71,6 +72,7 @@ class Announce extends \yii\db\ActiveRecord
 		return ['rows'=>$rows,'total'=>$total];
 	}
 	
+	/*添加数据*/
 	public static function insertData($data = []){
 		$flag = Yii::$app->db->createCommand()->insert(self::tableName(),$data)->execute();
 		if($flag){
@@ -81,6 +83,7 @@ class Announce extends \yii\db\ActiveRecord
 		return $result;
 	}
 	
+	/*发布/取消*/
 	public static function updateData($data = [], $primary = [], $type = 0){
 		$msg = ['取消发布','发布'];
 		
