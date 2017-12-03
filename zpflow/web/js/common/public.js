@@ -130,6 +130,14 @@ function validatePostCode(postCode){
 	return true;
 }
 
+function validateUserName(uname){
+	var unameExp = /^[a-zA-Z]{1}([a-zA-Z0-9]|[_]){4,19}$/;
+	if(!uname.match(unameExp)){
+		return false;
+	}
+	return true;
+}
+
 /*身份证校验*/
 function validateIdCard1(idCard){
  //15位和18位身份证号码的正则表达式
