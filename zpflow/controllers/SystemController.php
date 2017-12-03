@@ -6,6 +6,7 @@ use Yii;
 
 use app\models\Share;
 use app\models\Person;
+use app\models\User;
 
 class SystemController extends BaseController{
 	public function actionIndex(){
@@ -71,6 +72,16 @@ class SystemController extends BaseController{
 		}
 		
 		return $this->renderPartial('index1/user-detail',['perInfo'=>$jsonData,'eduInfo'=>$eduJson,'famInfo'=>$famJson,'workInfo'=>$workJson]);
+	}
+	
+	public function actionSysAdminRepair(){
+		$uid = Yii::$app->request->get('uid','');
+		$userData = [];
+		if($uid != ''){
+			$userData = User::find()->select(['uid','name','realName','phone'])->where(['uid'=>$uid])->asArray()->one();
+		}
+		
+		return $this->renderPartial('index2/repair',['infos'=>$userData]);
 	}
 	
 }

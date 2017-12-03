@@ -14,6 +14,7 @@ class SysdataController extends BaseController{
 		$name = $request->post('name','');
 		$realName = $request->post('realName','');
 		$phone = $request->post('phone','');
+		$type = intval($request->post('type',1));
 		
 		$page = $request->post('page');
 		$rows = $request->post('rows');
@@ -29,7 +30,7 @@ class SysdataController extends BaseController{
         	$orderInfo = 'uid asc';
         }
 		
-		$condition = ['and',['userType'=>1]];
+		$condition = ['and',['userType'=>$type]];
 		if($name != ''){
 			$condition[] = ['and',['like','name',$name]];
 		}
@@ -70,7 +71,49 @@ class SysdataController extends BaseController{
 		return $this->jsonReturn($result);
 	}
 	
+	public function actionSysUserDel(){
+		$uid = Yii::$app->request->post('uid');
+		$user = User::findOne($uid);
+		if($user->delete()){
+			$result = ['result'=>1,'msg'=>'删除成功'];
+		}else{
+			$result = ['result'=>0,'msg'=>'删除失败'];
+		}
+		
+		return $this->jsonReturn($result);
+	}
 	
-	
-	
+	public function actionSysAdminSave(){
+		$request = Yii::$app->request;
+		$uid = $request->post('uid','');
+		$name = $request->post('name');
+		$realName = $request->post('realName');
+		$phone = $request->post('phone');
+		
+		$result = ['result'=>0,'msg'=>'保存失败'];
+		
+		if($uid){
+			$flag = Yii::$app->db->createCommand()->update('user', [
+					'name' => $name,
+				    'realName' =>  $realName,
+				    'phone'=>$phone
+				], ['uid'=>$uid])->execute();
+		}else{
+			$flag = Yii::$app->db->createCommand()->insert('user', [
+				    'name' => $name,
+				    'realName' =>  $realName,
+				    'password'=>md5(Yii::$app->params['resetpwd_user']),
+				    'userType'=>2,
+				    'userRegisterTime'=>date('Y-m-d H:i:s',time()),
+				    'userLoginCount'=>0,
+				    'phone'=>$phone
+				])->execute();
+		}
+		
+		if($flag){
+			$result = ['result'=>1,'msg'=>'保存成功'];
+		}
+		
+		return $this->jsonReturn($result);
+	}
 }
