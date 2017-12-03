@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhostphpstudy
-Source Server Version : 50553
+Source Server         : localhost
+Source Server Version : 50617
 Source Host           : localhost:3306
 Source Database       : zpflow
 
 Target Server Type    : MYSQL
-Target Server Version : 50553
+Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2017-11-09 15:41:52
+Date: 2017-12-03 22:32:03
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -2404,20 +2404,20 @@ CREATE TABLE `user` (
   `name` varchar(128) DEFAULT NULL COMMENT '用户名（身份证号）',
   `realName` varchar(128) DEFAULT NULL COMMENT '真实姓名',
   `password` varchar(128) DEFAULT NULL COMMENT '登录密码',
-  `userType` int(1) DEFAULT NULL COMMENT '用户类别（0：管理员，1：应聘者，2：用人单位，3：区人才办）',
+  `userType` int(1) DEFAULT NULL COMMENT '用户类别（0：管理员，1：应聘者，2：用人单位）',
   `userLoginCount` int(11) DEFAULT NULL COMMENT '登录次数',
   `userRegisterTime` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `userLastLoginTime` timestamp NULL DEFAULT NULL COMMENT '最后登录时间',
   `companyID` int(11) DEFAULT NULL COMMENT '单位id',
   `phone` varchar(255) DEFAULT NULL COMMENT '手机号码',
   PRIMARY KEY (`uid`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COMMENT='用户表';
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COMMENT='用户表';
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', 'admin', 'guanliyuan', 'fcea920f7412b5da7be0cf42b8c93759', '3', '20', '2017-10-16 09:41:05', '2017-10-27 14:58:54', '1022', '13285716129');
-INSERT INTO `user` VALUES ('2', '362330199208122410', '李建林', 'fcea920f7412b5da7be0cf42b8c93759', '1', '18', '2017-10-24 17:39:56', '2017-11-09 15:40:56', null, '13285716129');
+INSERT INTO `user` VALUES ('1', 'admin', 'guanliyuan', 'fcea920f7412b5da7be0cf42b8c93759', '0', '21', '2017-10-16 09:41:05', '2017-12-03 09:56:41', '1022', '13285716129');
+INSERT INTO `user` VALUES ('2', '362330199208122410', '李建林', 'fe87f294368843244db0891889aed7e9', '1', '19', '2017-10-24 17:39:56', '2017-12-03 15:40:26', null, '13285716129');
 INSERT INTO `user` VALUES ('3', '320621199112163729', '张清正', 'fcea920f7412b5da7be0cf42b8c93759', '1', '1', '2017-10-27 20:03:50', '2017-10-27 20:12:41', null, '13816591074');
 INSERT INTO `user` VALUES ('4', '330522198712231025', '朱蔚云', 'fcea920f7412b5da7be0cf42b8c93759', '1', '3', '2017-10-27 20:05:09', '2017-11-07 10:50:44', null, '15250998698');
 INSERT INTO `user` VALUES ('5', '511102198012290013', '肖大鹏', 'fcea920f7412b5da7be0cf42b8c93759', '1', '2', '2017-10-27 20:06:50', '2017-11-03 22:30:26', null, '18516146044');
@@ -2428,6 +2428,7 @@ INSERT INTO `user` VALUES ('9', '370781199101240523', '王晨莹', 'fcea920f7412
 INSERT INTO `user` VALUES ('10', '341181199109043017', '周云龙', 'fcea920f7412b5da7be0cf42b8c93759', '1', '4', '2017-10-27 20:10:44', '2017-11-08 22:03:21', null, '18811302610');
 INSERT INTO `user` VALUES ('11', '310101198704040029', '刘思思', 'fcea920f7412b5da7be0cf42b8c93759', '1', '5', '2017-10-27 20:11:10', '2017-11-08 21:57:23', null, '18017365698');
 INSERT INTO `user` VALUES ('12', '310110199505195619', '邱祎琛', 'fcea920f7412b5da7be0cf42b8c93759', '1', '6', '2017-10-27 20:11:45', '2017-11-09 14:17:28', null, '15221652505');
+INSERT INTO `user` VALUES ('15', 'lijianlin', '李建林111', 'fe87f294368843244db0891889aed7e9', '2', '0', '2017-12-03 22:23:04', null, null, '18958562545');
 
 -- ----------------------------
 -- Table structure for workset
