@@ -71,7 +71,7 @@ function load_system_user(){
 	        		if(value == "" || value == null){
 	        			return value;
 	        		}else{
-	        			return "<a href='javascript:;' style='color:blue;text-decoration:underline;' onclick='sys_user_detail("+row.perID+")'>"+value+"</a>";
+	        			return "<a href='javascript:;' style='color:blue;text-decoration:underline;' onclick='sys_user_detail(\""+row.perID+"\",\""+row.name+"\",\""+row.realName+"\")'>"+value+"</a>";
 	        		}
 	        	}
 	        },
@@ -97,18 +97,6 @@ function load_system_user(){
 			$('#system_user').datagrid('resize',{
 	    		height: $(window).height()-124-15
 	    	});
-	    	
-    		$("#system_user").datagrid('getPager').pagination({
-	    		buttons:[{
-					  	iconCls:'icon-print',
-					   	text:'打印签到表',
-					   	handler:function(){}
-				   	},'-',{
-				  	iconCls:'icon-export',
-				   	text:'Excel导出',
-				   	handler:function(){}
-			   	}]
-			});
     	}
     });
 }
@@ -141,7 +129,17 @@ function sys_user_resetpwd(uid){
 	});
 }
 
-function sys_user_detail(perID){
-	alert(perID);
+function sys_user_detail(perID,name,realName){
+	layui.use('layer',function(){
+		var layer = layui.layer;
+		var tname = realName=="" ? name : realName;
+		var title = '【'+ tname +'】详情';
+		layer.open({
+	  		type:2,
+	  		title:title,
+	  		area:["600px",'520px'],
+	  		content:"<?= yii\helpers\Url::to(['system/sys-user-detail']); ?>"+"&perID="+perID
+	    });
+	});
 }
 </script>
