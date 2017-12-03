@@ -18,8 +18,12 @@ use Yii;
  */
 class Recruit extends \yii\db\ActiveRecord
 {
+	//场景添加
 	const SCENARIO_ADD = 'add';
+	//场景修改
 	const SCENARIO_MOD = 'mod';
+	
+	/*定义场景相关字段*/
 	public function scenarios(){
 		$scenarios = parent::scenarios();
 	    $scenarios[self::SCENARIO_ADD] = ['recYear', 'recStart','recEnd','recBatch'];
@@ -53,6 +57,7 @@ class Recruit extends \yii\db\ActiveRecord
         ];
     }
 	
+	/*标签信息*/
 	public function attributeLabels()
     {
         return [
@@ -68,18 +73,21 @@ class Recruit extends \yii\db\ActiveRecord
         ];
     }
 	
+	/*年度与起始时间校验*/
 	public function validateYearStart($attribute, $params){
 		if ($this->recYear != "" && $this->recStart !="" && $this->recYear != substr($this->recStart,0,4)){
 			$this->addError($attribute, "招聘年度与起始时间不一致");
 		}
 	}
 	
+	/*起始时间与截止时间校验*/
 	public function validateStartEnd($attribute, $params){
 		if ($this->recStart != "" && $this->recEnd !="" && $this->recStart > $this->recEnd ){
 			$this->addError($attribute, "起始时间不能大于结束时间");
 		}
 	}
 	
+	/*同一年度唯一招聘批次校验*/
 	public function validateYearBatchUnique($attribute, $params){
 		if ($this->recYear != "" && $this->recBatch !=""){
 			$num = self::find()->where(['recYear'=>$this->recYear,'recBatch'=>$this->recBatch])->count();
@@ -89,6 +97,7 @@ class Recruit extends \yii\db\ActiveRecord
 		}
 	}
 	
+	/*同一年度唯一招聘批次验证（除去当前招聘批次，使用修改场景）*/
 	public function validateYearBatchUniqueExceptSelf($attribute, $params){
 		if ($this->recYear != "" && $this->recBatch !=""){
 			$info = self::find()->where(['recYear'=>$this->recYear,'recBatch'=>$this->recBatch])->one();
@@ -98,6 +107,7 @@ class Recruit extends \yii\db\ActiveRecord
 		}
 	}
 	
+	/*截止时间与当前时间校验*/
 	public function validateEndCurrent($attribute, $params){
 		date_default_timezone_set('PRC');
 		$date = date('Y-m-d H:i:s',time());
@@ -106,23 +116,28 @@ class Recruit extends \yii\db\ActiveRecord
 		}
 	}
 	
+	/*获取招聘信息模型方法*/
 	public static function getListInfo($offset,$rows,$orderInfo){
+		//获取数据信息
 		$rows = self::find()->select(['recID','recYear','recBatch','recDefault','recStart','recEnd','recViewPlace','recHealthPlace','recBack'])
 							->orderby($orderInfo)
 							->offset($offset)
 							->limit($rows)
 							->asArray()
 							->all();
-							
+		
+		//火球总数信息					
 		$total = self::find()->count();
 		
 		return ['rows'=>$rows,'total'=>$total];
 	}
 	
+	/*根据条件获取总数信息*/
 	public static function getCount($where = []){
 		return self::find()->where($where)->count();
 	}
 	
+	/*获取所有招聘信息*/
 	public static function getOverRecBatch(){
 		$infos = self::find()->select(['recID','recYear','recBatch','recDefault','recEnd','recViewPlace'])
 							->where(['!=', 'recDefault', 0])
@@ -144,6 +159,7 @@ class Recruit extends \yii\db\ActiveRecord
 		return $jsonData;
 	}
 	
+	/*获取历史招聘信息*/
 	public static function getHistoryRecInfo(){
 		$recInfo = self::find()->where(['recDefault'=>2,'recBack'=>1])->orderby('recYear desc,recBatch asc')->asArray()->all();
 		$jsonData = [];
@@ -157,6 +173,7 @@ class Recruit extends \yii\db\ActiveRecord
 		return $jsonData;
 	}
 	
+	/*插入招聘数据信息*/
 	public static function insertData($data = []){
 		$flag = Yii::$app->db->createCommand()->insert(self::tableName(),$data)->execute();
 		if($flag){
@@ -167,6 +184,7 @@ class Recruit extends \yii\db\ActiveRecord
 		return $result;
 	}
 	
+	/*根据招聘ID修改招聘信息*/
 	public static function updateData($data = [],$primary = []){
 		$flag = Yii::$app->db->createCommand()->update(self::tableName(),$data,$primary)->execute();
 		if($flag !== false){
