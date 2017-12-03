@@ -6,7 +6,7 @@
 			    <dl class="layui-nav-child">
 				    <dd class="layui-this"><a index=1 onclick="load_system_info(1)" href="javascript:;">用户管理</a></dd>
 				    <?php if(Yii::$app->user->identity->userType == '0'){ ?>
-				    <dd ><a index=2 onclick="" href="javascript:;">管理员管理</a></dd>
+				    <dd ><a index=2 onclick="load_system_info(2)" href="javascript:;">管理员管理</a></dd>
 				    <?php } ?>
 				    <dd ><a index=3 onclick="" href="javascript:;">其他设置</a></dd>
 			    </dl>
