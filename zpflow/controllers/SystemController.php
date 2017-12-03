@@ -11,6 +11,9 @@ use app\models\User;
 class SystemController extends BaseController{
 	public function actionIndex(){
 		$index = Html::encode(Yii::$app->request->get('index',1));
+		if($index == -1){
+			return $this->renderPartial('nopage/nodev');
+		}
 		return $this->renderPartial('index'.Html::decode($index));
 	}
 	
