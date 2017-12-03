@@ -29,7 +29,7 @@ class SysdataController extends BaseController{
         	$orderInfo = 'uid asc';
         }
 		
-		$condition = ['userType'=>1];
+		$condition = ['and',['userType'=>1]];
 		if($name != ''){
 			$condition[] = ['and',['like','name',$name]];
 		}
