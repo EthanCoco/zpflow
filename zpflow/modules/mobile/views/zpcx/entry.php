@@ -1,3 +1,8 @@
+<!--
+	作者：lijianlin0204@163.com
+	时间：2017-12-04
+	描述：报名填写基本信息界面
+-->
 <div style="padding: 10px;margin-bottom: 60px;">
 	<div class="layui-row">
 		<div class="mobile-enter-title">
@@ -279,6 +284,7 @@
 <script>
 var __entey_perID = "";
 $(function(){
+	//上传图片
 	layui.use('upload', function(){
 	  	var $ = layui.jquery
 	  	,upload = layui.upload;
@@ -330,6 +336,7 @@ $(function(){
 	};
   	$("#perBirth").mobiscroll($.extend(opt['date'], opt['default']));
   	
+  	//显示默认数据信息
   	<?php if(!empty($basePerInfo)){ ?>
   		<?php if($perID_type == 1){ ?>
   			__entey_perID = "<?= $basePerInfo['perID'] ?>";
@@ -384,6 +391,7 @@ $(function(){
 		$("#perPhoto").val("<?= $basePerInfo['perPhoto'] ?>");
   	<?php } ?>
   	
+  	//控制下一步的点击事件
   	if(__entey_perID == ""){
   		$("#next_info1").attr('disabled','disabled');
   		$("#next_info1").addClass("layui-btn-disabled");
@@ -393,6 +401,7 @@ $(function(){
   	}
 });
 
+/*联动信息*/
 function change_sub(pid,id,codetype){
 	var pvalue = $("#"+pid).val();
 	if(pvalue == ""){
@@ -421,6 +430,7 @@ function change_sub(pid,id,codetype){
 //	});
 }
 
+/*保存填写基本信息*/
 function save_info1(){
 	var isNull = false;
 	var errorMsg = "存在必填项未填：<br/>";
@@ -499,6 +509,7 @@ function save_info1(){
 	});
 }
 
+/*下一步加载信息*/
 function next_info1(){
 	$("#index2_content").load("<?= yii\helpers\Url::to(['zpcx/entry2']); ?>");
 }
