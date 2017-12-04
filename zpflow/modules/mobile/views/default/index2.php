@@ -1,11 +1,13 @@
+<!--
+	作者：lijianlin0204@163.com
+	时间：2017-12-04
+	描述：招聘查询主界面
+-->
 <div class="layui-row">
 	<div class="mobile-index2-content" id='index2_content'>
 		
 	</div>
 </div>
-
-
-
 
 <script type="text/javascript">
 var index = <?php echo $index;?>;
@@ -15,6 +17,7 @@ $(document).ready(function() {
 	mobile_load_zpcx();
 });
 
+/*加载对应的招聘界面*/
 function mobile_load_zpcx(){
 	$("#index2_content").empty();
 	$("#index2_content").load("<?= yii\helpers\Url::to(['zpcx/index']); ?>"+"&index="+flowtype);
