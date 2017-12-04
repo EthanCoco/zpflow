@@ -1,3 +1,8 @@
+<!--
+	作者：lijianlin0204@163.com
+	时间：2017-12-04
+	描述：用户登录界面DIV
+-->
 <div id="mobile-login">
 	<div class="layui-row">
 		<div class="mobile-login-title">
@@ -43,6 +48,11 @@
 	</div>	
 </div>
 
+<!--
+	作者：lijianlin0204@163.com
+	时间：2017-12-04
+	描述：用户注册界面DIV
+-->
 <div id="mobile-reg" style="display: none;">
 	<div class="layui-row">
 		<div class="mobile-login-title">
@@ -95,31 +105,37 @@
 </div>
 
 <script>
-var index = "<?= $index ?>"
+var index = "<?= $index ?>";
 $(function(){
 	$("#mobile-vcode-img").click();
 	$("#moblie-header span a[index='"+index+"']").addClass('current');
 });
 
+/*用户登录*/
 function mobile_user_login(){
+	//用户名
 	var login_name = $("#login_name").val().trim();
+	//密码
 	var login_pwd = $("#login_pwd").val().trim();
+	//验证码
 	var login_vcode = $("#login_vcode").val().trim();
+	//用户密码校验
 	if(login_name == "" || login_pwd == ""){
 		layer.open({content: '身份证号或密码不能为空',skin: 'footer',time: 2 });
 		return;
 	}
+	//身份证校验
 	if(!validateIdCard(login_name)){
 		$("#login_name").focus();
 		return;
 	}
-	
+	//验证码校验	
 	if(login_vcode == ""){
 		$("#login_vcode").focus();
 		layer.open({content: '验证码不能为空',skin: 'footer',time: 2 });
 		return;
 	}
-	
+	//登录提示
 	layer.open({type: 2,content: '登录中'});
 	$.ajax({
 		type:"post",
@@ -143,6 +159,7 @@ function mobile_user_login(){
 	});
 }
 
+/*切换登录注册DIV*/
 function change_mobile(type){
 	if(type == 1){
 		$('#mobile-login').css('display','none');
@@ -153,12 +170,14 @@ function change_mobile(type){
 	}
 }
 
+/*用户注册*/
 function mobile_user_reg(){
 	var reg_name = $("#reg_name").val().trim();
 	var reg_realName = $("#reg_realName").val().trim();
 	var reg_phone = $("#reg_phone").val().trim();
 	var reg_pwd = $("#reg_pwd").val().trim();
 	var reg_sure_pwd = $("#reg_sure_pwd").val().trim();
+	//身份证校验
 	if(reg_name == ""){
 		layer.open({content: '身份证号不能为空',skin: 'footer',time: 2 });
 		return;
@@ -166,21 +185,25 @@ function mobile_user_reg(){
 	if(!validateIdCard(reg_name)){
 		return ;
 	}
+	
+	//用户名校验
 	if(reg_realName == ""){
 		layer.open({content: '姓名不能为空',skin: 'footer',time: 2 });
 		return;
 	}
+	
+	//手机号码校验
 	if(reg_phone == ""){
 		layer.open({content: '手机号码不能为空',skin: 'footer',time: 2 });
 		return;
 	}
-	
 	var validatePhoneNumber = validatePhone(reg_phone);
 	if(validatePhoneNumber == false){
 		layer.open({content: '手机号码格式不正确',skin: 'footer',time: 2 });
 		return;
 	}
 	
+	//面貌校验
 	if(reg_pwd == "" || reg_sure_pwd == ""){
 		layer.open({content: '密码不能为空',skin: 'footer',time: 2 });
 		return;
@@ -189,13 +212,13 @@ function mobile_user_reg(){
 		layer.open({content: '两次密码不一致',skin: 'footer',time: 2 });
 		return;
 	}
-	
 	var validatePassWord = validatePwd(reg_pwd);
 	if(validatePassWord == false){
 		layer.open({content: '密码格式只能为6-20位数字或字母',skin: 'footer',time: 2 });
 		return;
 	}
 	
+	//注册提示
 	layer.open({type: 2,content: '注册中'});
 	$.ajax({
 		type:"post",
