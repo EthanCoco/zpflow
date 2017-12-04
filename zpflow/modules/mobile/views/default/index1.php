@@ -1,3 +1,8 @@
+<!--
+	作者：lijianlin0204@163.com
+	时间：2017-12-04
+	描述：通知公告和单位简介界面
+-->
 <div class="layui-row">
 	<div class="layui-col-xs6">
     	<div class="mobile-index1-title1 mobile-index1-color-gg">
@@ -36,6 +41,7 @@ $(document).ready(function() {
 	$("#moblie-header span a[index='"+index+"']").addClass('current');
 });
 
+/*公告和单位界面界面切换*/
 function mobile_anc(type){
 	anc_type = type;
 	$('.mobile-index1-color-gg a').removeClass('color-gg');
@@ -43,6 +49,7 @@ function mobile_anc(type){
 	mobile_anc_getlist();
 }
 
+/*文章信息列表*/
 function mobile_anc_getlist(option){
 	layui.use(['layer','laypage'],function(){
 		 var laypage = layui.laypage;
@@ -131,6 +138,7 @@ function mobile_anc_getlist(option){
 	});
 }
 
+/*文章详情*/
 function detail_anc_info(ancID,ancType){
 	$.ajax({
 		type:"get",
