@@ -111,10 +111,14 @@ function init_flow4_step1_datagrid(){
 	    	$("#flow4_step1_datagrid").datagrid("showColumn", 'gstItvEndTime');
 	    	
             if (__flow4_step1_editRow__ != undefined) {
-				$("#flow4_step1_datagrid").datagrid("rejectChanges");
-	            $("#flow4_step1_datagrid").datagrid("unselectAll");
-                $("#flow4_step1_datagrid").datagrid("endEdit", __flow4_step1_editRow__);
-                $("#flow4_step1_datagrid") = undefined;
+            	layui.use('layer',function(){
+            		var layer = layui.layer;
+            		return layer.alert("有正在编辑的行，请取消或保存后添加！");
+            	});
+//				$("#flow4_step1_datagrid").datagrid("rejectChanges");
+//	            $("#flow4_step1_datagrid").datagrid("unselectAll");
+//              $("#flow4_step1_datagrid").datagrid("endEdit", __flow4_step1_editRow__);
+//              $("#flow4_step1_datagrid") = undefined;
             }
             
             if (__flow4_step1_editRow__ == undefined) {
