@@ -1,3 +1,8 @@
+<!--
+	作者：lijianlin0204@163.com
+	时间：2017-12-04
+	描述：报名结束 正在处理等待结果流程信息
+-->
 <div style="padding: 10px;margin-bottom: 60px;">
 	<div class="layui-row">
 		<div class="mobile-enter-title">
