@@ -1,3 +1,8 @@
+<!--
+	作者：lijianlin0204@163.com
+	时间：2017-12-04
+	描述：家庭成员添加修改界面
+-->
 <div style="padding: 10px;margin-bottom: 60px;">
 	<div class="layui-row">
 		<div class="mobile-enter-title">
@@ -51,7 +56,8 @@
 var __recID__ = "<?= $recID ?>";
 var __famID__ = "<?= $famID ?>";
 var __perID__ = "<?= $perID ?>";
-$(function(){    
+$(function(){ 
+	//修改时默认信息   
     <?php if(!empty($famInfo)){ ?>
     	$("#famRelation").val("<?= $famInfo['famRelation']; ?>");
     	$("#famName").val("<?= $famInfo['famName'] ?>");
@@ -60,10 +66,12 @@ $(function(){
     <?php } ?>
 });
 
+/*返回*/
 function cancel_info4(){
 	$("#index2_content").load("<?= yii\helpers\Url::to(['zpcx/entry4']);  ?>"+"&recID="+__recID__+"&perID="+__perID__);
 }
 
+/*保存家庭成员信息*/
 function save_info4(){
 	var isNull = false;
 	var errorMsg = "存在必填项未填：<br/>";
