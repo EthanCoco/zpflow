@@ -1,3 +1,8 @@
+<!--
+	作者：lijianlin0204@163.com
+	时间：2017-12-04
+	描述：正在报名 已经报名界面信息
+-->
 <div style="padding: 10px;margin-bottom: 60px;">
 	<div class="layui-row">
 		<div class="mobile-enter-title">
@@ -5,7 +10,11 @@
 			<p style="color: red;">您已经报名，资料信息正在审核当中，请耐性等候...</p>
 	    </div>
 	</div>
-	
+	<!--
+    	作者：lijianlin0204@163.com
+    	时间：2017-12-04
+    	描述：基本信息
+    -->
 	<?php if(!empty($entryData['baseData'])){ ?>
 			<fieldset class="layui-elem-field site-demo-button" style="margin-top: 10px;">
 			  	<legend>
@@ -165,6 +174,11 @@
 			</fieldset>
 	<?php } ?>
 	
+	<!--
+    	作者：lijianlin0204@163.com
+    	时间：2017-12-04
+    	描述：教育信息
+    -->
 	<?php if(!empty($entryData['eduData'])){ ?>
 		<fieldset class="layui-elem-field site-demo-button" style="margin-top: 10px;">
 		  	<legend>
@@ -218,6 +232,11 @@
 		</fieldset>
 	<?php } ?>
 	
+	<!--
+    	作者：lijianlin0204@163.com
+    	时间：2017-12-04
+    	描述：工作经历
+    -->
 	<?php if(!empty($entryData['workData'])){ ?>
 		<fieldset class="layui-elem-field site-demo-button" style="margin-top: 10px;">
 		  	<legend>
@@ -266,6 +285,11 @@
 		</fieldset>
 	<?php } ?>
 	
+	<!--
+    	作者：lijianlin0204@163.com
+    	时间：2017-12-04
+    	描述：家庭成员
+    -->
 	<?php if(!empty($entryData['famData'])){ ?>
 		<fieldset class="layui-elem-field site-demo-button" style="margin-top: 10px;">
 		  	<legend>
@@ -300,7 +324,12 @@
 		<?php } ?>
 		</fieldset>
 	<?php } ?>
-		
+	
+	<!--
+    	作者：lijianlin0204@163.com
+    	时间：2017-12-04
+    	描述：报名撤回
+    -->	
 	<div class="layui-row" style="padding:25px 0 0 0;">
 		<div class="layui-col-xs12">
 			<div style="text-align: center;">
@@ -317,6 +346,7 @@ var __index2_backtimes__ = "<?= $entryData['baseData']['perBack'] ?>";
 var __index2_perID__ = "<?= $entryData['baseData']['perID'] ?>";
 
 $(function(){
+	//控制报名撤回按钮的显示与隐藏
 	var nowData = formatDateTime();
 	if(__index2_recEnd__ < nowData){
 		$("#enrty_back").attr('disabled','disabled');
@@ -327,6 +357,7 @@ $(function(){
 	}
 });
 
+/*报名撤回*/
 function enrty_back(){
 	if(__index2_backtimes__ == 3){
 		layer.open({content: "报名撤回已经操作三次了，不允许再次撤回",btn: '我知道了'});
