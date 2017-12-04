@@ -1,3 +1,8 @@
+<!--
+	作者：lijianlin0204@163.com
+	时间：2017-12-04
+	描述：默认界面非应聘者进入提示
+-->
 <script>
 	var index = "<?= $index ?>"
 	$(document).ready(function() {
