@@ -16,29 +16,40 @@ use app\models\Medical;
 
 class ZpcxController extends Controller
 {
+	//去除限制post请求
 	public $enableCsrfValidation = false;
 	
+	/*招聘查询页面指向*/
     public function actionIndex(){
     	$index = \yii\helpers\Html::encode(Yii::$app->request->get('index',1));
 		$jsonData = [];
 		$entryData = [];
 		$dealingData = [];
+		//正在报名 还未报名
 		if($index == 3){
+			//招聘信息获取
 			$recInfo = Recruit::find()->where(['recDefault'=>1])->asArray()->one();
 			$codes = [['recBatch','PC']];
 			$mainCode = Share::codeValue($codes,$recInfo);
 			$jsonData = array_merge($recInfo,$mainCode);
+		//正在报名 已经报名
 		}elseif($index == 2){
+			//获取报名信息
 			$entryData = $this->load_entry_info();
+		//报名结束 正在处理等待结果
 		}elseif($index == 4){
+			//获取环节反馈信息
 			$dealingData = $this->load_entrying_step_info();
 		}
 		return $this->renderPartial('index'.\yii\helpers\Html::decode($index),['recInfo'=>$jsonData,'entryData'=>$entryData,'dealData'=>$dealingData]);
     }
 	
+	/*加载环节显示信息*/
 	private function load_entrying_step_info(){
 		date_default_timezone_set('PRC');
+		//身份证号码
 		$idcard = Yii::$app->user->identity->name;	
+		//招聘信息
 		$recInfo = Recruit::find()->where(['recDefault'=>1])->asArray()->one();
 		$keys = [['recBatch','PC']];
 		$codes = Share::codeValue($keys,$recInfo);
@@ -46,6 +57,7 @@ class ZpcxController extends Controller
 		$recID = $recInfo['recID'];
 		$jsonData['recData'] = $recData;
 		
+		//报名信息（元信息）
 		$mainInfo = (new \yii\db\Query())->from(Share::MainTableName($recID))->where(['perIDCard'=>$idcard])->one();
 		
 		$jsonData['baseData'] = $mainInfo;
@@ -59,6 +71,7 @@ class ZpcxController extends Controller
 		$mainCode['perBirth'] = !empty($mainInfo['perBirth']) ? substr($mainInfo['perBirth'], 0,10) : '';
 		$mainJson = array_merge($mainInfo,$mainCode);
 		
+		//报名节本信息
 		$step1 = [
 			'perName' => $mainJson['perName'],
 			'perIDCard' => $mainJson['perIDCard'],
@@ -73,6 +86,7 @@ class ZpcxController extends Controller
 		
 		$jsonData['step1'] = $step1;
 		
+		//资格审查
 		if($mainInfo['perPub'] == 0){
 			$jsonData['title'] = '资料信息正在审核当中，请耐性等候...';
 		}elseif($mainInfo['perPub'] == 1){
@@ -88,7 +102,7 @@ class ZpcxController extends Controller
 				'step2Result'=>($this->load_qumextra_info($recID,$mainInfo['perStatus'],$step2_content))
 			];
 			$jsonData['step2'] = $step2;
-			//TODO考试安排环节
+			//考试安排环节
 			if($mainInfo['perPub2'] == 1){
 				$jsonData['title'] = '考试时间地点已经安排，请关注！';
 				$step3_tempInfo = Setgroup::find()->select(['gstItvPlace','gstStartEnd','gstItvStartTime'])->where(['recID'=>$recID,'gstGroup'=>$mainInfo['perGroupSet'],'gstType'=>2])->one();
@@ -184,6 +198,7 @@ class ZpcxController extends Controller
 		return $jsonData;
 	}
 	
+	/*体检安排 通知替换*/
 	private function load_notice_content_info_medical($recData,$step5_tempInfo,$mainJson){
 		$notice_info = Noticemb::find()->where(['recID'=>$recData['recID'],'ntsType'=>2])->one();
 		$content = $notice_info['ntsContent'];
@@ -207,6 +222,7 @@ class ZpcxController extends Controller
 		return $content;
 	}
 	
+	/*考试安排环节 通知替换*/
 	private function load_notice_content_info($recData,$step3_tempInfo,$mainJson){
 		$notice_info = Noticemb::find()->where(['recID'=>$recData['recID'],'ntsType'=>1])->one();
 		$content = $notice_info['ntsContent'];
@@ -230,6 +246,7 @@ class ZpcxController extends Controller
 		return $content;
 	}
 	
+	/*资格审查环节通知替换*/
 	private function load_qumextra_info($recID,$type,$content){
 		$qumInfo = Qumextra::find()->where(['recID'=>$recID])->one();
 		if(empty($qumInfo)){
@@ -251,18 +268,22 @@ class ZpcxController extends Controller
 		return $result;	
 	}
 	
-	
+	/*获取已经报名的信息*/
 	private function load_entry_info(){
+		//身份证号码
 		$idcard = Yii::$app->user->identity->name;	
+		//招聘信息
 		$recInfo = Recruit::find()->where(['recDefault'=>1])->asArray()->one();
 		$keys = [['recBatch','PC']];
 		$codes = Share::codeValue($keys,$recInfo);
 		$recData = array_merge($recInfo,$codes);
 		
+		//招聘ID
 		$recID = $recInfo['recID'];
-		
+		//招聘信息数据
 		$jsonData['recData'] = $recData;
 		
+		//报名信息
 		$mainInfo = (new \yii\db\Query())->from(Share::MainTableName($recID))->where(['perIDCard'=>$idcard])->one();
 		$codes = [
 					['perGender','XB'],['perJob','XZ'],['perNation','AI'],['perOrigin','AB'],['perPolitica','AG'],['perMarried','CG'],
@@ -276,7 +297,10 @@ class ZpcxController extends Controller
 		
 		$perID = $mainJson['perID'];
 		
+		//获取表
 		$tables_set = Share::SetTableNames($recID);
+		
+		//教育信息获取
 		$eduSetInfo = (new \yii\db\Query())->from($tables_set[0])->where(['perID'=>$perID])->orderby('eduStart asc')->all();
 		$eduJson = [];
 		if(!empty($eduSetInfo)){
@@ -296,6 +320,7 @@ class ZpcxController extends Controller
 		
 		$jsonData['eduData'] = $eduJson;
 		
+		//家庭成员信息获取
 		$famSetInfo = (new \yii\db\Query())->from($tables_set[1])->where(['perID'=>$perID])->all();
 		$famJson = [];
 		if(!empty($famSetInfo)){
@@ -313,6 +338,7 @@ class ZpcxController extends Controller
 		
 		$jsonData['famData'] = $famJson;
 		
+		//工作经历信息获取
 		$workSetInfo = (new \yii\db\Query())->from($tables_set[2])->where(['perID'=>$perID])->orderby('wkStart asc')->all();
 		$workJson = [];
 		if(!empty($workSetInfo)){
@@ -359,26 +385,38 @@ class ZpcxController extends Controller
 		return ['code'=>'0','msg'=>'图片大小不能大于2M','data'=>['src'=>$createDir."/".$fileName]];
 	}
 	
+	/*创建目录*/
 	function mkdirs($dir, $mode = 0777){
 	    if (is_dir($dir) || @mkdir($dir, $mode)) return TRUE;
 	    if (!self::mkdirs(dirname($dir), $mode)) return FALSE;
 	    return @mkdir($dir, $mode);
 	} 
 	
+	/*报名界面*/
 	public function actionEntry(){
+		//身份证号码
 		$idcard = Yii::$app->user->identity->name;
+		//招聘信息
 		$recInfo = Recruit::find()->where(['recDefault'=>1])->asArray()->one();
+		//是否填写标识
 		$perID_type = 1;
+		//报名基本信息
 		$basePerInfo = (new \yii\db\Query())->from(Share::MainTableName($recInfo['recID']))->where(['perIDCard'=>$idcard])->one();
+		//还未报名
 		if(empty($basePerInfo)){
+			//是否填写标识更改
 			$perID_type = 2;
+			//获取人员基础信息
 			$basePerInfo = Person::find()->where(['perIDCard'=>$idcard])->one();	
 		}
+		
+		//获取关联代码信息
 		$codes = [['XB',1],['AB',0],['AI',1],['AG',1],['XL',1],['BC',0],['CG',1],['MC',0],['MD',0],['AJ',0],['XZ',1]];
         $codeInfo = Code::getCodeSel($codes);
 		return $this->renderPartial('entry',['codes'=>$codeInfo,'basePerInfo'=>$basePerInfo,'perID_type'=>$perID_type]);
 	}
 	
+	/*获取关联信息*/
 	public function actionSonCode(){
     	Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 		$codePiD = Yii::$app->request->get('codePiD');
@@ -387,33 +425,47 @@ class ZpcxController extends Controller
         return ['selectCodeInfo'=>$selectCodeInfo];
     }
 	
+	/*添加修改 保存基本信息*/
 	public function actionEntrySave1(){
 		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+		//人员信息
 		$data = Yii::$app->request->post()['Per'];
+		//人员ID
 		$perID = Yii::$app->request->post('perID','');
+		//身份证号码
 		$idcard = Yii::$app->user->identity->name;
 		
-		$idcard = Yii::$app->user->identity->name;
+		//判断报名人身份与用户身份是否匹配
 		if($idcard != $data['perIDCard']){
 			return ['result'=>0,'msg'=>'报名身份与登录身份不匹配'];
 		}
+		
+		//招聘信息
 		$recInfo = Recruit::find()->where(['recDefault'=>1])->asArray()->one();
+		//招聘批次对应的报名表
 		$tableName = Share::MainTableName($recInfo['recID']);
+		
+		//添加
 		if($perID == ''){
+			//获取人员基本信息
 			$basePerInfo = Person::find()->where(['perIDCard'=>$idcard])->one();
+			//如果基本信息为空
 			if(empty($basePerInfo)){
+				//将初次报名信息设为人员基本信息
 				Yii::$app->db->createCommand()->insert('person',$data)->execute();
 			}
 			
-			
+			//插入报名信息
 			$flag = Yii::$app->db->createCommand()->insert($tableName,$data)->execute();
 			if($flag){
 				return ['result'=>1,'msg'=>'保存成功'];
 			}else{
 				return ['result'=>0,'msg'=>'保存失败'];
 			}
+		
+		//修改
 		}else{
-			$tableName = Share::MainTableName($recInfo['recID']);
+			//修改更新
 			$flag = Yii::$app->db->createCommand()->update($tableName,$data,['PerID'=>$perID])->execute();
 			if($flag !== false){
 				return ['result'=>1,'msg'=>'保存成功'];
@@ -423,16 +475,26 @@ class ZpcxController extends Controller
 		}
 	}
 	
+	/*教育信息界面*/
 	public function actionEntry2(){
+		//身份证号码
 		$idcard = Yii::$app->user->identity->name;
+		//招聘批次
 		$recInfo = Recruit::find()->where(['recDefault'=>1])->asArray()->one();
+		//招聘批次对应的报名教育信息表
 		$edutable = Share::SetTableName($recInfo['recID'],'edu');
+		//获取报名表基本信息
 		$baseInfo = (new \yii\db\Query())->from(Share::MainTableName($recInfo['recID']))->where(['perIDCard'=>$idcard])->one();
+		//获取报名中教育信息
 		$eduInfo = (new \yii\db\Query())->from($edutable)->where(['perID'=>$baseInfo['perID']])->orderBy('eduStart asc')->all();
 		$jsonData = [];
+		//如果教育信息为空
 		if(empty($eduInfo)){
+			//获取人员基本信息
 			$personInfo = (new \yii\db\Query())->from('person')->where(['perIDCard'=>$idcard])->one();
+			//获取教育基本信息
 			$eduInfo_base = (new \yii\db\Query())->from('eduset')->where(['perID'=>$personInfo['perID']])->all();
+			//如果教育基本信息不为空
 			if(!empty($eduInfo_base)){
 				//插入数据
 				foreach($eduInfo_base as $binfo){
@@ -472,10 +534,14 @@ class ZpcxController extends Controller
 		return $this->renderPartial('entry2',['eduInfo'=>$jsonInfo,'recID'=>$recInfo['recID'],'perID'=>$baseInfo['perID']]);
 	}
 	
+	/*删除报名中教育信息*/
 	public function actionDelEdu(){
 		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+		//招聘ID
 		$recID = Yii::$app->request->post('recID');
+		//教育ID
 		$eduID = Yii::$app->request->post('eduID');
+		//删除信息
 		$flag = Yii::$app->db->createCommand()->delete(Share::SetTableName($recID,'edu'),['eduID'=>$eduID])->execute();
 		if($flag){
 			return ['result'=>1,'msg'=>'删除成功'];
@@ -484,28 +550,41 @@ class ZpcxController extends Controller
 		}
 	}
 	
+	/*添加修改教育信息界面*/
 	public function actionEntry2Repair(){
+		//招聘ID
 		$recID = Yii::$app->request->get('recID');
+		//教育ID
 		$eduID = Yii::$app->request->get('eduID','');
+		//报名人员ID
 		$perID = Yii::$app->request->get('perID');
 		
+		//标题设置
 		if($eduID == ""){
 			$info = [];
 			$title = "添加学习情况";
 		}else{
+			//获取修改时的默认教育信息
 			$info = (new \yii\db\Query())->from(Share::SetTableName($recID,'edu'))->where(['eduID'=>$eduID])->one();
 			$title = "修改学习情况";
 		}
+		//获取代码信息
         $codeInfo = Code::getCodeSel([['AJ',0]]);
 		return $this->renderPartial('entry2_repair',['eduID'=>$eduID,'recID'=>$recID,'title'=>$title,'codes'=>$codeInfo,'eduInfo'=>$info,'perID'=>$perID]);
 	}
 	
+	/*添加修改教育信息保存*/
 	public function actionEntry2Save(){
 		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+		//招聘ID
 		$recID = Yii::$app->request->post('recID');
+		//教育ID
 		$eduID = Yii::$app->request->post('eduID','');
+		//报名人员ID
 		$perID = Yii::$app->request->post('perID');
+		//教育数据信息
 		$data = Yii::$app->request->post()['Edu'];
+		//添加
 		if($eduID == ''){
 			$data['perID'] = $perID;
 			$flag = Yii::$app->db->createCommand()->insert(Share::SetTableName($recID,'edu'),$data)->execute();
@@ -514,6 +593,7 @@ class ZpcxController extends Controller
 			}else{
 				return ['result'=>0,'msg'=>'保存失败'];
 			}
+		//修改
 		}else{
 			$flag = Yii::$app->db->createCommand()->update(Share::SetTableName($recID,'edu'),$data,['eduID'=>$eduID])->execute();
 			if($flag !== false){
@@ -524,17 +604,25 @@ class ZpcxController extends Controller
 		}
 	}
 	
+	/*工作经历界面*/
 	public function actionEntry3(){
+		//身份证号码
 		$idcard = Yii::$app->user->identity->name;
+		//招聘ID
 		$recID = Yii::$app->request->get('recID');
+		//报名人员ID
 		$perID = Yii::$app->request->get('perID');
+		//招聘批次对应的工作经历表
 		$worktable = Share::SetTableName($recID,'work');
 		
+		//获取工作信息
 		$workInfo = (new \yii\db\Query())->from($worktable)->where(['perID'=>$perID])->orderBy('wkStart asc')->all();
 		
 		$jsonData = [];
 		if(empty($workInfo)){
+			//人员基本信息
 			$personInfo = (new \yii\db\Query())->from('person')->where(['perIDCard'=>$idcard])->one();
+			//人员基本工作经历信息
 			$workInfo_base = (new \yii\db\Query())->from('workset')->where(['perID'=>$personInfo['perID']])->all();
 			if(!empty($workInfo_base)){
 				//插入数据
@@ -570,27 +658,39 @@ class ZpcxController extends Controller
 		return $this->renderPartial('entry3',['workInfo'=>$jsonInfo,'recID'=>$recID,'perID'=>$perID]);
 	}
 	
+	/*工作经历添加修改界面*/
 	public function actionEntry3Repair(){
+		//招聘ID
 		$recID = Yii::$app->request->get('recID');
+		//工作经历ID
 		$wkID = Yii::$app->request->get('wkID','');
+		//报名人员ID
 		$perID = Yii::$app->request->get('perID');
 		
+		//标题设置
 		if($wkID == ""){
 			$info = [];
 			$title = "添加工作经历";
 		}else{
+			//工作经历信息
 			$info = (new \yii\db\Query())->from(Share::SetTableName($recID,'work'))->where(['wkID'=>$wkID])->one();
 			$title = "修改工作经历";
 		}
 		return $this->renderPartial('entry3_repair',['wkID'=>$wkID,'recID'=>$recID,'title'=>$title,'workInfo'=>$info,'perID'=>$perID]);
 	}
 	
+	/*添加修改工作经历保存*/
 	public function actionEntry3Save(){
 		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+		//招聘ID
 		$recID = Yii::$app->request->post('recID');
+		//工作经历ID
 		$wkID = Yii::$app->request->post('wkID','');
+		//报名人员ID
 		$perID = Yii::$app->request->post('perID');
+		//工作经历数据
 		$data = Yii::$app->request->post()['Work'];
+		//添加
 		if($wkID == ''){
 			$data['perID'] = $perID;
 			$flag = Yii::$app->db->createCommand()->insert(Share::SetTableName($recID,'work'),$data)->execute();
@@ -599,6 +699,7 @@ class ZpcxController extends Controller
 			}else{
 				return ['result'=>0,'msg'=>'保存失败'];
 			}
+		//修改
 		}else{
 			$flag = Yii::$app->db->createCommand()->update(Share::SetTableName($recID,'work'),$data,['wkID'=>$wkID])->execute();
 			if($flag !== false){
@@ -609,6 +710,7 @@ class ZpcxController extends Controller
 		}
 	}
 	
+	/*删除工作经历*/
 	public function actionDelWork(){
 		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 		$recID = Yii::$app->request->post('recID');
@@ -621,17 +723,25 @@ class ZpcxController extends Controller
 		}
 	}
 	
+	/*家庭成员信息界面*/
 	public function actionEntry4(){
+		//身份证号码
 		$idcard = Yii::$app->user->identity->name;
+		//招聘ID
 		$recID = Yii::$app->request->get('recID');
+		//报名人员ID
 		$perID = Yii::$app->request->get('perID');
+		//招聘批次对应的家庭成员表
 		$famtable = Share::SetTableName($recID,'fam');
 		
+		//获取家庭成员信息
 		$famInfo = (new \yii\db\Query())->from($famtable)->where(['perID'=>$perID])->orderBy('famRelation asc')->all();
 		
 		$jsonData = [];
 		if(empty($famInfo)){
+			//获取基本人员信息
 			$personInfo = (new \yii\db\Query())->from('person')->where(['perIDCard'=>$idcard])->one();
+			//获取基础家庭成员信息
 			$famInfo_base = (new \yii\db\Query())->from('famset')->where(['perID'=>$personInfo['perID']])->all();
 			if(!empty($famInfo_base)){
 				//插入数据
@@ -668,6 +778,7 @@ class ZpcxController extends Controller
 		return $this->renderPartial('entry4',['famInfo'=>$jsonInfo,'recID'=>$recID,'perID'=>$perID]);
 	}
 	
+	/*删除家庭成员信息*/
 	public function actionDelFam(){
 		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
 		$recID = Yii::$app->request->post('recID');
@@ -680,15 +791,21 @@ class ZpcxController extends Controller
 		}
 	}
 	
+	/*家庭成员添加修改界面*/
 	public function actionEntry4Repair(){
+		//招聘ID
 		$recID = Yii::$app->request->get('recID');
+		//家庭成员ID
 		$famID = Yii::$app->request->get('famID','');
+		//报名人员ID
 		$perID = Yii::$app->request->get('perID');
 		
+		//标题设置
 		if($famID == ""){
 			$info = [];
 			$title = "添加家庭成员";
 		}else{
+			//获取家庭成员信息
 			$info = (new \yii\db\Query())->from(Share::SetTableName($recID,'fam'))->where(['famID'=>$famID])->one();
 			$title = "修改家庭成员";
 		}
@@ -696,12 +813,18 @@ class ZpcxController extends Controller
 		return $this->renderPartial('entry4_repair',['famID'=>$famID,'recID'=>$recID,'title'=>$title,'codes'=>$codeInfo,'famInfo'=>$info,'perID'=>$perID]);
 	}
 	
+	/*家庭成员添加修改保存*/
 	public function actionEntry4Save(){
 		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+		//招聘ID
 		$recID = Yii::$app->request->post('recID');
+		//家庭成员ID
 		$famID = Yii::$app->request->post('famID','');
+		//报名人员ID
 		$perID = Yii::$app->request->post('perID');
+		//家庭成员数据
 		$data = Yii::$app->request->post()['Fam'];
+		//添加
 		if($famID == ''){
 			$data['perID'] = $perID;
 			$flag = Yii::$app->db->createCommand()->insert(Share::SetTableName($recID,'fam'),$data)->execute();
@@ -710,6 +833,7 @@ class ZpcxController extends Controller
 			}else{
 				return ['result'=>0,'msg'=>'保存失败'];
 			}
+		//修改
 		}else{
 			$flag = Yii::$app->db->createCommand()->update(Share::SetTableName($recID,'fam'),$data,['famID'=>$famID])->execute();
 			if($flag !== false){
@@ -720,14 +844,20 @@ class ZpcxController extends Controller
 		}
 	}
 	
+	/*报名提交*/
 	public function actionSubEntry(){
 		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+		//招聘ID
 		$recID = Yii::$app->request->post('recID');
+		//报名人员ID
 		$perID = Yii::$app->request->post('perID');
+		//报名表
 		$tableName = Share::MainTableName($recID);
 		
+		//最大报名序号
 		$maxID = (new \yii\db\Query())->from($tableName)->max('perIndex');
 		
+		//报名序号设置
         if($maxID == '' || $maxID == null){
         	$perIndex = "0001";
         }else{
@@ -743,6 +873,7 @@ class ZpcxController extends Controller
         	}
         }
 		
+		//报名修改状态
 		$flag = Yii::$app->db->createCommand()->update($tableName,['perStatus'=>1,'perIndex'=>$perIndex],['perID'=>$perID])->execute();
 		
 		if($flag !== false){
@@ -752,11 +883,16 @@ class ZpcxController extends Controller
 		}
 	}
 	
+	/*报名撤回*/
 	public function actionEntryBack(){
 		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+		//招聘ID
 		$recID = Yii::$app->request->post('recID');
+		//报名人员ID
 		$perID = Yii::$app->request->post('perID');
+		//撤回次数
 		$perBack = intval(Yii::$app->request->post('perBack'));
+		//报名表
 		$tableName = Share::MainTableName($recID);
 		$flag = Yii::$app->db->createCommand()->update($tableName,['perStatus'=>0,'perBack'=>($perBack+1)],['perID'=>$perID])->execute();
 		if($flag){
@@ -766,6 +902,7 @@ class ZpcxController extends Controller
 		}
 	}
 	
+	/*环节反馈信息（资格审查）*/
 	public function actionFlow2Reback(){
 		date_default_timezone_set('PRC');
 		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
@@ -787,6 +924,7 @@ class ZpcxController extends Controller
 		}
 	}
 	
+	/*打印准考证号*/
 	public function actionPrintTicketno(){
 		$perID = Yii::$app->request->get('perID');
 		$recID = Yii::$app->request->get('recID');
@@ -907,6 +1045,7 @@ EOD;
 			$pdf->Output("zhunkaozheng.pdf", 'D');
 	}
 	
+	/*反馈信息（考试安排）*/
 	public function actionFlow4Reback(){
 		date_default_timezone_set('PRC');
 		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
@@ -929,6 +1068,7 @@ EOD;
 		}
 	}
 	
+	/*反馈信息（考试结果公示）*/
 	public function actionFlow5Reback(){
 		date_default_timezone_set('PRC');
 		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
@@ -951,6 +1091,7 @@ EOD;
 		}
 	}
 	
+	/*反馈信息（体检安排环节）*/
 	public function actionFlow6Reback(){
 		date_default_timezone_set('PRC');
 		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
@@ -973,6 +1114,7 @@ EOD;
 		}
 	}
 	
+	/*反馈信息（体检结果录入公示）*/
 	public function actionFlow7Reback(){
 		date_default_timezone_set('PRC');
 		Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
