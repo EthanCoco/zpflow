@@ -1,3 +1,8 @@
+<!--
+	作者：lijianlin0204@163.com
+	时间：2017-12-04
+	描述：个人中心界面
+-->
 <div class="layui-row">
 	<div class="mobile-personal-header">
 		<a href="javascript:;" class="medal_detail">
@@ -79,6 +84,8 @@ var index = <?php echo $index;?>;
 $(document).ready(function() {
 	$("#moblie-header span a[index='"+index+"']").addClass('current');
 });
+
+/*退出登录*/
 function mobile_logout(){
 	layer.open({content:'确定要退出登录？',btn: ['确定','取消'],yes: function(index){
 			location.href = "<?= yii\helpers\Url::to(['default/logout']); ?>";	
