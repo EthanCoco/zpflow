@@ -1,3 +1,8 @@
+<!--
+	作者：lijianlin0204@163.com
+	时间：2017-12-04
+	描述：教育信息添加修改界面
+-->
 <div style="padding: 10px;margin-bottom: 60px;">
 	<div class="layui-row">
 		<div class="mobile-enter-title">
@@ -99,6 +104,7 @@ $(function(){
     $("#eduStart").mobiscroll($.extend(opt['date'], opt['default']));
     $("#eduEnd").mobiscroll($.extend(opt['date'], opt['default']));
     
+    //修改是否默认信息
     <?php if(!empty($eduInfo)){ ?>
     	$("#eduStart").val("<?php echo !empty($eduInfo['eduStart']) ? substr($eduInfo['eduStart'], 0,10) : '' ?>");
     	$("#eduEnd").val("<?php echo !empty($eduInfo['eduEnd']) ? substr($eduInfo['eduEnd'], 0,10) : '' ?>");
@@ -113,6 +119,7 @@ $(function(){
     <?php } ?>
 });
 
+/*联动信息*/
 function change_sub(pid,id,codetype){
 	var pvalue = $("#"+pid).val();
 	if(pvalue == ""){
@@ -135,10 +142,12 @@ function change_sub(pid,id,codetype){
 	});
 }
 
+/*取消返回*/
 function cancel_info2(){
 	$("#index2_content").load("<?= yii\helpers\Url::to(['zpcx/entry2']); ?>");
 }
 
+/*保存教育信息*/
 function save_info2(){
 	var isNull = false;
 	var errorMsg = "存在必填项未填：<br/>";
