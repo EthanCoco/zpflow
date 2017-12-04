@@ -1,3 +1,8 @@
+<!--
+	作者：lijianlin0204@163.com
+	时间：2017-12-04
+	描述：工作经历添加修改界面
+-->
 <div style="padding: 10px;margin-bottom: 60px;">
 	<div class="layui-row">
 		<div class="mobile-enter-title">
@@ -85,6 +90,7 @@ $(function(){
     $("#wkStart").mobiscroll($.extend(opt['date'], opt['default']));
     $("#wkEnd").mobiscroll($.extend(opt['date'], opt['default']));
     
+    //修改时默认信息
     <?php if(!empty($workInfo)){ ?>
     	$("#wkStart").val("<?php echo !empty($workInfo['wkStart']) ? substr($workInfo['wkStart'], 0,10) : '' ?>");
     	$("#wkEnd").val("<?php echo !empty($workInfo['wkEnd']) ? substr($workInfo['wkEnd'], 0,10) : '' ?>");
@@ -94,10 +100,12 @@ $(function(){
     <?php } ?>
 });
 
+/*取消返回*/
 function cancel_info3(){
 	$("#index2_content").load("<?= yii\helpers\Url::to(['zpcx/entry3']);  ?>"+"&recID="+__recID__+"&perID="+__perID__);
 }
 
+/*保存工作经历*/
 function save_info3(){
 	var isNull = false;
 	var errorMsg = "存在必填项未填：<br/>";
