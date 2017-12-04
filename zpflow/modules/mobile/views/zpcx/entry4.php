@@ -1,3 +1,8 @@
+<!--
+	作者：lijianlin0204@163.com
+	时间：2017-12-04
+	描述：家庭成员信息
+-->
 <div style="padding: 10px;margin-bottom: 60px;">
 	<div class="layui-row">
 		<div class="mobile-enter-title">
@@ -75,6 +80,7 @@ var __next_flag = 0;
 <?php } ?>
 
 $(function(){
+	//提交报名信息按钮事件控制
 	if(__next_flag == 0){
 		$("#submit_info4").attr('disabled','disabled');
 		$("#submit_info4").addClass("layui-btn-disabled");
@@ -84,10 +90,12 @@ $(function(){
 	}
 });
 
+/*上一步*/
 function pre_info4(){
 	$("#index2_content").load("<?= yii\helpers\Url::to(['zpcx/entry3']); ?>"+"&recID="+__recID__+"&perID="+__perID__);
 }
 
+/*删除*/
 function delete_fam4(famID){
 	layer.open({content:'确定要删除么？',btn: ['确定','取消'],yes: function(index){
 	      	$.post("<?= yii\helpers\Url::to(['zpcx/del-fam']); ?>",{'recID':__recID__,'famID':famID},function(json){
@@ -102,14 +110,17 @@ function delete_fam4(famID){
 	});
 }
 
+/*修改*/
 function mofiy_fam4(famID){
 	$("#index2_content").load("<?= yii\helpers\Url::to(['zpcx/entry4-repair']); ?>"+"&famID="+famID+"&recID="+__recID__+"&perID="+__perID__);
 }
 
+/*添加*/
 function add_info4(){
 	$("#index2_content").load("<?= yii\helpers\Url::to(['zpcx/entry4-repair']); ?>"+"&famID="+"&recID="+__recID__+"&perID="+__perID__);
 }
 
+/*提交报名信息*/
 function submit_info4(){
 	//alert(111);return;
 	layer.open({content:'确定信息无误，确定要提交么？',btn: ['确定','取消'],yes: function(index){
