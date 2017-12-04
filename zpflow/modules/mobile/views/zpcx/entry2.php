@@ -1,3 +1,8 @@
+<!--
+	作者：lijianlin0204@163.com
+	时间：2017-12-04
+	描述：教育信息填写界面
+-->
 <div style="padding: 10px;margin-bottom: 60px;">
 	<div class="layui-row">
 		<div class="mobile-enter-title">
@@ -92,6 +97,7 @@ var __next_flag = 0;
 <?php } ?>
 
 $(function(){
+	//下一步点击事件控制
 	if(__next_flag == 0){
 		$("#next_info2").attr('disabled','disabled');
 		$("#next_info2").addClass("layui-btn-disabled");
@@ -101,6 +107,7 @@ $(function(){
 	}
 });
 
+/*删除*/
 function delete_edu2(eduID){
 	layer.open({content:'确定要删除么？',btn: ['确定','取消'],yes: function(index){
 	      	$.post("<?= yii\helpers\Url::to(['zpcx/del-edu']); ?>",{'recID':__recID__,'eduID':eduID},function(json){
@@ -115,18 +122,22 @@ function delete_edu2(eduID){
 	});
 }
 
+/*加载修改界面*/
 function mofiy_edu2(eduID){
 	$("#index2_content").load("<?= yii\helpers\Url::to(['zpcx/entry2-repair']); ?>"+"&eduID="+eduID+"&recID="+__recID__+"&perID="+__perID__);
 }
 
+/*加载添加界面*/
 function add_info2(){
 	$("#index2_content").load("<?= yii\helpers\Url::to(['zpcx/entry2-repair']); ?>"+"&eduID="+"&recID="+__recID__+"&perID="+__perID__);
 }
 
+/*上一步*/
 function pre_info2(){
 	$("#index2_content").load("<?= yii\helpers\Url::to(['zpcx/entry']); ?>");
 }
 
+/*下一步*/
 function next_info2(){
 	$("#index2_content").load("<?= yii\helpers\Url::to(['zpcx/entry3']); ?>"+"&recID="+__recID__+"&perID="+__perID__);
 }
