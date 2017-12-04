@@ -105,7 +105,7 @@ function load_system_admin(){
 	    },
         onLoadSuccess: function(data){
 			$('#system_admin').datagrid('resize',{
-	    		height: $(window).height()-124-15
+	    		height: $(window).height()-95
 	    	});
 	    	
 	    	$("#system_admin").datagrid('getPager').pagination({

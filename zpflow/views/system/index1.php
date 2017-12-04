@@ -95,7 +95,7 @@ function load_system_user(){
 	    ]],
         onLoadSuccess: function(data){
 			$('#system_user').datagrid('resize',{
-	    		height: $(window).height()-124-15
+	    		height: $(window).height()-95
 	    	});
     	}
     });
