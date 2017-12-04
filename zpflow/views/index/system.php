@@ -15,7 +15,7 @@
     </div>
 </div>
   
-<div class="layui-body" style="top: 94px;height: 85%;min-width: 1000px;">
+<div class="layui-body" style="top: 94px;height: 100%;min-width: 1000px;">
 	<div id="stepSystem" class="hg-div">
 	</div>
 </div>
