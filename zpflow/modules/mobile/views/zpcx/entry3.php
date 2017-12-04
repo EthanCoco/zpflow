@@ -1,3 +1,8 @@
+<!--
+	作者：lijianlin0204@163.com
+	时间：2017-12-04
+	描述：工作经历界面
+-->
 <div style="padding: 10px;margin-bottom: 60px;">
 	<div class="layui-row">
 		<div class="mobile-enter-title">
@@ -94,6 +99,7 @@ var __next_flag = 0;
 <?php } ?>
 
 $(function(){
+	//下一步事件控制
 	if(__next_flag == 0){
 		$("#next_info3").attr('disabled','disabled');
 		$("#next_info3").addClass("layui-btn-disabled");
@@ -103,14 +109,17 @@ $(function(){
 	}
 });
 
+/*修改*/
 function mofiy_work3(wkID){
 	$("#index2_content").load("<?= yii\helpers\Url::to(['zpcx/entry3-repair']); ?>"+"&wkID="+wkID+"&recID="+__recID__+"&perID="+__perID__);
 }
 
+/*添加*/
 function add_info3(){
 	$("#index2_content").load("<?= yii\helpers\Url::to(['zpcx/entry3-repair']); ?>"+"&wkID="+"&recID="+__recID__+"&perID="+__perID__);
 }
 
+/*删除*/
 function delete_work3(wkID){
 	layer.open({content:'确定要删除么？',btn: ['确定','取消'],yes: function(index){
 	      	$.post("<?= yii\helpers\Url::to(['zpcx/del-work']); ?>",{'recID':__recID__,'wkID':wkID},function(json){
@@ -125,11 +134,12 @@ function delete_work3(wkID){
 	});
 }
 
-
+/*上一步*/
 function pre_info3(){
 	$("#index2_content").load("<?= yii\helpers\Url::to(['zpcx/entry2']); ?>");
 }
 
+/*下一步*/
 function next_info3(){
 	$("#index2_content").load("<?= yii\helpers\Url::to(['zpcx/entry4']); ?>"+"&recID="+__recID__+"&perID="+__perID__);
 }
