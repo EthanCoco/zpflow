@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50617
 File Encoding         : 65001
 
-Date: 2017-12-03 22:32:03
+Date: 2017-12-05 21:48:43
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -2326,6 +2326,28 @@ CREATE TABLE `qumextra` (
 INSERT INTO `qumextra` VALUES ('7', '1', '请于11月20号到25号查看考试安排相关通知', '2', '敬请期待下次招聘！', '4');
 
 -- ----------------------------
+-- Table structure for reback
+-- ----------------------------
+DROP TABLE IF EXISTS `reback`;
+CREATE TABLE `reback` (
+  `rbID` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '反馈ID',
+  `uid` bigint(20) NOT NULL COMMENT '用户ID',
+  `rbContent` text COMMENT '反馈信息',
+  `rbTime` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '反馈时间',
+  `rbReadStatus` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否已读（0=未读，1=已读，2=删除）',
+  PRIMARY KEY (`rbID`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of reback
+-- ----------------------------
+INSERT INTO `reback` VALUES ('2', '2', 'dfskdfsdhfsfsdhfksdhfsdfsdf', '2017-12-05 21:38:09', '0');
+INSERT INTO `reback` VALUES ('3', '2', 'fdsfsdfsdf', '2017-12-05 21:38:46', '0');
+INSERT INTO `reback` VALUES ('4', '2', 'gfgfdgdfg', '2017-12-05 21:40:53', '0');
+INSERT INTO `reback` VALUES ('5', '2', 'tetetert', '2017-12-05 21:41:37', '0');
+INSERT INTO `reback` VALUES ('6', '2', 'gfgdfgdf', '2017-12-05 21:42:59', '0');
+
+-- ----------------------------
 -- Table structure for recruit
 -- ----------------------------
 DROP TABLE IF EXISTS `recruit`;
@@ -2388,7 +2410,7 @@ CREATE TABLE `standartline` (
   `sttPen` int(11) DEFAULT NULL COMMENT '鄙视成绩占比（百分比）',
   `sttFinalScore` float(4,2) DEFAULT NULL,
   PRIMARY KEY (`sttID`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of standartline
@@ -2417,7 +2439,7 @@ CREATE TABLE `user` (
 -- Records of user
 -- ----------------------------
 INSERT INTO `user` VALUES ('1', 'admin', 'guanliyuan', 'fcea920f7412b5da7be0cf42b8c93759', '0', '21', '2017-10-16 09:41:05', '2017-12-03 09:56:41', '1022', '13285716129');
-INSERT INTO `user` VALUES ('2', '362330199208122410', '李建林', 'fe87f294368843244db0891889aed7e9', '1', '19', '2017-10-24 17:39:56', '2017-12-03 15:40:26', null, '13285716129');
+INSERT INTO `user` VALUES ('2', '362330199208122410', '李建林', 'fe87f294368843244db0891889aed7e9', '1', '20', '2017-10-24 17:39:56', '2017-12-05 20:48:03', null, '13285716129');
 INSERT INTO `user` VALUES ('3', '320621199112163729', '张清正', 'fcea920f7412b5da7be0cf42b8c93759', '1', '1', '2017-10-27 20:03:50', '2017-10-27 20:12:41', null, '13816591074');
 INSERT INTO `user` VALUES ('4', '330522198712231025', '朱蔚云', 'fcea920f7412b5da7be0cf42b8c93759', '1', '3', '2017-10-27 20:05:09', '2017-11-07 10:50:44', null, '15250998698');
 INSERT INTO `user` VALUES ('5', '511102198012290013', '肖大鹏', 'fcea920f7412b5da7be0cf42b8c93759', '1', '2', '2017-10-27 20:06:50', '2017-11-03 22:30:26', null, '18516146044');
