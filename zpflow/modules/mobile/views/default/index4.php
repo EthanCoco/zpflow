@@ -37,36 +37,36 @@
 	</div>
 </div>
 <span>&nbsp;</span>
-<div class="layui-row">
+<div class="layui-row"  index=1 onclick="load_personal_info(1)" >
 	<div style="background: white; height: 50px;line-height: 50px;font-size: 16px;opacity: 0.6;">
 		<div class="layui-col-xs1">
 			<div style="float: right;">&nbsp;</div>
 		</div>
-		<div class="layui-col-xs7">招聘历史查询</div>
+		<div class="layui-col-xs7"><a href="javascript:;" style="font-family: '微软雅黑';font-size: 14px;">招聘历史查询</a></div>
 		<div class="layui-col-xs4">
 			<div style="float: right;margin-right: 5px;"><i class="layui-icon" style="font-size: 20px;">&#xe602;</i></div>
 		</div>
 	</div>
 </div>
 <span>&nbsp;</span>
-<div class="layui-row">
+<div class="layui-row"  index=2 onclick="load_personal_info(2)" >
 	<div style="background: white; height: 50px;line-height: 50px;font-size: 16px;opacity: 0.6;">
 		<div class="layui-col-xs1">
 			<div style="float: right;">&nbsp;</div>
 		</div>
-		<div class="layui-col-xs7">我的信息</div>
+		<div class="layui-col-xs7"><a href="javascript:;" style="font-family: '微软雅黑';font-size: 14px;">我的信息</a></div>
 		<div class="layui-col-xs4">
 			<div style="float: right;margin-right: 5px;"><i class="layui-icon" style="font-size: 20px;">&#xe602;</i></div>
 		</div>
 	</div>
 </div>
 <span>&nbsp;</span>
-<div class="layui-row">
+<div class="layui-row"  index=3 onclick="load_personal_info(3)">
 	<div style="background: white; height: 50px;line-height: 50px;font-size: 16px;opacity: 0.6;">
 		<div class="layui-col-xs1">
 			<div style="float: right;">&nbsp;</div>
 		</div>
-		<div class="layui-col-xs7">问题反馈</div>
+		<div class="layui-col-xs7"><a href="javascript:;" style="font-family: '微软雅黑';font-size: 14px;">问题反馈</a></div>
 		<div class="layui-col-xs4">
 			<div style="float: right;margin-right: 5px;"><i class="layui-icon" style="font-size: 20px;">&#xe602;</i></div>
 		</div>
@@ -91,5 +91,54 @@ function mobile_logout(){
 			location.href = "<?= yii\helpers\Url::to(['default/logout']); ?>";	
 		}
 	});
+}
+
+/*加载对应模块页面或数据*/
+function load_personal_info(type){
+	switch(type){
+		case 1:
+			
+		break;
+		case 2:
+		
+		break;
+		case 3:
+			questtion_reback_system();
+		break;
+		default:
+			layer.open({content: '暂无此功能',btn: '我知道了'});
+		break;
+	}
+}
+
+/*问题反馈*/
+function questtion_reback_system(){
+	layer.open({
+		    type: 1,
+		    content: '<textarea id="content_reback" style="font-size: 12px;" class="layui-textarea" placeholder=""></textarea>',
+		    anim: 'up',
+		    style: 'position:fixed; bottom:0; left:0; width: 100%; height: 150px; padding:10px 0; border:none;',
+		    btn:['提交','取消'],
+		    yes: function(index){
+		    	var content_reback = $("#content_reback").val();
+		    	if(content_reback == ""){
+		    		return layer.open({content: '请填写反馈信息',skin: 'msg',time: 2 });
+		    	}
+		    	
+		    	layer.open({content:'确定要提交反馈？',btn: ['确定','取消'],yes: function(index){
+						$.post("<?= yii\helpers\Url::to(['grzx/grzx-reback']); ?>",{'rb_content':content_reback},function(json){
+							if(json.result){
+								layer.open({content: json.msg,skin: 'footer',time: 2 });
+								setTimeout(function(){
+									layer.closeAll();
+								},2000); 
+							}else{
+								layer.open({content: json.msg,btn: '我知道了'});
+							}
+						},'json');
+				    }
+				});
+		    }
+		});
 }
 </script>
