@@ -6,7 +6,6 @@ use Yii;
 use yii\web\Controller;
 use app\models\User;
 use app\models\Share;
-
 class SiteController extends BaseController
 {
 	public function init(){
@@ -62,7 +61,11 @@ class SiteController extends BaseController
 	
 	public function actionPdf(){
 		$pdf = Yii::$app->pdf;
+		//$pdf->format = 'A4-L';
+		$pdf->cssFile = '../web/css/pdf/common_table.css';
 		$pdf->content = $this->renderPartial('pdf');
 		return $pdf->render();
+
+//			return  $this->renderPartial('pdf');
 	}
 }
