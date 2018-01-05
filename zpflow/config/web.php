@@ -1,10 +1,12 @@
 <?php
 
+use kartik\mpdf\Pdf;
 $params = require(__DIR__ . '/params.php');
 $db = require(__DIR__ . '/db.php');
 Yii::$classMap['PHPZip'] = '@app/libs/zip.php';
 Yii::$classMap['ValidateCode'] = '@app/libs/validateCode/ValidateCode.class.php';
 Yii::$classMap['TCPDF'] = '@app/libs/tcpdf/tcpdf.php';
+
 
 $config = [
     'id' => 'zpflow',
@@ -42,6 +44,20 @@ $config = [
                 ],
             ],
         ],
+        'pdf' => [
+        	'class' => Pdf::classname(),
+        	'format' => Pdf::FORMAT_A4,
+        	'orientation' => Pdf::ORIENT_PORTRAIT,
+        	'destination' => Pdf::DEST_BROWSER,
+        	'options' => [
+        		'title' => '中文',
+		        'autoLangToFont' => true,    
+		        'autoScriptToLang' => true,  
+		        'autoVietnamese' => true,    
+		        'autoArabic' => true,    
+        	],
+        ],
+		
         'db' => $db,
 //      'urlManager' => [
 //          'enablePrettyUrl' => true,
