@@ -9,70 +9,22 @@ class ComposerStaticInitc22a6a76a7e576c519fe0104bbd8dbd7
     public static $files = array (
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '2cffec82183ee1cea088009cef9a6fc3' => __DIR__ . '/..' . '/ezyang/htmlpurifier/library/HTMLPurifier.composer.php',
-        '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
         'a0edc8309cc5e1d60e3047b5df6b7052' => __DIR__ . '/..' . '/guzzlehttp/psr7/src/functions_include.php',
+        '2c102faa651ef8ea5874edb585946bce' => __DIR__ . '/..' . '/swiftmailer/swiftmailer/lib/swift_required.php',
         '180092cfc969a12e06f2132a203a3184' => __DIR__ . '/..' . '/codeception/verify/src/Codeception/function.php',
     );
 
-    public static $prefixLengthsPsr4 = array (
-        'y' => 
-        array (
-            'yii\\swiftmailer\\' => 16,
-            'yii\\gii\\' => 8,
-            'yii\\faker\\' => 10,
-            'yii\\debug\\' => 10,
-            'yii\\composer\\' => 13,
-            'yii\\bootstrap\\' => 14,
-            'yii\\' => 4,
-        ),
-        'p' => 
-        array (
-            'phpDocumentor\\Reflection\\' => 25,
-        ),
-        'c' => 
-        array (
-            'cebe\\markdown\\' => 14,
-        ),
-        'W' => 
-        array (
-            'Webmozart\\Assert\\' => 17,
-        ),
-        'S' => 
-        array (
-            'Symfony\\Polyfill\\Mbstring\\' => 26,
-            'Symfony\\Component\\Yaml\\' => 23,
-            'Symfony\\Component\\Finder\\' => 25,
-            'Symfony\\Component\\EventDispatcher\\' => 34,
-            'Symfony\\Component\\DomCrawler\\' => 29,
-            'Symfony\\Component\\Debug\\' => 24,
-            'Symfony\\Component\\CssSelector\\' => 30,
-            'Symfony\\Component\\Console\\' => 26,
-            'Symfony\\Component\\BrowserKit\\' => 29,
-            'Stecman\\Component\\Symfony\\Console\\BashCompletion\\' => 49,
-        ),
-        'P' => 
-        array (
-            'Psr\\Log\\' => 8,
-            'Psr\\Http\\Message\\' => 17,
-        ),
-        'G' => 
-        array (
-            'GuzzleHttp\\Psr7\\' => 16,
-        ),
-        'F' => 
-        array (
-            'Faker\\' => 6,
-        ),
-        'D' => 
-        array (
-            'Doctrine\\Instantiator\\' => 22,
-            'DeepCopy\\' => 9,
-        ),
-        'C' => 
-        array (
-            'Codeception\\Extension\\' => 22,
-            'Codeception\\' => 12,
-        ),
+    public static $firstCharsPsr4 = array (
+        'y' => true,
+        'p' => true,
+        'c' => true,
+        'W' => true,
+        'S' => true,
+        'P' => true,
+        'G' => true,
+        'F' => true,
+        'D' => true,
+        'C' => true,
     );
 
     public static $prefixDirsPsr4 = array (
@@ -107,8 +59,8 @@ class ComposerStaticInitc22a6a76a7e576c519fe0104bbd8dbd7
         'phpDocumentor\\Reflection\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
-            1 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
-            2 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
         ),
         'cebe\\markdown\\' => 
         array (
@@ -198,6 +150,10 @@ class ComposerStaticInitc22a6a76a7e576c519fe0104bbd8dbd7
             'Prophecy\\' => 
             array (
                 0 => __DIR__ . '/..' . '/phpspec/prophecy/src',
+            ),
+            'PHPExcel' => 
+            array (
+                0 => __DIR__ . '/..' . '/phpoffice/phpexcel/Classes',
             ),
         ),
         'H' => 
@@ -698,7 +654,7 @@ class ComposerStaticInitc22a6a76a7e576c519fe0104bbd8dbd7
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitc22a6a76a7e576c519fe0104bbd8dbd7::$prefixLengthsPsr4;
+            $loader->firstCharsPsr4 = ComposerStaticInitc22a6a76a7e576c519fe0104bbd8dbd7::$firstCharsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInitc22a6a76a7e576c519fe0104bbd8dbd7::$prefixDirsPsr4;
             $loader->prefixesPsr0 = ComposerStaticInitc22a6a76a7e576c519fe0104bbd8dbd7::$prefixesPsr0;
             $loader->classMap = ComposerStaticInitc22a6a76a7e576c519fe0104bbd8dbd7::$classMap;
