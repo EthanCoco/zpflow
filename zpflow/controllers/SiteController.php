@@ -60,10 +60,18 @@ class SiteController extends BaseController
 	}
 	
 	public function actionPdf(){
+		$data = [
+			'name'=>'李建林',
+			'gender'=>'男',
+			'nation'=>'汉',
+			'phone'=>'13658452142',
+			'idcard'=>'362330199208122410',
+		];
+		
 		$pdf = Yii::$app->pdf;
 		//$pdf->format = 'A4-L';
 		$pdf->cssFile = '../web/css/pdf/common_table.css';
-		$pdf->content = $this->renderPartial('pdf');
+		$pdf->content = $this->renderPartial('pdf',['jsonData'=>$data]);
 		return $pdf->render();
 
 //			return  $this->renderPartial('pdf');
