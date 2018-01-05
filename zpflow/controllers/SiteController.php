@@ -59,4 +59,10 @@ class SiteController extends BaseController
 		Yii::$app->user->logout();
 		$this->redirect(['/site/login']);
 	}
+	
+	public function actionPdf(){
+		$pdf = Yii::$app->pdf;
+		$pdf->content = $this->renderPartial('pdf');
+		return $pdf->render();
+	}
 }
