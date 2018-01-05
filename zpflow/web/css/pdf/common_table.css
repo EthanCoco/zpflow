@@ -1,0 +1,17 @@
+.common-table{
+	margin:auto;
+}
+
+.common-table td{
+	height: 30px;
+	padding: 0 3px;
+}
+.common-table td.ctd{
+	text-align: center;
+}
+.common-table td.ltd{
+	text-align: left;
+}
+.common-table td.rtd{
+	text-align: right;
+}
